@@ -1,22 +1,32 @@
 {
-  "revision": "sha256:bc039c8c6304a23a998bc0a7bd880e01f03224c16df01829151e0732f3dab760",
+  "revision": "sha256:65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1",
   "schema_version": 1,
   "state": "READY",
   "evidence": [
     {
-      "kind": "document",
       "path": "spec.md",
-      "sha256": "bc039c8c6304a23a998bc0a7bd880e01f03224c16df01829151e0732f3dab760"
+      "kind": "document",
+      "sha256": "65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1"
     },
     {
-      "kind": "document",
       "path": "checklists/requirements.md",
-      "sha256": "ad0f17c94e9e14fd0ae180d6576851db4cc59d5f8c04945d237575bb5149e378"
+      "kind": "document",
+      "sha256": "532566c8785b653c76b7ece013a44b50c88ee0e4a7a5b733f9bdeb215fc69644"
     },
     {
-      "kind": "document",
       "path": "verification/spec-review.md",
-      "sha256": "fb5b7b697af586f7d3213c9e1b55ea3d2bbee917900109a13608cf118a8a8b03"
+      "kind": "document",
+      "sha256": "cda9fa17e6a2dee5a748c6d0d212b75e266e199cc9f93b20023ee31c7df49acb"
+    },
+    {
+      "path": "verification/documentary-v1-amendment.md",
+      "kind": "document",
+      "sha256": "09ed1e14772c9738c45087ef9a99b688a937c0987869922576eee196be3c8b8f"
+    },
+    {
+      "path": "verification/documentary-v1-validation.json",
+      "kind": "document",
+      "sha256": "a7ae9f3efdc385f8c5b50d2f6845daf5c2e4db793b67957d1437d156fae629b3"
     }
   ],
   "checks": {

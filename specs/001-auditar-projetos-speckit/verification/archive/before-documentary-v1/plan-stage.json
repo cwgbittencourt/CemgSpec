@@ -1,0 +1,354 @@
+{
+  "human_decisions": [],
+  "revision": "sha256:b90538ad3058bb9d79159e3861e918c01f26bf9b7490e484012f646492b85f0c",
+  "checks": {
+    "coverage_semantic": true,
+    "data_and_access_planned": false,
+    "pr_slices_testable": true,
+    "real_execution_planned": false,
+    "procedures_concrete": false,
+    "spec_ready": true,
+    "environment_planned": false
+  },
+  "schema_version": 1,
+  "state": "BLOCKED",
+  "stage": "plan",
+  "blockers": [
+    "B2-worker: revisão 2 elevada também falhou com 0xC0000142 antes de WorkerReady; causa exata não identificada",
+    "B2-rede/fixture: filho e verificações de rede/arquivo não executados; contagens zero não comprovam bloqueio",
+    "B2-integração: agentes reais, autenticação, proxy/domínios, IPC e hard-crash fail-closed continuam pendentes",
+    "Autorização v2 consumida após uma execução; nenhuma repetição autorizada. Phase 1 permanece pendente"
+  ],
+  "evidence": [
+    {
+      "path": "plan.md",
+      "kind": "document",
+      "sha256": "b90538ad3058bb9d79159e3861e918c01f26bf9b7490e484012f646492b85f0c"
+    },
+    {
+      "path": "prototype/NetworkMediator/AssemblyInfo.cs",
+      "kind": "document",
+      "sha256": "04bb41278392001472a4a901a51862adf31018a23f9da77d5321565595b9505c"
+    },
+    {
+      "path": "prototype/NetworkMediator/Build-Prototype.ps1",
+      "kind": "document",
+      "sha256": "9610537f543b6b5ea30fef5162e7c424384fbabf2709c495198188c86a8d6b6d"
+    },
+    {
+      "path": "prototype/NetworkMediator/Invoke-MediatorProof.ps1",
+      "kind": "document",
+      "sha256": "3787fe96a18c81de68cfd90b9751d73469172a50d903769f4ea3dea032d6bca2"
+    },
+    {
+      "path": "prototype/NetworkMediator/MediatorSession.cs",
+      "kind": "document",
+      "sha256": "29dd330668f64b7922741d9d8e5d0e7424877025b4b49f9a5c4548a3cab098d7"
+    },
+    {
+      "path": "prototype/NetworkMediator/NativeWorker.cs",
+      "kind": "document",
+      "sha256": "eba150adddeb569a8f98d28499bd0bf73d63fe1b990ba2ac0adbe3355378fd8d"
+    },
+    {
+      "path": "prototype/NetworkMediator/NetworkMediator.csproj",
+      "kind": "document",
+      "sha256": "d7877db44963bdec973b5edbe0cc85ffdbce26b9862820c3f7503586c089330d"
+    },
+    {
+      "path": "prototype/NetworkMediator/PolicyTests.cs",
+      "kind": "document",
+      "sha256": "0f5b93ab80cff5e29faef5ec790227727c5d57e22136cdbaeb0c0303f5fedf41"
+    },
+    {
+      "path": "prototype/NetworkMediator/Program.cs",
+      "kind": "document",
+      "sha256": "612402b186fd3e1077f50c4cc3dd6a589954cdaa80a961dc97d75109de5b7734"
+    },
+    {
+      "path": "prototype/NetworkMediator/README.md",
+      "kind": "document",
+      "sha256": "3036a21960e51d7cd6f6a931bbf0455d618b0f14c3db24d24a90f1fb077cac4d"
+    },
+    {
+      "path": "prototype/NetworkMediator/SyntheticWorker.c",
+      "kind": "document",
+      "sha256": "c24fde87fef76ae9721c4ca411973dcfefa34cbeb4a8f50c2bc78ae014ae3899"
+    },
+    {
+      "path": "research.md",
+      "kind": "document",
+      "sha256": "d58f0e1ff5a7d857bb562d74bb362581b0417ca85322d14da15f6bed10ccf757"
+    },
+    {
+      "path": "spec.md",
+      "kind": "document",
+      "sha256": "c09e524ba69d1257b0f3015d570980e836e1dba19e2a92c0a76ab41e98cb7f1e"
+    },
+    {
+      "path": "verification/agent-cancellation-probe.json",
+      "kind": "document",
+      "sha256": "634cbbc17ebd4c2c9553faca07d8698500bd281048cc3f218c5b7c3edeac2274"
+    },
+    {
+      "path": "verification/agent-probe-04a77cbd4ff44c649d96df231b31239e.json",
+      "kind": "document",
+      "sha256": "d72a7cff17d59a4c32920443707bd17ba339a54e892b55b0fcde039dee0d3841"
+    },
+    {
+      "path": "verification/agent-probe-43fd3483975f4b4db80f619cadf21eab.json",
+      "kind": "document",
+      "sha256": "2c1b3856d9f8207d0444b2eba031f0e81e41dc8dce5afb64f3aef3f38f0b6497"
+    },
+    {
+      "path": "verification/agent-probe-53e3d38501c04ff2b3389f553c5ada7b.json",
+      "kind": "document",
+      "sha256": "8d5c4f5f14e3fcae6d675e5d9a6793a0718cb428823ee1652fac8135794e032c"
+    },
+    {
+      "path": "verification/agent-probe-75b75212a4fd424789337dd01ec76c3c.json",
+      "kind": "document",
+      "sha256": "e2d2424e154631c9a22732880d8c9b35ebad0a5cbf218a194b3ae6793c79b988"
+    },
+    {
+      "path": "verification/agent-probe-8ffee9e59b2143d88e699a15096d205c.json",
+      "kind": "document",
+      "sha256": "442d6f6d07c6b3f36a2e06c8508d15feafe0295d5bf450ca73aa06263f612206"
+    },
+    {
+      "path": "verification/agent-probe-results.md",
+      "kind": "document",
+      "sha256": "14f9a8b0bc70e6d8e52f3de3c152f0b4c4d9496daae5f1f14d978938ca96935f"
+    },
+    {
+      "path": "verification/appcontainer-probe.json",
+      "kind": "document",
+      "sha256": "277f5d8c0aaa3fa4329f7f3c99850e032e907f6fa529055385d76bebff3860e4"
+    },
+    {
+      "path": "verification/archive/mediator-v1/manifest.json",
+      "kind": "document",
+      "sha256": "d0fd1c46893c69d51dd2aba717834b8aed30a09423ff4b53b9bb5fc458eec115"
+    },
+    {
+      "path": "verification/boundary-probe-171e5a600fb94b19b8d633232381b7d7.json",
+      "kind": "document",
+      "sha256": "e86f61bacd92ab85699e6b4e62e7c4977ab3cda922e3b1297a2e16abb9517b35"
+    },
+    {
+      "path": "verification/boundary-probe-88e8434a0dd749ec8085f53c95cdf4cd.json",
+      "kind": "document",
+      "sha256": "f2a72bef3322a1b1cb61dfbde7192224c971202f2b8ff22652984b982f315864"
+    },
+    {
+      "path": "verification/isolation-network-status.md",
+      "kind": "document",
+      "sha256": "79ddf42b91716309eae8e150c9211dd5ab11fb3a04de48741edce8b7a2a3ae8f"
+    },
+    {
+      "path": "verification/mediator-authorization-request-v2.md",
+      "kind": "document",
+      "sha256": "27695818e25815924e5210b4d4faf0a3eac04c7c265af32f8a23bb5d2fcf2d04"
+    },
+    {
+      "path": "verification/mediator-authorization-request.md",
+      "kind": "document",
+      "sha256": "8229175f3a1d43d05917fe3ce178aa6589d8528540b0f7ee5c4e282bf6619114"
+    },
+    {
+      "path": "verification/mediator-cleanup-verification.json",
+      "kind": "document",
+      "sha256": "6d4c9bc8c05c6d150c3e176e3f259c640ab81d9406bf38bbde72c703e49cd80a"
+    },
+    {
+      "path": "verification/mediator-elevated-execution.json",
+      "kind": "document",
+      "sha256": "1ba8f1783867594a9919e7d42c963ca2ac0bea17230718c1dfcd23cf3d9c64f8"
+    },
+    {
+      "path": "verification/mediator-elevated-result.json",
+      "kind": "document",
+      "sha256": "ee2185ef0a09ad4730edec4a82671e18db962c1e566aaea8f2fb390d6e9924d8"
+    },
+    {
+      "path": "verification/mediator-elevated-summary.md",
+      "kind": "document",
+      "sha256": "5400d069dddae0d78fd79178219dbef476e3ba3f7dadc5ce69d77d35426131fa"
+    },
+    {
+      "path": "verification/mediator-preparation.json",
+      "kind": "document",
+      "sha256": "4e95e19380713eedb30bae8c9aaaae67e1f4316fa99cae28a4fd3ef8fc3daf6b"
+    },
+    {
+      "path": "verification/mediator-prototype-manifest.json",
+      "kind": "document",
+      "sha256": "3f0839d1f20f77ae77f872e0337753fd7adcf55622b7659f417300520f7b4cc7"
+    },
+    {
+      "path": "verification/mediator-self-tests.json",
+      "kind": "document",
+      "sha256": "0e19cebd21c15507f8fe1725a004ec2e3ba6f36c690b480b10a754f6bca2a095"
+    },
+    {
+      "path": "verification/mediator-v2-bootstrap.json",
+      "kind": "document",
+      "sha256": "468e26ae719f1662b48bbcd02b59bc731a5fc2c093c4b57957e1c204aaa3876b"
+    },
+    {
+      "path": "verification/mediator-v2-build.txt",
+      "kind": "document",
+      "sha256": "7fb13fdb2c92ee7e1eb003af40147c2a5823e1e4323e6ed38a9c52e7f55b1a4a"
+    },
+    {
+      "path": "verification/mediator-v2-cleanup-verification.json",
+      "kind": "document",
+      "sha256": "9e700fc46856d6bdc9f80b392dcb81367fb2c736d8a99cf7db38ae933fe8fac8"
+    },
+    {
+      "path": "verification/mediator-v2-elevated-execution.json",
+      "kind": "document",
+      "sha256": "7c8610235b49fbc5f8a9c3f2acd46c1ac06bc74d7cb854545450a1bc03022a1c"
+    },
+    {
+      "path": "verification/mediator-v2-elevated-result.json",
+      "kind": "document",
+      "sha256": "376f470d24b0a5fa7b7631f842a70a1f03f94d075add85cd7069269a597bb393"
+    },
+    {
+      "path": "verification/mediator-v2-elevated-summary.md",
+      "kind": "document",
+      "sha256": "522a971077760684a84ff59b852f81c1696abf0e62c082981b904e57670c353c"
+    },
+    {
+      "path": "verification/mediator-v2-origin-baseline.json",
+      "kind": "document",
+      "sha256": "f14674a5c4b477fa2b1883591a1b5f8d4251083d81e7e6f7c1a4da8b071a2534"
+    },
+    {
+      "path": "verification/mediator-v2-package-audit.txt",
+      "kind": "document",
+      "sha256": "14a1030dbb689138a574884a1dea96c42582b0bcec7c35bad8af64e323a645f6"
+    },
+    {
+      "path": "verification/mediator-v2-self-tests.json",
+      "kind": "document",
+      "sha256": "3db3ec0622aa24e0a838c34296b33a82ff11ce3ea0374e355281a21fc287fd53"
+    },
+    {
+      "path": "verification/native-network-probe-a427813989e243439109395e934fc6ef.json",
+      "kind": "document",
+      "sha256": "64bb47c6764c166357589902ddf5362d826a300b704da396bea84f8cef9443df"
+    },
+    {
+      "path": "verification/network-mediator-decision.md",
+      "kind": "document",
+      "sha256": "f9f51f06faa0a0d727fee782f3c6060dd86ae57be2d5985c7a5fda31da2242dc"
+    },
+    {
+      "path": "verification/persistence-amendment.md",
+      "kind": "document",
+      "sha256": "5f7e1353bfb1204eac36b819f9dcfcedecf774345af759027c17f34b66fd4f49"
+    },
+    {
+      "path": "verification/plan-review.md",
+      "kind": "document",
+      "sha256": "a950047d6b64755f4e61dc3159a4ac093ec533444575a36364504d97838426d4"
+    },
+    {
+      "path": "verification/probes/BoundaryProbe.cs",
+      "kind": "document",
+      "sha256": "56233020437e9ee7cf1ed1ea132133d58f44b3e569349f7d5789bf17435843ba"
+    },
+    {
+      "path": "verification/probes/ReadOnlyWfpCleanup.cs",
+      "kind": "document",
+      "sha256": "283335906a0240f7fcb3ea4306fe16e68d9b8a29c9b2b1fbc3b7e1f25c77ddae"
+    },
+    {
+      "path": "verification/probes/WfpAccessProbe.cs",
+      "kind": "document",
+      "sha256": "8c6db0b0688a4c005cb02b6c5e9c6c45241a7f17f3ea91292d91f04c3cb9e417"
+    },
+    {
+      "path": "verification/probes/probe-agent-cancellation.ps1",
+      "kind": "document",
+      "sha256": "1be1b6c0d841bb78c8660b044a317f87283b019a9d616dfb02fbe5c10606d21e"
+    },
+    {
+      "path": "verification/probes/probe-agents.ps1",
+      "kind": "document",
+      "sha256": "7ff600310653e86e340f56230111a955d6d107ec9fd20ece72fcdb9b8c6e8038"
+    },
+    {
+      "path": "verification/probes/probe-appcontainer.ps1",
+      "kind": "document",
+      "sha256": "08804009d50567e4744a6cdb82ecb16b81c640142d772f8e7aed0c1c95493485"
+    },
+    {
+      "path": "verification/probes/probe-boundary.ps1",
+      "kind": "document",
+      "sha256": "a69f7f1e957d309a9c6557955734fc6ed79b83583a13188fa54a96cab2bb4e14"
+    },
+    {
+      "path": "verification/probes/probe-native-network.ps1",
+      "kind": "document",
+      "sha256": "460257cb2c792ebd94c2a2c776fd3e25a5bef3a1dbe4078636099fe5f3336f40"
+    },
+    {
+      "path": "verification/probes/probe-read-broker.ps1",
+      "kind": "document",
+      "sha256": "b1cc92ba0df8b7f2113a380abb3b012c9fe5ad19ff131a5a7806240a2b56b024"
+    },
+    {
+      "path": "verification/probes/probe-windows-token.ps1",
+      "kind": "document",
+      "sha256": "cfa31c1bd340e78cdebdb9a8ff450423e98f3f10d5b8b77c39402c58279011de"
+    },
+    {
+      "path": "verification/read-broker-probe-initial.json",
+      "kind": "document",
+      "sha256": "3293329f36f8eef6547e2893548967cdfa9e69d1c52984b5a0cee92f5f01f27f"
+    },
+    {
+      "path": "verification/read-broker-probe.json",
+      "kind": "document",
+      "sha256": "c8f4b8d137a8bee400ac69b58da85c86e4d652514385b70c471390c55e35636d"
+    },
+    {
+      "path": "verification/research-subagent-snapshot.jsonl",
+      "kind": "document",
+      "sha256": "b99297bd2a7f5e2e7ad2e3be7b9b13b9fd3f7944a2401c40a79cbd58e37d2bc5"
+    },
+    {
+      "path": "verification/spec-review.md",
+      "kind": "document",
+      "sha256": "4335aa407988f0cf6add7c14a578aa3ee3621b9aebc0baeee48066d9298fc101"
+    },
+    {
+      "path": "verification/wfp-access-probe.json",
+      "kind": "document",
+      "sha256": "ffca1c2dff28811a3fb3fc82950384c4649d03840dc8f3418ef2ed140d22e8dd"
+    },
+    {
+      "path": "verification/wfp-sublayer-probe.json",
+      "kind": "document",
+      "sha256": "1ca7d9228e05a59837c3e945e645b2d01a994942efa533611429835a79714123"
+    },
+    {
+      "path": "verification/windows-token-probe.json",
+      "kind": "document",
+      "sha256": "e0af45d1a1abcaad977792b98faf2948f902f077bfbef03e0ddbc5877f27d3b6"
+    },
+    {
+      "path": "verification/worker-0xc0000142-investigation.md",
+      "kind": "document",
+      "sha256": "9c712730cc4a083b6e01edc84cdc5eadb28221574c7798f47764c502a8937e18"
+    },
+    {
+      "path": "verification/worker-bootstrap-comparison.json",
+      "kind": "document",
+      "sha256": "af08f1ddef2e83bf6662e62f6ab5c7ea39c71e78749918c38c3b241dddf40d5a"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "runId": "88e8434a0dd749ec8085f53c95cdf4cd",
+  "timestampUtc": "2026-11-16T03:10:43.2076200+00:00",
+  "fixture": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Boundary-88e8434a0dd749ec8085f53c95cdf4cd",
+  "mechanism": "Restricted token, low integrity, suspended launch, Job Object kill-on-close, anonymous output pipe",
+  "sourceAclModified": false,
+  "realSolutionUsed": false,
+  "sourceFilesIntact": true,
+  "newSourceFiles": [],
+  "directIO": {
+    "Phase": "finished",
+    "Error": null,
+    "Output": "#< CLIXML\r\n{\"writeDenied\":true,\"pid\":41248,\"read\":true,\"renameDenied\":true,\"createDenied\":true,\"deleteDenied\":true}\r\n<Objs Version=\"1.1.0.1\" xmlns=\"http://schemas.microsoft.com/powershell/2004/04\"><Obj S=\"progress\" RefId=\"0\"><TN RefId=\"0\"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N=\"SourceId\">1</I64><PR N=\"Record\"><AV>Preparando m�dulos para primeiro uso.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S=\"progress\" RefId=\"1\"><TNRef RefId=\"0\" /><MS><I64 N=\"SourceId\">1</I64><PR N=\"Record\"><AV>Preparando m�dulos para primeiro uso.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>",
+    "ExitCode": 0,
+    "TimedOut": false,
+    "JobAssigned": true,
+    "ProcessId": 41248,
+    "TotalProcesses": 2,
+    "ActiveBeforeClose": 0,
+    "ActiveAfterTerminate": 0,
+    "JobTerminationRequested": true,
+    "JobProcessIds": []
+  },
+  "descendantIO": {
+    "Phase": "finished",
+    "Error": null,
+    "Output": "#< CLIXML\r\n#< CLIXML\r\n{\"writeDenied\":true,\"pid\":36548,\"read\":true,\"renameDenied\":true,\"createDenied\":true,\"deleteDenied\":true}\r\n<Objs Version=\"1.1.0.1\" xmlns=\"http://schemas.microsoft.com/powershell/2004/04\"><Obj S=\"progress\" RefId=\"0\"><TN RefId=\"0\"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N=\"SourceId\">1</I64><PR N=\"Record\"><AV>Preparando m�dulos para primeiro uso.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S=\"progress\" RefId=\"1\"><TNRef RefId=\"0\" /><MS><I64 N=\"SourceId\">1</I64><PR N=\"Record\"><AV>Preparando m�dulos para primeiro uso.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs><Objs Version=\"1.1.0.1\" xmlns=\"http://schemas.microsoft.com/powershell/2004/04\"><Obj S=\"progress\" RefId=\"0\"><TN RefId=\"0\"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N=\"SourceId\">1</I64><PR N=\"Record\"><AV>Preparando m�dulos para primeiro uso.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>",
+    "ExitCode": 0,
+    "TimedOut": false,
+    "JobAssigned": true,
+    "ProcessId": 33852,
+    "TotalProcesses": 3,
+    "ActiveBeforeClose": 0,
+    "ActiveAfterTerminate": 0,
+    "JobTerminationRequested": true,
+    "JobProcessIds": []
+  },
+  "cancellation": {
+    "Phase": "finished",
+    "Error": null,
+    "Output": "#< CLIXML\r\nCHILD_PID=5488\r\n",
+    "ExitCode": 124,
+    "TimedOut": true,
+    "JobAssigned": true,
+    "ProcessId": 36720,
+    "TotalProcesses": 3,
+    "ActiveBeforeClose": 3,
+    "ActiveAfterTerminate": 0,
+    "JobTerminationRequested": true,
+    "JobProcessIds": [
+      36720,
+      42796,
+      5488
+    ]
+  },
+  "descendantPid": 5488,
+  "descendantGoneAfterJobClose": true,
+  "networkControlSucceeded": true,
+  "network": {
+    "Phase": "finished",
+    "Error": null,
+    "Output": "#< CLIXML\r\nNETWORK_CONNECTED\r\n<Objs Version=\"1.1.0.1\" xmlns=\"http://schemas.microsoft.com/powershell/2004/04\"><Obj S=\"progress\" RefId=\"0\"><TN RefId=\"0\"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N=\"SourceId\">1</I64><PR N=\"Record\"><AV>Preparando m�dulos para primeiro uso.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>",
+    "ExitCode": 0,
+    "TimedOut": false,
+    "JobAssigned": true,
+    "ProcessId": 29808,
+    "TotalProcesses": 2,
+    "ActiveBeforeClose": 0,
+    "ActiveAfterTerminate": 0,
+    "JobTerminationRequested": true,
+    "JobProcessIds": []
+  },
+  "agents": [],
+  "limits": [
+    "Low integrity does not constrain network",
+    "Does not constrain reads to project only",
+    "Does not contain pre-existing external services reached by IPC",
+    "No global firewall changes or source ACL modifications performed"
+  ]
+}

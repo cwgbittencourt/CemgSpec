@@ -1,0 +1,26 @@
+{
+  "state": "PASSED_BOOTSTRAP_ONLY",
+  "timestampUtc": "2026-11-16T05:32:28.620955+00:00",
+  "privilegedOperationsExecuted": 0,
+  "networkConnections": 0,
+  "result": {
+    "Phase": "finished",
+    "Error": null,
+    "Output": "{\u0022Bootstrap\u0022:\u0022READY\u0022,\u0022ProcessId\u0022:43540,\u0022TokenKnown\u0022:true,\u0022IsAppContainer\u0022:true,\u0022AdminGroupEnabled\u0022:false}\n{\u0022Bootstrap\u0022:\u0022READY\u0022,\u0022ProcessId\u0022:21344,\u0022TokenKnown\u0022:true,\u0022IsAppContainer\u0022:true,\u0022AdminGroupEnabled\u0022:false}\n",
+    "ContainerProfile": "specaudit-probe-8eae9117663649d6a8329deb4608977f",
+    "ProfileDeleteResult": 0,
+    "TokenIsAppContainer": 1,
+    "AdminGroupEnabled": false,
+    "ExitCode": 0,
+    "TimedOut": false,
+    "JobAssigned": true,
+    "ProcessId": 43540,
+    "TotalProcesses": 4,
+    "ActiveBeforeClose": 1,
+    "ActiveAfterTerminate": 0,
+    "JobTerminationRequested": true,
+    "JobProcessIds": [
+      45484
+    ]
+  }
+}

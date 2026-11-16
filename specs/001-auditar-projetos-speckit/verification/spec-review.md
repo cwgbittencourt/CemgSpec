@@ -1,25 +1,12 @@
-# Revisão documental da especificação
+# Revisão documental — V1 analyze/check_gate
 
-Data: 2026-11-15. Modalidade: autorrevisão pela IA.
-Revisão candidata: sha256:bc039c8c6304a23a998bc0a7bd880e01f03224c16df01829151e0732f3dab760
+Data: 2026-11-16. Modalidade: autorrevisão pela IA, não independente.
+Revisão candidata: sha256:65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1.
+Constituição 3.0.0 SHA256: a2ad0b009b908efd8e2b1ef0b859391ddf19bb5e5c2f46d047139cb8f2a88bb0.
+Preset cemg-speckit 3.0.0; spec-template replace; constitution core+append; resolvedor instalado executado. Branch real main. Hooks pré/pós ausentes, sem obrigação adicional identificada.
 
-Preset: cemg-speckit 3.0.0. Template: spec-template; estratégia replace; fonte .specify/presets/cemg-speckit/templates/spec-template.md. Resolução via PowerShell.
-Constituição: versão 1.0.1. Numeração: sequential; primeiro diretório 001.
-Hooks pré/pós: extensions.yml ausente; nenhuma obrigação de hook identificada nas políticas lidas.
+Conferidos 29 critérios ativos, 29 cenários e sete histórias ativas, com cobertura na matriz plan. FR-001–018 preservados; FR-017/US7 adiados com IDs reservados. Combo exata em Verificações/ficha, sem comando livre, sem execução ao selecionar. Dashboard/ficha limitados a documentos, gate sem IA/rede e sem autenticidade humana presumida. analyze não lê código nem executa hooks/configurações da origem; incompatível indisponível. Salvar e estado externo preservados.
 
-Conferidos: oito histórias, critérios únicos com cenários, condições de reprodução,
-dezoito requisitos funcionais rastreados, oito critérios de sucesso, casos de borda,
-limites constitucionais e decisões finais da conversa. Checklist revisada integralmente.
-Todos os 30 critérios possuem cenário correspondente; nenhuma decisão material aberta identificada.
-Dependências de pesquisa dos agentes e proteção foram explicitadas para o plan.
+Checklist revista; decisões materiais de produto atendidas pela instrução explícita. Pesquisa técnica V1-A/B permanece pendente no plan. Spec READY é prontidão documental para planejar, não execução aprovada ou aceite do produto. Provas antigas não comprovam V1. Nenhum código, pacote, template ou protótipo modificado; nenhum produto/teste funcional, instalação ou elevação nesta revisão.
 
-Não houve execução de produto nem validação de compatibilidade dos agentes nesta fase.
-Nenhum teste funcional, aprovação humana, CI ou proteção técnica é declarado instalado.
-Workspace sem Git detectado: a revisão usa hash do conteúdo real, não commit fictício.
-Nenhuma auditoria de dependências executada: etapa documental sem alterações de pacotes.
-
-Procedência permanente adicionada à constituição e à especificação, sem mudança funcional.
-Constituição SHA256: c157c95cdc0d8336df99e6aa25e12a53c6c830c420688637fc004f665862c3c1
-Constitution-template: core + constitution-addendum.md (append), preset cemg-speckit 3.0.0.
-
-Preparação para primeiro commit: relatório temporário de sincronização removido conforme instrução; metadados permanentes e princípios preservados. As referências a workspace sem Git descrevem a revisão original, anterior à inicialização do repositório.
+Arquivo anterior e emenda permitem rastrear substituição de escopo; não há remediação silenciosa. Validar hashes com check_gate da ferramenta instalada (sem --project), não com script arbitrário de projeto auditado.

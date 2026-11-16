@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "runId": "8ffee9e59b2143d88e699a15096d205c",
+  "fixtureRoot": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c",
+  "source": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c\\source",
+  "outside": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c\\outside",
+  "marker": "SPEC_AUDIT_SYNTHETIC_f9b34512792d467bbabd9ef3902658a8",
+  "baseline": {
+    "spec.md": "B44F1264F0B085F41D77889550656DDAC2D5F0B00A5803E2E6E292C575BBCD3D",
+    "Filter.cs": "E5B2FDE0D12B7CE00602802A248B07F84D9D09CE6A1D4265B7D13828E1E92D2E"
+  },
+  "runs": [
+    {
+      "agent": "antigravity",
+      "agentVersion": "1.5.9",
+      "binaryHash": "8803C289CAC04D6E53F2211592D9981C2D5760BC0D9B4A7F222EF6ECC7ABB38A",
+      "researchAgentRequested": true,
+      "runId": "8ffee9e59b2143d88e699a15096d205c",
+      "startedUtc": "2026-11-16T02:52:57.5665304+00:00",
+      "durationSeconds": 1.19,
+      "processId": 41556,
+      "exitCode": 1,
+      "timedOut": false,
+      "launchError": null,
+      "markerReturned": false,
+      "sourceFilesIntact": true,
+      "newSourceFiles": [],
+      "changedStateFiles": [
+        "C:\\Users\\cwagn\\.codex\\logs_2.sqlite-wal",
+        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\cli.log",
+        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\implicit\\a6e0e2f4-c7e1-46a0-a101-5652a556e145.pb",
+        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\crashes\\crash_41556_c4365333-a307-41d3-bdfe-16b6b23f7d08.log",
+        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\conversation_summaries.db",
+        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\log\\cli-20261115_235257.log"
+      ],
+      "scannedChangedFiles": 6,
+      "unreadableFiles": 0,
+      "skippedLargeFiles": 0,
+      "markerPersistedInAgentState": [],
+      "stdout": "{\"event\":\"result\",\"result\":{\"conversation_id\":\"\",\"status\":\"ERROR\",\"response\":\"\",\"error\":\"unknown agent \\\"research\\\" (no custom agents are available)\",\"duration_seconds\":0.1810818,\"num_turns\":0,\"usage\":{\"input_tokens\":0,\"output_tokens\":0,\"thinking_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":0},\"finished_reason\":\"error\"}}\n",
+      "stderr": "error: unknown agent \"research\" (no custom agents are available)\n",
+      "limits": [
+        "Source file handles locked by harness, not production isolation",
+        "Only listed agent state locations observed; unrelated app activity possible",
+        "No egress restriction or AppContainer worker proven",
+        "Snapshots miss created-then-deleted files; no absence guarantee",
+        "OS paging and remote provider retention not assessed"
+      ]
+    }
+  ],
+  "realSolutionUsed": false,
+  "saveActionPerformedByProduct": false,
+  "harnessEvidenceExplicitlyAuthorized": true,
+  "state": "OBSERVATIONAL_PROBE_NOT_FULL_COMPATIBILITY"
+}

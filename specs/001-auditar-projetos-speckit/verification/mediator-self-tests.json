@@ -1,0 +1,23 @@
+{
+  "state": "PASSED",
+  "checks": 15,
+  "items": [
+    "No arguments cannot mutate policy",
+    "Describe is unprivileged",
+    "Missing acknowledgement refused",
+    "Non-admin proof refused without UAC",
+    "Arbitrary target refused",
+    "Exact authorized proof mode accepted",
+    "Cannot resume before policy",
+    "Cannot remove filters while worker runs",
+    "Orderly lifetime completes",
+    "No unscoped SID condition",
+    "FWP_VALUE0 x64 layout",
+    "FWPM_FILTER_CONDITION0 x64 layout",
+    "FWPM_FILTER0 x64 layout",
+    "Condition pointer offset x64",
+    "FWPM_SUBLAYER0 x64 layout"
+  ],
+  "privilegedOperationsExecuted": 0,
+  "networkConnections": 0
+}

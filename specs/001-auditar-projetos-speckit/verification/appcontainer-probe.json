@@ -1,0 +1,79 @@
+{
+  "timestampUtc": "2026-11-16T03:13:23.9772226+00:00",
+  "limits": [
+    "No provider egress capability granted: not a usable AI network policy",
+    "No source read broker implemented in this trial",
+    "Agent --version is startup only, not authenticated analysis"
+  ],
+  "firewallChanged": false,
+  "controlNetworkSucceeded": true,
+  "capabilitiesGranted": [],
+  "sourceAclsChanged": false,
+  "fixture": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-AppContainer-1f6cbf8d7e0e49a1b6896b500b4b8577",
+  "agents": [
+    {
+      "agent": "codex",
+      "binaryHash": "935a1911ed2556e4ffcec995f4886ac2ac425863ba26fed264df62e30272ad9d",
+      "versionOutsideContainer": "codex-cli 0.147.0",
+      "result": {
+        "Phase": "finished",
+        "Error": null,
+        "Output": "WARNING: proceeding, even though we could not create PATH aliases: Could not find home directory\ncodex-cli 0.147.0\n",
+        "ContainerProfile": "specaudit-probe-d1abaff20f98471fa7d2f34aeb4c43c7",
+        "ProfileDeleteResult": 0,
+        "TokenIsAppContainer": 1,
+        "ExitCode": 0,
+        "TimedOut": false,
+        "JobAssigned": true,
+        "ProcessId": 46980,
+        "TotalProcesses": 2,
+        "ActiveBeforeClose": 1,
+        "ActiveAfterTerminate": 0,
+        "JobTerminationRequested": true,
+        "JobProcessIds": [
+          37320
+        ]
+      }
+    },
+    {
+      "agent": "antigravity",
+      "binaryHash": "8803c289cac04d6e53f2211592d9981c2d5760bc0d9b4a7f222ef6ecc7abb38a",
+      "versionOutsideContainer": "1.5.9",
+      "result": {
+        "Phase": "finished",
+        "Error": null,
+        "Output": "1.5.9\n",
+        "ContainerProfile": "specaudit-probe-49586984435e46f491c30e2c31c32889",
+        "ProfileDeleteResult": 0,
+        "TokenIsAppContainer": 1,
+        "ExitCode": 0,
+        "TimedOut": false,
+        "JobAssigned": true,
+        "ProcessId": 43164,
+        "TotalProcesses": 2,
+        "ActiveBeforeClose": 0,
+        "ActiveAfterTerminate": 0,
+        "JobTerminationRequested": true,
+        "JobProcessIds": []
+      }
+    }
+  ],
+  "sourceIntact": true,
+  "system": {
+    "Phase": "finished",
+    "Error": null,
+    "Output": "{\"networkError\":\"\",\"networkConnected\":true,\"writeDenied\":true,\"sourceReadable\":false}\r\n",
+    "ContainerProfile": "specaudit-probe-5766573f2c654ab789dfbb22d103d453",
+    "ProfileDeleteResult": 0,
+    "TokenIsAppContainer": 1,
+    "ExitCode": 0,
+    "TimedOut": false,
+    "JobAssigned": true,
+    "ProcessId": 23696,
+    "TotalProcesses": 2,
+    "ActiveBeforeClose": 0,
+    "ActiveAfterTerminate": 0,
+    "JobTerminationRequested": true,
+    "JobProcessIds": []
+  }
+}

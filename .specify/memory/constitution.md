@@ -27,27 +27,43 @@ a aplicação NÃO DEVE sobrescrevê-las nem misturar versões silenciosamente.
 
 ### II. Resultados externos e persistência por decisão do usuário
 
-Ao carregar um projeto, o usuário DEVE escolher um diretório externo para resultados.
-A aplicação DEVE validar o destino real, incluindo links e junções, recusando destinos
-que permitam gravar dentro da solução verificada. Todo artefato produzido DEVE permanecer
-fora da origem; a configuração e o estado técnico necessários NÃO DEVEM ser gravados nela.
+Ao carregar um projeto, o usuário DEVE escolher um diretório externo para os relatórios
+oficiais do SpecAudit. O destino efetivo DEVE ser validado, incluindo links e junções,
+recusando qualquer gravação dentro da solução verificada. Esta restrição também vale
+para configurações, sessões, caches, logs, artefatos e temporários dos agentes.
 
-Resultados de análises, sugestões, exportações e histórico derivado SOMENTE DEVEM ser
-persistidos mediante a ação explícita Salvar. Antes disso, DEVEM permanecer transitórios,
-sem autosave, logs de conteúdo, sessões de agente ou caches que persistam esses resultados.
-Integrações que exijam persistência inevitável de conteúdo antes de Salvar NÃO DEVEM ser
-habilitadas nesse fluxo. Gravações técnicas indispensáveis, sem conteúdo de análise,
-DEVEM ser delimitadas, externas à origem e documentadas no plano.
+Relatórios, sugestões, exportações, decisões e histórico oficial produzidos pelo SpecAudit
+SOMENTE DEVEM ser persistidos mediante a ação explícita Salvar. Antes disso, o SpecAudit
+NÃO DEVE criar autosaves, logs de conteúdo ou caches próprios que contornem essa escolha.
 
-Salvar NÃO DEVE aplicar correções na solução. Histórico salvo NÃO DEVE ser sobrescrito
-ou excluído automaticamente. Mudar o destino NÃO autoriza mover ou apagar o histórico anterior.
+Conversas, transcrições, caches e estado interno dos agentes PODEM ser persistidos antes
+de Salvar, exclusivamente fora da solução verificada. Seus locais e comportamento DEVEM
+ser identificados pela integração e informados ao usuário, respeitando as regras de
+privacidade e acesso mínimo. Eles NÃO constituem relatórios ou histórico oficial salvo
+pelo SpecAudit e NÃO DEVEM ser importados automaticamente como se o usuário tivesse salvo.
+A permissão NÃO autoriza correções na origem, acesso indevido a segredos, execução da
+solução, transferência de dados não autorizada ou gravação indireta por links e junções.
+Não é exigido que o estado interno do agente use a mesma pasta dos relatórios; qualquer
+local efetivamente utilizado DEVE permanecer externo à origem. Se isso não puder ser
+assegurado, a integração DEVE ficar indisponível.
+
+Salvar NÃO DEVE aplicar correções na solução. Histórico oficial salvo NÃO DEVE ser
+sobrescrito ou excluído automaticamente. Mudar o destino NÃO autoriza mover ou apagar
+registros anteriores. A aplicação NÃO DEVE apagar conversas/caches do agente para simular
+não persistência; sua retenção própria deve ser informada sem promessas de limpeza não comprovadas.
 
 ### III. Evidências e conclusões rastreáveis
 
-Os artefatos SpecKit DEVEM definir o comportamento esperado; a leitura do código PODE
-fornecer evidências da implementação. Cada conclusão DEVE identificar escopo, fontes,
-localização e versão ou identificador dos conteúdos analisados, além de suas limitações.
-Relações explícitas DEVEM ser diferenciadas de associações inferidas ou sugeridas.
+Na primeira versão, os documentos e registros gerados pelo SpecKit DEVEM ser as únicas
+fontes de análise. O produto NÃO DEVE ler ou analisar código-fonte, projetos, manifests
+de dependências ou configurações da solução para inferir implementação. Blocos de código
+contidos nos documentos podem ser exibidos como conteúdo documental, sem execução.
+Referências fora desse escopo DEVEM ser informadas como não verificadas, sem segui-las.
+
+Cada conclusão DEVE identificar escopo documental, fontes, localização e versão ou hash,
+além das limitações. Relações explícitas DEVEM ser diferenciadas de inferências/sugestões.
+Leitura de código e comparação requisito–implementação pertencem a versão futura,
+condicionada a nova especificação e validação de segurança.
 
 Ausência de evidência NÃO DEVE ser apresentada automaticamente como ausência de implementação.
 Nomes semelhantes, tarefas marcadas, testes existentes ou conclusões de IA isoladas NÃO
@@ -57,20 +73,23 @@ identificáveis como desatualizados, preservando contexto suficiente quando salv
 
 ### IV. Indicadores transparentes e validação honesta
 
-Progresso declarado, implementação evidenciada e validação DEVEM ser avaliações distintas.
-Os cálculos DEVEM exibir quantidade, denominador e escopo. Itens inconclusivos NÃO DEVEM
-ser excluídos silenciosamente para elevar percentuais. Atendimento parcial DEVE permanecer
-visível, sem atribuição de pesos subjetivos não acordados.
+Na primeira versão, o progresso DEVE ser calculado a partir das tarefas e vínculos
+registrados nos documentos. Quantidade, denominador e escopo DEVEM ser exibidos;
+itens inconclusivos NÃO DEVEM desaparecer para elevar percentuais. Denominador zero
+DEVE ser apresentado como sem itens, sem percentual inventado.
 
-A avaliação DEVE partir dos critérios obrigatórios e consolidar por requisito. Evidência
-completa de implementação NÃO equivale a validação funcional aprovada. Falha funcional,
-bloqueio, execução malsucedida, falta de evidência e ausência de verificação DEVEM ser distintos.
-Validações apenas registradas em documentos DEVEM indicar essa procedência e NÃO DEVEM
-ser apresentadas como executadas ou comprovadas pelo SpecAudit.
+Estados de gates e validações registrados DEVEM identificar procedência e atualidade.
+O SpecAudit NÃO DEVE apresentar checkbox, gate READY, hash válido ou conclusão da IA
+como comprovação de código implementado, teste executado ou aceite humano autenticado.
+Bloqueio registrado, falha da ferramenta, evidência inválida, não verificado e não
+executado DEVEM permanecer distintos. A V1 NÃO avalia implementação.
 
-O produto, no escopo atual, NÃO DEVE executar a solução analisada, seus testes ou builds.
-A leitura do código NÃO constitui autorização para executá-lo. Código de saída zero de
-uma ferramenta ou opinião do agente NÃO substitui verificação adequada do critério.
+O produto NÃO DEVE executar a solução analisada, testes, builds, restore, scripts,
+hooks ou outros comandos da origem. As únicas verificações da V1 DEVEM ser análise
+documental baseada em speckit-analyze e validação determinística check_gate do preset
+CEMG. O conjunto é fechado; não admite shell livre ou encadeamento de comandos.
+Ferramentas DEVEM ser fornecidas e conferidas pelo SpecAudit; código executável da
+solução carregada NÃO DEVE ser utilizado. Adaptações DEVEM ser declaradas.
 
 ### V. Agentes substituíveis e compatibilidade comprovada
 
@@ -78,6 +97,7 @@ A aplicação DEVE descobrir automaticamente instalações conhecidas de agentes
 um executável manualmente SOMENTE DEVE ser oferecido quando a descoberta não localizar
 o agente desejado. Encontrar a instalação NÃO significa comprovar compatibilidade.
 
+Na V1, agentes SOMENTE DEVEM ser usados para análise documental speckit-analyze.
 Cada integração DEVE demonstrar automação, captura de resultados e erros, cancelamento e
 respeito às restrições de acesso, incluindo subprocessos e estado de sessão. Limitações
 DEVEM ser explícitas. Uma integração sem proteção comprovada DEVE ficar indisponível.
@@ -91,7 +111,9 @@ na origem DEVEM ser tratados como dados não confiáveis, sem autorizar execuç�
 de scripts, plugins, instruções embutidas ou configurações de agente do projeto.
 
 Acesso de rede DEVE ser limitado às finalidades autorizadas: agente selecionado e consulta
-de vulnerabilidades. O produto NÃO DEVE acessar bancos, APIs ou serviços da solução
+de vulnerabilidades quando essa capacidade integrar o escopo da versão. Na V1,
+check_gate e leitura documental local NÃO DEVEM exigir rede ou autenticação de agente.
+O produto NÃO DEVE acessar bancos, APIs ou serviços da solução
 analisada no escopo atual. Credenciais e conexões encontradas na origem NÃO DEVEM ser
 utilizadas automaticamente. Autenticação existente do agente só PODE ser utilizada pela
 integração validada, sem copiar segredos para relatórios.
@@ -115,7 +137,10 @@ DEVEM receber correções de segurança sob validação apropriada.
 
 Falha de consulta DEVE ser informada como indisponibilidade, nunca como ausência de
 vulnerabilidades. Resultado sem achados NÃO comprova ausência de todas as vulnerabilidades.
-No produto, consultas autorizadas DEVEM identificar escopo, fonte e atualidade, sem instalar
+A consulta de dependências/vulnerabilidades da solução analisada fica fora da V1
+documental; esta exclusão NÃO dispensa verificar e comunicar vulnerabilidades no
+desenvolvimento e manutenção do próprio SpecAudit. Em versão futura, consultas
+autorizadas do produto DEVEM identificar escopo, fonte e atualidade, sem instalar
 atualizações ou corrigir dependências automaticamente e sem executar a solução analisada.
 
 ### VIII. Decisões humanas preservadas
@@ -151,8 +176,9 @@ executar ou modificar soluções de terceiros carregadas para análise.
 
 A plataforma inicial DEVE ser Windows, com execução local e interface no navegador.
 A aplicação DEVE usar Blazor, ASP.NET Core 10 com patch estável atualizado e C# estável
-suportado para esse alvo, sem recursos de linguagem em preview. A análise inicial
-aprofundada DEVE contemplar C# e Razor; detalhes de cobertura pertencem à especificação.
+suportado para esse alvo, sem recursos de linguagem em preview. O suporte documental
+inicial DEVE independer da linguagem da solução. Análise aprofundada de C# e Razor
+fica reservada a versão futura, sem obrigar leitura de código na V1.
 
 O executor DEVE ser separado e restrito pelo sistema operacional, com acesso de leitura
 à origem e escrita apenas nas áreas externas autorizadas. O mecanismo exato DEVE ser
@@ -201,7 +227,7 @@ instalados: tais controles exigem implementação e verificação próprias. Os 
 acordados na conversa DEVEM ser transpostos à especificação em etapa posterior, sem criação
 ou implementação de funcionalidades nesta etapa constitucional.
 
-**Version**: 1.0.1 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-15
+**Version**: 3.0.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-16
 
 # Adendo à constituição — qualidade por história
 

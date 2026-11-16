@@ -1,0 +1,68 @@
+{
+  "human_decisions": [],
+  "revision": "sha256:21b26b9b18e93af066bd7c16b1bfbb70c1d40b9ab9ef242a9ec1850755a98e82",
+  "checks": {
+    "spec_ready": true,
+    "coverage_semantic": true,
+    "procedures_concrete": false,
+    "environment_planned": false,
+    "data_and_access_planned": false,
+    "pr_slices_testable": true,
+    "real_execution_planned": false
+  },
+  "schema_version": 1,
+  "state": "BLOCKED",
+  "stage": "plan",
+  "blockers": [
+    "V1-A: definir/provar fronteira exclusivamente documental e integração analyze real restrita, incluindo descendentes, estado externo e rede",
+    "V1-B: definir/provar ferramenta gate empacotada/offline, runtime e preflight de todos os caminhos, sem --project",
+    "Phase 1: modelo, contratos e quickstart finais pendentes de pesquisa; nenhuma autorização elevada ou aceite inferido"
+  ],
+  "evidence": [
+    {
+      "path": "spec.md",
+      "kind": "document",
+      "sha256": "65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1"
+    },
+    {
+      "path": "checklists/requirements.md",
+      "kind": "document",
+      "sha256": "532566c8785b653c76b7ece013a44b50c88ee0e4a7a5b733f9bdeb215fc69644"
+    },
+    {
+      "path": "verification/spec-review.md",
+      "kind": "document",
+      "sha256": "cda9fa17e6a2dee5a748c6d0d212b75e266e199cc9f93b20023ee31c7df49acb"
+    },
+    {
+      "path": "verification/documentary-v1-amendment.md",
+      "kind": "document",
+      "sha256": "09ed1e14772c9738c45087ef9a99b688a937c0987869922576eee196be3c8b8f"
+    },
+    {
+      "path": "plan.md",
+      "kind": "document",
+      "sha256": "21b26b9b18e93af066bd7c16b1bfbb70c1d40b9ab9ef242a9ec1850755a98e82"
+    },
+    {
+      "path": "research.md",
+      "kind": "document",
+      "sha256": "9ea5d6c4e99cb0955e33cd9310d12fbc6d54ffebda0b84f4d8251c1bc4b01d4c"
+    },
+    {
+      "path": "verification/plan-review.md",
+      "kind": "document",
+      "sha256": "4326734d45b2fce33565998c00154ea3d2f2d5e2f0043c4aa3684812a0cfe060"
+    },
+    {
+      "path": "verification/isolation-network-status.md",
+      "kind": "document",
+      "sha256": "c6dea7504ae7064d4c76cca6bfa9381c4f2f925be1cf993e3ff747af74520c21"
+    },
+    {
+      "path": "verification/documentary-v1-validation.json",
+      "kind": "document",
+      "sha256": "a7ae9f3efdc385f8c5b50d2f6845daf5c2e4db793b67957d1437d156fae629b3"
+    }
+  ]
+}

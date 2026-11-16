@@ -1,0 +1,32 @@
+  Determinando os projetos a serem restaurados...
+  Todos os projetos estão atualizados para restauração.
+  NetworkMediator -> D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\NetworkMediator.dll
+
+Compilação com êxito.
+    0 Aviso(s)
+    0 Erro(s)
+
+Tempo Decorrido 00:00:00.81
+SyntheticWorker.c
+Microsoft (R) COFF/PE Dumper Version 14.51.36263.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\SyntheticWorker.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Image has the following dependencies:
+
+    WS2_32.dll
+    ADVAPI32.dll
+    KERNEL32.dll
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        2000 .pdata
+        C000 .rdata
+        1000 .reloc
+       18000 .text

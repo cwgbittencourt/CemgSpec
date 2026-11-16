@@ -1,0 +1,71 @@
+{
+  "state": "FAILED_OR_INCOMPLETE",
+  "timestampUtc": "2026-11-16T05:15:19.8036059+00:00",
+  "fixture": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784",
+  "sourceIntact": true,
+  "policySublayer": "6bb30716-ff53-488a-820b-f911aee8c3db",
+  "filterKeys": [
+    "404c5df0-24b4-4bea-b659-b84674afd488",
+    "3f91f84d-6054-4e03-9118-120bab2dd3a1",
+    "ba5f32cb-943c-4b1b-b158-652afb0f07d9"
+  ],
+  "allowedCount": 0,
+  "deniedCount": 0,
+  "denied6Count": 0,
+  "udpBytes": 0,
+  "cleanupVerified": true,
+  "controlUnaffectedDuringPolicy": true,
+  "workerAssertions": false,
+  "rollbackPassed": true,
+  "rollbackEvidence": {
+    "Passed": true,
+    "CleanupVerified": true,
+    "Worker": {
+      "Phase": "container-profile",
+      "Error": "InvalidOperationException: Synthetic transaction rollback before commit.",
+      "Output": null,
+      "ContainerProfile": "specaudit-probe-600f4ec22a6e4e9fa647e36a6b7d755a",
+      "ProfileDeleteResult": 0,
+      "TokenIsAppContainer": null,
+      "AdminGroupEnabled": null,
+      "ExitCode": null,
+      "TimedOut": false,
+      "JobAssigned": false,
+      "ProcessId": 0,
+      "TotalProcesses": 0,
+      "ActiveBeforeClose": 0,
+      "ActiveAfterTerminate": 0,
+      "JobTerminationRequested": false,
+      "JobProcessIds": null
+    }
+  },
+  "worker": {
+    "Phase": "finished",
+    "Error": null,
+    "Output": "",
+    "ContainerProfile": "specaudit-probe-d52745fe4a2c44508da79084fefe2f49",
+    "ProfileDeleteResult": 0,
+    "TokenIsAppContainer": 1,
+    "AdminGroupEnabled": false,
+    "ExitCode": -1073741502,
+    "TimedOut": false,
+    "JobAssigned": true,
+    "ProcessId": 30852,
+    "TotalProcesses": 2,
+    "ActiveBeforeClose": 0,
+    "ActiveAfterTerminate": 0,
+    "JobTerminationRequested": true,
+    "JobProcessIds": []
+  },
+  "rows": [],
+  "error": null,
+  "globalFirewallProfilesChanged": false,
+  "persistentFiltersCreated": false,
+  "agentsExecuted": false,
+  "limits": [
+    "Not a service or production authenticated IPC implementation",
+    "No real provider/agent authentication tested",
+    "No proof of hard-crash fail-closed ordering",
+    "Only synthetic TCP/UDP/IPv6 and orderly worker termination covered"
+  ]
+}

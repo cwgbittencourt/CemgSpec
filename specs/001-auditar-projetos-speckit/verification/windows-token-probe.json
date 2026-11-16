@@ -1,0 +1,15 @@
+{
+  "state": "EXIT:0",
+  "fixtureRoot": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-TokenProbe-5e30c3ef21ba40beb610d7f65aa57d44",
+  "sourceIntact": true,
+  "canaryIntact": true,
+  "sourceAclsModified": false,
+  "adminElevationRequested": false,
+  "mechanism": "Restricted token with low mandatory integrity",
+  "limits": [
+    "Does not prove agents work under token",
+    "Does not restrict network",
+    "No Job Object or descendant cancellation demonstrated",
+    "Not full AppContainer isolation"
+  ]
+}

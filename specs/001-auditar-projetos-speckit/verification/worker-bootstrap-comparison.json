@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "result": {
+        "Phase": "finished",
+        "Error": null,
+        "Output": "N�o � poss�vel criar a pasta ou arquivo.\r\nErro ao processar: .exe /d /c echo.\r\nAcesso negado.\r\nErro ao processar: BOOTSTRAP_OK.\r\n",
+        "ContainerProfile": "specaudit-probe-0fb108afdb7145da90cbc2f10c9da5de",
+        "ProfileDeleteResult": 0,
+        "TokenIsAppContainer": 1,
+        "AdminGroupEnabled": false,
+        "ExitCode": 1,
+        "TimedOut": false,
+        "JobAssigned": true,
+        "ProcessId": 25524,
+        "TotalProcesses": 2,
+        "ActiveBeforeClose": 1,
+        "ActiveAfterTerminate": 0,
+        "JobTerminationRequested": true,
+        "JobProcessIds": [
+          47804
+        ]
+      },
+      "case": "cmd"
+    },
+    {
+      "result": {
+        "Phase": "finished",
+        "Error": null,
+        "Output": "BOOTSTRAP_OK\r\n",
+        "ContainerProfile": "specaudit-probe-08dc632f218341329a56a768af4c8010",
+        "ProfileDeleteResult": 0,
+        "TokenIsAppContainer": 1,
+        "AdminGroupEnabled": false,
+        "ExitCode": 0,
+        "TimedOut": false,
+        "JobAssigned": true,
+        "ProcessId": 7908,
+        "TotalProcesses": 2,
+        "ActiveBeforeClose": 0,
+        "ActiveAfterTerminate": 0,
+        "JobTerminationRequested": true,
+        "JobProcessIds": []
+      },
+      "case": "powershell"
+    }
+  ],
+  "note": "Compara bootstrap sem filtros; não reproduz a console elevada da falha anterior",
+  "elevated": false,
+  "wfpFiltersApplied": 0,
+  "timestampUtc": "2026-11-16T05:24:24.7494182+00:00"
+}

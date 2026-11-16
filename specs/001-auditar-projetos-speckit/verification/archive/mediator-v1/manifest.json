@@ -1,0 +1,59 @@
+{
+  "limitations": [
+    "Privileged integration not executed",
+    "Provider/agent integration remains pending",
+    "Hard-crash fail-closed not proven"
+  ],
+  "binaries": [
+    {
+      "sha256": "66ff2a9e8bbe73e305cc42e2d82f893179d0800e2c7b9df5ffe8aa26379f0a07",
+      "name": "NetworkMediator.dll"
+    },
+    {
+      "sha256": "c1a6024774e22ea43eabe8ffe81137e849eb77fbc245ac6aa217279b97cadaa1",
+      "name": "NetworkMediator.deps.json"
+    },
+    {
+      "sha256": "c230a317a54dd960bcbeb5f347f52e18dc665a26f7efda2159fced9a5ac7e097",
+      "name": "NetworkMediator.runtimeconfig.json"
+    }
+  ],
+  "selfTestResult": "PASSED",
+  "preparedDate": "2026-11-16",
+  "prototype": "NetworkMediator",
+  "sourceFiles": [
+    {
+      "name": "AssemblyInfo.cs",
+      "sha256": "04bb41278392001472a4a901a51862adf31018a23f9da77d5321565595b9505c"
+    },
+    {
+      "name": "Invoke-MediatorProof.ps1",
+      "sha256": "bac8a1d4a3920c12faa979b3ad9426abce6fad7cd639b2a313bae7fe5776bad2"
+    },
+    {
+      "name": "MediatorSession.cs",
+      "sha256": "29dd330668f64b7922741d9d8e5d0e7424877025b4b49f9a5c4548a3cab098d7"
+    },
+    {
+      "name": "NativeWorker.cs",
+      "sha256": "33f358ba643cfd7ccb5c49c179f24de2d0366a41051317dfb88fac091910e318"
+    },
+    {
+      "name": "NetworkMediator.csproj",
+      "sha256": "d7877db44963bdec973b5edbe0cc85ffdbce26b9862820c3f7503586c089330d"
+    },
+    {
+      "name": "PolicyTests.cs",
+      "sha256": "5dfde9ba182805a0eef5b5383bb2b7344cb91deb54ed80b8482a1f3377f818fa"
+    },
+    {
+      "name": "Program.cs",
+      "sha256": "fec3589490ddf8c6d79eac661514a4fa337c7505944a495dd9fe366f643b1ce9"
+    }
+  ],
+  "scope": "Synthetic only; no agents/credentials/service installation/global firewall profiles",
+  "privilegedProofExecuted": false,
+  "selfTestChecks": 15,
+  "configuration": "Release/net10.0/x64",
+  "schemaVersion": 1
+}

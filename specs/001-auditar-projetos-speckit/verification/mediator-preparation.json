@@ -1,0 +1,35 @@
+{
+  "review": "AI self-review, not independent review or human acceptance",
+  "serviceInstalled": false,
+  "uacRequested": false,
+  "globalFirewallChanged": false,
+  "date": "2026-11-16",
+  "state": "PREPARED_NOT_PRIVILEGED_EXECUTED",
+  "applicationCodeChanged": false,
+  "schemaVersion": 1,
+  "manifestSha256": "d0fd1c46893c69d51dd2aba717834b8aed30a09423ff4b53b9bb5fc458eec115",
+  "remaining": [
+    "Privileged synthetic proof and cleanup unexecuted",
+    "Real agents/provider/proxy integration pending",
+    "Hard-crash fail-closed pending"
+  ],
+  "privilegedProofExecuted": false,
+  "selfTests": {
+    "checks": 15,
+    "networkConnections": 0,
+    "privilegedOperations": 0,
+    "result": "PASSED"
+  },
+  "packageAudit": {
+    "reportedPackages": 0,
+    "limits": "Does not audit runtime/SDK or prove absence of vulnerabilities",
+    "packageReferences": 0,
+    "command": "dotnet package list --vulnerable --include-transitive --no-restore --format json"
+  },
+  "build": {
+    "errors": 0,
+    "configuration": "Release",
+    "warnings": 0,
+    "result": "PASSED"
+  }
+}

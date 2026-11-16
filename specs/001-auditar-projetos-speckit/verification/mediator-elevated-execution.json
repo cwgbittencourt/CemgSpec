@@ -1,0 +1,21 @@
+{
+  "timestampUtc": "2026-11-16T05:15:14.9333407+00:00",
+  "authorizedManifestSha256": "d0fd1c46893c69d51dd2aba717834b8aed30a09423ff4b53b9bb5fc458eec115",
+  "attempts": 1,
+  "launchSucceeded": true,
+  "elevationRequested": true,
+  "serviceInstalled": false,
+  "globalFirewallProfilesChanged": false,
+  "exitCode": 1,
+  "error": null,
+  "newFixtureDirectories": [
+    "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784"
+  ],
+  "resultFiles": [
+    {
+      "evidence": "D:\\Codex_Workspace\\Projetos\\SpecAudit\\specs\\001-auditar-projetos-speckit\\verification\\mediator-elevated-result.json",
+      "original": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784\\proof-result.json",
+      "sha256": "ee2185ef0a09ad4730edec4a82671e18db962c1e566aaea8f2fb390d6e9924d8"
+    }
+  ]
+}

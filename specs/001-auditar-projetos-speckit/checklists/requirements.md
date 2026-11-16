@@ -1,41 +1,36 @@
-# Specification Quality Checklist: Auditoria de projetos SpecKit
+# Specification Quality Checklist: Auditoria documental SpecKit V1
 
-**Purpose**: Verificar completude e qualidade antes do planejamento.
-**Created**: 2026-11-15
-**Feature**: [spec.md](../spec.md)
-**Review Ownership**: Autorrevisão documental pela IA; não revisão independente.
-**Marker Semantics**: [x] indica requisito revisado, não implementação concluída.
+**Revisão**: 2026-11-16 | **Feature**: [spec.md](../spec.md)
+**Modalidade**: autorrevisão documental pela IA; não revisão independente.
+**Semântica**: [x] significa requisito inspecionado, não implementação/teste/aceite.
 
 ## Content Quality
 
-- [x] Sem decisões internas de implementação: restrições constitucionais são referenciadas; linguagens analisadas e agentes são capacidades do produto.
-- [x] Foco em valor e necessidades do usuário.
-- [x] Linguagem orientada ao responsável pelo projeto, com termos de domínio necessários.
-- [x] Todas as seções obrigatórias do template ativo estão preenchidas.
+- [x] Estrutura do spec-template CEMG 3.0.0 resolvido com replace preservada.
+- [x] Escopo e decisões atuais do usuário prevalecem sobre comparações de código anteriores.
+- [x] Linguagem de produto, com requisitos observáveis e limitações de ferramentas explícitos.
+- [x] Arquitetura e runtime pertencem ao plan; constituição 3.0.0 rege garantias.
 
 ## Requirement Completeness
 
-- [x] Nenhum marcador de esclarecimento pendente.
-- [x] Requisitos testáveis com estados, limites e mapeamento para critérios.
-- [x] Critérios de sucesso mensuráveis por contagem e resultados observáveis.
-- [x] Critérios de sucesso independentes da arquitetura interna.
-- [x] Cenários definidos para todos os critérios de aceite.
-- [x] Casos de borda identificados.
-- [x] Escopo e exclusões explícitos.
-- [x] Dependências e premissas identificadas, sem afirmar compatibilidade técnica comprovada.
+- [x] Combo com exatamente analyze/check_gate, duas telas, seleção por projeto e execução apenas por clique.
+- [x] 29 critérios ativos únicos, cada um com cenário e cobertura no plan.
+- [x] Sete histórias ativas (US1–US6/US8); US7 e FR-017 reservados/adiados explicitamente.
+- [x] Ficha/dashboard documentais; nenhuma inferência de implementação por checkbox/gate/hash.
+- [x] Gate sem agente/rede, registro/etapa/revisão selecionados e limites para evidências fora do escopo.
+- [x] analyze adaptado, pré-requisitos e proteção de agentes explicitados; sem código/scripts/hooks.
+- [x] Origem somente leitura, destino externo, estado interno externo e Salvar manual preservados.
+- [x] Preview VS Code/Mermaid, temas, histórico e decisões humanas preservados.
+- [x] Auditoria de segurança do próprio SpecAudit preservada; consulta da solução adiada.
+- [x] Casos ausentes/inválidos, mudança concorrente, cancelamento e indisponibilidade contemplados.
 
 ## Feature Readiness
 
-- [x] Todos os requisitos funcionais possuem critérios de aceite relacionados.
-- [x] Histórias cobrem os fluxos principais e condições de reprodução.
-- [x] Resultados esperados das histórias correspondem aos critérios de sucesso.
-- [x] Sem estrutura de código, bibliotecas ou arquitetura interna prescritas.
+- [x] Requisitos funcionais ativos referenciam critérios ativos; FR-017 é futuro.
+- [x] Critérios de sucesso medíveis sem alegar execução de produto.
+- [x] Dependências técnicas V1-A/B pertencem ao plan; não há decisão material de produto pendente identificada.
+- [x] Arquivo anterior e rastreabilidade da mudança preservados em verification/archive/before-documentary-v1/.
 
-## Notes
+## Limites
 
-- Revisão do conteúdo por comparação com a conversa e constituição 1.0.0.
-- Persistência manual substitui sugestões antigas de autosave; código pode ser lido, não executado.
-- Integrações obrigatórias: Codex e Antigravity. Descoberta não equivale a compatibilidade.
-- A viabilidade técnica das restrições deve ser pesquisada no plan antes do trabalho dependente.
-- Não houve teste de produto, aceite humano de histórias, instalação de controles ou auditoria executada de dependências nesta etapa documental.
-- A prontidão formal é registrada em ../verification/spec-stage.json e revalidada na próxima etapa.
+Não houve implementação, demonstração de UI/isolamento, aprovação humana ou auditoria nova de pacotes nesta etapa documental. Nenhuma dependência foi adicionada. Gate spec READY indica qualidade de requisitos; gate plan continua BLOCKED. Mecanismos de agente/gate precisam de comprovação antes de habilitar fluxos dependentes.
