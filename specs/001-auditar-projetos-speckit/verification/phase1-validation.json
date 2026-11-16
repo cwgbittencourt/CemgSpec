@@ -1,0 +1,41 @@
+{
+  "timestampUtc": "2026-11-16T06:19:59.095976+00:00",
+  "scope": "Phase 1 document/design readiness only",
+  "result": "PASSED_DOCUMENT_REVIEW",
+  "baseCommit": "79d9c3d",
+  "planSha256": "6002634026f05e2338e26c0a754815518089b126e4915cefb3c689967159fb89",
+  "specSha256": "65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1",
+  "constitutionSha256": "a2ad0b009b908efd8e2b1ef0b859391ddf19bb5e5c2f46d047139cb8f2a88bb0",
+  "criteria": 29,
+  "scenariosInPlanAndQuickstart": 29,
+  "phase1Artifacts": [
+    {
+      "path": "data-model.md",
+      "sha256": "8536fc0480a8fe1f9f2ebc687e4b538aa796bc757e61ecc29d7e4c977279a816"
+    },
+    {
+      "path": "contracts/application.md",
+      "sha256": "15d8cbac2d7b7a9cad5fd38a5ae8a422f14b0f84affa2366f2430a7a3f0bbaee"
+    },
+    {
+      "path": "contracts/verification.md",
+      "sha256": "57065e5f243216ab877d15596d76b3f29397328ae2d2f8827fd25ff049554918"
+    },
+    {
+      "path": "contracts/persistence.md",
+      "sha256": "72b91bdc3c8aafc760c853ad45c65eeaf33a6816cb0c4f238bde21af40cfc47a"
+    },
+    {
+      "path": "quickstart.md",
+      "sha256": "622a0e03c3b6af40c8164fdfd69ced9a883b3070bb70b1d2341bf40340f41c6c"
+    }
+  ],
+  "powershellBlocksParsedNotExecuted": 3,
+  "productExecution": "NOT_EXECUTED",
+  "protectionProofs": "IMPLEMENTATION_BEFORE_ENABLEMENT",
+  "tasksGenerated": false,
+  "applicationOrPrototypeCodeChanged": false,
+  "dependenciesChanged": false,
+  "installationOrElevationExecuted": false,
+  "humanAcceptanceGranted": false
+}

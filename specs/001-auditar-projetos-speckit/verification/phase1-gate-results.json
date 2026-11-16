@@ -1,0 +1,25 @@
+{
+  "command": ".specify/presets/cemg-speckit/tools/check_gate.py --feature specs/001-auditar-projetos-speckit --record verification/<stage>-stage.json --stage <stage> --revision <revision>",
+  "timestampUtc": "2026-11-16T06:21:20.8416911+00:00",
+  "scope": "Planning-record validation only; no protection/product execution",
+  "observations": [
+    {
+      "stage": "spec",
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "revision": "sha256:65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1",
+      "exitCode": 0
+    },
+    {
+      "stage": "plan",
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "revision": "sha256:6002634026f05e2338e26c0a754815518089b126e4915cefb3c689967159fb89",
+      "exitCode": 0
+    }
+  ]
+}

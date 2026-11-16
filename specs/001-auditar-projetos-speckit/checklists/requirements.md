@@ -31,6 +31,8 @@
 - [x] Dependências técnicas V1-A/B pertencem ao plan; não há decisão material de produto pendente identificada.
 - [x] Arquivo anterior e rastreabilidade da mudança preservados em verification/archive/before-documentary-v1/.
 
+- [x] Três mockups originais versionados em design/mockups/ e vinculados às tasks de UI/testes visuais; guia distingue aparência aprovada de comportamentos históricos fora da V1.
+
 ## Limites
 
-Não houve implementação, demonstração de UI/isolamento, aprovação humana ou auditoria nova de pacotes nesta etapa documental. Nenhuma dependência foi adicionada. Gate spec READY indica qualidade de requisitos; gate plan continua BLOCKED. Mecanismos de agente/gate precisam de comprovação antes de habilitar fluxos dependentes.
+Não houve implementação, demonstração de UI/isolamento, aprovação humana ou auditoria nova de pacotes nesta etapa documental. Nenhuma dependência foi adicionada. Gate spec READY indica qualidade de requisitos; gate plan é revalidado após modelo/contratos/quickstart; sua prontidão permite gerar tarefas, sem declarar proteção instalada. Mecanismos de agente/gate precisam de comprovação na implementação antes de habilitar fluxos dependentes.

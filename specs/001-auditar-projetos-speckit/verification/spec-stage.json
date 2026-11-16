@@ -1,22 +1,22 @@
 {
-  "revision": "sha256:65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1",
+  "revision": "sha256:fa084b53b7bc12108f6e3625a4c191de582a4db2122ee9564b111b296eb9d6fa",
   "schema_version": 1,
   "state": "READY",
   "evidence": [
     {
       "path": "spec.md",
       "kind": "document",
-      "sha256": "65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1"
+      "sha256": "fa084b53b7bc12108f6e3625a4c191de582a4db2122ee9564b111b296eb9d6fa"
     },
     {
       "path": "checklists/requirements.md",
       "kind": "document",
-      "sha256": "532566c8785b653c76b7ece013a44b50c88ee0e4a7a5b733f9bdeb215fc69644"
+      "sha256": "33e0dd82eb58fc4d893ef0fc5ed814f01bec85456f1b88705a8fb1394e8eae81"
     },
     {
       "path": "verification/spec-review.md",
       "kind": "document",
-      "sha256": "cda9fa17e6a2dee5a748c6d0d212b75e266e199cc9f93b20023ee31c7df49acb"
+      "sha256": "b41ae1f7648bc2b152c4dad51e793a7ea106ea407e1201638513260393cd5042"
     },
     {
       "path": "verification/documentary-v1-amendment.md",
@@ -27,6 +27,41 @@
       "path": "verification/documentary-v1-validation.json",
       "kind": "document",
       "sha256": "a7ae9f3efdc385f8c5b50d2f6845daf5c2e4db793b67957d1437d156fae629b3"
+    },
+    {
+      "path": "design/mockups/README.md",
+      "kind": "document",
+      "sha256": "2fd9670fad6cb6b8d53d21f3ba344d5caeb034b71d20f33c81bf4d2f62cb6de3"
+    },
+    {
+      "path": "design/mockups/manifest.json",
+      "kind": "document",
+      "sha256": "cac3477351225d542d109e7e2050d7d9e773ebe105e2164cb8a2ee6893681ca8"
+    },
+    {
+      "path": "verification/mockup-reference-review.md",
+      "kind": "document",
+      "sha256": "51c53a711e6757ba376922cc2b3a8b33205ad89342ec1f7e643f5af0ed603754"
+    },
+    {
+      "path": "verification/mockup-reference-validation.json",
+      "kind": "document",
+      "sha256": "0474a2e1989775f175fdbe2698f3b836007d41ca1145e97079e39b7535d94eaa"
+    },
+    {
+      "path": "design/mockups/dashboard-requisito.png",
+      "kind": "visual-reference",
+      "sha256": "528b6f417a29c23f5ba6012fefd5af8f080514e4cf4d8d6385ec880249df2df8"
+    },
+    {
+      "path": "design/mockups/documentos-sugestoes.png",
+      "kind": "visual-reference",
+      "sha256": "537bd823510bd235aaa6b72a190ea966942002c106daefe17d6d280534dd74fd"
+    },
+    {
+      "path": "design/mockups/verificacoes-pasta-externa.png",
+      "kind": "visual-reference",
+      "sha256": "ba4239690003c6324cf4ebf59e573b97e165866cf76912128adad0850eda24b6"
     }
   ],
   "checks": {

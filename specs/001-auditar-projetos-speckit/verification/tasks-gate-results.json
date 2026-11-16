@@ -1,0 +1,33 @@
+{
+  "observations": [
+    {
+      "exitCode": 0,
+      "stage": "spec",
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "revision": "sha256:65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1"
+    },
+    {
+      "exitCode": 0,
+      "stage": "plan",
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "revision": "sha256:6002634026f05e2338e26c0a754815518089b126e4915cefb3c689967159fb89"
+    },
+    {
+      "exitCode": 0,
+      "stage": "tasks",
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "revision": "sha256:10cb4695b5878f7266660985b30761212f1496a444150c03af80c9372b46f557"
+    }
+  ],
+  "timestampUtc": "2026-11-16T06:34:55.6659095+00:00",
+  "scope": "Documentary task-generation gates only"
+}

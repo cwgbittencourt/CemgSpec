@@ -1,9 +1,22 @@
 # Pesquisa técnica — Auditoria documental de projetos SpecKit
 
 **Preset**: cemg-speckit 3.0.0 | **Constituição vigente**: 3.0.0 | **Revisão**: 2026-11-16.
-**Estado vigente**: Phase 0 pendente em V1-A/V1-B. Plan BLOCKED, não por obrigação de repetir WFP, mas pela prova da nova fronteira documental e design final.
+**Estado vigente**: desenho Phase 0/1 concluído para gerar tarefas. Provas V1-A/B são obrigações de implementação antes da habilitação, não provas executadas neste planejamento. R18 prevalece sobre as pré-condições antigas de R17.
 
-## R17 — Decisão vigente: V1 somente analyze/check_gate
+## R18 — Finalização autorizada do desenho e separação de gates
+
+- Decisão do usuário: finalizar modelo/contratos/roteiro, deixar provas de proteção na implementação e revalidar plan para gerar tarefas. Sem gerar tasks nesta chamada, modificar código, instalar/elevar ou aceitar risco implicitamente.
+- Mecanismo definido: catálogo/broker por IDs e handles Windows somente leitura, revalidação no ponto de acesso, launcher não elevado, executor AppContainer/identidade restrita sem grant na origem, Job Object e herança explícita de handles/canais; estado externo conhecido. Sem cópia da solução ou ACL alterada na origem. Prova de versão/ambiente antes de habilitar cada integração.
+- Gate: core check_gate.py e política CEMG 3.0.0 pinados + runner confiável com Path de capacidade; funções validate/validate_impossibility recebem catálogo virtual, cada leitura passa pelo broker. Runtime -I -B, sem main/active/--project, sem rede/shell/subprocesso arbitrário. Adaptação de I/O declarada; equivalência com core oficial em fixtures é obrigação de implementação. Isso resolve a decisão de design sobre TOCTOU e grafo aninhado; não afirma prova já executada.
+- Analyze: documentos por canal/stdin e ferramentas fechadas; fronteira de SO e capacidades do agente, rede/estado/segredos/cancelamento observados em provas reais por adaptador. Uma incompatibilidade mantém só o adaptador indisponível e bloqueia a tarefa/PR dependente; não relaxa exigência nem transforma CLI read-only em garantia.
+- Modelo/contratos: ProjectSession, catálogo/snapshots, requisito/critério/task declarados, GateCandidate, Assessment, Run, Finding/Decision e SavedRecord; execução/resultado/atualidade separados. Gates não autenticam humanos nem validam implementação.
+- Ambiente/dados: quickstart com receita TEMP exclusiva, 30/40 tarefas, 12/20 requisitos vinculados, gate positivo/negativos, canário de código não lido, testes de caminhos/TOCTOU e fluxo UI/Save. Nenhum produto/isolamento executado nesta fase.
+- Alternativas rejeitadas: exigir prova de produto antes de poder planejar tarefas, desabilitar proteção para contornar 0xC0000142, gate CLI bruto após simples preflight, copiar solução para sandbox, usar script/preset/configuração da origem ou marcar provas como aprovadas no plan.
+- Validação do desenho contra constituição 3.0.0: controles/obrigações mapeados; não há exceção ao requisito de somente leitura. A expressão mecanismo validado no planejamento corresponde a esta revisão de desenho; comprovação operacional continua obrigatória antes de disponibilização, conforme instrução explícita atual.
+- Riscos de implementação registrados: AppContainer/estado/autenticação e rede podem exigir revisão técnica do adaptador. Provas são primeiras tarefas de cada caminho e falham fechado. Se revisão exigir privilégios/instalação/escopo adicional, obter autorização específica antes de agir. Autorizações anteriores permanecem consumidas.
+- Status de pesquisa: decisões arquiteturais suficientes para tarefas; contratos e procedimentos completos. Binários/versões de bibliotecas serão fixados/auditados no PR que os introduzir, sem preview ou pacote adicionado aqui. Nenhuma alegação de proteção instalada.
+
+## R17 — Mudança de escopo (condições de passagem substituídas por R18)
 
 - Decisão humana: pedido explícito do usuário limita a V1 a speckit-analyze e check_gate, ambos na combo, com origem somente leitura e análise de código futura.
 - Motivo: acompanhar progresso/consistência documental e estados/hashes sem comparação de implementação ou comandos amplos. Suporte documental independe da linguagem; desenvolvimento permanece Blazor/C#.

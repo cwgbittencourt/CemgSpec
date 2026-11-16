@@ -21,6 +21,12 @@ A combo de verificações contém exatamente duas opções: **speckit-analyze �
 
 Fora da V1: leitura/análise de código-fonte, comparação requisito–implementação, parser C#/Razor, converge, checklist, clarify e demais comandos; inventário/consulta de vulnerabilidades da solução carregada; execução de solução, testes, builds, restore, serviços ou scripts/hooks da origem. Sem shell livre, comandos encadeados, cópia isolada da solução ou edição seguida de restauração. PDF, diagramas além de Mermaid e serviço com app fechado continuam excluídos. A auditoria de vulnerabilidades do próprio SpecAudit durante desenvolvimento/manutenção permanece obrigatória.
 
+## Referências visuais aprovadas
+
+Os três mockups aprovados estão versionados em [design/mockups/README.md](design/mockups/README.md), com [dashboard/ficha](design/mockups/dashboard-requisito.png), [documentos/sugestões](design/mockups/documentos-sugestoes.png) e [verificações/pasta externa](design/mockups/verificacoes-pasta-externa.png). A implementação deve preservar sua identidade visual, estrutura de navegação, hierarquia, cards/painéis e linguagem de cores/temas, observando o guia de adaptação para V1. Os arquivos originais permanecem sem edição e têm hashes no manifesto local.
+
+As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e estados antigos NÃO ampliam o escopo: apenas speckit-analyze/check_gate na combo, análise exclusivamente documental, nenhuma leitura de código ou execução de testes/builds/restore da solução, sem cópia isolada, relatórios oficiais só por Salvar externo e habilitação após prova de proteção. Especificação/contratos atuais prevalecem. Não reproduzir erros de texto da imagem ou confundir mockup com software/teste demonstrado; não se exige cópia pixel a pixel.
+
 ## Cenários de uso e teste — obrigatório
 
 ### US1 — Carregar e preservar o projeto — Prioridade P1
@@ -228,7 +234,7 @@ A história US7 e seus antigos critérios US7-AC01 a US7-AC03 ficam reservados p
 
 #### Critérios de aceite
 
-- US8-AC01: Oferecer Dashboard, Requisitos, Documentos, Verificações e Sugestões, com projeto/origem somente leitura/destino visíveis; azul, lilás, branco e cinza; tema escuro inicial e claro opcional.
+- US8-AC01: Preservar a identidade/estrutura visual dos mockups registrados em design/mockups/README.md, aplicando obrigatoriamente suas adaptações de comportamento à V1. Oferecer Dashboard, Requisitos, Documentos, Verificações e Sugestões, com projeto/origem somente leitura/destino visíveis; azul, lilás, branco e cinza; tema escuro inicial e claro opcional.
 - US8-AC02: Preservar conteúdo/seleção ao trocar tema; estados e gravidades têm texto/ícone, sem depender somente de cor.
 
 #### Cenários de aceite

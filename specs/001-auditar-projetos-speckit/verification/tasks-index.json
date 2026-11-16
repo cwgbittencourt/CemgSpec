@@ -1,0 +1,2145 @@
+{
+  "schemaVersion": 1,
+  "scope": "Generated task planning only; not implementation",
+  "tasks": [
+    {
+      "id": "T001",
+      "key": "env",
+      "story": null,
+      "pr": "PR-A",
+      "desc": "Conferir SDK .NET10/C# estáveis, Windows e ferramentas existentes; fixar framework estável de testes e auditar dependências diretas/transitivas antes de introduzi-las em tests/SpecAudit.Tests/SpecAudit.Tests.csproj, tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj e tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj; registrar evidence/setup-validation.md.",
+      "origin": "plan contexto; quickstart; constituição VII",
+      "deps": [],
+      "verify": "Reutilizar testes adequados se existirem; dotnet --info, dotnet restore/test dos projetos próprios e dotnet list package --vulnerable --include-transitive; registrar falha de consulta, versões e smoke.",
+      "expected": "Projetos de teste próprios executáveis e dependências auditadas; nada instalado/elevado automaticamente ou executado na solução auditada.",
+      "paths": [
+        "tests/SpecAudit.Tests/SpecAudit.Tests.csproj",
+        "tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj",
+        "tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj",
+        "evidence/setup-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": []
+    },
+    {
+      "id": "T002",
+      "key": "fixture",
+      "story": null,
+      "pr": "PR-A",
+      "desc": "Preparar gerador e instrumentação de fixtures em tests/SpecAudit.Windows.Tests/Fixtures/DocumentaryFixture.cs e tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs a partir da receita de quickstart.md; sem inserir dados de usuário.",
+      "origin": "quickstart receita e observação",
+      "deps": [
+        "env"
+      ],
+      "verify": "Gerar duas raízes TEMP exclusivas, 30/40 tarefas e 12/20 requisitos, gates positivos/negativos, .cs canário e reparse/TOCTOU com barreira de sincronização; instrumentar path/operação/resultado e validar conjunto/hashes.",
+      "expected": "Fixture e logs técnicos externos reproduzíveis; leitura indevida detectável antes de conteúdo; limpeza só sob raiz sintética resolvida e autorizada.",
+      "paths": [
+        "tests/SpecAudit.Windows.Tests/Fixtures/DocumentaryFixture.cs",
+        "tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T001"
+      ]
+    },
+    {
+      "id": "T003",
+      "key": "host",
+      "story": null,
+      "pr": "PR-A",
+      "desc": "Configurar sessão local, loopback, validação Host/Origin e antiforgery em SpecAudit/Program.cs e SpecAudit/Application/LocalSessionService.cs; controles de verificações/Save iniciam indisponíveis.",
+      "origin": "contracts/application.md sessão; constituição VI",
+      "deps": [
+        "env"
+      ],
+      "verify": "Iniciar host próprio http://127.0.0.1:5187; testar host/origin indevidos, IDs de outra sessão e ações mutantes sem validação; inspecionar logs sem conteúdo.",
+      "expected": "Só sessão/loopback válidos; nenhuma execução ou persistência automática; estado inseguro não exposto.",
+      "paths": [
+        "SpecAudit/Program.cs",
+        "SpecAudit/Application/LocalSessionService.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T001"
+      ]
+    },
+    {
+      "id": "T004",
+      "key": "baseTests",
+      "story": null,
+      "pr": "PR-A",
+      "desc": "Escrever testes de identidade/estado/contratos em tests/SpecAudit.Tests/SessionContractTests.cs e tests/SpecAudit.Windows.Tests/ExecutionContractTests.cs antes dos modelos/launcher.",
+      "origin": "data-model identidade/estados; contracts/verification.md",
+      "deps": [
+        "fixture",
+        "host"
+      ],
+      "verify": "Exercitar IDs cruzados, CapabilityAvailability separado de RunState, ausência de selo, canal de outro RunId, cancelamento e geração; observar falha por regra ausente, não ambiente quebrado.",
+      "expected": "Testes detectam bypass de sessão/capacidade e transições inválidas; modelo ainda não implementado não é prova funcional.",
+      "paths": [
+        "tests/SpecAudit.Tests/SessionContractTests.cs",
+        "tests/SpecAudit.Windows.Tests/ExecutionContractTests.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T002",
+        "T003"
+      ]
+    },
+    {
+      "id": "T005",
+      "key": "baseModel",
+      "story": null,
+      "pr": "PR-A",
+      "desc": "Definir ProjectSession/Feature, catálogo/snapshot, ProtectionAssessment e estados compartilhados em SpecAudit/Domain/ProjectSession.cs, SpecAudit/Domain/DocumentSnapshot.cs e SpecAudit/Domain/ProtectionAssessment.cs, observando as citações do modelo abaixo.",
+      "origin": "data-model entidades e estados",
+      "deps": [
+        "baseTests"
+      ],
+      "verify": "Rodar SessionContractTests com chaves contextualizadas, hashes/geração e selos NotVerified/Passed/Failed/Stale da versão/política; assegurar ausência de caminho livre na API.",
+      "expected": "Estado em memória; sem disponibilidade não se cria Run; selo de versão diferente não habilita.",
+      "paths": [
+        "SpecAudit/Domain/ProjectSession.cs",
+        "SpecAudit/Domain/DocumentSnapshot.cs",
+        "SpecAudit/Domain/ProtectionAssessment.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T004"
+      ]
+    },
+    {
+      "id": "T006",
+      "key": "launcher",
+      "story": null,
+      "pr": "PR-A",
+      "desc": "Implementar launcher não elevado, Job Object e canal com handles explícitos em SpecAudit/Infrastructure/Execution/RestrictedLauncher.cs e SpecAudit/Infrastructure/Execution/ExecutionChannel.cs, sem conectar agentes ou origem ainda.",
+      "origin": "contracts/verification.md fronteiras 1–5",
+      "deps": [
+        "baseModel"
+      ],
+      "verify": "Usar harness benigno da fixture; conferir identidade restrita, recusa de RunId/token alheio, herança mínima, limite técnico versionado e término de todos os descendentes; registrar erros reais inclusive startup.",
+      "expected": "Nenhum acesso direto à origem, shell livre, elevação, instalação ou ACL da solução; falha deixa disponibilidade pendente.",
+      "paths": [
+        "SpecAudit/Infrastructure/Execution/RestrictedLauncher.cs",
+        "SpecAudit/Infrastructure/Execution/ExecutionChannel.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T005"
+      ]
+    },
+    {
+      "id": "T007",
+      "key": "limits",
+      "story": null,
+      "pr": "PR-A",
+      "desc": "Implementar registro de capacidade e limites internos em SpecAudit/Application/CapabilityRegistry.cs e SpecAudit/Infrastructure/Execution/ExecutionLimits.cs; calibrar em fixtures e documentar em evidence/capability-contract.md.",
+      "origin": "data-model limites; contracts/verification.md habilitação",
+      "deps": [
+        "launcher"
+      ],
+      "verify": "Validar ausência/expiração de selo, política/binário/ambiente alterados, limite de tamanho/profundidade/saída/duração e cancelamento inconclusivo.",
+      "expected": "Excesso gera LimitExceeded/Inconclusive explícito, sem READY parcial; nenhuma prova marcada Passed por default.",
+      "paths": [
+        "SpecAudit/Application/CapabilityRegistry.cs",
+        "SpecAudit/Infrastructure/Execution/ExecutionLimits.cs",
+        "evidence/capability-contract.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T006"
+      ]
+    },
+    {
+      "id": "T008",
+      "key": "us1tests",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Escrever testes US1-S01–S04 em tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs e tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs antes da integração.",
+      "origin": "US1-AC01/02/03/04",
+      "deps": [
+        "limits"
+      ],
+      "verify": "Usar duas funcionalidades, destinos interno/externo, prefixos semelhantes, junções e mudança concorrente; observar acessos, criação/alteração/rename/delete por pai/filho.",
+      "expected": "Falhas relevantes detectadas; testes não dependem de agente/gate/writer futuros.",
+      "paths": [
+        "tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs",
+        "tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T007"
+      ]
+    },
+    {
+      "id": "T009",
+      "key": "broker",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Implementar catálogo e broker por IDs/handles somente leitura em SpecAudit/Infrastructure/Documents/DocumentCatalog.cs e SpecAudit/Infrastructure/Documents/DocumentBroker.cs; revalidar contenção no ponto real de leitura.",
+      "origin": "US1-AC01/02; contracts/verification.md ReadDocumentCapability",
+      "deps": [
+        "us1tests"
+      ],
+      "verify": "Executar testes Windows de abertura permitida, .cs/.razor/config e arquivo fora do catálogo negados antes de ler; junction trocada e arquivo substituído geram OutOfScope/Changed.",
+      "expected": "Somente docs/registros reconhecidos, não só extensão; sem cópia da solução, write/delete/ACL ou pré-checagem isolada vulnerável a TOCTOU.",
+      "paths": [
+        "SpecAudit/Infrastructure/Documents/DocumentCatalog.cs",
+        "SpecAudit/Infrastructure/Documents/DocumentBroker.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T008"
+      ]
+    },
+    {
+      "id": "T010",
+      "key": "readerProof",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Executar prova ReaderBoundary real de pai/filho em evidence/ReaderBoundary-proof.md, com broker/launcher, e guardar Assessment da versão somente se passar.",
+      "origin": "US1-AC02; contrato selo ReaderBoundary",
+      "deps": [
+        "broker"
+      ],
+      "verify": "Rodar ReaderBoundaryTests; tentar create/write/rename/delete e leitura de código/configuração por executor/filho; provar caminho autorizado e edição normal pelo usuário; hashes + instrumentação de acesso.",
+      "expected": "Todas as tentativas indevidas negadas antes de efeito/leitura; origem intacta; qualquer falha mantém selo NotVerified/Failed e bloqueia próxima habilitação.",
+      "paths": [
+        "evidence/ReaderBoundary-proof.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T009"
+      ]
+    },
+    {
+      "id": "T011",
+      "key": "projectEnable",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Implementar picker nativo e habilitar OpenProject/ChangeOutputDirectory somente com ReaderBoundary Passed em SpecAudit/Application/ProjectService.cs e SpecAudit/Components/Pages/Projects.razor.",
+      "origin": "US1-AC01/02/03",
+      "deps": [
+        "readerProof"
+      ],
+      "verify": "Abrir fixture com origem/destino, recusar interno e junction, alternar projeto e mudar destino; repetir com selo ausente/adulterado.",
+      "expected": "Sem selo válido a operação fica indisponível; origem/destino/contextos separados e nenhum registro criado.",
+      "paths": [
+        "SpecAudit/Application/ProjectService.cs",
+        "SpecAudit/Components/Pages/Projects.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T010"
+      ]
+    },
+    {
+      "id": "T012",
+      "key": "watch",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Implementar geração/invalidação documental em SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs e integração de ProjectService.cs, preservando edição externa.",
+      "origin": "US1-AC04",
+      "deps": [
+        "projectEnable"
+      ],
+      "verify": "Editar documento durante leitura, entre Prepare/Execute e antes de Save; verificar Stale/Changed e falta de monitoramento de conteúdo de código.",
+      "expected": "Não mistura snapshots, não restaura, não dispara agente/gate; troca de projeto cancela trabalho próprio sem salvar.",
+      "paths": [
+        "SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs",
+        "SpecAudit/Application/ProjectService.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T011"
+      ]
+    },
+    {
+      "id": "T013",
+      "key": "US1run",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Executar os cenários US1-S01–S04 / US1-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US1-validation.md.",
+      "origin": "US1-S01–S04 / US1-AC01–AC04",
+      "deps": [
+        "watch"
+      ],
+      "verify": "Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar.",
+      "expected": "Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração.",
+      "paths": [
+        "evidence/US1-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T012"
+      ]
+    },
+    {
+      "id": "T014",
+      "key": "US1review",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Revisar diff, critérios, contratos, segurança e resultados da versão de US1 em evidence/US1-review.md, declarando autorrevisão.",
+      "origin": "US1-S01–S04 / US1-AC01–AC04",
+      "deps": [
+        "US1run"
+      ],
+      "verify": "Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites.",
+      "expected": "Review atual com achados rastreáveis; nenhum aceite humano preenchido.",
+      "paths": [
+        "evidence/US1-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T013"
+      ]
+    },
+    {
+      "id": "T015",
+      "key": "US1fix",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Resolver achados de US1 e repetir checks afetados em evidence/US1-validation.md e evidence/US1-review.md; se nenhum, registrar referência à revisão real.",
+      "origin": "US1-S01–S04 / US1-AC01–AC04",
+      "deps": [
+        "US1review"
+      ],
+      "verify": "Corrigir somente escopo autorizado, executar novamente cenários/regressão afetados e renovar versão/hashes/review.",
+      "expected": "Sem impeditivo aberto para fechamento normal; se inviável, manter bloqueado, sem converter falha em aprovação.",
+      "paths": [
+        "evidence/US1-validation.md",
+        "evidence/US1-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T014"
+      ]
+    },
+    {
+      "id": "T016",
+      "key": "US1dev",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Consolidar e conferir roteiro reproduzível em validation/US1-dev.md e registrar estado técnico em acceptance/US1.md, mantendo decisão do DEV pendente.",
+      "origin": "US1-S01–S04 / US1-AC01–AC04",
+      "deps": [
+        "US1fix"
+      ],
+      "verify": "Iniciar incremento e repetir passos IA, fornecer mesmos dados/entrada/resultado ao DEV; se impossível, rascunhar dev-impossibility-template com causa/risco sem confirmar pelo DEV.",
+      "expected": "Roteiro distingue ESCRITO/conferido/executado pelo DEV; nenhuma checkbox de aprovação humana; aceite só por decisão atribuível.",
+      "paths": [
+        "validation/US1-dev.md",
+        "acceptance/US1.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T015"
+      ]
+    },
+    {
+      "id": "T017",
+      "key": "pratests",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Executar a verificação do incremento PR-A e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-A-validation.md.",
+      "origin": "US1; fundação e proteção de leitura",
+      "deps": [
+        "US1dev"
+      ],
+      "verify": "Rodar suítes aplicáveis descritas nas tarefas precedentes e host/harness de quickstart.md; coletar comando/cwd/versão/entrada/esperado/observado/efeitos.",
+      "expected": "Testes e comportamento do escopo deste PR comprovados ou bloqueio registrado; não exigir funcionalidade de PR futuro.",
+      "paths": [
+        "evidence/PR-A-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T016"
+      ]
+    },
+    {
+      "id": "T018",
+      "key": "prareview",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Revisar o incremento completo PR-A em evidence/PR-A-review.md com diff incremental, limites e achados por arquivo/linha.",
+      "origin": "US1; fundação e proteção de leitura",
+      "deps": [
+        "pratests"
+      ],
+      "verify": "Inspecionar diff e evidências da revisão candidata; verificar integração dos componentes e invariantes; declarar autorrevisão.",
+      "expected": "Review rastreável; não inferir revisão humana ou aprovação de PR.",
+      "paths": [
+        "evidence/PR-A-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T017"
+      ]
+    },
+    {
+      "id": "T019",
+      "key": "prafix",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Resolver e revalidar achados do PR-A em evidence/PR-A-validation.md e evidence/PR-A-review.md; registrar nenhum achado somente com review real.",
+      "origin": "US1; fundação e proteção de leitura",
+      "deps": [
+        "prareview"
+      ],
+      "verify": "Após correção ou mudança de base, repetir checks afetados e renovar revisão/hashes; sem possibilidade, registrar causa e dependentes bloqueados.",
+      "expected": "Nenhum impeditivo aberto para integração normal; resultados reais preservados.",
+      "paths": [
+        "evidence/PR-A-validation.md",
+        "evidence/PR-A-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T018"
+      ]
+    },
+    {
+      "id": "T020",
+      "key": "pradesc",
+      "story": "US1",
+      "pr": "PR-A",
+      "desc": "Preparar verification/prs/PR-A.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.",
+      "origin": "US1; fundação e proteção de leitura",
+      "deps": [
+        "prafix"
+      ],
+      "verify": "Conferir descrição contra diff final e template instalado; indicar aprovação humana PENDENTE e condições técnicas reais.",
+      "expected": "PR revisável com validação própria, descrição atual e decisão humana separada; sem publicação automática.",
+      "paths": [
+        "verification/prs/PR-A.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T019"
+      ]
+    },
+    {
+      "id": "T021",
+      "key": "us2tests",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Escrever testes de contrato/preview US2-S01–S04 em tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs e tests/SpecAudit.Tests/DocumentNavigationTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "origin": "US2-AC01/02/03/04",
+      "deps": [
+        "pradesc"
+      ],
+      "verify": "Cobrir todos os recursos do corpus, links quebrados/fora do catálogo, modos e payloads ativos/remotos; observar falha esperada antes de implementar. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
+      "expected": "Asserções detectam conteúdo omitido/ativo e navegação indevida; sem fonte/code scan.",
+      "paths": [
+        "tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs",
+        "tests/SpecAudit.Tests/DocumentNavigationTests.cs"
+      ],
+      "parallel": true,
+      "dependsOn": [
+        "T020"
+      ]
+    },
+    {
+      "id": "T022",
+      "key": "preview",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Selecionar/fixar parser Markdown, sanitizador e Mermaid locais auditados e implementar renderização em SpecAudit/Infrastructure/Documents/MarkdownRenderer.cs e SpecAudit/wwwroot/lib/preview/; nenhum CDN.",
+      "origin": "US2-AC02/03/04; constituição VII",
+      "deps": [
+        "us2tests"
+      ],
+      "verify": "Auditar componentes diretos/transitivos, licenças/versões e hashes antes de introduzir; rodar corpus offline, Mermaid inválido/PlantUML fonte e HTML ativo.",
+      "expected": "Títulos/listas/tarefas não editáveis/tabelas/citações/imagens/código em documento corretos; só Mermaid renderizado; scripts bloqueados.",
+      "paths": [
+        "SpecAudit/Infrastructure/Documents/MarkdownRenderer.cs",
+        "SpecAudit/wwwroot/lib/preview/"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T021"
+      ]
+    },
+    {
+      "id": "T023",
+      "key": "previewSafe",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Validar segurança e navegação do preview antes de conectá-lo à UI em evidence/preview-safety.md, usando assets via broker.",
+      "origin": "US2-AC01/03/04",
+      "deps": [
+        "preview"
+      ],
+      "verify": "Rodar DocumentNavigationTests e testes reais de renderer; verificar scripts/formulários, SVG/HTML/Mermaid não confiáveis, rede automática zero, links/âncoras/catalog e imagens remotas somente por ação explícita sem credenciais.",
+      "expected": "Qualquer payload ativo ou leitura fora do catálogo impede habilitação do preview; todos os efeitos observados registrados.",
+      "paths": [
+        "evidence/preview-safety.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T022"
+      ]
+    },
+    {
+      "id": "T024",
+      "key": "docsUI",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Integrar árvore/busca/âncoras e Preview/Fonte/Lado a lado em SpecAudit/Components/Pages/Documents.razor e SpecAudit/Components/Documents/MarkdownPreview.razor após validação de segurança. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US2-AC01/02/03/04",
+      "deps": [
+        "previewSafe"
+      ],
+      "verify": "Rodar MarkdownPreviewTests no host e comparar corpus ao preview padrão VS Code sem extensões; autorizar imagem na sessão e navegar links externos por clique. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/documentos-sugestoes.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Sem edição, scripts ou rede silenciosa; equivalência de conteúdo e fontes/limitações visíveis.",
+      "paths": [
+        "SpecAudit/Components/Pages/Documents.razor",
+        "SpecAudit/Components/Documents/MarkdownPreview.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T023"
+      ],
+      "visualReference": "design/mockups/documentos-sugestoes.png"
+    },
+    {
+      "id": "T025",
+      "key": "US2run",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Executar os cenários US2-S01–S04 / US2-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US2-validation.md.",
+      "origin": "US2-S01–S04 / US2-AC01–AC04",
+      "deps": [
+        "docsUI"
+      ],
+      "verify": "Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar.",
+      "expected": "Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração.",
+      "paths": [
+        "evidence/US2-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T024"
+      ]
+    },
+    {
+      "id": "T026",
+      "key": "US2review",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Revisar diff, critérios, contratos, segurança e resultados da versão de US2 em evidence/US2-review.md, declarando autorrevisão.",
+      "origin": "US2-S01–S04 / US2-AC01–AC04",
+      "deps": [
+        "US2run"
+      ],
+      "verify": "Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites.",
+      "expected": "Review atual com achados rastreáveis; nenhum aceite humano preenchido.",
+      "paths": [
+        "evidence/US2-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T025"
+      ]
+    },
+    {
+      "id": "T027",
+      "key": "US2fix",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Resolver achados de US2 e repetir checks afetados em evidence/US2-validation.md e evidence/US2-review.md; se nenhum, registrar referência à revisão real.",
+      "origin": "US2-S01–S04 / US2-AC01–AC04",
+      "deps": [
+        "US2review"
+      ],
+      "verify": "Corrigir somente escopo autorizado, executar novamente cenários/regressão afetados e renovar versão/hashes/review.",
+      "expected": "Sem impeditivo aberto para fechamento normal; se inviável, manter bloqueado, sem converter falha em aprovação.",
+      "paths": [
+        "evidence/US2-validation.md",
+        "evidence/US2-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T026"
+      ]
+    },
+    {
+      "id": "T028",
+      "key": "US2dev",
+      "story": "US2",
+      "pr": "PR-B",
+      "desc": "Consolidar e conferir roteiro reproduzível em validation/US2-dev.md e registrar estado técnico em acceptance/US2.md, mantendo decisão do DEV pendente.",
+      "origin": "US2-S01–S04 / US2-AC01–AC04",
+      "deps": [
+        "US2fix"
+      ],
+      "verify": "Iniciar incremento e repetir passos IA, fornecer mesmos dados/entrada/resultado ao DEV; se impossível, rascunhar dev-impossibility-template com causa/risco sem confirmar pelo DEV.",
+      "expected": "Roteiro distingue ESCRITO/conferido/executado pelo DEV; nenhuma checkbox de aprovação humana; aceite só por decisão atribuível.",
+      "paths": [
+        "validation/US2-dev.md",
+        "acceptance/US2.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T027"
+      ]
+    },
+    {
+      "id": "T029",
+      "key": "us3tests",
+      "story": "US3",
+      "pr": "PR-B",
+      "desc": "Escrever testes US3-S01–S04 em tests/SpecAudit.Tests/DocumentaryProgressTests.cs e tests/SpecAudit.Ui.Tests/DashboardTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "origin": "US3-AC01/02/03/04",
+      "deps": [
+        "pradesc"
+      ],
+      "verify": "Usar fixture 30/40 e 12/20, escopo vazio, links ambíguos, READY documental e documento alterado; testar fórmula/procedência sem código. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
+      "expected": "Teste falha se checkbox/hash virar implementação, denominador omitir inconclusivos ou atualização executar agente.",
+      "paths": [
+        "tests/SpecAudit.Tests/DocumentaryProgressTests.cs",
+        "tests/SpecAudit.Ui.Tests/DashboardTests.cs"
+      ],
+      "parallel": true,
+      "dependsOn": [
+        "T020"
+      ]
+    },
+    {
+      "id": "T030",
+      "key": "progress",
+      "story": "US3",
+      "pr": "PR-B",
+      "desc": "Definir TaskDeclaration/DashboardProjection e projeções em SpecAudit/Domain/TaskDeclaration.cs, SpecAudit/Domain/DashboardProjection.cs e SpecAudit/Application/DocumentaryDashboardService.cs; observar constraints literais abaixo.",
+      "origin": "US3-AC01/02/03/04; data-model",
+      "deps": [
+        "us3tests"
+      ],
+      "verify": "Rodar DocumentaryProgressTests com contagens, duplicidades e vínculos explícitos versus inferidos; usar apenas snapshots do broker; marcar Stale por geração.",
+      "expected": "75% declarado e 60% documental, vazio NoItems; nenhum score de implementação ou leitura de código; update sem agente/gate.",
+      "paths": [
+        "SpecAudit/Domain/TaskDeclaration.cs",
+        "SpecAudit/Domain/DashboardProjection.cs",
+        "SpecAudit/Application/DocumentaryDashboardService.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T029"
+      ]
+    },
+    {
+      "id": "T031",
+      "key": "dashboardUI",
+      "story": "US3",
+      "pr": "PR-B",
+      "desc": "Implementar indicadores/ocorrências/filtros e fonte/atualidade em SpecAudit/Components/Pages/Dashboard.razor, preservando procedência documental. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US3-AC01/02/03/04",
+      "deps": [
+        "progress"
+      ],
+      "verify": "Rodar DashboardTests no host; seguir cada número/ocorrência até fonte autorizada, aplicar filtros e editar documento enquanto aberto. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/dashboard-requisito.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Contagens e regra explícitas; fonte e revisão visíveis; registro READY não é teste/aceite; alteração invalida sem execução automática.",
+      "paths": [
+        "SpecAudit/Components/Pages/Dashboard.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T030"
+      ],
+      "visualReference": "design/mockups/dashboard-requisito.png"
+    },
+    {
+      "id": "T032",
+      "key": "US3run",
+      "story": "US3",
+      "pr": "PR-B",
+      "desc": "Executar os cenários US3-S01–S04 / US3-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US3-validation.md.",
+      "origin": "US3-S01–S04 / US3-AC01–AC04",
+      "deps": [
+        "dashboardUI"
+      ],
+      "verify": "Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar.",
+      "expected": "Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração.",
+      "paths": [
+        "evidence/US3-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T031"
+      ]
+    },
+    {
+      "id": "T033",
+      "key": "US3review",
+      "story": "US3",
+      "pr": "PR-B",
+      "desc": "Revisar diff, critérios, contratos, segurança e resultados da versão de US3 em evidence/US3-review.md, declarando autorrevisão.",
+      "origin": "US3-S01–S04 / US3-AC01–AC04",
+      "deps": [
+        "US3run"
+      ],
+      "verify": "Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites.",
+      "expected": "Review atual com achados rastreáveis; nenhum aceite humano preenchido.",
+      "paths": [
+        "evidence/US3-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T032"
+      ]
+    },
+    {
+      "id": "T034",
+      "key": "US3fix",
+      "story": "US3",
+      "pr": "PR-B",
+      "desc": "Resolver achados de US3 e repetir checks afetados em evidence/US3-validation.md e evidence/US3-review.md; se nenhum, registrar referência à revisão real.",
+      "origin": "US3-S01–S04 / US3-AC01–AC04",
+      "deps": [
+        "US3review"
+      ],
+      "verify": "Corrigir somente escopo autorizado, executar novamente cenários/regressão afetados e renovar versão/hashes/review.",
+      "expected": "Sem impeditivo aberto para fechamento normal; se inviável, manter bloqueado, sem converter falha em aprovação.",
+      "paths": [
+        "evidence/US3-validation.md",
+        "evidence/US3-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T033"
+      ]
+    },
+    {
+      "id": "T035",
+      "key": "US3dev",
+      "story": "US3",
+      "pr": "PR-B",
+      "desc": "Consolidar e conferir roteiro reproduzível em validation/US3-dev.md e registrar estado técnico em acceptance/US3.md, mantendo decisão do DEV pendente.",
+      "origin": "US3-S01–S04 / US3-AC01–AC04",
+      "deps": [
+        "US3fix"
+      ],
+      "verify": "Iniciar incremento e repetir passos IA, fornecer mesmos dados/entrada/resultado ao DEV; se impossível, rascunhar dev-impossibility-template com causa/risco sem confirmar pelo DEV.",
+      "expected": "Roteiro distingue ESCRITO/conferido/executado pelo DEV; nenhuma checkbox de aprovação humana; aceite só por decisão atribuível.",
+      "paths": [
+        "validation/US3-dev.md",
+        "acceptance/US3.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T034"
+      ]
+    },
+    {
+      "id": "T036",
+      "key": "us4tests",
+      "story": "US4",
+      "pr": "PR-B",
+      "desc": "Escrever testes US4-S01–S04 em tests/SpecAudit.Tests/RequirementTraceTests.cs e tests/SpecAudit.Ui.Tests/RequirementSheetTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "origin": "US4-AC01/02/03/04",
+      "deps": [
+        "dashboardUI",
+        "docsUI"
+      ],
+      "verify": "Testar IDs iguais em funcionalidades diferentes, duplicados na mesma, vínculo inferido, ausência/ambiguidade e referências a código/configuração. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
+      "expected": "Sem merge indevido de IDs, conclusão de implementação ou leitura de destino proibido.",
+      "paths": [
+        "tests/SpecAudit.Tests/RequirementTraceTests.cs",
+        "tests/SpecAudit.Ui.Tests/RequirementSheetTests.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T031",
+        "T024"
+      ]
+    },
+    {
+      "id": "T037",
+      "key": "trace",
+      "story": "US4",
+      "pr": "PR-B",
+      "desc": "Definir Requirement/Criterion/EvidenceLink/Finding e serviço de rastreabilidade em SpecAudit/Domain/Requirement.cs, SpecAudit/Domain/EvidenceLink.cs, SpecAudit/Domain/Finding.cs e SpecAudit/Application/RequirementTraceService.cs com as constraints literais abaixo.",
+      "origin": "US4-AC01/02/03/04; data-model",
+      "deps": [
+        "us4tests"
+      ],
+      "verify": "Rodar RequirementTraceTests em documentos de linguagens diferentes; navegar só DocumentIds autorizados; validar fontes/hash e evidência insuficiente.",
+      "expected": "CoverageState documental e proveniência explícita/inferida; referências a fonte viram OutOfScope e não código aberto.",
+      "paths": [
+        "SpecAudit/Domain/Requirement.cs",
+        "SpecAudit/Domain/EvidenceLink.cs",
+        "SpecAudit/Domain/Finding.cs",
+        "SpecAudit/Application/RequirementTraceService.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T036"
+      ]
+    },
+    {
+      "id": "T038",
+      "key": "sheet",
+      "story": "US4",
+      "pr": "PR-B",
+      "desc": "Implementar ficha em SpecAudit/Components/Pages/Requirements.razor e SpecAudit/Components/Requirements/RequirementSheet.razor com descrição/critério/plano/tarefas/verificações/sugestões documentais. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US4-AC01/02/03/04",
+      "deps": [
+        "trace"
+      ],
+      "verify": "Rodar RequirementSheetTests; abrir vínculos e declarações externas, focar requisito e conferir limite de implementação futura; sem criar arquivo de ficha. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/dashboard-requisito.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Mesma consulta documental independente de linguagem; sem Implemented/NotImplemented ou aceite pela IA; pontos para combo posterior sem executar nada.",
+      "paths": [
+        "SpecAudit/Components/Pages/Requirements.razor",
+        "SpecAudit/Components/Requirements/RequirementSheet.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T037"
+      ],
+      "visualReference": "design/mockups/dashboard-requisito.png"
+    },
+    {
+      "id": "T039",
+      "key": "US4run",
+      "story": "US4",
+      "pr": "PR-B",
+      "desc": "Executar os cenários US4-S01–S04 / US4-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US4-validation.md.",
+      "origin": "US4-S01–S04 / US4-AC01–AC04",
+      "deps": [
+        "sheet"
+      ],
+      "verify": "Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar.",
+      "expected": "Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração.",
+      "paths": [
+        "evidence/US4-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T038"
+      ]
+    },
+    {
+      "id": "T040",
+      "key": "US4review",
+      "story": "US4",
+      "pr": "PR-B",
+      "desc": "Revisar diff, critérios, contratos, segurança e resultados da versão de US4 em evidence/US4-review.md, declarando autorrevisão.",
+      "origin": "US4-S01–S04 / US4-AC01–AC04",
+      "deps": [
+        "US4run"
+      ],
+      "verify": "Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites.",
+      "expected": "Review atual com achados rastreáveis; nenhum aceite humano preenchido.",
+      "paths": [
+        "evidence/US4-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T039"
+      ]
+    },
+    {
+      "id": "T041",
+      "key": "US4fix",
+      "story": "US4",
+      "pr": "PR-B",
+      "desc": "Resolver achados de US4 e repetir checks afetados em evidence/US4-validation.md e evidence/US4-review.md; se nenhum, registrar referência à revisão real.",
+      "origin": "US4-S01–S04 / US4-AC01–AC04",
+      "deps": [
+        "US4review"
+      ],
+      "verify": "Corrigir somente escopo autorizado, executar novamente cenários/regressão afetados e renovar versão/hashes/review.",
+      "expected": "Sem impeditivo aberto para fechamento normal; se inviável, manter bloqueado, sem converter falha em aprovação.",
+      "paths": [
+        "evidence/US4-validation.md",
+        "evidence/US4-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T040"
+      ]
+    },
+    {
+      "id": "T042",
+      "key": "US4dev",
+      "story": "US4",
+      "pr": "PR-B",
+      "desc": "Consolidar e conferir roteiro reproduzível em validation/US4-dev.md e registrar estado técnico em acceptance/US4.md, mantendo decisão do DEV pendente.",
+      "origin": "US4-S01–S04 / US4-AC01–AC04",
+      "deps": [
+        "US4fix"
+      ],
+      "verify": "Iniciar incremento e repetir passos IA, fornecer mesmos dados/entrada/resultado ao DEV; se impossível, rascunhar dev-impossibility-template com causa/risco sem confirmar pelo DEV.",
+      "expected": "Roteiro distingue ESCRITO/conferido/executado pelo DEV; nenhuma checkbox de aprovação humana; aceite só por decisão atribuível.",
+      "paths": [
+        "validation/US4-dev.md",
+        "acceptance/US4.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T041"
+      ]
+    },
+    {
+      "id": "T043",
+      "key": "us8tests",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Escrever testes US8-S01/S02 em tests/SpecAudit.Ui.Tests/NavigationThemeTests.cs com estados indisponíveis de verificações e Salvar. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "origin": "US8-AC01/02",
+      "deps": [
+        "sheet"
+      ],
+      "verify": "Percorrer cinco áreas em sessão; trocar tema com ocorrência selecionada; verificar projeto/origem/destino e texto/ícone independente de cor. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
+      "expected": "Nada executa/grava ao navegar; seleção/conteúdo se mantém e incompleto não parece habilitado.",
+      "paths": [
+        "tests/SpecAudit.Ui.Tests/NavigationThemeTests.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T038"
+      ]
+    },
+    {
+      "id": "T044",
+      "key": "shell",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Implementar navegação/tema em SpecAudit/Components/Layout/MainLayout.razor e SpecAudit/wwwroot/app.css; azul/lilás/branco/cinza, escuro inicial e claro opcional, preferência só na sessão. Criar apenas placeholders indisponíveis das áreas Verificações/Sugestões nesses arquivos para que a navegação não dependa de PR-C/E futuros. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US8-AC01/02",
+      "deps": [
+        "us8tests"
+      ],
+      "verify": "Rodar NavigationThemeTests em host real; verificar foco/legibilidade/texto/ícone e contexto ao alternar modos/áreas. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/dashboard-requisito.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Cinco áreas presentes e sem perda de estado; sem autosave de conteúdo ou funcionalidade sem selo.",
+      "paths": [
+        "SpecAudit/Components/Layout/MainLayout.razor",
+        "SpecAudit/wwwroot/app.css",
+        "SpecAudit/Components/Pages/Verifications.razor",
+        "SpecAudit/Components/Pages/Suggestions.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T043"
+      ],
+      "visualReference": "design/mockups/dashboard-requisito.png"
+    },
+    {
+      "id": "T045",
+      "key": "US8run",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Executar os cenários US8-S01/S02 / US8-AC01/02 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US8-validation.md.",
+      "origin": "US8-S01/S02 / US8-AC01/02",
+      "deps": [
+        "shell"
+      ],
+      "verify": "Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar.",
+      "expected": "Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração.",
+      "paths": [
+        "evidence/US8-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T044"
+      ]
+    },
+    {
+      "id": "T046",
+      "key": "US8review",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Revisar diff, critérios, contratos, segurança e resultados da versão de US8 em evidence/US8-review.md, declarando autorrevisão.",
+      "origin": "US8-S01/S02 / US8-AC01/02",
+      "deps": [
+        "US8run"
+      ],
+      "verify": "Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites.",
+      "expected": "Review atual com achados rastreáveis; nenhum aceite humano preenchido.",
+      "paths": [
+        "evidence/US8-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T045"
+      ]
+    },
+    {
+      "id": "T047",
+      "key": "US8fix",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Resolver achados de US8 e repetir checks afetados em evidence/US8-validation.md e evidence/US8-review.md; se nenhum, registrar referência à revisão real.",
+      "origin": "US8-S01/S02 / US8-AC01/02",
+      "deps": [
+        "US8review"
+      ],
+      "verify": "Corrigir somente escopo autorizado, executar novamente cenários/regressão afetados e renovar versão/hashes/review.",
+      "expected": "Sem impeditivo aberto para fechamento normal; se inviável, manter bloqueado, sem converter falha em aprovação.",
+      "paths": [
+        "evidence/US8-validation.md",
+        "evidence/US8-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T046"
+      ]
+    },
+    {
+      "id": "T048",
+      "key": "US8dev",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Consolidar e conferir roteiro reproduzível em validation/US8-dev.md e registrar estado técnico em acceptance/US8.md, mantendo decisão do DEV pendente.",
+      "origin": "US8-S01/S02 / US8-AC01/02",
+      "deps": [
+        "US8fix"
+      ],
+      "verify": "Iniciar incremento e repetir passos IA, fornecer mesmos dados/entrada/resultado ao DEV; se impossível, rascunhar dev-impossibility-template com causa/risco sem confirmar pelo DEV.",
+      "expected": "Roteiro distingue ESCRITO/conferido/executado pelo DEV; nenhuma checkbox de aprovação humana; aceite só por decisão atribuível.",
+      "paths": [
+        "validation/US8-dev.md",
+        "acceptance/US8.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T047"
+      ]
+    },
+    {
+      "id": "T049",
+      "key": "prbtests",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Executar a verificação do incremento PR-B e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-B-validation.md.",
+      "origin": "US2/US3/US4/US8; ReaderBoundary preservado",
+      "deps": [
+        "US8dev",
+        "US2dev",
+        "US3dev",
+        "US4dev"
+      ],
+      "verify": "Rodar suítes aplicáveis descritas nas tarefas precedentes e host/harness de quickstart.md; coletar comando/cwd/versão/entrada/esperado/observado/efeitos.",
+      "expected": "Testes e comportamento do escopo deste PR comprovados ou bloqueio registrado; não exigir funcionalidade de PR futuro.",
+      "paths": [
+        "evidence/PR-B-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T048",
+        "T028",
+        "T035",
+        "T042"
+      ]
+    },
+    {
+      "id": "T050",
+      "key": "prbreview",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Revisar o incremento completo PR-B em evidence/PR-B-review.md com diff incremental, limites e achados por arquivo/linha.",
+      "origin": "US2/US3/US4/US8; ReaderBoundary preservado",
+      "deps": [
+        "prbtests"
+      ],
+      "verify": "Inspecionar diff e evidências da revisão candidata; verificar integração dos componentes e invariantes; declarar autorrevisão.",
+      "expected": "Review rastreável; não inferir revisão humana ou aprovação de PR.",
+      "paths": [
+        "evidence/PR-B-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T049"
+      ]
+    },
+    {
+      "id": "T051",
+      "key": "prbfix",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Resolver e revalidar achados do PR-B em evidence/PR-B-validation.md e evidence/PR-B-review.md; registrar nenhum achado somente com review real.",
+      "origin": "US2/US3/US4/US8; ReaderBoundary preservado",
+      "deps": [
+        "prbreview"
+      ],
+      "verify": "Após correção ou mudança de base, repetir checks afetados e renovar revisão/hashes; sem possibilidade, registrar causa e dependentes bloqueados.",
+      "expected": "Nenhum impeditivo aberto para integração normal; resultados reais preservados.",
+      "paths": [
+        "evidence/PR-B-validation.md",
+        "evidence/PR-B-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T050"
+      ]
+    },
+    {
+      "id": "T052",
+      "key": "prbdesc",
+      "story": "US8",
+      "pr": "PR-B",
+      "desc": "Preparar verification/prs/PR-B.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.",
+      "origin": "US2/US3/US4/US8; ReaderBoundary preservado",
+      "deps": [
+        "prbfix"
+      ],
+      "verify": "Conferir descrição contra diff final e template instalado; indicar aprovação humana PENDENTE e condições técnicas reais.",
+      "expected": "PR revisável com validação própria, descrição atual e decisão humana separada; sem publicação automática.",
+      "paths": [
+        "verification/prs/PR-B.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T051"
+      ]
+    },
+    {
+      "id": "T053",
+      "key": "gateTests",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Escrever testes de contrato gate US5-S06/S07 e disponibilidade/seleção US5-S03/S05 em tests/SpecAudit.Windows.Tests/GateAdapterTests.cs e tests/SpecAudit.Ui.Tests/VerificationSelectionTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "origin": "US5-AC03/05/06/07",
+      "deps": [
+        "prbdesc"
+      ],
+      "verify": "Cobrir READY/BLOCKED/DEV_IMPOSSIBILITY_RECORDED, hash/revisão inválidos, logs/artifacts aninhados, .cs/junção/TOCTOU, ausência Python/selos e nenhum agente/rede. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
+      "expected": "Teste distingue resultado core de erro/cancelamento; detecta leitura indevida e terceira opção/execução ao selecionar.",
+      "paths": [
+        "tests/SpecAudit.Windows.Tests/GateAdapterTests.cs",
+        "tests/SpecAudit.Ui.Tests/VerificationSelectionTests.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T052"
+      ]
+    },
+    {
+      "id": "T054",
+      "key": "runModel",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Definir GateCandidate/VerificationRun e máquina de estados em SpecAudit/Domain/GateCandidate.cs, SpecAudit/Domain/VerificationRun.cs e SpecAudit/Application/VerificationService.cs; conservar enum de só duas opções.",
+      "origin": "US5-AC03/05/06/07; data-model",
+      "deps": [
+        "gateTests"
+      ],
+      "verify": "Rodar testes de estados com Availability separado, preparação vencida, cancelamento sem término e gate de funcionalidade na ficha; validar ownership de IDs.",
+      "expected": "Sem disponibilidade não cria Run; Preparing pode Blocked; falha não é requisito reprovado; sem approval de IA.",
+      "paths": [
+        "SpecAudit/Domain/GateCandidate.cs",
+        "SpecAudit/Domain/VerificationRun.cs",
+        "SpecAudit/Application/VerificationService.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T053"
+      ]
+    },
+    {
+      "id": "T055",
+      "key": "gateCore",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Empacotar core check_gate.py e gate-requirements.json CEMG 3.0.0 com hashes e runtime Python absoluto conferido em SpecAudit/Infrastructure/Gates/Core/ e SpecAudit/Infrastructure/Gates/GatePackage.cs; não importar script da origem.",
+      "origin": "US5-AC06/07; contracts/verification.md CheckGate",
+      "deps": [
+        "runModel"
+      ],
+      "verify": "Comparar bytes/hashes ao preset confiável instalado; rejeitar core/política/runtime alterados; auditar componentes; ausência de Python comunica indisponibilidade sem instalar.",
+      "expected": "Pacote confiável versionado, adaptação identificada, sem --project/main/active e sem alteração do preset original.",
+      "paths": [
+        "SpecAudit/Infrastructure/Gates/Core/check_gate.py",
+        "SpecAudit/Infrastructure/Gates/Core/policies/gate-requirements.json",
+        "SpecAudit/Infrastructure/Gates/GatePackage.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T054"
+      ]
+    },
+    {
+      "id": "T056",
+      "key": "gateRunner",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Implementar runner confiável Path de capacidade e cliente broker em SpecAudit/Infrastructure/Gates/runner.py, SpecAudit/Infrastructure/Gates/catalog_path.py e SpecAudit/Infrastructure/Gates/GateExecutor.cs, apenas validate/validate_impossibility.",
+      "origin": "US5-AC05/06/07; contrato CheckGate",
+      "deps": [
+        "gateCore"
+      ],
+      "verify": "Executar GateAdapterTests em fixture com -I -B/cwd externo, sem shell/rede; todas as operações resolve/join/read_bytes/read_text do core usam catálogo/broker, só política do pacote é exceção; testar grafo completo e TOCTOU no ponto da leitura.",
+      "expected": "Não entrega path real da origem ao Python/core, não cria cópia da solução e não abre fonte/configuração; limite/preflight bloqueia sem READY parcial.",
+      "paths": [
+        "SpecAudit/Infrastructure/Gates/runner.py",
+        "SpecAudit/Infrastructure/Gates/catalog_path.py",
+        "SpecAudit/Infrastructure/Gates/GateExecutor.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T055"
+      ]
+    },
+    {
+      "id": "T057",
+      "key": "gateProof",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Executar prova GateAdapter em evidence/GateAdapter-proof.md antes de habilitar gate, comparando core oficial em fixtures versus runner de capacidade; manter apenas dados sintéticos.",
+      "origin": "US5-AC05/06/07; selo GateAdapter",
+      "deps": [
+        "gateRunner"
+      ],
+      "verify": "Rodar GateAdapterTests reais: equivalência de resultados/exit, todos os stages suportados inclusive pr/acceptance/impossibility com fontes atribuídas, offline, cancelamento/descendentes, paths aninhados e .cs/junção negados antes de ler.",
+      "expected": "Equivalência e restrições observadas; falso READY/ausência de prova mantém selo Failed/NotVerified e bloqueia a próxima tarefa.",
+      "paths": [
+        "evidence/GateAdapter-proof.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T056"
+      ]
+    },
+    {
+      "id": "T058",
+      "key": "gateEnable",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Integrar combo compartilhada e habilitar check_gate somente com selo Passed em SpecAudit/Components/Verifications/VerificationSelector.razor e SpecAudit/Components/Pages/Verifications.razor, reutilizando-o na ficha. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US5-AC03/05/06/07",
+      "deps": [
+        "gateProof"
+      ],
+      "verify": "Rodar VerificationSelectionTests no host: exatamente analyze/check_gate, seleção por projeto sincronizada, sem executar ao selecionar; confirmar funcionalidade/etapa/registro/revisão esperada antes do clique Executar. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/verificacoes-pasta-externa.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Gate funciona sem agente/rede; analyze ainda indisponível; botão do gate bloqueado com selo ausente/versão alterada; alcance real visível na ficha.",
+      "paths": [
+        "SpecAudit/Components/Verifications/VerificationSelector.razor",
+        "SpecAudit/Components/Pages/Verifications.razor",
+        "SpecAudit/Components/Requirements/RequirementSheet.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T057"
+      ],
+      "visualReference": "design/mockups/verificacoes-pasta-externa.png"
+    },
+    {
+      "id": "T059",
+      "key": "prctests",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Executar a verificação do incremento PR-C e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-C-validation.md.",
+      "origin": "US5-S03/S05/S06/S07, parcialmente; analyze permanece desabilitado",
+      "deps": [
+        "gateEnable"
+      ],
+      "verify": "Rodar suítes aplicáveis descritas nas tarefas precedentes e host/harness de quickstart.md; coletar comando/cwd/versão/entrada/esperado/observado/efeitos.",
+      "expected": "Testes e comportamento do escopo deste PR comprovados ou bloqueio registrado; não exigir funcionalidade de PR futuro.",
+      "paths": [
+        "evidence/PR-C-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T058"
+      ]
+    },
+    {
+      "id": "T060",
+      "key": "prcreview",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Revisar o incremento completo PR-C em evidence/PR-C-review.md com diff incremental, limites e achados por arquivo/linha.",
+      "origin": "US5-S03/S05/S06/S07, parcialmente; analyze permanece desabilitado",
+      "deps": [
+        "prctests"
+      ],
+      "verify": "Inspecionar diff e evidências da revisão candidata; verificar integração dos componentes e invariantes; declarar autorrevisão.",
+      "expected": "Review rastreável; não inferir revisão humana ou aprovação de PR.",
+      "paths": [
+        "evidence/PR-C-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T059"
+      ]
+    },
+    {
+      "id": "T061",
+      "key": "prcfix",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Resolver e revalidar achados do PR-C em evidence/PR-C-validation.md e evidence/PR-C-review.md; registrar nenhum achado somente com review real.",
+      "origin": "US5-S03/S05/S06/S07, parcialmente; analyze permanece desabilitado",
+      "deps": [
+        "prcreview"
+      ],
+      "verify": "Após correção ou mudança de base, repetir checks afetados e renovar revisão/hashes; sem possibilidade, registrar causa e dependentes bloqueados.",
+      "expected": "Nenhum impeditivo aberto para integração normal; resultados reais preservados.",
+      "paths": [
+        "evidence/PR-C-validation.md",
+        "evidence/PR-C-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T060"
+      ]
+    },
+    {
+      "id": "T062",
+      "key": "prcdesc",
+      "story": "US5",
+      "pr": "PR-C",
+      "desc": "Preparar verification/prs/PR-C.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.",
+      "origin": "US5-S03/S05/S06/S07, parcialmente; analyze permanece desabilitado",
+      "deps": [
+        "prcfix"
+      ],
+      "verify": "Conferir descrição contra diff final e template instalado; indicar aprovação humana PENDENTE e condições técnicas reais.",
+      "expected": "PR revisável com validação própria, descrição atual e decisão humana separada; sem publicação automática.",
+      "paths": [
+        "verification/prs/PR-C.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T061"
+      ]
+    },
+    {
+      "id": "T063",
+      "key": "agentTests",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Escrever contratos de descoberta/execução documental US5-S01/S02/S04/S05 em tests/SpecAudit.Windows.Tests/AgentDiscoveryTests.cs e tests/SpecAudit.Windows.Tests/AnalyzeProtectionTests.cs antes dos adaptadores.",
+      "origin": "US5-AC01/02/04/05",
+      "deps": [
+        "prcdesc"
+      ],
+      "verify": "Cobrir encontrado/ausente/incompatível, scripts/config maliciosos, segredo sintético, código fora do catálogo, autenticação ausente, cache interno externo e cancelamento pai/filho; mocks só domínio, provas reais posteriores.",
+      "expected": "Falhas do contrato são observáveis e bloqueiam somente adaptador pertinente; gate/leitor não dependem de autenticação.",
+      "paths": [
+        "tests/SpecAudit.Windows.Tests/AgentDiscoveryTests.cs",
+        "tests/SpecAudit.Windows.Tests/AnalyzeProtectionTests.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T062"
+      ]
+    },
+    {
+      "id": "T064",
+      "key": "discover",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Definir AgentInstallation e descoberta em SpecAudit/Domain/AgentInstallation.cs e SpecAudit/Infrastructure/Agents/AgentDiscovery.cs para Codex/Antigravity/Claude Code/Kiro; fallback manual só para desejado não encontrado.",
+      "origin": "US5-AC01; data-model",
+      "deps": [
+        "agentTests"
+      ],
+      "verify": "Rodar AgentDiscoveryTests com instalações reais quando disponíveis e fixtures de ausência; conferir identidade/versão sem usar executável/configuração do projeto; Unsupported para demais integrações.",
+      "expected": "Descoberta não é compatibilidade; seleção por projeto e locais externos informados, sem analisar nada na descoberta.",
+      "paths": [
+        "SpecAudit/Domain/AgentInstallation.cs",
+        "SpecAudit/Infrastructure/Agents/AgentDiscovery.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T063"
+      ]
+    },
+    {
+      "id": "T065",
+      "key": "codex",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Implementar adaptador Codex documental em SpecAudit/Infrastructure/Agents/CodexAnalyzeAdapter.cs, ainda desabilitado, usando snapshots/canal restrito e estado externo conhecido.",
+      "origin": "US5-AC02/04/05; AnalyzeDocuments",
+      "deps": [
+        "discover"
+      ],
+      "verify": "Exercitar contrato com harness e erro de autenticação, schema inválido/invenção de DocumentId, ausência de spec/plan/tasks e cancelamento; nenhuma tool de shell/escrita/leitura arbitrária ou configuração da origem.",
+      "expected": "Não lê código, não cria relatório oficial nem arquivo de pré-requisito; saída inválida é Inconclusive/Failed; só prompt não habilita.",
+      "paths": [
+        "SpecAudit/Infrastructure/Agents/CodexAnalyzeAdapter.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T064"
+      ]
+    },
+    {
+      "id": "T066",
+      "key": "codexProof",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Executar prova real individual AnalyzeCodex em evidence/AnalyzeCodex-proof.md antes de habilitar, incluindo análise sintética correta, fronteira OS, ferramentas/rede/segredos, estado externo e descendentes.",
+      "origin": "US5-AC02/04/05; selo AnalyzeCodex",
+      "deps": [
+        "codex"
+      ],
+      "verify": "Rodar AnalyzeProtectionTests com Codex real autenticado, RunId/canal e duas funcionalidades; observar diagnóstico com fonte/hash, tentativas indevidas, canais de rede só necessários, cache/transcrição externos, cancelamento até job zerado. Filtrar explicitamente Provider=Codex; não exigir adaptador Antigravity ainda não implementado.",
+      "expected": "Tudo aplicável passa na versão/binário/política avaliada; incompatibilidade ou falta de ferramenta/acesso mantém selo pendente/falho e tarefa dependente bloqueada, sem ampliar direitos.",
+      "paths": [
+        "evidence/AnalyzeCodex-proof.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T065"
+      ]
+    },
+    {
+      "id": "T067",
+      "key": "codexEnable",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Habilitar seleção/Execução Codex somente com Assessment Passed em SpecAudit/Application/AgentCompatibilityService.cs e SpecAudit/Components/Verifications/AgentSelector.razor. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US5-AC01/02/03/04/05",
+      "deps": [
+        "codexProof"
+      ],
+      "verify": "No host repetir análise por clique, foco do requisito e cancelamento; adulterar/invalidar versão/política de selo e verificar indisponibilidade; mostrar envio externo e adaptação. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/verificacoes-pasta-externa.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Codex indisponível sem prova, nunca permissões ampliadas; gate e leitor continuam independentes.",
+      "paths": [
+        "SpecAudit/Application/AgentCompatibilityService.cs",
+        "SpecAudit/Components/Verifications/AgentSelector.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T066"
+      ],
+      "visualReference": "design/mockups/verificacoes-pasta-externa.png"
+    },
+    {
+      "id": "T068",
+      "key": "agy",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Implementar adaptador Antigravity documental em SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs, ainda desabilitado, com conversa/cache apenas externos e sem importá-los como histórico oficial.",
+      "origin": "US5-AC02/04/05; AnalyzeDocuments",
+      "deps": [
+        "discover"
+      ],
+      "verify": "Exercitar contrato/harness, saídas e erro de autenticação; não carregar rules/plugins/config da origem; canal só documental e recursos fechados.",
+      "expected": "Nenhuma escrita na origem ou relatório oficial antes de Salvar; existência de transcrição externa informada não é relatório salvo.",
+      "paths": [
+        "SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs"
+      ],
+      "parallel": true,
+      "dependsOn": [
+        "T064"
+      ]
+    },
+    {
+      "id": "T069",
+      "key": "agyProof",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Executar prova real individual AnalyzeAntigravity em evidence/AnalyzeAntigravity-proof.md antes de habilitar, com a mesma matriz de proteção e escopo do Codex.",
+      "origin": "US5-AC02/04/05; selo AnalyzeAntigravity",
+      "deps": [
+        "agy"
+      ],
+      "verify": "Rodar AnalyzeProtectionTests com Antigravity real, fonte/hash e respostas; provar restrições OS/código/ferramentas/rede, caches externos e término de descendentes; não inferir sucesso de comando recusado antes do teste. Filtrar explicitamente Provider=Antigravity; provas não dependem de habilitação futura.",
+      "expected": "Compatibilidade comprovada por versão/ambiente ou indisponível com motivo; nenhuma prova antiga reaproveitada como atual.",
+      "paths": [
+        "evidence/AnalyzeAntigravity-proof.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T068"
+      ]
+    },
+    {
+      "id": "T070",
+      "key": "agyEnable",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Habilitar Antigravity só com Assessment Passed em SpecAudit/Application/AgentCompatibilityService.cs e SpecAudit/Components/Verifications/AgentSelector.razor, sem afetar Codex/gate. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US5-AC01/02/03/04/05",
+      "deps": [
+        "agyProof",
+        "codexEnable"
+      ],
+      "verify": "No host executar/cancelar Antigravity, testar selo inválido e trocar agente/projeto; conferir estado interno informado e nenhuma persistência oficial. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/verificacoes-pasta-externa.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Cada agente possui selo/versão próprios; falha de um não habilita o outro nem bloqueia leitura/gate.",
+      "paths": [
+        "SpecAudit/Application/AgentCompatibilityService.cs",
+        "SpecAudit/Components/Verifications/AgentSelector.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T069",
+        "T067"
+      ],
+      "visualReference": "design/mockups/verificacoes-pasta-externa.png"
+    },
+    {
+      "id": "T071",
+      "key": "US5run",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Executar os cenários US5-S01–S07 / US5-AC01–AC07 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US5-validation.md.",
+      "origin": "US5-S01–S07 / US5-AC01–AC07",
+      "deps": [
+        "agyEnable"
+      ],
+      "verify": "Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar.",
+      "expected": "Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração.",
+      "paths": [
+        "evidence/US5-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T070"
+      ]
+    },
+    {
+      "id": "T072",
+      "key": "US5review",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Revisar diff, critérios, contratos, segurança e resultados da versão de US5 em evidence/US5-review.md, declarando autorrevisão.",
+      "origin": "US5-S01–S07 / US5-AC01–AC07",
+      "deps": [
+        "US5run"
+      ],
+      "verify": "Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites.",
+      "expected": "Review atual com achados rastreáveis; nenhum aceite humano preenchido.",
+      "paths": [
+        "evidence/US5-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T071"
+      ]
+    },
+    {
+      "id": "T073",
+      "key": "US5fix",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Resolver achados de US5 e repetir checks afetados em evidence/US5-validation.md e evidence/US5-review.md; se nenhum, registrar referência à revisão real.",
+      "origin": "US5-S01–S07 / US5-AC01–AC07",
+      "deps": [
+        "US5review"
+      ],
+      "verify": "Corrigir somente escopo autorizado, executar novamente cenários/regressão afetados e renovar versão/hashes/review.",
+      "expected": "Sem impeditivo aberto para fechamento normal; se inviável, manter bloqueado, sem converter falha em aprovação.",
+      "paths": [
+        "evidence/US5-validation.md",
+        "evidence/US5-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T072"
+      ]
+    },
+    {
+      "id": "T074",
+      "key": "US5dev",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Consolidar e conferir roteiro reproduzível em validation/US5-dev.md e registrar estado técnico em acceptance/US5.md, mantendo decisão do DEV pendente.",
+      "origin": "US5-S01–S07 / US5-AC01–AC07",
+      "deps": [
+        "US5fix"
+      ],
+      "verify": "Iniciar incremento e repetir passos IA, fornecer mesmos dados/entrada/resultado ao DEV; se impossível, rascunhar dev-impossibility-template com causa/risco sem confirmar pelo DEV.",
+      "expected": "Roteiro distingue ESCRITO/conferido/executado pelo DEV; nenhuma checkbox de aprovação humana; aceite só por decisão atribuível.",
+      "paths": [
+        "validation/US5-dev.md",
+        "acceptance/US5.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T073"
+      ]
+    },
+    {
+      "id": "T075",
+      "key": "prdtests",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Executar a verificação do incremento PR-D e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-D-validation.md.",
+      "origin": "US5 completo; regressão gate offline e ficha/seleção",
+      "deps": [
+        "US5dev"
+      ],
+      "verify": "Rodar suítes aplicáveis descritas nas tarefas precedentes e host/harness de quickstart.md; coletar comando/cwd/versão/entrada/esperado/observado/efeitos.",
+      "expected": "Testes e comportamento do escopo deste PR comprovados ou bloqueio registrado; não exigir funcionalidade de PR futuro.",
+      "paths": [
+        "evidence/PR-D-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T074"
+      ]
+    },
+    {
+      "id": "T076",
+      "key": "prdreview",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Revisar o incremento completo PR-D em evidence/PR-D-review.md com diff incremental, limites e achados por arquivo/linha.",
+      "origin": "US5 completo; regressão gate offline e ficha/seleção",
+      "deps": [
+        "prdtests"
+      ],
+      "verify": "Inspecionar diff e evidências da revisão candidata; verificar integração dos componentes e invariantes; declarar autorrevisão.",
+      "expected": "Review rastreável; não inferir revisão humana ou aprovação de PR.",
+      "paths": [
+        "evidence/PR-D-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T075"
+      ]
+    },
+    {
+      "id": "T077",
+      "key": "prdfix",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Resolver e revalidar achados do PR-D em evidence/PR-D-validation.md e evidence/PR-D-review.md; registrar nenhum achado somente com review real.",
+      "origin": "US5 completo; regressão gate offline e ficha/seleção",
+      "deps": [
+        "prdreview"
+      ],
+      "verify": "Após correção ou mudança de base, repetir checks afetados e renovar revisão/hashes; sem possibilidade, registrar causa e dependentes bloqueados.",
+      "expected": "Nenhum impeditivo aberto para integração normal; resultados reais preservados.",
+      "paths": [
+        "evidence/PR-D-validation.md",
+        "evidence/PR-D-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T076"
+      ]
+    },
+    {
+      "id": "T078",
+      "key": "prddesc",
+      "story": "US5",
+      "pr": "PR-D",
+      "desc": "Preparar verification/prs/PR-D.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.",
+      "origin": "US5 completo; regressão gate offline e ficha/seleção",
+      "deps": [
+        "prdfix"
+      ],
+      "verify": "Conferir descrição contra diff final e template instalado; indicar aprovação humana PENDENTE e condições técnicas reais.",
+      "expected": "PR revisável com validação própria, descrição atual e decisão humana separada; sem publicação automática.",
+      "paths": [
+        "verification/prs/PR-D.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T077"
+      ]
+    },
+    {
+      "id": "T079",
+      "key": "us6tests",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Escrever contratos US6-S01–S04 em tests/SpecAudit.Windows.Tests/ExternalWriterTests.cs, tests/SpecAudit.Tests/FindingDecisionTests.cs e tests/SpecAudit.Ui.Tests/SaveHistoryTests.cs antes de gravar relatórios. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "origin": "US6-AC01/02/03/04",
+      "deps": [
+        "prddesc"
+      ],
+      "verify": "Testar resultados em memória, falsa classificação sem motivo, fingerprint alterado, destino interno/reparse/TOCTOU, falha parcial, CSV fórmula e exclusão selecionada. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
+      "expected": "Detecta relatório oficial antes de Save, sobrescrita, perda de decisão e origem como fallback; não importa cache de agente.",
+      "paths": [
+        "tests/SpecAudit.Windows.Tests/ExternalWriterTests.cs",
+        "tests/SpecAudit.Tests/FindingDecisionTests.cs",
+        "tests/SpecAudit.Ui.Tests/SaveHistoryTests.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T078"
+      ]
+    },
+    {
+      "id": "T080",
+      "key": "saveModel",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Definir HumanDecision/SavedRecord e classificação em SpecAudit/Domain/HumanDecision.cs, SpecAudit/Domain/SavedRecord.cs e SpecAudit/Application/FindingDecisionService.cs com constraints literais abaixo.",
+      "origin": "US6-AC01/03/04; data-model",
+      "deps": [
+        "us6tests"
+      ],
+      "verify": "Rodar FindingDecisionTests com Pending/Confirmed/FalsePositive/AcceptedRisk/Deferred, justificativa/data/ator, contexto alterado e risco sem alterar falha técnica.",
+      "expected": "Estados em memória até Save, revisão de decisão afetada sem apagar original; nenhuma aprovação humana inventada.",
+      "paths": [
+        "SpecAudit/Domain/HumanDecision.cs",
+        "SpecAudit/Domain/SavedRecord.cs",
+        "SpecAudit/Application/FindingDecisionService.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T079"
+      ]
+    },
+    {
+      "id": "T081",
+      "key": "writer",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Implementar writer e serialização em SpecAudit/Infrastructure/Reports/ExternalReportWriter.cs e SpecAudit/Infrastructure/Reports/ReportSerializer.cs, ainda sem botão Save habilitado.",
+      "origin": "US6-AC01/02; contracts/persistence.md",
+      "deps": [
+        "saveModel"
+      ],
+      "verify": "Rodar ExternalWriterTests em fixture: manifesto SchemaVersion=1 por último, create-new, MD/JSON/CSV escolhidos, metadados completos, CSV seguro e erro parcial honesto; revalidar destino por handle no acesso.",
+      "expected": "Somente destino externo autorizado; sem overwrite/restore/autosave; incomplete não vira Saved; não excluir resíduos automaticamente.",
+      "paths": [
+        "SpecAudit/Infrastructure/Reports/ExternalReportWriter.cs",
+        "SpecAudit/Infrastructure/Reports/ReportSerializer.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T080"
+      ]
+    },
+    {
+      "id": "T082",
+      "key": "writerProof",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Executar prova ExternalWriter real em evidence/ExternalWriter-proof.md antes de habilitar Save, observando conteúdo/caminhos no disco e alterações concorrentes.",
+      "origin": "US6-AC01/02; selo ExternalWriter",
+      "deps": [
+        "writer"
+      ],
+      "verify": "Rodar ExternalWriterTests, fechar sessão sem Save, simular destino interno/junction trocada/permissão/disco cheio e conferir arquivos parciais externos; instrumentar acessos e origem intacta.",
+      "expected": "Zero relatório oficial antes de Save; todo gravado após ação fica externo; falha mantém Save indisponível e evidencia efeitos sem mascarar.",
+      "paths": [
+        "evidence/ExternalWriter-proof.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T081"
+      ]
+    },
+    {
+      "id": "T083",
+      "key": "history",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Implementar listagem/validação/comparação e exclusão explícita de histórico em SpecAudit/Infrastructure/Reports/SavedHistoryReader.cs e SpecAudit/Application/SavedHistoryService.cs, usando IDs e destino externo resolvido.",
+      "origin": "US6-AC04; contracts/persistence.md Histórico",
+      "deps": [
+        "writerProof"
+      ],
+      "verify": "Rodar testes com pacotes válidos/incompletos/adulterados, mesmas chaves em projetos diferentes, amostra incompleta, troca de destino e seleção de uma exclusão.",
+      "expected": "Só histórico oficial salvo; não infere resolvido de ausência em amostra incompleta; sem retenção/exclusão automática ou acesso à origem.",
+      "paths": [
+        "SpecAudit/Infrastructure/Reports/SavedHistoryReader.cs",
+        "SpecAudit/Application/SavedHistoryService.cs"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T082"
+      ]
+    },
+    {
+      "id": "T084",
+      "key": "saveEnable",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Habilitar Save/formatos/histórico e decisões em SpecAudit/Components/Pages/Suggestions.razor e SpecAudit/Components/Reports/SaveDialog.razor somente com ExternalWriter Passed. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "origin": "US6-AC01/02/03/04",
+      "deps": [
+        "history"
+      ],
+      "verify": "Rodar SaveHistoryTests no host, mostrar conteúdo/destino e atualidade antes da confirmação; exportar formatos, comparar/excluir; teste com selo ausente/adulterado. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/documentos-sugestoes.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
+      "expected": "Sem selo Save fica indisponível; não há salvamento por navegação/fechamento/erro; CSV e decisões rastreáveis, origem intacta.",
+      "paths": [
+        "SpecAudit/Components/Pages/Suggestions.razor",
+        "SpecAudit/Components/Reports/SaveDialog.razor"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T083"
+      ],
+      "visualReference": "design/mockups/documentos-sugestoes.png"
+    },
+    {
+      "id": "T085",
+      "key": "US6run",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Executar os cenários US6-S01–S04 / US6-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US6-validation.md.",
+      "origin": "US6-S01–S04 / US6-AC01–AC04",
+      "deps": [
+        "saveEnable"
+      ],
+      "verify": "Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar.",
+      "expected": "Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração.",
+      "paths": [
+        "evidence/US6-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T084"
+      ]
+    },
+    {
+      "id": "T086",
+      "key": "US6review",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Revisar diff, critérios, contratos, segurança e resultados da versão de US6 em evidence/US6-review.md, declarando autorrevisão.",
+      "origin": "US6-S01–S04 / US6-AC01–AC04",
+      "deps": [
+        "US6run"
+      ],
+      "verify": "Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites.",
+      "expected": "Review atual com achados rastreáveis; nenhum aceite humano preenchido.",
+      "paths": [
+        "evidence/US6-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T085"
+      ]
+    },
+    {
+      "id": "T087",
+      "key": "US6fix",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Resolver achados de US6 e repetir checks afetados em evidence/US6-validation.md e evidence/US6-review.md; se nenhum, registrar referência à revisão real.",
+      "origin": "US6-S01–S04 / US6-AC01–AC04",
+      "deps": [
+        "US6review"
+      ],
+      "verify": "Corrigir somente escopo autorizado, executar novamente cenários/regressão afetados e renovar versão/hashes/review.",
+      "expected": "Sem impeditivo aberto para fechamento normal; se inviável, manter bloqueado, sem converter falha em aprovação.",
+      "paths": [
+        "evidence/US6-validation.md",
+        "evidence/US6-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T086"
+      ]
+    },
+    {
+      "id": "T088",
+      "key": "US6dev",
+      "story": "US6",
+      "pr": "PR-E",
+      "desc": "Consolidar e conferir roteiro reproduzível em validation/US6-dev.md e registrar estado técnico em acceptance/US6.md, mantendo decisão do DEV pendente.",
+      "origin": "US6-S01–S04 / US6-AC01–AC04",
+      "deps": [
+        "US6fix"
+      ],
+      "verify": "Iniciar incremento e repetir passos IA, fornecer mesmos dados/entrada/resultado ao DEV; se impossível, rascunhar dev-impossibility-template com causa/risco sem confirmar pelo DEV.",
+      "expected": "Roteiro distingue ESCRITO/conferido/executado pelo DEV; nenhuma checkbox de aprovação humana; aceite só por decisão atribuível.",
+      "paths": [
+        "validation/US6-dev.md",
+        "acceptance/US6.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T087"
+      ]
+    },
+    {
+      "id": "T089",
+      "key": "integrated",
+      "story": null,
+      "pr": "PR-E",
+      "desc": "Executar regressão integrada dos 29 cenários e auditoria final das dependências do próprio SpecAudit em evidence/feature-validation.md e revisar quickstart.md para refletir caminho real entregue. Comparar todas as telas com design/mockups/README.md nos dois temas, preservando aparência e comprovando substituições de comportamento da V1.",
+      "origin": "SC-001–008; plan/quickstart; constituição VII/IX",
+      "deps": [
+        "US6dev",
+        "pradesc",
+        "prbdesc",
+        "prcdesc",
+        "prddesc"
+      ],
+      "verify": "Rodar suites próprias domínio/Windows/UI e host real com ambas integrações, fluxo leitura→combo→execução→cancelamento→Save; verificar todos os selos, versões, arquivos/acessos/rede e auditoria direta/transitiva; não executar solução auditada. Registrar comparação visual e diferenças intencionais segundo design/mockups/README.md, sem tratar mockup como execução.",
+      "expected": "Fluxo real observado por versão, sem leitura de código, escrita/autosave/segredos; falha/não execução bloqueia entrega dependente; achados de vulnerabilidade comunicados com origem/data/versão.",
+      "paths": [
+        "evidence/feature-validation.md",
+        "quickstart.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T088",
+        "T020",
+        "T052",
+        "T062",
+        "T078"
+      ]
+    },
+    {
+      "id": "T090",
+      "key": "pretests",
+      "story": null,
+      "pr": "PR-E",
+      "desc": "Executar a verificação do incremento PR-E e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-E-validation.md.",
+      "origin": "US6 + fechamento integrado US1/US2/US3/US4/US5/US8 e SC-001–008",
+      "deps": [
+        "integrated"
+      ],
+      "verify": "Rodar suítes aplicáveis descritas nas tarefas precedentes e host/harness de quickstart.md; coletar comando/cwd/versão/entrada/esperado/observado/efeitos.",
+      "expected": "Testes e comportamento do escopo deste PR comprovados ou bloqueio registrado; não exigir funcionalidade de PR futuro.",
+      "paths": [
+        "evidence/PR-E-validation.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T089"
+      ]
+    },
+    {
+      "id": "T091",
+      "key": "prereview",
+      "story": null,
+      "pr": "PR-E",
+      "desc": "Revisar o incremento completo PR-E em evidence/PR-E-review.md com diff incremental, limites e achados por arquivo/linha.",
+      "origin": "US6 + fechamento integrado US1/US2/US3/US4/US5/US8 e SC-001–008",
+      "deps": [
+        "pretests"
+      ],
+      "verify": "Inspecionar diff e evidências da revisão candidata; verificar integração dos componentes e invariantes; declarar autorrevisão.",
+      "expected": "Review rastreável; não inferir revisão humana ou aprovação de PR.",
+      "paths": [
+        "evidence/PR-E-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T090"
+      ]
+    },
+    {
+      "id": "T092",
+      "key": "prefix",
+      "story": null,
+      "pr": "PR-E",
+      "desc": "Resolver e revalidar achados do PR-E em evidence/PR-E-validation.md e evidence/PR-E-review.md; registrar nenhum achado somente com review real.",
+      "origin": "US6 + fechamento integrado US1/US2/US3/US4/US5/US8 e SC-001–008",
+      "deps": [
+        "prereview"
+      ],
+      "verify": "Após correção ou mudança de base, repetir checks afetados e renovar revisão/hashes; sem possibilidade, registrar causa e dependentes bloqueados.",
+      "expected": "Nenhum impeditivo aberto para integração normal; resultados reais preservados.",
+      "paths": [
+        "evidence/PR-E-validation.md",
+        "evidence/PR-E-review.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T091"
+      ]
+    },
+    {
+      "id": "T093",
+      "key": "predesc",
+      "story": null,
+      "pr": "PR-E",
+      "desc": "Preparar verification/prs/PR-E.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.",
+      "origin": "US6 + fechamento integrado US1/US2/US3/US4/US5/US8 e SC-001–008",
+      "deps": [
+        "prefix"
+      ],
+      "verify": "Conferir descrição contra diff final e template instalado; indicar aprovação humana PENDENTE e condições técnicas reais.",
+      "expected": "PR revisável com validação própria, descrição atual e decisão humana separada; sem publicação automática.",
+      "paths": [
+        "verification/prs/PR-E.md"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T092"
+      ]
+    },
+    {
+      "id": "T094",
+      "key": "finalRecord",
+      "story": null,
+      "pr": "PR-E",
+      "desc": "Consolidar roteiro integrado e estado técnico em validation/feature-dev.md, acceptance/feature.md e verification/implementation-stage.json; deixar reprodução/aceite humano pendentes até fonte real.",
+      "origin": "constituição IX; PASSAGENS; execução reproduzível",
+      "deps": [
+        "predesc"
+      ],
+      "verify": "Conferir mesmas versões/dados/host/passos/resultados para DEV; vincular testes/reviews/hashes; se impossibilidade preparar rascunho e manter NÃO EXECUTADO sem decidir pelo DEV.",
+      "expected": "Pacote técnico rastreável; não marca PR aprovado/história aceita/merge/deploy por concluir tasks; nenhum commit/push/publicação automático.",
+      "paths": [
+        "validation/feature-dev.md",
+        "acceptance/feature.md",
+        "verification/implementation-stage.json"
+      ],
+      "parallel": false,
+      "dependsOn": [
+        "T093"
+      ]
+    }
+  ],
+  "coverage": {
+    "US1-AC01": [
+      "T009",
+      "T011"
+    ],
+    "US1-AC02": [
+      "T009",
+      "T010",
+      "T011"
+    ],
+    "US1-AC03": [
+      "T011"
+    ],
+    "US1-AC04": [
+      "T012"
+    ],
+    "US2-AC01": [
+      "T023",
+      "T024"
+    ],
+    "US2-AC02": [
+      "T022",
+      "T024"
+    ],
+    "US2-AC03": [
+      "T022",
+      "T023",
+      "T024"
+    ],
+    "US2-AC04": [
+      "T022",
+      "T023",
+      "T024"
+    ],
+    "US3-AC01": [
+      "T030",
+      "T031"
+    ],
+    "US3-AC02": [
+      "T030",
+      "T031"
+    ],
+    "US3-AC03": [
+      "T030",
+      "T031"
+    ],
+    "US3-AC04": [
+      "T030",
+      "T031"
+    ],
+    "US4-AC01": [
+      "T037",
+      "T038"
+    ],
+    "US4-AC02": [
+      "T037",
+      "T038"
+    ],
+    "US4-AC03": [
+      "T037",
+      "T038"
+    ],
+    "US4-AC04": [
+      "T037",
+      "T038"
+    ],
+    "US5-AC01": [
+      "T064",
+      "T067",
+      "T070"
+    ],
+    "US5-AC02": [
+      "T066",
+      "T067",
+      "T069",
+      "T070"
+    ],
+    "US5-AC03": [
+      "T054",
+      "T058",
+      "T067",
+      "T070"
+    ],
+    "US5-AC04": [
+      "T065",
+      "T066",
+      "T068",
+      "T069"
+    ],
+    "US5-AC05": [
+      "T054",
+      "T057",
+      "T066",
+      "T069"
+    ],
+    "US5-AC06": [
+      "T055",
+      "T056",
+      "T057",
+      "T058"
+    ],
+    "US5-AC07": [
+      "T056",
+      "T057",
+      "T058"
+    ],
+    "US6-AC01": [
+      "T080",
+      "T081",
+      "T082",
+      "T084"
+    ],
+    "US6-AC02": [
+      "T081",
+      "T082",
+      "T084"
+    ],
+    "US6-AC03": [
+      "T080",
+      "T084"
+    ],
+    "US6-AC04": [
+      "T083",
+      "T084"
+    ],
+    "US8-AC01": [
+      "T044"
+    ],
+    "US8-AC02": [
+      "T044"
+    ]
+  },
+  "barriers": [
+    {
+      "capability": "ReaderBoundary",
+      "build": "T009",
+      "proof": "T010",
+      "enable": "T011"
+    },
+    {
+      "capability": "GateAdapter",
+      "build": "T056",
+      "proof": "T057",
+      "enable": "T058"
+    },
+    {
+      "capability": "AnalyzeCodex",
+      "build": "T065",
+      "proof": "T066",
+      "enable": "T067"
+    },
+    {
+      "capability": "AnalyzeAntigravity",
+      "build": "T068",
+      "proof": "T069",
+      "enable": "T070"
+    },
+    {
+      "capability": "ExternalWriter",
+      "build": "T081",
+      "proof": "T082",
+      "enable": "T084"
+    }
+  ]
+}

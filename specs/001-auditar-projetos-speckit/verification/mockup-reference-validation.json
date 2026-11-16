@@ -1,0 +1,46 @@
+{
+  "timestampUtc": "2026-11-16T22:37:16.765579+00:00",
+  "scope": "Approved visual-reference registration only",
+  "result": "PASSED_DOCUMENT_REVIEW",
+  "assetCount": 3,
+  "originalBytesPreserved": true,
+  "assets": [
+    {
+      "file": "dashboard-requisito.png",
+      "title": "Dashboard e ficha; temas escuro/claro",
+      "originalGeneratedFile": "exec-081e4e64-81a2-473c-9924-58d424d1a2fe.png",
+      "originalCreatedAt": "2026-11-15T22:13:37-03:00",
+      "sha256": "528b6f417a29c23f5ba6012fefd5af8f080514e4cf4d8d6385ec880249df2df8",
+      "bytes": 1731206,
+      "unchangedCopy": true
+    },
+    {
+      "file": "documentos-sugestoes.png",
+      "title": "Documentos com preview Markdown e sugestões",
+      "originalGeneratedFile": "exec-80c4044e-2da7-4baa-9a09-02ea9ef5fc70.png",
+      "originalCreatedAt": "2026-11-15T22:17:37-03:00",
+      "sha256": "537bd823510bd235aaa6b72a190ea966942002c106daefe17d6d280534dd74fd",
+      "bytes": 1659322,
+      "unchangedCopy": true
+    },
+    {
+      "file": "verificacoes-pasta-externa.png",
+      "title": "Verificações, combo, origem somente leitura e pasta externa",
+      "originalGeneratedFile": "exec-f910f91c-318a-4e5d-a848-40b8fe86b803.png",
+      "originalCreatedAt": "2026-11-15T22:21:01-03:00",
+      "sha256": "ba4239690003c6324cf4ebf59e573b97e165866cf76912128adad0850eda24b6",
+      "bytes": 1557376,
+      "unchangedCopy": true
+    }
+  ],
+  "specSha256": "fa084b53b7bc12108f6e3625a4c191de582a4db2122ee9564b111b296eb9d6fa",
+  "tasksSha256": "ebeaf59cd42bb86b3f41773610c4b9340fa477eb26cc4c148d1375ee6379d826",
+  "taskCount": 94,
+  "activeCriteria": 29,
+  "tasksAllUnchecked": true,
+  "dependenciesUnchanged": true,
+  "applicationCodeChanged": false,
+  "imagesEdited": false,
+  "productOrProtectionExecution": "NOT_EXECUTED",
+  "commitOrPush": false
+}

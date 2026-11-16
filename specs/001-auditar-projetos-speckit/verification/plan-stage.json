@@ -1,68 +1,146 @@
 {
-  "human_decisions": [],
-  "revision": "sha256:21b26b9b18e93af066bd7c16b1bfbb70c1d40b9ab9ef242a9ec1850755a98e82",
+  "schema_version": 1,
+  "stage": "plan",
+  "revision": "sha256:6002634026f05e2338e26c0a754815518089b126e4915cefb3c689967159fb89",
+  "state": "READY",
   "checks": {
     "spec_ready": true,
     "coverage_semantic": true,
-    "procedures_concrete": false,
-    "environment_planned": false,
-    "data_and_access_planned": false,
+    "procedures_concrete": true,
+    "environment_planned": true,
+    "data_and_access_planned": true,
     "pr_slices_testable": true,
-    "real_execution_planned": false
+    "real_execution_planned": true
   },
-  "schema_version": 1,
-  "state": "BLOCKED",
-  "stage": "plan",
-  "blockers": [
-    "V1-A: definir/provar fronteira exclusivamente documental e integração analyze real restrita, incluindo descendentes, estado externo e rede",
-    "V1-B: definir/provar ferramenta gate empacotada/offline, runtime e preflight de todos os caminhos, sem --project",
-    "Phase 1: modelo, contratos e quickstart finais pendentes de pesquisa; nenhuma autorização elevada ou aceite inferido"
-  ],
+  "blockers": [],
+  "human_decisions": [],
   "evidence": [
     {
       "path": "spec.md",
       "kind": "document",
-      "sha256": "65dad7ba38432967528d9ec6b329bfb797ae35457cb5217c1403283dd56b05c1"
-    },
-    {
-      "path": "checklists/requirements.md",
-      "kind": "document",
-      "sha256": "532566c8785b653c76b7ece013a44b50c88ee0e4a7a5b733f9bdeb215fc69644"
-    },
-    {
-      "path": "verification/spec-review.md",
-      "kind": "document",
-      "sha256": "cda9fa17e6a2dee5a748c6d0d212b75e266e199cc9f93b20023ee31c7df49acb"
-    },
-    {
-      "path": "verification/documentary-v1-amendment.md",
-      "kind": "document",
-      "sha256": "09ed1e14772c9738c45087ef9a99b688a937c0987869922576eee196be3c8b8f"
+      "sha256": "fa084b53b7bc12108f6e3625a4c191de582a4db2122ee9564b111b296eb9d6fa"
     },
     {
       "path": "plan.md",
       "kind": "document",
-      "sha256": "21b26b9b18e93af066bd7c16b1bfbb70c1d40b9ab9ef242a9ec1850755a98e82"
+      "sha256": "6002634026f05e2338e26c0a754815518089b126e4915cefb3c689967159fb89"
     },
     {
       "path": "research.md",
       "kind": "document",
-      "sha256": "9ea5d6c4e99cb0955e33cd9310d12fbc6d54ffebda0b84f4d8251c1bc4b01d4c"
+      "sha256": "e285079c9c1cb5b08286765b5691d08f63062870ff2e65ba46f88267db3bab33"
+    },
+    {
+      "path": "data-model.md",
+      "kind": "document",
+      "sha256": "8536fc0480a8fe1f9f2ebc687e4b538aa796bc757e61ecc29d7e4c977279a816"
+    },
+    {
+      "path": "contracts/application.md",
+      "kind": "document",
+      "sha256": "d60bfd25c1ccdfd8244dcb1da9293a91c2a63650a0cdc2ec7591b15e784f17f3"
+    },
+    {
+      "path": "contracts/verification.md",
+      "kind": "document",
+      "sha256": "57065e5f243216ab877d15596d76b3f29397328ae2d2f8827fd25ff049554918"
+    },
+    {
+      "path": "contracts/persistence.md",
+      "kind": "document",
+      "sha256": "72b91bdc3c8aafc760c853ad45c65eeaf33a6816cb0c4f238bde21af40cfc47a"
+    },
+    {
+      "path": "quickstart.md",
+      "kind": "document",
+      "sha256": "622a0e03c3b6af40c8164fdfd69ced9a883b3070bb70b1d2341bf40340f41c6c"
+    },
+    {
+      "path": "checklists/requirements.md",
+      "kind": "document",
+      "sha256": "33e0dd82eb58fc4d893ef0fc5ed814f01bec85456f1b88705a8fb1394e8eae81"
+    },
+    {
+      "path": "verification/spec-review.md",
+      "kind": "document",
+      "sha256": "b41ae1f7648bc2b152c4dad51e793a7ea106ea407e1201638513260393cd5042"
     },
     {
       "path": "verification/plan-review.md",
       "kind": "document",
-      "sha256": "4326734d45b2fce33565998c00154ea3d2f2d5e2f0043c4aa3684812a0cfe060"
+      "sha256": "85149f505de7b11f54c4ccfff5ca4dc4d8c30bbed4c3faea5467a049e6c2d72a"
+    },
+    {
+      "path": "verification/phase1-validation.json",
+      "kind": "document",
+      "sha256": "4fa4e3bb412dd9f518a108b051e3f597589fd354568958e5e18ed26ced6b3725"
     },
     {
       "path": "verification/isolation-network-status.md",
       "kind": "document",
-      "sha256": "c6dea7504ae7064d4c76cca6bfa9381c4f2f925be1cf993e3ff747af74520c21"
+      "sha256": "ab242b6a29845f83910494029460f6f5d671836a6329dc22f165c9efac310fa9"
     },
     {
-      "path": "verification/documentary-v1-validation.json",
+      "path": "design/mockups/README.md",
       "kind": "document",
-      "sha256": "a7ae9f3efdc385f8c5b50d2f6845daf5c2e4db793b67957d1437d156fae629b3"
+      "sha256": "2fd9670fad6cb6b8d53d21f3ba344d5caeb034b71d20f33c81bf4d2f62cb6de3"
+    },
+    {
+      "path": "design/mockups/manifest.json",
+      "kind": "document",
+      "sha256": "cac3477351225d542d109e7e2050d7d9e773ebe105e2164cb8a2ee6893681ca8"
+    },
+    {
+      "path": "verification/mockup-reference-review.md",
+      "kind": "document",
+      "sha256": "51c53a711e6757ba376922cc2b3a8b33205ad89342ec1f7e643f5af0ed603754"
+    },
+    {
+      "path": "verification/mockup-reference-validation.json",
+      "kind": "document",
+      "sha256": "0474a2e1989775f175fdbe2698f3b836007d41ca1145e97079e39b7535d94eaa"
+    },
+    {
+      "path": "design/mockups/dashboard-requisito.png",
+      "kind": "visual-reference",
+      "sha256": "528b6f417a29c23f5ba6012fefd5af8f080514e4cf4d8d6385ec880249df2df8"
+    },
+    {
+      "path": "design/mockups/documentos-sugestoes.png",
+      "kind": "visual-reference",
+      "sha256": "537bd823510bd235aaa6b72a190ea966942002c106daefe17d6d280534dd74fd"
+    },
+    {
+      "path": "design/mockups/verificacoes-pasta-externa.png",
+      "kind": "visual-reference",
+      "sha256": "ba4239690003c6324cf4ebf59e573b97e165866cf76912128adad0850eda24b6"
+    }
+  ],
+  "implementation_obligations": [
+    {
+      "capability": "ReaderBoundary",
+      "state": "NOT_EXECUTED",
+      "enablement": "REQUIRES_PASSED_IMPLEMENTATION_PROOF"
+    },
+    {
+      "capability": "GateAdapter",
+      "state": "NOT_EXECUTED",
+      "enablement": "REQUIRES_PASSED_IMPLEMENTATION_PROOF"
+    },
+    {
+      "capability": "AnalyzeCodex",
+      "state": "NOT_EXECUTED",
+      "enablement": "REQUIRES_PASSED_IMPLEMENTATION_PROOF"
+    },
+    {
+      "capability": "AnalyzeAntigravity",
+      "state": "NOT_EXECUTED",
+      "enablement": "REQUIRES_PASSED_IMPLEMENTATION_PROOF"
+    },
+    {
+      "capability": "ExternalWriter",
+      "state": "NOT_EXECUTED",
+      "enablement": "REQUIRES_PASSED_IMPLEMENTATION_PROOF"
     }
   ]
 }

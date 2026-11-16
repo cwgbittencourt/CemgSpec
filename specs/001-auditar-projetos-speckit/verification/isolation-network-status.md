@@ -1,3 +1,16 @@
+# Planejamento V1 finalizado — provas na implementação (2026-11-16)
+
+| Área | Situação vigente |
+|---|---|
+| Plano/modelo/contratos/roteiro | Finalizados e revalidados READY para geração de tarefas |
+| Provas ReaderBoundary/GateAdapter/Analyze/Writer | NÃO EXECUTADAS nesta fase; primeiras obrigações da implementação, antes de habilitar cada fluxo |
+| Combo e escopo | Só speckit-analyze/check_gate; sem código e sem escrita na origem |
+| Autorizações elevadas antigas | Consumidas; nenhuma execução adicional autorizada por este planejamento |
+
+Prontidão de plan e disponibilidade operacional são distintas. Ver plan.md, data-model.md, contracts/ e quickstart.md. O estado anterior BLOCKED abaixo é histórico e foi substituído por desenho/procedimentos completos, não por aprovação de testes não executados.
+
+---
+
 # Escopo vigente — V1 documental (2026-11-16)
 
 | Item | Situação na V1 |

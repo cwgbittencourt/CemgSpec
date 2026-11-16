@@ -1,0 +1,33 @@
+{
+  "scope": "Visual reference registration; no product/protection execution",
+  "timestampUtc": "2026-11-16T22:37:51.1318128+00:00",
+  "observations": [
+    {
+      "revision": "sha256:fa084b53b7bc12108f6e3625a4c191de582a4db2122ee9564b111b296eb9d6fa",
+      "exitCode": 0,
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "stage": "spec"
+    },
+    {
+      "revision": "sha256:6002634026f05e2338e26c0a754815518089b126e4915cefb3c689967159fb89",
+      "exitCode": 0,
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "stage": "plan"
+    },
+    {
+      "revision": "sha256:ebeaf59cd42bb86b3f41773610c4b9340fa477eb26cc4c148d1375ee6379d826",
+      "exitCode": 0,
+      "observed": {
+        "result": "READY",
+        "errors": []
+      },
+      "stage": "tasks"
+    }
+  ]
+}
