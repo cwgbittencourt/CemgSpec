@@ -1,0 +1,32 @@
+{
+  "revision": "sha256:bc039c8c6304a23a998bc0a7bd880e01f03224c16df01829151e0732f3dab760",
+  "schema_version": 1,
+  "state": "READY",
+  "evidence": [
+    {
+      "kind": "document",
+      "path": "spec.md",
+      "sha256": "bc039c8c6304a23a998bc0a7bd880e01f03224c16df01829151e0732f3dab760"
+    },
+    {
+      "kind": "document",
+      "path": "checklists/requirements.md",
+      "sha256": "ad0f17c94e9e14fd0ae180d6576851db4cc59d5f8c04945d237575bb5149e378"
+    },
+    {
+      "kind": "document",
+      "path": "verification/spec-review.md",
+      "sha256": "fb5b7b697af586f7d3213c9e1b55ea3d2bbee917900109a13608cf118a8a8b03"
+    }
+  ],
+  "checks": {
+    "material_decisions_resolved": true,
+    "dependencies_identified": true,
+    "criteria_observable": true,
+    "scenarios_defined": true,
+    "scope_defined": true
+  },
+  "blockers": [],
+  "human_decisions": [],
+  "stage": "spec"
+}

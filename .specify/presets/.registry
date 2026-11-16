@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "presets": {
+    "cemg-speckit": {
+      "version": "3.0.0",
+      "source": "local",
+      "manifest_hash": "sha256:8027d0adc14e5134e672fb8ecf5c2da5596ae93e32bd2403ca2b85df919ef356",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {
+        "codex": [
+          "speckit.constitution",
+          "speckit.specify",
+          "speckit.clarify",
+          "speckit.plan",
+          "speckit.tasks",
+          "speckit.analyze",
+          "speckit.checklist",
+          "speckit.implement",
+          "speckit.converge",
+          "speckit.taskstoissues"
+        ]
+      },
+      "registered_skills": {
+        "codex": [
+          "speckit-constitution",
+          "speckit-specify",
+          "speckit-clarify",
+          "speckit-plan",
+          "speckit-tasks",
+          "speckit-analyze",
+          "speckit-checklist",
+          "speckit-implement",
+          "speckit-converge",
+          "speckit-taskstoissues"
+        ]
+      },
+      "installed_at": "2026-11-16T00:36:36.583600+00:00"
+    }
+  }
+}
