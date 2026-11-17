@@ -38,4 +38,51 @@ Escopo: INCREMENTO de US1-AC04; não substitui o roteiro integrado US1-dev.md ne
 Prepare/Execute/Save reais não foram implementados nesta task: não há como validá-los na tela ainda. A versão genérica demonstra a rejeição de entradas antigas, sem declarar os fluxos futuros executados.
 
 Evidência: ../evidence/T012-review.md, ../evidence/T012-product-execution.json e ../evidence/logs/T012-suite-complete.txt.
-Registro humano: responsável, data/fuso, revisão, resultados, capturas e decisão PENDENTES. Aceite da história permanece em seu fluxo próprio.
+## Registro humano e decisão do incremento
+
+### Registro da execução humana
+
+Preenchimento reservado ao DEV. Os campos abaixo permanecem em branco: a existência do roteiro e os testes da IA não representam execução humana.
+
+Após avaliar cada cenário, registrar o resultado como **PASSOU**, **FALHOU** ou **NÃO EXECUTADO**, descrevendo o observado ou o motivo da não execução. Informar o hash do commit efetivamente testado; se houver alterações locais, identificar também o diff/manifesto. Registrar data/hora com fuso e links para capturas ou logs em `../evidence/`.
+
+| Cenário / critério | Resultado | Resultado observado / motivo da não execução | Evidências (links) | Commit testado / diff ou manifesto | Responsável | Data/hora e fuso | Defeito / observações |
+|---|---|---|---|---|---|---|---|
+| T012-C01 — Código fora do catálogo | | | | | | | |
+| T012-C02 — Versão capturada | | | | | | | |
+| T012-C03 — Durante leitura | | | | | | | |
+| T012-C04 — Renomeação | | | | | | | |
+| T012-C05 — Novos diretórios | | | | | | | |
+| T012-C06 — Atualização | | | | | | | |
+| T012-C07 — Troca de projeto | | | | | | | |
+| T012-C08 — Encerramento | | | | | | | |
+
+### Retestes e novas rodadas
+
+Preservar os registros anteriores. Em caso de correção ou mudança de versão, acrescentar uma linha por cenário reexecutado, identificando a rodada e a nova versão.
+
+| Rodada | Cenário / critério | Resultado | Resultado observado / motivo da não execução | Evidências (links) | Commit testado / diff ou manifesto | Responsável | Data/hora e fuso | Defeito / observações |
+|---|---|---|---|---|---|---|---|---|
+| | | | | | | | | |
+
+### Decisão sobre o incremento
+
+Preenchimento reservado ao DEV, após conferir os resultados e a versão avaliada. Selecionar explicitamente **ACEITO**, **REJEITADO** ou **ACEITO_COM_RESSALVAS** no campo Decisão. Campos em branco significam decisão pendente; resultados PASSOU na tabela não concedem aceite automaticamente.
+
+| Campo | Registro do DEV |
+|---|---|
+| Decisão explícita | |
+| Responsável pela decisão | |
+| Data/hora e fuso | |
+| Commit efetivamente validado / diff ou manifesto | |
+| Rodada e referência à execução humana / evidências | |
+| Justificativa e observações | |
+| Escopo aceito ou rejeitado | |
+| Ressalvas, critérios não atendidos e riscos, se aplicável | |
+| Ações posteriores e responsáveis, se aplicável | |
+
+Quando solicitado pelo DEV, a IA deverá conferir esta declaração contra a versão, os resultados e as evidências referenciadas e transcrever a decisão para o registro de incremento vinculado a `acceptance/US1.md`, sem conceder aceite à história completa, preservando autoria, data, escopo e referência a esta seção. Havendo inconsistência ou informação essencial ausente, deverá apontar a pendência antes de registrar o aceite como concluído. A transcrição não altera os resultados dos testes nem equivale a aprovação de PR ou autorização de publicação.
+
+Não há monitoramento automático deste arquivo. A IA não concede aceite por conta própria nem marca EXECUTADO_PELO_DEV sem referência à execução humana real. Se o DEV confirmar impossibilidade, usar o template CEMG próprio e decidir AGUARDAR, REJEITAR ou ACEITAR_COM_RESSALVAS, mantendo os resultados reais; eventual aceite com ressalvas deve ser declarado explicitamente acima.
+
+A decisão desta tabela cobre somente T012. Aceite final da US1 exige execução do roteiro integrado `US1-dev.md` e cumprimento das dependências da história.

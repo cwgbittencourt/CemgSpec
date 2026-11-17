@@ -84,5 +84,43 @@ Registrar para US6-S04: resultado observado, PASSOU/FALHOU/NÃO EXECUTADO, evid�
 
 ## Registro humano e aceite
 
-Preencher somente após execução real: responsável; data/hora/fuso; versão; cenário; resultado esperado/observado; evidência; defeito e reteste quando necessário.
-O aceite será registrado separadamente em `acceptance/US6.md`. A IA não concede aceite nem marca EXECUTADO_PELO_DEV. Se o DEV confirmar impossibilidade, usar o template CEMG próprio e decidir AGUARDAR, REJEITAR ou ACEITAR_COM_RESSALVAS, mantendo resultados reais.
+### Registro da execução humana
+
+Preenchimento reservado ao DEV. Os campos abaixo permanecem em branco: a existência do roteiro e os testes da IA não representam execução humana.
+
+Após avaliar cada cenário, registrar o resultado como **PASSOU**, **FALHOU** ou **NÃO EXECUTADO**, descrevendo o observado ou o motivo da não execução. Informar o hash do commit efetivamente testado; se houver alterações locais, identificar também o diff/manifesto. Registrar data/hora com fuso e links para capturas ou logs em `../evidence/`.
+
+| Cenário / critério | Resultado | Resultado observado / motivo da não execução | Evidências (links) | Commit testado / diff ou manifesto | Responsável | Data/hora e fuso | Defeito / observações |
+|---|---|---|---|---|---|---|---|
+| US6-S01 / US6-AC01 | | | | | | | |
+| US6-S02 / US6-AC02 | | | | | | | |
+| US6-S03 / US6-AC03 | | | | | | | |
+| US6-S04 / US6-AC04 | | | | | | | |
+
+### Retestes e novas rodadas
+
+Preservar os registros anteriores. Em caso de correção ou mudança de versão, acrescentar uma linha por cenário reexecutado, identificando a rodada e a nova versão.
+
+| Rodada | Cenário / critério | Resultado | Resultado observado / motivo da não execução | Evidências (links) | Commit testado / diff ou manifesto | Responsável | Data/hora e fuso | Defeito / observações |
+|---|---|---|---|---|---|---|---|---|
+| | | | | | | | | |
+
+### Decisão de aceite
+
+Preenchimento reservado ao DEV, após conferir os resultados e a versão avaliada. Selecionar explicitamente **ACEITO**, **REJEITADO** ou **ACEITO_COM_RESSALVAS** no campo Decisão. Campos em branco significam decisão pendente; resultados PASSOU na tabela não concedem aceite automaticamente.
+
+| Campo | Registro do DEV |
+|---|---|
+| Decisão explícita | |
+| Responsável pela decisão | |
+| Data/hora e fuso | |
+| Commit efetivamente validado / diff ou manifesto | |
+| Rodada e referência à execução humana / evidências | |
+| Justificativa e observações | |
+| Escopo aceito ou rejeitado | |
+| Ressalvas, critérios não atendidos e riscos, se aplicável | |
+| Ações posteriores e responsáveis, se aplicável | |
+
+Quando solicitado pelo DEV, a IA deverá conferir esta declaração contra a versão, os resultados e as evidências referenciadas e transcrever a decisão para `acceptance/US6.md`, preservando autoria, data, escopo e referência a esta seção. Havendo inconsistência ou informação essencial ausente, deverá apontar a pendência antes de registrar o aceite como concluído. A transcrição não altera os resultados dos testes nem equivale a aprovação de PR ou autorização de publicação.
+
+Não há monitoramento automático deste arquivo. A IA não concede aceite por conta própria nem marca EXECUTADO_PELO_DEV sem referência à execução humana real. Se o DEV confirmar impossibilidade, usar o template CEMG próprio e decidir AGUARDAR, REJEITAR ou ACEITAR_COM_RESSALVAS, mantendo os resultados reais; eventual aceite com ressalvas deve ser declarado explicitamente acima.

@@ -1,15 +1,3 @@
-<!-- Sync Impact Report
-Version: 3.0.0 → 4.0.0 (MAJOR: redefinição explícita da garantia de isolamento).
-Autorização: usuário solicitou flexibilizar isolamento, preservar origem somente leitura,
-apenas speckit-analyze/check_gate, atualizar plan/tasks e retomar implementação (2026-11-16).
-Modified: I. Preservação integral; V. Agentes substituíveis; Restrições de plataforma e segurança.
-Preserved: escopo documental, dois comandos, sem shell/hooks da origem, Save externo,
-privacidade, revisão, testes reais por história, roteiro DEV e decisões humanas.
-Added/removed sections: nenhuma. Templates do preset preservados; adendo de qualidade mantido.
-Sync: revisar spec, plan, contratos, tasks e testes; arquivar provas OS como históricas,
-sem convertê-las em aprovação. Nenhum placeholder ou decisão de isolamento pendente.
-Remover este comentário de revisão antes de eventual commit da emenda.
--->
 # SpecAudit Constitution
 
 **Preset**: `cemg-speckit` **3.0.0**.
@@ -193,6 +181,22 @@ impossibilidade e decidir explicitamente AGUARDAR, REJEITAR ou ACEITAR_COM_RESSA
 Sem execução possível, manter NÃO EXECUTADO, causa, impacto e próximo passo; a IA PODE
 rascunhar o registro, mas NÃO confirmar nem aceitar pelo DEV.
 
+Cada roteiro `validation/USn-dev.md` DEVE incluir tabela por cenário/critério com
+resultado (PASSOU, FALHOU ou NÃO EXECUTADO), observado ou motivo, evidências,
+commit testado e diff/manifesto quando aplicável, responsável e data/hora com fuso.
+Os campos humanos DEVEM ser entregues em branco. Retestes DEVEM acrescentar rodadas,
+preservando os registros anteriores. Roteiros de incremento DEVEM declarar seu escopo;
+sua aprovação NÃO concede aceite à história completa.
+
+O roteiro DEVE incluir declaração explícita de ACEITO, REJEITADO ou
+ACEITO_COM_RESSALVAS, com versão, autoria, data, referência à execução, escopo,
+justificativa e eventuais riscos/ações posteriores. Ausência de decisão e resultados
+PASSOU NÃO equivalem a aceite. Quando solicitado pelo DEV, a IA PODE conferir e
+transcrever a decisão para `acceptance/USn.md`, preservando a fonte e sem modificar
+seu sentido. Inconsistências ou informações essenciais ausentes DEVEM ser apontadas
+antes de declarar o aceite concluído. Isso NÃO autentica autoria nem instala
+monitoramento automático, aprovação de PR ou autorização de publicação.
+
 Este princípio rege o desenvolvimento do próprio SpecAudit. NÃO autoriza o produto a
 executar ou modificar soluções de terceiros carregadas para análise.
 
@@ -255,7 +259,7 @@ instalados: tais controles exigem implementação e verificação próprias. Os 
 acordados na conversa DEVEM ser transpostos à especificação em etapa posterior, sem criação
 ou implementação de funcionalidades nesta etapa constitucional.
 
-**Version**: 4.0.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-16
+**Version**: 4.1.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-16
 
 # Adendo à constituição — qualidade por história
 

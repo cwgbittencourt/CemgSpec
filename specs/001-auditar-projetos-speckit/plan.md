@@ -185,3 +185,18 @@ Processos externos são confiados à configuração validada de cada adaptador: 
 Retirar do produto AppContainer/LPAC, alteração de tokens, ajuste de memória, depuração de bootstrap e compilação de worker nativo. Preservar fontes/provas em verification/archive/constitution-v3-isolation/. SEC-001 permanece uma falha histórica da garantia retirada; não foi corrigida ou aprovada por esta emenda. Nenhum experimento bloqueado de privilégio será repetido para destravar a V1.
 
 T095 sincroniza documentos; T096 substitui o candidato experimental por execução gerenciada; T097 adapta testes ao contrato aprovado sem contar testes retirados como aprovados; T098 executa análise/regressão e registra o checkpoint. Em seguida concluir T006–T010 pelo contrato atual e retomar T011. Os 29 critérios ativos e sete roteiros DEV permanecem; somente requisitos específicos de sandbox OS são substituídos.
+
+## Registro de testes e decisão do DEV — emenda 4.1.0
+
+Esta regra rege o desenvolvimento do SpecAudit, sem ampliar as verificações do
+produto sobre a origem auditada. Todos os roteiros `validation/USn-dev.md` e de
+incrementos devem conter tabela por cenário/critério com resultado, observado ou
+motivo de não execução, evidências, commit/diff testado, responsável e data/fuso;
+campos humanos em branco na entrega. Retestes acrescentam rodadas sem apagar histórico.
+A declaração explícita no roteiro registra ACEITO, REJEITADO ou ACEITO_COM_RESSALVAS,
+com versão, autoria, justificativa, escopo e riscos/ações quando aplicável. Quando
+solicitado pelo DEV, a IA confere e transcreve para `acceptance/USn.md` com referência
+à fonte; inconsistências mantêm pendência. PASSOU não concede aceite; incremento
+não aceita história completa. Não há monitoramento automático configurado.
+Templates futuros: overrides locais `dev-validation-template`, `acceptance-template`,
+`plan-template` e `tasks-template`, sob `.specify/templates/overrides/`.

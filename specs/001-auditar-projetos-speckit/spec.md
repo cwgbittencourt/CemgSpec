@@ -357,3 +357,18 @@ Constituição 2.0.0 → 3.0.0 por autorização explícita. US3/US4 e FR-008/00
 ## Emenda de isolamento — constituição 4.0.0
 
 Autorização explícita do usuário em 2026-11-16: retirar a exigência de sandbox OS dos agentes, preservar a solução somente leitura e apenas speckit-analyze/check_gate. O contrato de análise entrega documentos selecionados a integrações confiáveis/configuradas, sem shell livre ou hooks/configuração da origem. Runtime/cwd/estado são externos. Antes de analyze, informar que um agente comprometido ou que ignore restrições não está contido pelo SO. Integração incapaz de cumprir o contrato funcional permanece indisponível. Essa emenda não aceita uma escrita na origem, não aprova os testes antigos e não altera o aceite pelo DEV.
+
+## Registro de testes e decisão do DEV — emenda 4.1.0
+
+Esta regra rege o desenvolvimento do SpecAudit, sem ampliar as verificações do
+produto sobre a origem auditada. Todos os roteiros `validation/USn-dev.md` e de
+incrementos devem conter tabela por cenário/critério com resultado, observado ou
+motivo de não execução, evidências, commit/diff testado, responsável e data/fuso;
+campos humanos em branco na entrega. Retestes acrescentam rodadas sem apagar histórico.
+A declaração explícita no roteiro registra ACEITO, REJEITADO ou ACEITO_COM_RESSALVAS,
+com versão, autoria, justificativa, escopo e riscos/ações quando aplicável. Quando
+solicitado pelo DEV, a IA confere e transcreve para `acceptance/USn.md` com referência
+à fonte; inconsistências mantêm pendência. PASSOU não concede aceite; incremento
+não aceita história completa. Não há monitoramento automático configurado.
+Templates futuros: overrides locais `dev-validation-template`, `acceptance-template`,
+`plan-template` e `tasks-template`, sob `.specify/templates/overrides/`.

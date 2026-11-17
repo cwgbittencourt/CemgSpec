@@ -133,3 +133,18 @@ Comparar baseline: os arquivos da origem devem ter mesmos hashes e conjunto de c
 Encerrar somente host/Job Object/processos próprios; conferir que nenhum descendente da execução resta. Preservar fixture/evidência para inspeção; excluir apenas por decisão explícita do DEV, após resolver caminho absoluto sob a raiz testRoot escolhida e confirmar que não é origem real. Não fornecer comando de exclusão recursiva baseado em path não validado.
 
 Entregar ao DEV mesma revisão, versões, receita/caminhos, comando de inicialização, endereço, entradas, passos, resultados e efeitos. Registrar estados ESCRITO, CONFERIDO_PELA_IA (fluxo realmente executado) e EXECUTADO_PELO_DEV separadamente. Aceite normal só após reprodução e decisão humana atribuível. Se impossibilidade, IA prepara rascunho com causa/risco/ação; só DEV confirma e escolhe AGUARDAR/REJEITAR/ACEITAR_COM_RESSALVAS. Não marcar teste não executado aprovado.
+
+## Registro de testes e decisão do DEV — emenda 4.1.0
+
+Esta regra rege o desenvolvimento do SpecAudit, sem ampliar as verificações do
+produto sobre a origem auditada. Todos os roteiros `validation/USn-dev.md` e de
+incrementos devem conter tabela por cenário/critério com resultado, observado ou
+motivo de não execução, evidências, commit/diff testado, responsável e data/fuso;
+campos humanos em branco na entrega. Retestes acrescentam rodadas sem apagar histórico.
+A declaração explícita no roteiro registra ACEITO, REJEITADO ou ACEITO_COM_RESSALVAS,
+com versão, autoria, justificativa, escopo e riscos/ações quando aplicável. Quando
+solicitado pelo DEV, a IA confere e transcreve para `acceptance/USn.md` com referência
+à fonte; inconsistências mantêm pendência. PASSOU não concede aceite; incremento
+não aceita história completa. Não há monitoramento automático configurado.
+Templates futuros: overrides locais `dev-validation-template`, `acceptance-template`,
+`plan-template` e `tasks-template`, sob `.specify/templates/overrides/`.

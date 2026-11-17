@@ -419,3 +419,18 @@ IDs preservados, com descrições/contratos redefinidos pela emenda explícita. 
 | T098 | constituição 4.0.0; plan | T097 | evidence/isolation-v4-revalidation.md; implementation-stage.json | Conferir contratos/código/testes, saídas reais e revisão atual; aprovação humana e histórias continuam pendentes. | Migração funcional validada, sem alegar correção da antiga garantia OS. |
 
 T011 exige T098 (migração validada) e T010 (prova de aplicação v4). T095–T098 pertencem ao PR-A; não há dependência do antigo sandbox OS. Histórias e aceite humano preservados.
+
+## Registro de testes e decisão do DEV — emenda 4.1.0
+
+Esta regra rege o desenvolvimento do SpecAudit, sem ampliar as verificações do
+produto sobre a origem auditada. Todos os roteiros `validation/USn-dev.md` e de
+incrementos devem conter tabela por cenário/critério com resultado, observado ou
+motivo de não execução, evidências, commit/diff testado, responsável e data/fuso;
+campos humanos em branco na entrega. Retestes acrescentam rodadas sem apagar histórico.
+A declaração explícita no roteiro registra ACEITO, REJEITADO ou ACEITO_COM_RESSALVAS,
+com versão, autoria, justificativa, escopo e riscos/ações quando aplicável. Quando
+solicitado pelo DEV, a IA confere e transcreve para `acceptance/USn.md` com referência
+à fonte; inconsistências mantêm pendência. PASSOU não concede aceite; incremento
+não aceita história completa. Não há monitoramento automático configurado.
+Templates futuros: overrides locais `dev-validation-template`, `acceptance-template`,
+`plan-template` e `tasks-template`, sob `.specify/templates/overrides/`.
