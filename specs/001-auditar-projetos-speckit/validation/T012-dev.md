@@ -6,7 +6,7 @@ Escopo: INCREMENTO de US1-AC04; não substitui o roteiro integrado US1-dev.md ne
 
 ## Reprodução conferida pela IA
 
-1. Abrir PowerShell na raiz D:/Codex_Workspace/Projetos/SpecAudit. Conferir a versão/manifesto e `dotnet --version`.
+1. Abrir PowerShell na raiz __REPO_ROOT__. Conferir a versão/manifesto e `dotnet --version`.
 2. Executar `dotnet restore SpecAudit.slnx --locked-mode` se as dependências locais ainda não estiverem restauradas. A execução da IA reutilizou o restore existente.
 3. Executar `dotnet test tests/SpecAudit.Ui.Tests --no-restore --filter FullyQualifiedName~ProjectSelectionTests --logger "console;verbosity=normal"`. Validar aprovação dos cenários abaixo. Cada teste cria sua própria origem sintética TEMP/SpecAudit-V1-GUID e destino externo; o picker humano é substituído somente pela entrada controlada de pastas.
 4. Executar `dotnet test tests/SpecAudit.Windows.Tests --no-restore --filter FullyQualifiedName~ExternalEditDuringRead --logger "console;verbosity=normal"`. Validar Changed, edição externa preservada e snapshot anterior imutável.

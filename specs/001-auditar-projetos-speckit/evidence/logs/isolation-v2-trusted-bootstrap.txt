@@ -1,7 +1,7 @@
-  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
-  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Windows.Tests -> __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
   Worker.c
-Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
 1 arquivos de teste no total corresponderam ao padrão especificado.
 [xUnit.net 00:00:00.64]     SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [FAIL]
   Com falha SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [413 ms]
@@ -10,8 +10,8 @@ Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.W
 Expected: 0
 Actual:   -1073741659
   Rastreamento de pilha:
-     at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 20
+     at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in __REPO_ROOT__\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 20
 --- End of stack trace from previous location ---
-Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\isolation-v2-trusted-bootstrap\cwagn_TRABALHO_2026-11-16_20_57_56_net10.0.trx
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\isolation-v2-trusted-bootstrap\runner_2026-11-16_20_57_56_net10.0.trx
 
 Com falha! – Com falha:     1, Aprovado:     0, Ignorado:     0, Total:     1, Duração: 433 ms - SpecAudit.Windows.Tests.dll (net10.0)

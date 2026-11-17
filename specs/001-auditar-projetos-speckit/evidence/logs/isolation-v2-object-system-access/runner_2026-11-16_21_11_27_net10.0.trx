@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="11d86d42-c488-42e1-bafe-b61d66a4adec" name="__USER__@__MACHINE__ 2026-11-16 21:11:27" runUser="__MACHINE__\__USER__" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-16T21:11:27.4708945-03:00" queuing="2026-11-16T21:11:27.4708948-03:00" start="2026-11-16T21:11:26.4229716-03:00" finish="2026-11-16T21:11:27.4764609-03:00" />
+  <TestSettings name="default" id="eedb3835-6a58-40e0-8afa-404f7ceef222">
+    <Deployment runDeploymentRoot="runner_2026-11-16_21_11_27" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="34002e21-8ad9-4b6f-a542-95bc0bc4d8eb" testId="3c76710e-0178-86da-a87e-35a05c55c568" testName="SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" computerName="__MACHINE__" duration="00:00:00.3160078" startTime="2026-11-16T21:11:27.0139570-03:00" endTime="2026-11-16T21:11:27.3463147-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34002e21-8ad9-4b6f-a542-95bc0bc4d8eb">
+      <Output>
+        <ErrorInfo>
+          <Message>Worker handshake was not observed.</Message>
+          <StackTrace>   at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in __REPO_ROOT__\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 19&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" storage="__REPO_ROOT__\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="3c76710e-0178-86da-a87e-35a05c55c568">
+      <Execution id="34002e21-8ad9-4b6f-a542-95bc0bc4d8eb" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.RestrictedLauncherTests" name="StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3c76710e-0178-86da-a87e-35a05c55c568" executionId="34002e21-8ad9-4b6f-a542-95bc0bc4d8eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)&#xD;
+[xUnit.net 00:00:00.10]   Discovering: SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.15]   Discovered:  SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.18]   Starting:    SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.53]       Worker handshake was not observed.&#xD;
+[xUnit.net 00:00:00.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.54]         __REPO_ROOT__\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs(19,0): at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob()&#xD;
+[xUnit.net 00:00:00.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.55]   Finished:    SpecAudit.Windows.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="__MACHINE__" outcome="Error" timestamp="2026-11-16T21:11:27.3492875-03:00">
+        <Text>[xUnit.net 00:00:00.53]     SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

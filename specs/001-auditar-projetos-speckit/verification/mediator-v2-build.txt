@@ -1,6 +1,6 @@
   Determinando os projetos a serem restaurados...
   Todos os projetos estão atualizados para restauração.
-  NetworkMediator -> D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\NetworkMediator.dll
+  NetworkMediator -> __REPO_ROOT__\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\NetworkMediator.dll
 
 Compilação com êxito.
     0 Aviso(s)
@@ -12,7 +12,7 @@ Microsoft (R) COFF/PE Dumper Version 14.51.36263.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 
-Dump of file D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\SyntheticWorker.exe
+Dump of file __REPO_ROOT__\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\SyntheticWorker.exe
 
 File Type: EXECUTABLE IMAGE
 

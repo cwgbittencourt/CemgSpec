@@ -1,19 +1,20 @@
 {
   "schema_version": 1,
   "stage": "pr",
-  "revision": "sha256:06eafe07a98e3b44d9ac9a142d3a2de902724749b63bafbaf45afe9bf23e5c9e",
+  "revision": "sha256:2d8c07395c5c6d039b94d4578224317ec103414a2885e4597e0e08429a574228",
   "state": "BLOCKED",
   "checks": {
     "applicable_tests_passed": true,
-    "review_complete": true,
-    "blocking_findings_resolved": true,
+    "review_complete": false,
+    "blocking_findings_resolved": false,
     "safe_intermediate_state": true,
     "dependencies_satisfied": false,
     "human_pr_approved": false,
     "ai_product_execution_observed": true
   },
   "blockers": [
-    "US1 integrated flow/review and PR-A closure still pending; this invocation was limited to T012.",
+    "T014 full US1 review and subsequent PR-A closure remain pending; T013 technical validation completed.",
+    "OBS-MAINT-01: prior intermittent watcher test failure not reproduced in five isolated retests and final suite; root cause pending review.",
     "Human PR approval and story acceptance not granted."
   ],
   "human_decisions": [],
@@ -21,42 +22,57 @@
     {
       "path": "tasks.md",
       "kind": "document",
-      "sha256": "d9240e511ef5a8ba212d48914845754e6db8b9ce90b7cb335a08fec52681120a"
+      "sha256": "6066aed56b4bdfcdc627932f1f02c26ac1f25a4fb736e8a15645627a3e7ab78e"
     },
     {
-      "path": "evidence/implementation-code-manifest.json",
+      "path": "evidence/maintenance-code-manifest.json",
       "kind": "document",
-      "sha256": "06eafe07a98e3b44d9ac9a142d3a2de902724749b63bafbaf45afe9bf23e5c9e"
+      "sha256": "2d8c07395c5c6d039b94d4578224317ec103414a2885e4597e0e08429a574228"
     },
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "20b40b73e7efdcda4b3e0ec4436cc559c51418acd3afab35903b7e6ec3068d68"
+      "sha256": "5eb451913e28f0cc8314bfa7425ef06b1d247eeaa8c929466b4c38a862a9159d"
     },
     {
-      "path": "evidence/T012-review.md",
+      "path": "evidence/US1-validation.md",
       "kind": "document",
-      "sha256": "75dda74ce6a8ea65c40f5e6be4e4562c95f593a7d581e445468d7ce494112c6f"
+      "sha256": "04afb23357ae4e84ac35382c4f350af9d3f10c83470d09faa80042afcf588304"
     },
     {
-      "path": "validation/T012-dev.md",
+      "path": "evidence/maintenance-review.md",
       "kind": "document",
-      "sha256": "da52ce8dc34685a5f63d48f0435dc2cc0bbdd551a604bb37155b26e640e5ed88"
+      "sha256": "8b33d249d6e232867eb2282ed02edca375456f4458599809e185b0abe5b0dcd1"
     },
     {
-      "path": "evidence/T012-product-execution.json",
-      "kind": "product-execution",
-      "sha256": "0efff51718056f8d35e37b46328f6f509d438fc9a01a4829daf7861abbde86c7"
-    },
-    {
-      "path": "evidence/T012-test-run.json",
+      "path": "evidence/maintenance-test-run.json",
       "kind": "test-run",
-      "sha256": "5d726d0c6f0ee1a165b9d4ee7b4ff8ce378c9b39e4104e41c439f73d2d1a1ac3"
+      "sha256": "16894348a8bc7e12c7568b1d3061b1163a740030d53bbd468bf9f3cc06ce90f1"
     },
     {
-      "path": "evidence/T012-validation.md",
+      "path": "evidence/maintenance-product-execution.json",
+      "kind": "product-execution",
+      "sha256": "dce051c31c66436325191f2f88cdfc0ce517597458e9c95c6105412f93aa29e6"
+    },
+    {
+      "path": "evidence/maintenance-manifest.json",
       "kind": "document",
-      "sha256": "40f2176656ac995e2054bb6503533bca22d91fab79e8980a0d064397b6e30fb7"
+      "sha256": "c8f52405988c69bc8fa17c7db7be5336fdd687fb491cefa6d11556c84898a225"
+    },
+    {
+      "path": "evidence/README.md",
+      "kind": "document",
+      "sha256": "cc1dc4a0cf5b38971e390e460c73868378693a631cdc6398aed6799e3de3737d"
+    },
+    {
+      "path": "evidence/maintenance-inventory.json",
+      "kind": "document",
+      "sha256": "da16308c60f0305e0b4ef056fc3cd2959f6d9a608d4fa605e900aef2ef601254"
+    },
+    {
+      "path": "evidence/maintenance-verification.json",
+      "kind": "document",
+      "sha256": "f5b0a1850b6492d647488ec6356332cb08477a2544c7c6aeb6eed4f99a21c75b"
     }
   ],
   "tasks_completed": [
@@ -75,14 +91,15 @@
     "T095",
     "T096",
     "T097",
-    "T098"
+    "T098",
+    "T013"
   ],
-  "next_task": "T013",
-  "work_stopped_at_user_request": true,
+  "next_task": "T014",
+  "work_stopped_at_user_request": false,
   "test_summary": {
-    "passed": 41,
+    "passed": 45,
     "failed": 0,
     "skipped": 0
   },
-  "manuals_state": "T012 harness checked by AI; UI partial; DEV execution and complete story pending."
+  "manuals_state": "T013 real native-picker/library harness checked by AI; full DEV script consolidation and human execution pending."
 }

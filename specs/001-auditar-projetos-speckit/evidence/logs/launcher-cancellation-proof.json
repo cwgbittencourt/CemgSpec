@@ -12,5 +12,5 @@
   "ProfileDeleteResult": 0,
   "Output": "",
   "Error": "Win32Exception: Par\u00E2metro incorreto.",
-  "StageDirectory": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Worker-e78ae49a1267433293ee46c487c625a8"
+  "StageDirectory": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Worker-e78ae49a1267433293ee46c487c625a8"
 }

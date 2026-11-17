@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "runId": "8ffee9e59b2143d88e699a15096d205c",
-  "fixtureRoot": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c",
-  "source": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c\\source",
-  "outside": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c\\outside",
+  "fixtureRoot": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c",
+  "source": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c\\source",
+  "outside": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Probe-8ffee9e59b2143d88e699a15096d205c\\outside",
   "marker": "SPEC_AUDIT_SYNTHETIC_f9b34512792d467bbabd9ef3902658a8",
   "baseline": {
     "spec.md": "B44F1264F0B085F41D77889550656DDAC2D5F0B00A5803E2E6E292C575BBCD3D",
@@ -26,12 +26,12 @@
       "sourceFilesIntact": true,
       "newSourceFiles": [],
       "changedStateFiles": [
-        "C:\\Users\\cwagn\\.codex\\logs_2.sqlite-wal",
-        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\cli.log",
-        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\implicit\\a6e0e2f4-c7e1-46a0-a101-5652a556e145.pb",
-        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\crashes\\crash_41556_c4365333-a307-41d3-bdfe-16b6b23f7d08.log",
-        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\conversation_summaries.db",
-        "C:\\Users\\cwagn\\.gemini\\antigravity-cli\\log\\cli-20261115_235257.log"
+        "__USER_HOME__\\.codex\\logs_2.sqlite-wal",
+        "__USER_HOME__\\.gemini\\antigravity-cli\\cli.log",
+        "__USER_HOME__\\.gemini\\antigravity-cli\\implicit\\a6e0e2f4-c7e1-46a0-a101-5652a556e145.pb",
+        "__USER_HOME__\\.gemini\\antigravity-cli\\crashes\\crash_41556_c4365333-a307-41d3-bdfe-16b6b23f7d08.log",
+        "__USER_HOME__\\.gemini\\antigravity-cli\\conversation_summaries.db",
+        "__USER_HOME__\\.gemini\\antigravity-cli\\log\\cli-20261115_235257.log"
       ],
       "scannedChangedFiles": 6,
       "unreadableFiles": 0,

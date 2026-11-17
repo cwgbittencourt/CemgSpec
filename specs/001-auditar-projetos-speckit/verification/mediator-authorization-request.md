@@ -15,7 +15,7 @@ A autorização é para executar a prova, não para considerar resultados aprova
 Em PowerShell já aberto como Administrador:
 
 ```powershell
-& 'D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\Invoke-MediatorProof.ps1' -ExecuteSyntheticProof -ExpectedManifestSha256 'd0fd1c46893c69d51dd2aba717834b8aed30a09423ff4b53b9bb5fc458eec115'
+& '__REPO_ROOT__\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\Invoke-MediatorProof.ps1' -ExecuteSyntheticProof -ExpectedManifestSha256 'd0fd1c46893c69d51dd2aba717834b8aed30a09423ff4b53b9bb5fc458eec115'
 ```
 
 O wrapper exige administrador, verifica o manifesto e os hashes da DLL, deps e runtimeconfig. Se algo mudou, interrompe antes da prova; revisão e autorização precisam ser renovadas.

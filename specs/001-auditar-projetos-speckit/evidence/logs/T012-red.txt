@@ -1,6 +1,6 @@
-  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
-  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
-Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Ui.Tests -> __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
 1 arquivos de teste no total corresponderam ao padrão especificado.
 [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
 [xUnit.net 00:00:00.07]   Discovering: SpecAudit.Ui.Tests
@@ -11,7 +11,7 @@ Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.U
 [xUnit.net 00:00:00.77]       Expected: False
 [xUnit.net 00:00:00.77]       Actual:   True
 [xUnit.net 00:00:00.77]       Stack Trace:
-[xUnit.net 00:00:00.77]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\ProjectSelectionTests.cs(61,0): at SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments()
+[xUnit.net 00:00:00.77]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectSelectionTests.cs(61,0): at SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments()
 [xUnit.net 00:00:00.77]         --- End of stack trace from previous location ---
 [xUnit.net 00:00:00.78]   Finished:    SpecAudit.Ui.Tests
   Com falha SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments [618 ms]
@@ -20,7 +20,7 @@ Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.U
 Expected: False
 Actual:   True
   Rastreamento de pilha:
-     at SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\ProjectSelectionTests.cs:line 61
+     at SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectSelectionTests.cs:line 61
 --- End of stack trace from previous location ---
 
 Falha na Execução de Teste.

@@ -102,7 +102,7 @@ Inicialização futura do aplicativo a partir da raiz de desenvolvimento:
 `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --urls http://127.0.0.1:5187`.
 Comando do próprio SpecAudit, não da solução auditada. Nenhuma demonstração funcional executada nesta revisão. Antes de disponibilizar, definir proteção local de sessão, Host/origem, antiforgery, picker de pasta e contratos; loopback somente, sem exposição LAN.
 
-Gate de desenvolvimento documental nesta feature usa Python existente `C:/Users/cwagn/anaconda3_11/python.exe` e `.specify/presets/cemg-speckit/tools/check_gate.py`, com --feature/--record/--stage/--revision, SEM --project. Isso valida os registros de planejamento deste repositório; não é prova do executor empacotado ou da UI futura.
+Gate de desenvolvimento documental nesta feature usa Python existente `__USER_HOME__/anaconda3_11/python.exe` e `.specify/presets/cemg-speckit/tools/check_gate.py`, com --feature/--record/--stage/--revision, SEM --project. Isso valida os registros de planejamento deste repositório; não é prova do executor empacotado ou da UI futura.
 
 Agentes: usar autenticação existente exclusivamente pela integração validada; não ler/copiar tokens para relatórios. Gate não precisa de agente ou credencial. Registrar versões e locais externos reais de cache/sessão antes de prova do analyze. Nenhuma instalação/elevação automática autorizada. IA e DEV precisam dos mesmos dados/entrada/resultado/efeitos; roteiro final no quickstart após pesquisa. Limpeza: encerrar host e descendentes próprios; excluir somente fixtures previamente resolvidas dentro de raiz sintética expressamente identificada; nunca origem real ou arquivos do usuário.
 

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "Current exported feature evidence only; no Git history rewrite; pattern search is not a complete secret audit",
+  "text_files_scanned": 345,
+  "strong_secret_pattern_matches": 0,
+  "personal_path_username_email_matches": 0,
+  "structured_files_parsed": {
+    "json": 85,
+    "trx": 96,
+    "jsonl": 1
+  },
+  "consolidated_files": 8,
+  "removed_redundant_bytes": 117026,
+  "trx_metadata_renames": 65,
+  "final_product_tests": {
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0
+  },
+  "maintenance_unit_tests": 6,
+  "prior_failure_preserved": "OBS-MAINT-01; five focused retests passed; root cause unconfirmed",
+  "images_visually_checked": 4,
+  "history_rewritten": false
+}

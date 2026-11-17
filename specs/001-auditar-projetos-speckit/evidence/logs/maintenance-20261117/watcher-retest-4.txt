@@ -1,0 +1,5 @@
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\maintenance-20261117\watcher-retests\watcher-4_net10.0_20261117200544.trx
+
+Aprovado!  – Com falha:     0, Aprovado:     1, Ignorado:     0, Total:     1, Duração: 611 ms - SpecAudit.Ui.Tests.dll (net10.0)

@@ -40,9 +40,9 @@ Os filtros usam o motor WFP do Windows, mas seu predicado é o SID exclusivo da 
 Na raiz do repositório:
 
 ```powershell
-$project = 'D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\NetworkMediator.csproj'
+$project = '__REPO_ROOT__\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\NetworkMediator.csproj'
 dotnet build $project -c Release --no-restore
-$binary = 'D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\NetworkMediator.dll'
+$binary = '__REPO_ROOT__\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\NetworkMediator.dll'
 dotnet $binary --self-test
 dotnet $binary --describe
 Get-FileHash -LiteralPath $binary -Algorithm SHA256
@@ -53,7 +53,7 @@ Get-FileHash -LiteralPath $binary -Algorithm SHA256
 Somente depois da autorização específica e da conferência do hash no manifesto, em PowerShell aberto como Administrador:
 
 ```powershell
-& 'C:\Program Files\dotnet\dotnet.exe' 'D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\NetworkMediator.dll' --run-wfp-proof --ack-synthetic-only
+& 'C:\Program Files\dotnet\dotnet.exe' '__REPO_ROOT__\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\bin\Release\net10.0\NetworkMediator.dll' --run-wfp-proof --ack-synthetic-only
 ```
 
 O programa não abre UAC nem usa RunAs. Sem console elevada ou sem a opção de confirmação, recusa a prova. Se recompilar os binários, revisar os novos hashes antes de executar; autorização não se transfere automaticamente para um binário alterado.

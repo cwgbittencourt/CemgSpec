@@ -10,13 +10,13 @@
   "serviceInstalled": false,
   "globalFirewallProfilesChanged": false,
   "newFixtureDirectories": [
-    "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-3887982a30ed4cf5995941c8909beb50"
+    "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-3887982a30ed4cf5995941c8909beb50"
   ],
   "resultFiles": [
     {
-      "original": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-3887982a30ed4cf5995941c8909beb50\\proof-result.json",
+      "original": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-3887982a30ed4cf5995941c8909beb50\\proof-result.json",
       "evidence": "verification/mediator-v2-elevated-result.json",
-      "sha256": "376f470d24b0a5fa7b7631f842a70a1f03f94d075add85cd7069269a597bb393"
+      "sha256": "328394a2fc0e0fa9d7bed340fae690f8204fda90cc61fa360e26ee172e704ece"
     }
   ]
 }

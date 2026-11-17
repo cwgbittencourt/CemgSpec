@@ -1,0 +1,16 @@
+{
+  "revision": "sha256:43352aaa8e3fd85b0de05446d353d21f9f8602801356487e1daa0a2104fb9d47",
+  "result": "PASSED",
+  "exit_code": 0,
+  "command": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T013-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T013-20261117/final-results",
+  "timestamp": "2026-11-17T19:52:26.2373270-03:00",
+  "stdout": {
+    "sha256": "1af289c7f5f6fe5cb80e4f492e7949c7cef7f4d39e916bc553a2829eafc7429a",
+    "path": "evidence/logs/T013-20261117/final-suite.txt"
+  },
+  "stderr": {
+    "sha256": "1af289c7f5f6fe5cb80e4f492e7949c7cef7f4d39e916bc553a2829eafc7429a",
+    "path": "evidence/logs/T013-20261117/final-suite.txt"
+  },
+  "note": "Combined stdout/stderr. 45 passed, zero failed/skipped; 4 US1 scenarios with native Windows picker."
+}

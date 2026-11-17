@@ -1,0 +1,6 @@
+  Determinando os projetos a serem restaurados...
+  __REPO_ROOT__\tests\SpecAudit.CommandFixture\SpecAudit.CommandFixture.csproj restaurado (em 79 ms).
+  __REPO_ROOT__\SpecAudit\SpecAudit.csproj restaurado (em 2,01 seg).
+  __REPO_ROOT__\tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj restaurado (em 2,02 seg).
+  __REPO_ROOT__\tests\SpecAudit.Tests\SpecAudit.Tests.csproj restaurado (em 2,02 seg).
+  __REPO_ROOT__\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj restaurado (em 2,02 seg).

@@ -23,7 +23,7 @@
     "Agent integration with read broker not implemented",
     "Network boundary still not validated"
   ],
-  "fixture": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Broker-178037b486ba45c4bf85d3e6e26e1e1f",
+  "fixture": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Broker-178037b486ba45c4bf85d3e6e26e1e1f",
   "handlePolicy": "Explicit inherited handle list: output pipe + one read-only source handle",
   "sourceAclsChanged": false
 }

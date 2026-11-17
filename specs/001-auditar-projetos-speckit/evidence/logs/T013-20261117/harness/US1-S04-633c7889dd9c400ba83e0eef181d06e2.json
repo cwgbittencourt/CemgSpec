@@ -1,0 +1,16 @@
+{
+  "scenario": "US1-S04",
+  "timestamp": "2026-11-17T22:49:45.848411+00:00",
+  "result": "PASSOU",
+  "observed": {
+    "Root": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-V1-971897fee50948278bca4333b8750d2c",
+    "Origin": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-V1-971897fee50948278bca4333b8750d2c\\origin",
+    "Output": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-V1-971897fee50948278bca4333b8750d2c\\reports",
+    "Generation": 0,
+    "stale": "Changed",
+    "cancellation": true,
+    "editPreserved": true,
+    "unexpectedWrites": 0,
+    "medium": "public document/version API harness; no agent or Save workflow"
+  }
+}

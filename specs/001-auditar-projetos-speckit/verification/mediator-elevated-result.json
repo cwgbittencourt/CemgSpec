@@ -1,7 +1,7 @@
 {
   "state": "FAILED_OR_INCOMPLETE",
   "timestampUtc": "2026-11-16T05:15:19.8036059+00:00",
-  "fixture": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784",
+  "fixture": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784",
   "sourceIntact": true,
   "policySublayer": "6bb30716-ff53-488a-820b-f911aee8c3db",
   "filterKeys": [

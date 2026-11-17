@@ -12,5 +12,5 @@
   "ProfileDeleteResult": 0,
   "Output": "SYNTHETIC_WORKER_READY\nREAD_CODE_CONFIG_WRITE_CREATE_RENAME_DELETE_DENIED\nCHILD_CREATED\nREAD_CODE_CONFIG_WRITE_CREATE_RENAME_DELETE_DENIED\n",
   "Error": null,
-  "StageDirectory": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Worker-1d1088eaafe84d35928f26934e31cfdc"
+  "StageDirectory": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Worker-1d1088eaafe84d35928f26934e31cfdc"
 }

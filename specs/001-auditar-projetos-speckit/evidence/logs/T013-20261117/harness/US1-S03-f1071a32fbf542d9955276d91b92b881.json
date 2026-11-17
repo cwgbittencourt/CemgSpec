@@ -1,0 +1,16 @@
+{
+  "scenario": "US1-S03",
+  "timestamp": "2026-11-17T22:50:13.731432+00:00",
+  "result": "PASSOU",
+  "observed": {
+    "firstRoot": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-V1-d52c7f1ac1ca498daba6598a47a718e5",
+    "secondRoot": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-V1-bec3a9714dae476d9cf705e14a484806",
+    "history": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-V1-d52c7f1ac1ca498daba6598a47a718e5\\reports\\existing.md",
+    "historyHash": "61d2a8b2a012b7c331f8afdc80c90219bb954df52819923bff7973d16d76ea2f",
+    "newDestination": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-V1-d52c7f1ac1ca498daba6598a47a718e5\\dev-evidence",
+    "contexts": 2,
+    "originsUnchanged": true,
+    "nativePicker": true,
+    "historyPreparedByHarness": true
+  }
+}

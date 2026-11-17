@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "stage": "pr",
+  "revision": "sha256:06eafe07a98e3b44d9ac9a142d3a2de902724749b63bafbaf45afe9bf23e5c9e",
+  "state": "BLOCKED",
+  "checks": {
+    "applicable_tests_passed": true,
+    "review_complete": true,
+    "blocking_findings_resolved": true,
+    "safe_intermediate_state": true,
+    "dependencies_satisfied": false,
+    "human_pr_approved": false,
+    "ai_product_execution_observed": true
+  },
+  "blockers": [
+    "US1 integrated flow/review and PR-A closure still pending; this invocation was limited to T012.",
+    "Human PR approval and story acceptance not granted."
+  ],
+  "human_decisions": [],
+  "evidence": [
+    {
+      "path": "tasks.md",
+      "kind": "document",
+      "sha256": "d9240e511ef5a8ba212d48914845754e6db8b9ce90b7cb335a08fec52681120a"
+    },
+    {
+      "path": "evidence/implementation-code-manifest.json",
+      "kind": "document",
+      "sha256": "06eafe07a98e3b44d9ac9a142d3a2de902724749b63bafbaf45afe9bf23e5c9e"
+    },
+    {
+      "path": "evidence/implementation-status.md",
+      "kind": "document",
+      "sha256": "20b40b73e7efdcda4b3e0ec4436cc559c51418acd3afab35903b7e6ec3068d68"
+    },
+    {
+      "path": "evidence/T012-review.md",
+      "kind": "document",
+      "sha256": "75dda74ce6a8ea65c40f5e6be4e4562c95f593a7d581e445468d7ce494112c6f"
+    },
+    {
+      "path": "validation/T012-dev.md",
+      "kind": "document",
+      "sha256": "da52ce8dc34685a5f63d48f0435dc2cc0bbdd551a604bb37155b26e640e5ed88"
+    },
+    {
+      "path": "evidence/T012-product-execution.json",
+      "kind": "product-execution",
+      "sha256": "41e2889324be275314e3f0e79f842e3badde1aad21c3d60e04793143567865e1"
+    },
+    {
+      "path": "evidence/T012-test-run.json",
+      "kind": "test-run",
+      "sha256": "e7e8d442a9497b5bb4a6851237a61d73502b6cfc7a2779cf8a69aae1dc8160ce"
+    },
+    {
+      "path": "evidence/T012-validation.md",
+      "kind": "document",
+      "sha256": "40f2176656ac995e2054bb6503533bca22d91fab79e8980a0d064397b6e30fb7"
+    }
+  ],
+  "tasks_completed": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T095",
+    "T096",
+    "T097",
+    "T098"
+  ],
+  "next_task": "T013",
+  "work_stopped_at_user_request": true,
+  "test_summary": {
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0
+  },
+  "manuals_state": "T012 harness checked by AI; UI partial; DEV execution and complete story pending."
+}

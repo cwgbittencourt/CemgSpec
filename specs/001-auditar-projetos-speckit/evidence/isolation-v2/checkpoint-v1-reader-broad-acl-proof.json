@@ -12,5 +12,5 @@
   "ProfileDeleteResult": 0,
   "Output": "SYNTHETIC_WORKER_READY\n",
   "Error": null,
-  "StageDirectory": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Worker-f8373fd815dd420b8acf3901fa3ae0c5"
+  "StageDirectory": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Worker-f8373fd815dd420b8acf3901fa3ae0c5"
 }

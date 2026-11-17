@@ -1,14 +1,14 @@
-  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
-  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
-Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Windows.Tests -> __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
 1 arquivos de teste no total corresponderam ao padrão especificado.
 [xUnit.net 00:00:00.57]     SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [FAIL]
   Com falha SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [395 ms]
   Mensagem de erro:
    Worker handshake was not observed.
   Rastreamento de pilha:
-     at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 19
+     at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in __REPO_ROOT__\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 19
 --- End of stack trace from previous location ---
-Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\isolation-v2-serial-loader\cwagn_TRABALHO_2026-11-16_21_09_30_net10.0.trx
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\isolation-v2-serial-loader\runner_2026-11-16_21_09_30_net10.0.trx
 
 Com falha! – Com falha:     1, Aprovado:     0, Ignorado:     0, Total:     1, Duração: 419 ms - SpecAudit.Windows.Tests.dll (net10.0)

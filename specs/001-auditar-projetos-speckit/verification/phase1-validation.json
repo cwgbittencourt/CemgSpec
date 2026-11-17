@@ -27,7 +27,7 @@
     },
     {
       "path": "quickstart.md",
-      "sha256": "622a0e03c3b6af40c8164fdfd69ced9a883b3070bb70b1d2341bf40340f41c6c"
+      "sha256": "a0f7f147a8db6df871338d8c2945cbb2537265b07fe69e5fa854578306f4ee0f"
     }
   ],
   "powershellBlocksParsedNotExecuted": 3,

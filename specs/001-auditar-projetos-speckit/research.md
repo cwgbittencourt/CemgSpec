@@ -47,7 +47,7 @@ Os parágrafos seguintes são registros cronológicos com versões e conclusões
 
 ### Codex
 
-- Descoberto: C:/Users/cwagn/AppData/Roaming/npm/codex.ps1; codex-cli 0.147.0.
+- Descoberto: __USER_HOME__/AppData/Roaming/npm/codex.ps1; codex-cli 0.147.0.
 - Ajuda instalada: exec, entrada por stdin, --json, --ephemeral, --sandbox read-only, --ignore-user-config e --ignore-rules.
 - Decisão candidata: adaptador de execução não interativa, JSON por pipe e sessão efêmera, sem shell livre nem carregamento de instruções da origem.
 - Motivo: opções correspondem ao contrato funcional; nenhuma demonstra proteção completa por si só.
@@ -57,7 +57,7 @@ Os parágrafos seguintes são registros cronológicos com versões e conclusões
 
 ### Antigravity
 
-- Descoberto: C:/Users/cwagn/AppData/Local/agy/bin/agy.exe; agy 1.1.10. App/IDE e CLI são instalações diferentes, não presumir equivalência.
+- Descoberto: __USER_HOME__/AppData/Local/agy/bin/agy.exe; agy 1.1.10. App/IDE e CLI são instalações diferentes, não presumir equivalência.
 - Ajuda instalada: -p, --output-format json/stream-json, --mode plan, --sandbox, --disable-slash-commands, --log-file, --conversation e --continue.
 - Fontes oficiais: https://antigravity.google/docs/cli/headless/ e https://antigravity.google/docs/cli/reference/.
 - Decisão: manter integração obrigatória como requisito, mas indisponível até prova; não transformar detecção em compatibilidade.

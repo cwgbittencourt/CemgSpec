@@ -15,7 +15,7 @@
   "artifacts": [
     {
       "path": "evidence/logs/T012-suite-complete.txt",
-      "sha256": "60d0cd7f56a41e9d3d121ecfe94c691fe404f9ab24fb7ce4381824375db2cae0"
+      "sha256": "941e6c98f7cc2d8c4560910bc835fbae4237823fdf367f1fd059a0f29459c0c2"
     }
   ]
 }

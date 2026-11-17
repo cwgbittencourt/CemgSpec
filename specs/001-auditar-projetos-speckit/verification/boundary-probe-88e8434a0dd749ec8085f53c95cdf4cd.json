@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "runId": "88e8434a0dd749ec8085f53c95cdf4cd",
   "timestampUtc": "2026-11-16T03:10:43.2076200+00:00",
-  "fixture": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Boundary-88e8434a0dd749ec8085f53c95cdf4cd",
+  "fixture": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-Boundary-88e8434a0dd749ec8085f53c95cdf4cd",
   "mechanism": "Restricted token, low integrity, suspended launch, Job Object kill-on-close, anonymous output pipe",
   "sourceAclModified": false,
   "realSolutionUsed": false,

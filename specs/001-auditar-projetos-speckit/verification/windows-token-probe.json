@@ -1,6 +1,6 @@
 {
   "state": "EXIT:0",
-  "fixtureRoot": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-TokenProbe-5e30c3ef21ba40beb610d7f65aa57d44",
+  "fixtureRoot": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-TokenProbe-5e30c3ef21ba40beb610d7f65aa57d44",
   "sourceIntact": true,
   "canaryIntact": true,
   "sourceAclsModified": false,

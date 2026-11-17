@@ -1,0 +1,16 @@
+{
+  "revision": "sha256:2d8c07395c5c6d039b94d4578224317ec103414a2885e4597e0e08429a574228",
+  "result": "PASSED",
+  "exit_code": 0,
+  "command": "dotnet test SpecAudit.slnx --no-build --no-restore --logger 'trx;LogFilePrefix=maintenance-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/maintenance-20261117/final-results",
+  "stdout": {
+    "path": "evidence/logs/maintenance-20261117/final-suite.txt",
+    "sha256": "33013eb276cea6c909ed21e68eaceded5a8ee9f1d32be46b8ae9ed8f1be3de61"
+  },
+  "stderr": {
+    "path": "evidence/logs/maintenance-20261117/final-suite.txt",
+    "sha256": "33013eb276cea6c909ed21e68eaceded5a8ee9f1d32be46b8ae9ed8f1be3de61"
+  },
+  "note": "Final round 45 passed, zero failed/skipped. Prior round 44/45 and five watcher retests preserved; intermittent cause remains pending T014.",
+  "timestamp": "2026-11-17T20:05:52.2416011-03:00"
+}

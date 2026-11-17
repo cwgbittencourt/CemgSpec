@@ -14,7 +14,7 @@ Requisitos de desenvolvimento: Windows x64; .NET 10 SDK estável suportado; Powe
 No PowerShell, raiz de desenvolvimento:
 
 ```powershell
-Set-Location 'D:\Codex_Workspace\Projetos\SpecAudit'
+Set-Location '__REPO_ROOT__'
 dotnet --info
 dotnet restore .\SpecAudit\SpecAudit.csproj
 dotnet list .\SpecAudit\SpecAudit.csproj package --vulnerable --include-transitive

@@ -28,7 +28,7 @@
     {
       "path": "research.md",
       "kind": "document",
-      "sha256": "e285079c9c1cb5b08286765b5691d08f63062870ff2e65ba46f88267db3bab33"
+      "sha256": "26b4ee09795a3f28e8eb06df70a3d65005394a047e6212c436f2c3a46c178613"
     },
     {
       "path": "data-model.md",
@@ -53,7 +53,7 @@
     {
       "path": "quickstart.md",
       "kind": "document",
-      "sha256": "622a0e03c3b6af40c8164fdfd69ced9a883b3070bb70b1d2341bf40340f41c6c"
+      "sha256": "a0f7f147a8db6df871338d8c2945cbb2537265b07fe69e5fa854578306f4ee0f"
     },
     {
       "path": "checklists/requirements.md",
@@ -73,7 +73,7 @@
     {
       "path": "verification/phase1-validation.json",
       "kind": "document",
-      "sha256": "4fa4e3bb412dd9f518a108b051e3f597589fd354568958e5e18ed26ced6b3725"
+      "sha256": "da1e0185a193f10dd47e97ce151b6321901cb442c6fdcf7880bd94364941f31f"
     },
     {
       "path": "verification/isolation-network-status.md",

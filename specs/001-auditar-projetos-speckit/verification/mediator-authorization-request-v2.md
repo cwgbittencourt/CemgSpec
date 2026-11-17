@@ -13,7 +13,7 @@ Sem instalação de serviço/driver, firewall global ou filtros persistentes; se
 ## Comando histórico — NÃO REEXECUTAR
 
 ```powershell
-& 'D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\Invoke-MediatorProof.ps1' -ExecuteSyntheticProof -ExpectedManifestSha256 '3f0839d1f20f77ae77f872e0337753fd7adcf55622b7659f417300520f7b4cc7'
+& '__REPO_ROOT__\specs\001-auditar-projetos-speckit\prototype\NetworkMediator\Invoke-MediatorProof.ps1' -ExecuteSyntheticProof -ExpectedManifestSha256 '3f0839d1f20f77ae77f872e0337753fd7adcf55622b7659f417300520f7b4cc7'
 ```
 
 O comando requer uma execução elevada separadamente autorizada; o wrapper não eleva automaticamente. Sem recompilar ou modificar artefatos entre a revisão e a execução. Qualquer mudança de hashes requer novo manifesto/revisão/autorização. Somente bootstrap foi validado nesta revisão; a correção no contexto elevado e o bloqueio funcional de rede permanecem pendentes. Plan BLOCKED.

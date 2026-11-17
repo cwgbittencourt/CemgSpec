@@ -102,7 +102,7 @@ Limpeza futura: encerrar host/descendentes, remover apenas fixtures e saídas de
 
 ## Viabilidade por história
 
-| História | IA consegue executar? | DEV consegue reproduzir? | Impedimento atual | Trabalho para resolver |
+| História | IA consegue executar? | DEV consegue reproduzir? | Impedimento atual | trabalho para resolver |
 |---|---|---|---|---|
 | US1 | Parcial, pesquisa; produto não existe | Após implementação/prova | B2 | Provar broker/executor e reparse paths sem ACL da origem |
 | US2 | Parcial, corpus e parser propostos | Após implementação | Proteção de leitura e preview pendentes | Resolver B2 e implementar leitor seguro |

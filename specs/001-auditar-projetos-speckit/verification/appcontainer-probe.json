@@ -9,7 +9,7 @@
   "controlNetworkSucceeded": true,
   "capabilitiesGranted": [],
   "sourceAclsChanged": false,
-  "fixture": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-AppContainer-1f6cbf8d7e0e49a1b6896b500b4b8577",
+  "fixture": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-AppContainer-1f6cbf8d7e0e49a1b6896b500b4b8577",
   "agents": [
     {
       "agent": "codex",

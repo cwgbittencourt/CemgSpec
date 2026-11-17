@@ -1,15 +1,15 @@
-  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
-  SpecAudit.CommandFixture -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.CommandFixture\bin\Debug\net10.0\SpecAudit.CommandFixture.dll
-  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
-  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
-Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
-Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
-  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
-Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.CommandFixture -> __REPO_ROOT__\tests\SpecAudit.CommandFixture\bin\Debug\net10.0\SpecAudit.CommandFixture.dll
+  SpecAudit.Tests -> __REPO_ROOT__\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+  SpecAudit.Windows.Tests -> __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+  SpecAudit.Ui.Tests -> __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
 1 arquivos de teste no total corresponderam ao padrão especificado.
 1 arquivos de teste no total corresponderam ao padrão especificado.
 1 arquivos de teste no total corresponderam ao padrão especificado.
-Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\T012-verified-results\T012-verified_net10.0_20261116215919.trx
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\T012-verified-results\T012-verified_net10.0_20261116215919.trx
 
 Aprovado!  – Com falha:     0, Aprovado:     7, Ignorado:     0, Total:     7, Duração: 27 ms - SpecAudit.Tests.dll (net10.0)
 [xUnit.net 00:00:01.49]     SpecAudit.Ui.Tests.ProjectSelectionTests.RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities [FAIL]
@@ -17,16 +17,16 @@ Aprovado!  – Com falha:     0, Aprovado:     7, Ignorado:     0, Total:     7,
   Mensagem de erro:
    SpecAudit.Infrastructure.Documents.DocumentAccessException : Changed
   Rastreamento de pilha:
-     at SpecAudit.Infrastructure.Documents.DocumentBroker.ReadLocked(Guid projectId, Guid documentId, Int64 generation) in D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Documents\DocumentBroker.cs:line 14
-   at SpecAudit.Infrastructure.Documents.DocumentBroker.Read(Guid projectId, Guid documentId, Int64 generation) in D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Documents\DocumentBroker.cs:line 9
-   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Build() in D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 48
-   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Refresh() in D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 93
-   at SpecAudit.Application.ProjectService.Refresh(Guid projectId) in D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Application\ProjectService.cs:line 97
-   at SpecAudit.Ui.Tests.ProjectSelectionTests.RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\ProjectSelectionTests.cs:line 134
+     at SpecAudit.Infrastructure.Documents.DocumentBroker.ReadLocked(Guid projectId, Guid documentId, Int64 generation) in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentBroker.cs:line 14
+   at SpecAudit.Infrastructure.Documents.DocumentBroker.Read(Guid projectId, Guid documentId, Int64 generation) in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentBroker.cs:line 9
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Build() in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 48
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Refresh() in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 93
+   at SpecAudit.Application.ProjectService.Refresh(Guid projectId) in __REPO_ROOT__\SpecAudit\Application\ProjectService.cs:line 97
+   at SpecAudit.Ui.Tests.ProjectSelectionTests.RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectSelectionTests.cs:line 134
 --- End of stack trace from previous location ---
-Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\T012-verified-results\T012-verified_net10.0_20261116215922.trx
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\T012-verified-results\T012-verified_net10.0_20261116215922.trx
 
 Aprovado!  – Com falha:     0, Aprovado:    14, Ignorado:     0, Total:    14, Duração: 2 s - SpecAudit.Windows.Tests.dll (net10.0)
-Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\T012-verified-results\T012-verified_net10.0_20261116215924.trx
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\T012-verified-results\T012-verified_net10.0_20261116215924.trx
 
 Com falha! – Com falha:     1, Aprovado:    19, Ignorado:     0, Total:    20, Duração: 4 s - SpecAudit.Ui.Tests.dll (net10.0)

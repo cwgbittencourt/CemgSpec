@@ -9,13 +9,13 @@
   "exitCode": 1,
   "error": null,
   "newFixtureDirectories": [
-    "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784"
+    "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784"
   ],
   "resultFiles": [
     {
-      "evidence": "D:\\Codex_Workspace\\Projetos\\SpecAudit\\specs\\001-auditar-projetos-speckit\\verification\\mediator-elevated-result.json",
-      "original": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784\\proof-result.json",
-      "sha256": "ee2185ef0a09ad4730edec4a82671e18db962c1e566aaea8f2fb390d6e9924d8"
+      "evidence": "__REPO_ROOT__\\specs\\001-auditar-projetos-speckit\\verification\\mediator-elevated-result.json",
+      "original": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-MediatorProof-8d9327125c7544d3a504e95f1f130784\\proof-result.json",
+      "sha256": "3369f7951ace905ffff87292162927c4545431cb27a0e26bcbccdf612146d0f5"
     }
   ]
 }

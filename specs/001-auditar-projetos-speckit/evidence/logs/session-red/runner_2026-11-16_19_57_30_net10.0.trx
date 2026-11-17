@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="14b898e7-574d-48f5-ba31-96ad10642d65" name="__USER__@__MACHINE__ 2026-11-16 19:57:30" runUser="__MACHINE__\__USER__" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-16T19:57:30.9374003-03:00" queuing="2026-11-16T19:57:30.9374005-03:00" start="2026-11-16T19:57:29.0323751-03:00" finish="2026-11-16T19:57:30.9862507-03:00" />
+  <TestSettings name="default" id="2fc0e300-2e8a-4bc2-96f9-1542302e1f1d">
+    <Deployment runDeploymentRoot="runner_2026-11-16_19_57_30" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9b460a71-765d-4b58-91c3-805cc8be58b8" testId="86223eb5-4d02-8529-100d-dbbd286cd9fa" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation" computerName="__MACHINE__" duration="00:00:00.0044117" startTime="2026-11-16T19:57:30.9133656-03:00" endTime="2026-11-16T19:57:30.9134297-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b460a71-765d-4b58-91c3-805cc8be58b8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: Unauthorized&#xD;
+Actual:   BadRequest</Message>
+          <StackTrace>   at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs:line 49&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="42ee6da6-8763-4dda-b22d-c2b324ea122a" testId="4fecc36a-fdcf-c2ae-71de-1cf3818e4584" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies" computerName="__MACHINE__" duration="00:00:00.0110518" startTime="2026-11-16T19:57:30.9146961-03:00" endTime="2026-11-16T19:57:30.9181577-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="42ee6da6-8763-4dda-b22d-c2b324ea122a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection did not contain any matching items&#xD;
+Expected:   (predicate expression)&#xD;
+Collection: [".AspNetCore.Antiforgery.5oneszBq-So=CfDJ8FNPqQ0xDX"···]</Message>
+          <StackTrace>   at SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs:line 26&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7d9bfbba-3ffc-4e8d-a0fc-f4e15948e77d" testId="9d964ef8-04fc-6823-0c7f-2f67ae542898" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutAntiforgery" computerName="__MACHINE__" duration="00:00:00.0276899" startTime="2026-11-16T19:57:30.8396444-03:00" endTime="2026-11-16T19:57:30.8730967-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d9bfbba-3ffc-4e8d-a0fc-f4e15948e77d" />
+    <UnitTestResult executionId="23310911-0a20-4f26-b489-17b230fd7e29" testId="d8a81849-87d5-d5b0-0161-73c8eac4c3bc" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin" computerName="__MACHINE__" duration="00:00:00.0092041" startTime="2026-11-16T19:57:30.8802588-03:00" endTime="2026-11-16T19:57:30.8906341-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23310911-0a20-4f26-b489-17b230fd7e29">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: Forbidden&#xD;
+Actual:   BadRequest</Message>
+          <StackTrace>   at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs:line 42&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0e189d5a-462e-4af1-bd4a-2425bf4eb8ba" testId="ffe2db4a-d1b1-bc24-8bea-de4fe988f1a0" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost" computerName="__MACHINE__" duration="00:00:00.0058294" startTime="2026-11-16T19:57:30.9143432-03:00" endTime="2026-11-16T19:57:30.9143763-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e189d5a-462e-4af1-bd4a-2425bf4eb8ba">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: MisdirectedRequest&#xD;
+Actual:   OK</Message>
+          <StackTrace>   at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs:line 12&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cf05e0cf-0cea-48c2-92a5-aaa7e6269818" testId="7797ab09-ffd2-7249-9e08-3ca20a39a238" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin" computerName="__MACHINE__" duration="00:00:00.0046334" startTime="2026-11-16T19:57:30.9139642-03:00" endTime="2026-11-16T19:57:30.9139991-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf05e0cf-0cea-48c2-92a5-aaa7e6269818">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: Forbidden&#xD;
+Actual:   OK</Message>
+          <StackTrace>   at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs:line 18&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="d8a81849-87d5-d5b0-0161-73c8eac4c3bc">
+      <Execution id="23310911-0a20-4f26-b489-17b230fd7e29" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsMutationWithoutOrigin" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="7797ab09-ffd2-7249-9e08-3ca20a39a238">
+      <Execution id="cf05e0cf-0cea-48c2-92a5-aaa7e6269818" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsForeignOrigin" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="4fecc36a-fdcf-c2ae-71de-1cf3818e4584">
+      <Execution id="42ee6da6-8763-4dda-b22d-c2b324ea122a" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="IssuesSeparateHttpOnlyStrictSessionCookies" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutAntiforgery" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="9d964ef8-04fc-6823-0c7f-2f67ae542898">
+      <Execution id="7d9bfbba-3ffc-4e8d-a0fc-f4e15948e77d" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsMutationWithoutAntiforgery" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="ffe2db4a-d1b1-bc24-8bea-de4fe988f1a0">
+      <Execution id="0e189d5a-462e-4af1-bd4a-2425bf4eb8ba" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsForeignHost" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="86223eb5-4d02-8529-100d-dbbd286cd9fa">
+      <Execution id="9b460a71-765d-4b58-91c3-805cc8be58b8" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsUnissuedSessionOnMutation" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="86223eb5-4d02-8529-100d-dbbd286cd9fa" executionId="9b460a71-765d-4b58-91c3-805cc8be58b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fecc36a-fdcf-c2ae-71de-1cf3818e4584" executionId="42ee6da6-8763-4dda-b22d-c2b324ea122a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d964ef8-04fc-6823-0c7f-2f67ae542898" executionId="7d9bfbba-3ffc-4e8d-a0fc-f4e15948e77d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8a81849-87d5-d5b0-0161-73c8eac4c3bc" executionId="23310911-0a20-4f26-b489-17b230fd7e29" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ffe2db4a-d1b1-bc24-8bea-de4fe988f1a0" executionId="0e189d5a-462e-4af1-bd4a-2425bf4eb8ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7797ab09-ffd2-7249-9e08-3ca20a39a238" executionId="cf05e0cf-0cea-48c2-92a5-aaa7e6269818" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="1" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)&#xD;
+[xUnit.net 00:00:00.06]   Discovering: SpecAudit.Ui.Tests&#xD;
+[xUnit.net 00:00:00.09]   Discovered:  SpecAudit.Ui.Tests&#xD;
+[xUnit.net 00:00:00.11]   Starting:    SpecAudit.Ui.Tests&#xD;
+[xUnit.net 00:00:01.46]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.46]       Expected: Forbidden&#xD;
+[xUnit.net 00:00:01.46]       Actual:   BadRequest&#xD;
+[xUnit.net 00:00:01.46]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.46]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs(42,0): at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin()&#xD;
+[xUnit.net 00:00:01.46]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.48]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.48]       Expected: Unauthorized&#xD;
+[xUnit.net 00:00:01.48]       Actual:   BadRequest&#xD;
+[xUnit.net 00:00:01.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.48]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs(49,0): at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation()&#xD;
+[xUnit.net 00:00:01.48]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.48]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.48]       Expected: Forbidden&#xD;
+[xUnit.net 00:00:01.48]       Actual:   OK&#xD;
+[xUnit.net 00:00:01.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.48]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs(18,0): at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin()&#xD;
+[xUnit.net 00:00:01.48]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.48]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.48]       Expected: MisdirectedRequest&#xD;
+[xUnit.net 00:00:01.48]       Actual:   OK&#xD;
+[xUnit.net 00:00:01.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.48]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs(12,0): at SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost()&#xD;
+[xUnit.net 00:00:01.48]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.48]       Assert.Single() Failure: The collection did not contain any matching items&#xD;
+[xUnit.net 00:00:01.48]       Expected:   (predicate expression)&#xD;
+[xUnit.net 00:00:01.48]       Collection: [".AspNetCore.Antiforgery.5oneszBq-So=CfDJ8FNPqQ0xDX"···]&#xD;
+[xUnit.net 00:00:01.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.48]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\LocalSessionHttpTests.cs(26,0): at SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies()&#xD;
+[xUnit.net 00:00:01.48]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.51]   Finished:    SpecAudit.Ui.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="__MACHINE__" outcome="Error" timestamp="2026-11-16T19:57:30.8927891-03:00">
+        <Text>[xUnit.net 00:00:01.46]     SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="__MACHINE__" outcome="Error" timestamp="2026-11-16T19:57:30.9409045-03:00">
+        <Text>[xUnit.net 00:00:01.48]     SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="__MACHINE__" outcome="Error" timestamp="2026-11-16T19:57:30.9409945-03:00">
+        <Text>[xUnit.net 00:00:01.48]     SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="__MACHINE__" outcome="Error" timestamp="2026-11-16T19:57:30.9410277-03:00">
+        <Text>[xUnit.net 00:00:01.48]     SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="__MACHINE__" outcome="Error" timestamp="2026-11-16T19:57:30.9410608-03:00">
+        <Text>[xUnit.net 00:00:01.48]     SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

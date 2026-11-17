@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "revision": "sha256:43352aaa8e3fd85b0de05446d353d21f9f8602801356487e1daa0a2104fb9d47",
+  "executor": "AI",
+  "medium": "LIBRARY",
+  "state": "OBSERVED",
+  "startup": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T013-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T013-20261117/final-results",
+  "input": "Four synthetic US1 scenarios via real NativeFolderPicker, ProjectService public APIs, Windows filesystem and monitor. Own loopback host/Edge in regression.",
+  "expected": "Load two features and missing artifact; reject origin/descendant/junction output; isolate contexts/history; invalidate ongoing documentary work on external edit without restoring files or saving.",
+  "observed": "Four scenario assertions passed; final suite 45/45. Native dialogs automated inside own process; no fake picker in new cases.",
+  "effects_checked": "Origin baseline, sole intentional external edit, immutable snapshot, Changed and cancellation, zero reports, history hash/path, project contexts.",
+  "scenarios": [
+    "US1-S01 / US1-AC01",
+    "US1-S02 / US1-AC02",
+    "US1-S03 / US1-AC03",
+    "US1-S04 / US1-AC04"
+  ],
+  "artifacts": [
+    {
+      "sha256": "1af289c7f5f6fe5cb80e4f492e7949c7cef7f4d39e916bc553a2829eafc7429a",
+      "path": "evidence/logs/T013-20261117/final-suite.txt"
+    },
+    {
+      "sha256": "dc80fe78bb51d313bdd13ea293eeee7799d601d9a239c3f9384096ab9cd49d9a",
+      "path": "evidence/logs/T013-20261117/harness/US1-S01-2c56e5112b1a449f9645c9f756f99274.json"
+    },
+    {
+      "sha256": "deefe41d14f899c87f7fc08e15fc489e8ef15826e6d1e3844ceb773d4891379e",
+      "path": "evidence/logs/T013-20261117/harness/US1-S01-92b8879abdf14024843fa20ecccd18d7.json"
+    },
+    {
+      "sha256": "93ea77be8a0a9a7d9a7776d9f349346b16e623e3eadf5b904533a86d02e560c1",
+      "path": "evidence/logs/T013-20261117/harness/US1-S02-52f29c9abdde4af88c074942f7c0ef7e.json"
+    },
+    {
+      "sha256": "bf2129ffd8b36af5dd556598a2cecadabe062113b850d49b6836f61a72eeae5c",
+      "path": "evidence/logs/T013-20261117/harness/US1-S02-54eb81837d2845b6b43d77b35aa851e1.json"
+    },
+    {
+      "sha256": "abd5c02b6b4c92132ddabcaf714dc6121e19e9a9abdd47870407ca2a7e4f45dd",
+      "path": "evidence/logs/T013-20261117/harness/US1-S03-27a76f6751a54c769966ca0d29f573b8.json"
+    },
+    {
+      "sha256": "47e8a2bae865d39a6635f9223d993489510ca62c7208f985ea22b789e438e17c",
+      "path": "evidence/logs/T013-20261117/harness/US1-S03-f1071a32fbf542d9955276d91b92b881.json"
+    },
+    {
+      "sha256": "494dce3bc515096ceeacddc788b6df9e50724a0bc2e364a8183189e9d02dc066",
+      "path": "evidence/logs/T013-20261117/harness/US1-S04-633c7889dd9c400ba83e0eef181d06e2.json"
+    },
+    {
+      "sha256": "2bf1abf27ad3aa969106b0cc297a472b8d2edb37275f7ebde127019c89125a6c",
+      "path": "evidence/logs/T013-20261117/harness/US1-S04-6ed2a38c2bc94978aad59e399df1005f.json"
+    }
+  ],
+  "limitations": "Harness validation permitted by T013; no human execution, agent analysis or Save workflow claimed."
+}

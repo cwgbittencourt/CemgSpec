@@ -28,7 +28,7 @@
     {
       "path": "verification/tasks-validation.json",
       "kind": "document",
-      "sha256": "257dd2421e8ca4c161d538fde6f20720bc425e550b9bcf1df0bd1387e2fcb11e"
+      "sha256": "50900cb5eb9c2a8a99b7d43d9fd19c494c3b18494c2c16a26f14da78bd47e12d"
     },
     {
       "path": "verification/tasks-review.md",
@@ -68,7 +68,7 @@
     {
       "path": "quickstart.md",
       "kind": "document",
-      "sha256": "622a0e03c3b6af40c8164fdfd69ced9a883b3070bb70b1d2341bf40340f41c6c"
+      "sha256": "a0f7f147a8db6df871338d8c2945cbb2537265b07fe69e5fa854578306f4ee0f"
     },
     {
       "path": "design/mockups/README.md",

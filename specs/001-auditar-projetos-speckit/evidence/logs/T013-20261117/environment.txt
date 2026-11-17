@@ -1,0 +1,97 @@
+.NET SDK:
+ Version:           10.0.404
+ Commit:            2ab2854867
+ Workload version:  10.0.400-manifests.80e15866
+ MSBuild version:   18.9.15+2ab285486
+
+Ambiente de runtime:
+ OS Name:     Windows
+ OS Version:  10.0.26300
+ OS Platform: Windows
+ RID:         win-x64
+ Base Path:   C:\Program Files\dotnet\sdk\10.0.404\
+
+Cargas de trabalho do .NET instaladas:
+ [ios]
+   Origem da Instalação: VS 18.11.12402.416
+   Versão do Manifesto:    27.2.10000/10.0.100
+   Caminho do Manifesto:       C:\Program Files\dotnet\sdk-manifests\10.0.100\microsoft.net.sdk.ios\27.2.10000\WorkloadManifest.json
+   Tipo de Instalação:              Msi
+
+ [wasm-tools]
+   Origem da Instalação: VS 18.11.12402.416
+   Versão do Manifesto:    10.0.115/10.0.100
+   Caminho do Manifesto:       C:\Program Files\dotnet\sdk-manifests\10.0.100\microsoft.net.workload.mono.toolchain.current\10.0.115\WorkloadManifest.json
+   Tipo de Instalação:              Msi
+
+ [wasm-tools-net8]
+   Origem da Instalação: VS 18.11.12402.416
+   Versão do Manifesto:    10.0.115/10.0.100
+   Caminho do Manifesto:       C:\Program Files\dotnet\sdk-manifests\10.0.100\microsoft.net.workload.mono.toolchain.net8\10.0.115\WorkloadManifest.json
+   Tipo de Instalação:              Msi
+
+ [maccatalyst]
+   Origem da Instalação: VS 18.11.12402.416
+   Versão do Manifesto:    27.2.10000/10.0.100
+   Caminho do Manifesto:       C:\Program Files\dotnet\sdk-manifests\10.0.100\microsoft.net.sdk.maccatalyst\27.2.10000\WorkloadManifest.json
+   Tipo de Instalação:              Msi
+
+ [android]
+   Origem da Instalação: VS 18.11.12402.416
+   Versão do Manifesto:    36.1.118/10.0.100
+   Caminho do Manifesto:       C:\Program Files\dotnet\sdk-manifests\10.0.100\microsoft.net.sdk.android\36.1.118\WorkloadManifest.json
+   Tipo de Instalação:              Msi
+
+ [maui-windows]
+   Origem da Instalação: VS 18.11.12402.416
+   Versão do Manifesto:    10.0.110/10.0.100
+   Caminho do Manifesto:       C:\Program Files\dotnet\sdk-manifests\10.0.100\microsoft.net.sdk.maui\10.0.110\WorkloadManifest.json
+   Tipo de Instalação:              Msi
+
+Configurado para usar workload sets ao instalar novos manifestos.
+Nenhum conjunto de cargas de trabalho está instalado. Execute "dotnet workload restore" para instalar um conjunto de cargas de trabalho.
+
+Host:
+  Version:      10.0.15
+  Architecture: x64
+  Commit:       8e0f8ed231
+
+.NET SDKs installed:
+  9.0.321 [C:\Program Files\dotnet\sdk]
+  10.0.100-preview.7.25380.108 [C:\Program Files\dotnet\sdk]
+  10.0.204 [C:\Program Files\dotnet\sdk]
+  10.0.404 [C:\Program Files\dotnet\sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 8.0.34 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 9.0.23 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.0-preview.7.25380.108 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.8 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.15 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 6.0.36 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 8.0.34 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 9.0.23 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.0-preview.7.25380.108 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.8 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.15 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.WindowsDesktop.App 8.0.34 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 9.0.23 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 10.0.0-preview.7.25380.108 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 10.0.8 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 10.0.15 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+
+Other architectures found:
+  x86   [C:\Program Files (x86)\dotnet]
+    registered at [HKLM\SOFTWARE\dotnet\Setup\InstalledVersions\x86\InstallLocation]
+
+Environment variables:
+  Not set
+
+global.json file:
+  __REPO_ROOT__\global.json
+
+Learn more:
+  https://aka.ms/dotnet/info
+
+Download .NET:
+  https://aka.ms/dotnet/download

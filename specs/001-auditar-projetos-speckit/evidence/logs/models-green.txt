@@ -1,4 +1,4 @@
-D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,43): warning CS9113: O parâmetro "run" não está lido. [D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\SpecAudit.csproj]
-D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,52): warning CS9113: O parâmetro "generation" não está lido. [D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\SpecAudit.csproj]
-  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
-D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\SessionContractTests.cs(41,78): error CS9174: Não é possível inicializar o tipo 'IReadOnlyDictionary<string, bool>' com uma expressão de coleção porque o tipo não é construível. [D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\SpecAudit.Tests.csproj]
+__REPO_ROOT__\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,43): warning CS9113: O parâmetro "run" não está lido. [__REPO_ROOT__\SpecAudit\SpecAudit.csproj]
+__REPO_ROOT__\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,52): warning CS9113: O parâmetro "generation" não está lido. [__REPO_ROOT__\SpecAudit\SpecAudit.csproj]
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+__REPO_ROOT__\tests\SpecAudit.Tests\SessionContractTests.cs(41,78): error CS9174: Não é possível inicializar o tipo 'IReadOnlyDictionary<string, bool>' com uma expressão de coleção porque o tipo não é construível. [__REPO_ROOT__\tests\SpecAudit.Tests\SpecAudit.Tests.csproj]

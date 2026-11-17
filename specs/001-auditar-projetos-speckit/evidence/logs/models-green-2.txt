@@ -1,9 +1,9 @@
-D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,43): warning CS9113: O parâmetro "run" não está lido. [D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\SpecAudit.csproj]
-D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,52): warning CS9113: O parâmetro "generation" não está lido. [D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\SpecAudit.csproj]
-  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
-  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
-Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+__REPO_ROOT__\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,43): warning CS9113: O parâmetro "run" não está lido. [__REPO_ROOT__\SpecAudit\SpecAudit.csproj]
+__REPO_ROOT__\SpecAudit\Infrastructure\Execution\ExecutionChannel.cs(2,52): warning CS9113: O parâmetro "generation" não está lido. [__REPO_ROOT__\SpecAudit\SpecAudit.csproj]
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Tests -> __REPO_ROOT__\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
 1 arquivos de teste no total corresponderam ao padrão especificado.
-Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\models-green-2\cwagn_TRABALHO_2026-11-16_20_02_28_net10.0.trx
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\models-green-2\runner_2026-11-16_20_02_28_net10.0.trx
 
 Aprovado!  – Com falha:     0, Aprovado:     4, Ignorado:     0, Total:     4, Duração: 21 ms - SpecAudit.Tests.dll (net10.0)
