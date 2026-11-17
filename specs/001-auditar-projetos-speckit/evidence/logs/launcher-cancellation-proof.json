@@ -1,0 +1,16 @@
+{
+  "Started": false,
+  "Cancelled": false,
+  "TimedOut": false,
+  "ExitCode": null,
+  "IsAppContainer": false,
+  "AdminEnabled": true,
+  "JobAssigned": false,
+  "TotalProcesses": 0,
+  "TerminationConfirmed": false,
+  "ActiveAfterTermination": 0,
+  "ProfileDeleteResult": 0,
+  "Output": "",
+  "Error": "Win32Exception: Par\u00E2metro incorreto.",
+  "StageDirectory": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Worker-e78ae49a1267433293ee46c487c625a8"
+}

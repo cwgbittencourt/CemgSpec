@@ -3,8 +3,12 @@
 **Data**: 2026-11-16 | **Branch real**: main | **Base**: 79d9c3d.
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
-**Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 3.0.0.
-**Estado de execução**: TODAS AS TAREFAS PENDENTES. Nenhum código/prova/instalação/elevação foi executado por esta geração. Os checks READY de spec/plan validam planejamento, não proteção operacional.
+**Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
+**Estado de execução**: constituição 4.0.0 aplicada; migração e T001–T012 concluídas no escopo técnico documentado. T012 retomada por solicitação explícita; execução encerrada antes de T013. T013 e seguintes permanecem pendentes; nenhuma User Story aceita. Ver evidence/implementation-status.md.
+
+## Checkpoint vigente — constituição 4.0.0
+
+A garantia de sandbox OS foi retirada por decisão explícita; SEC-001 permanece histórica. Somente leitura da aplicação, dois comandos, testes reais/roteiros por história e aceite do DEV permanecem obrigatórios. Migração T095–T098 e implementação até T012 verificadas: 41 testes aprovados. Encerrado antes de T013; ver evidence/T012-review.md e validation/T012-dev.md. Ver evidence/isolation-v4-revalidation.md.
 
 ## Referência visual obrigatória das interfaces
 
@@ -30,9 +34,9 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: Nenhuma; ler entradas e gates READY.
 **Teste independente**: Inventário e smoke do scaffold local, sem carregar solução real.
 
-- [ ] T001 Conferir SDK .NET10/C# estáveis, Windows e ferramentas existentes; fixar framework estável de testes e auditar dependências diretas/transitivas antes de introduzi-las em tests/SpecAudit.Tests/SpecAudit.Tests.csproj, tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj e tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj; registrar evidence/setup-validation.md.
-- [ ] T002 Preparar gerador e instrumentação de fixtures em tests/SpecAudit.Windows.Tests/Fixtures/DocumentaryFixture.cs e tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs a partir da receita de quickstart.md; sem inserir dados de usuário.
-- [ ] T003 Configurar sessão local, loopback, validação Host/Origin e antiforgery em SpecAudit/Program.cs e SpecAudit/Application/LocalSessionService.cs; controles de verificações/Save iniciam indisponíveis.
+- [x] T001 Conferir SDK .NET10/C# estáveis, Windows e ferramentas existentes; fixar framework estável de testes e auditar dependências diretas/transitivas antes de introduzi-las em tests/SpecAudit.Tests/SpecAudit.Tests.csproj, tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj e tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj; registrar evidence/setup-validation.md.
+- [x] T002 Preparar gerador e instrumentação de fixtures em tests/SpecAudit.Windows.Tests/Fixtures/DocumentaryFixture.cs e tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs a partir da receita de quickstart.md; sem inserir dados de usuário.
+- [x] T003 Configurar sessão local, loopback, validação Host/Origin e antiforgery em SpecAudit/Program.cs e SpecAudit/Application/LocalSessionService.cs; controles de verificações/Save iniciam indisponíveis.
 
 ## Fase 2 — Fundação compartilhada
 
@@ -40,10 +44,10 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: T001–T003; sem expor funcionalidades não provadas.
 **Teste independente**: Testes de contrato de estados/IDs e launcher sintético, sem agente real.
 
-- [ ] T004 Escrever testes de identidade/estado/contratos em tests/SpecAudit.Tests/SessionContractTests.cs e tests/SpecAudit.Windows.Tests/ExecutionContractTests.cs antes dos modelos/launcher.
-- [ ] T005 Definir ProjectSession/Feature, catálogo/snapshot, ProtectionAssessment e estados compartilhados em SpecAudit/Domain/ProjectSession.cs, SpecAudit/Domain/DocumentSnapshot.cs e SpecAudit/Domain/ProtectionAssessment.cs, observando as citações do modelo abaixo.
-- [ ] T006 Implementar launcher não elevado, Job Object e canal com handles explícitos em SpecAudit/Infrastructure/Execution/RestrictedLauncher.cs e SpecAudit/Infrastructure/Execution/ExecutionChannel.cs, sem conectar agentes ou origem ainda.
-- [ ] T007 Implementar registro de capacidade e limites internos em SpecAudit/Application/CapabilityRegistry.cs e SpecAudit/Infrastructure/Execution/ExecutionLimits.cs; calibrar em fixtures e documentar em evidence/capability-contract.md.
+- [x] T004 Escrever testes de identidade/estado/contratos em tests/SpecAudit.Tests/SessionContractTests.cs e tests/SpecAudit.Windows.Tests/ExecutionContractTests.cs antes dos modelos/launcher.
+- [x] T005 Definir ProjectSession/Feature, catálogo/snapshot, ProtectionAssessment e estados compartilhados em SpecAudit/Domain/ProjectSession.cs, SpecAudit/Domain/DocumentSnapshot.cs e SpecAudit/Domain/ProtectionAssessment.cs, observando as citações do modelo abaixo.
+- [x] T006 Implementar executor gerenciado fechado, sem shell livre, com executável conferido, ArgumentList, cwd externo, stdin/saída limitada e cancelamento de árvore própria em SpecAudit/Infrastructure/Execution/TrustedCommandRunner.cs; sem sandbox OS.
+- [x] T007 Implementar registro de capacidades e limites do contrato de aplicação v4 em SpecAudit/Application/CapabilityRegistry.cs e SpecAudit/Infrastructure/Execution/ExecutionLimits.cs; documentar evidence/capability-contract.md.
 
 ## Fase 3 — US1: Carregar e preservar (P1)
 
@@ -51,11 +55,11 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: Fundação; ReaderBoundary deve passar antes de habilitar carregamento para executor.
 **Teste independente**: US1-S01–S04 em fixture Windows; usuário continua podendo editar.
 
-- [ ] T008 [US1] Escrever testes US1-S01–S04 em tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs e tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs antes da integração.
-- [ ] T009 [US1] Implementar catálogo e broker por IDs/handles somente leitura em SpecAudit/Infrastructure/Documents/DocumentCatalog.cs e SpecAudit/Infrastructure/Documents/DocumentBroker.cs; revalidar contenção no ponto real de leitura.
-- [ ] T010 [US1] Executar prova ReaderBoundary real de pai/filho em evidence/ReaderBoundary-proof.md, com broker/launcher, e guardar Assessment da versão somente se passar.
-- [ ] T011 [US1] Implementar picker nativo e habilitar OpenProject/ChangeOutputDirectory somente com ReaderBoundary Passed em SpecAudit/Application/ProjectService.cs e SpecAudit/Components/Pages/Projects.razor.
-- [ ] T012 [US1] Implementar geração/invalidação documental em SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs e integração de ProjectService.cs, preservando edição externa.
+- [x] T008 Escrever testes US1-S01–S04 do broker/seleção/destinos e somente leitura da aplicação em tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs e tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs; sem provas de contenção OS.
+- [x] T009 [US1] Implementar catálogo e broker por IDs/handles somente leitura em SpecAudit/Infrastructure/Documents/DocumentCatalog.cs e SpecAudit/Infrastructure/Documents/DocumentBroker.cs; revalidar contenção no ponto real de leitura.
+- [x] T010 Executar prova funcional ReaderBoundary v4 da aplicação/broker em evidence/ReaderBoundary-v4-proof.md e registrar selo da política atual somente se passar; falhas históricas de sandbox permanecem arquivadas.
+- [x] T011 [US1] Implementar picker nativo e seleção/carregamento/alteração de destino em ProjectService.cs e Projects.razor após validar ReaderBoundary v4 da aplicação; preservar sessão, origem readonly e histórico externo.
+- [x] T012 [US1] Implementar geração/invalidação documental em SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs e integração de ProjectService.cs, preservando edição externa.
 - [ ] T013 [US1] Executar os cenários US1-S01–S04 / US1-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US1-validation.md.
 - [ ] T014 [US1] Revisar diff, critérios, contratos, segurança e resultados da versão de US1 em evidence/US1-review.md, declarando autorrevisão.
 - [ ] T015 [US1] Resolver achados de US1 e repetir checks afetados em evidence/US1-validation.md e evidence/US1-review.md; se nenhum, registrar referência à revisão real.
@@ -144,7 +148,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [ ] T063 [US5] Escrever contratos de descoberta/execução documental US5-S01/S02/S04/S05 em tests/SpecAudit.Windows.Tests/AgentDiscoveryTests.cs e tests/SpecAudit.Windows.Tests/AnalyzeProtectionTests.cs antes dos adaptadores.
 - [ ] T064 [US5] Definir AgentInstallation e descoberta em SpecAudit/Domain/AgentInstallation.cs e SpecAudit/Infrastructure/Agents/AgentDiscovery.cs para Codex/Antigravity/Claude Code/Kiro; fallback manual só para desejado não encontrado.
 - [ ] T065 [US5] Implementar adaptador Codex documental em SpecAudit/Infrastructure/Agents/CodexAnalyzeAdapter.cs, ainda desabilitado, usando snapshots/canal restrito e estado externo conhecido.
-- [ ] T066 [US5] Executar prova real individual AnalyzeCodex em evidence/AnalyzeCodex-proof.md antes de habilitar, incluindo análise sintética correta, fronteira OS, ferramentas/rede/segredos, estado externo e descendentes.
+- [ ] T066 [US5] Executar prova real individual AnalyzeCodex em evidence/AnalyzeCodex-proof.md antes de habilitar, incluindo análise sintética correta, contrato documental, ferramentas configuradas, finalidades de rede/segredos, estado externo e descendentes.
 - [ ] T067 [US5] Habilitar seleção/Execução Codex somente com Assessment Passed em SpecAudit/Application/AgentCompatibilityService.cs e SpecAudit/Components/Verifications/AgentSelector.razor. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
 - [ ] T068 [P] [US5] Implementar adaptador Antigravity documental em SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs, ainda desabilitado, com conversa/cache apenas externos e sem importá-los como histórico oficial.
 - [ ] T069 [US5] Executar prova real individual AnalyzeAntigravity em evidence/AnalyzeAntigravity-proof.md antes de habilitar, com a mesma matriz de proteção e escopo do Codex.
@@ -199,12 +203,12 @@ Cada linha herda ambiente/fixture/limpeza de quickstart.md, sem exigir teste fut
 | T003 | contracts/application.md sessão; constituição VI | T001 | SpecAudit/Program.cs; SpecAudit/Application/LocalSessionService.cs | Iniciar host próprio http://127.0.0.1:5187; testar host/origin indevidos, IDs de outra sessão e ações mutantes sem validação; inspecionar logs sem conteúdo. | Só sessão/loopback válidos; nenhuma execução ou persistência automática; estado inseguro não exposto. |
 | T004 | data-model identidade/estados; contracts/verification.md | T002, T003 | tests/SpecAudit.Tests/SessionContractTests.cs; tests/SpecAudit.Windows.Tests/ExecutionContractTests.cs | Exercitar IDs cruzados, CapabilityAvailability separado de RunState, ausência de selo, canal de outro RunId, cancelamento e geração; observar falha por regra ausente, não ambiente quebrado. | Testes detectam bypass de sessão/capacidade e transições inválidas; modelo ainda não implementado não é prova funcional. |
 | T005 | data-model entidades e estados | T004 | SpecAudit/Domain/ProjectSession.cs; SpecAudit/Domain/DocumentSnapshot.cs; SpecAudit/Domain/ProtectionAssessment.cs | Rodar SessionContractTests com chaves contextualizadas, hashes/geração e selos NotVerified/Passed/Failed/Stale da versão/política; assegurar ausência de caminho livre na API. | Estado em memória; sem disponibilidade não se cria Run; selo de versão diferente não habilita. |
-| T006 | contracts/verification.md fronteiras 1–5 | T005 | SpecAudit/Infrastructure/Execution/RestrictedLauncher.cs; SpecAudit/Infrastructure/Execution/ExecutionChannel.cs | Usar harness benigno da fixture; conferir identidade restrita, recusa de RunId/token alheio, herança mínima, limite técnico versionado e término de todos os descendentes; registrar erros reais inclusive startup. | Nenhum acesso direto à origem, shell livre, elevação, instalação ou ACL da solução; falha deixa disponibilidade pendente. |
-| T007 | data-model limites; contracts/verification.md habilitação | T006 | SpecAudit/Application/CapabilityRegistry.cs; SpecAudit/Infrastructure/Execution/ExecutionLimits.cs; evidence/capability-contract.md | Validar ausência/expiração de selo, política/binário/ambiente alterados, limite de tamanho/profundidade/saída/duração e cancelamento inconclusivo. | Excesso gera LimitExceeded/Inconclusive explícito, sem READY parcial; nenhuma prova marcada Passed por default. |
-| T008 | US1-AC01/02/03/04 | T007 | tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs; tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs | Usar duas funcionalidades, destinos interno/externo, prefixos semelhantes, junções e mudança concorrente; observar acessos, criação/alteração/rename/delete por pai/filho. | Falhas relevantes detectadas; testes não dependem de agente/gate/writer futuros. |
+| T006 | constituição 4.0.0; plan | T005 | TrustedCommandRunner.cs | Executar harness confiável com argumentos separados, stdin, saída/erro, timeout e cancelamento; rejeitar cwd dentro da origem e operação desconhecida. | Processo comum não elevado e configuração controlada; limites de confiança explícitos. |
+| T007 | constituição 4.0.0; plan | T006 | CapabilityRegistry.cs; ExecutionLimits.cs | Testar prova ausente/incompleta, política/versão/plataforma alteradas, tamanho/profundidade/saída/duração. | Sem habilitação por default; excesso é Inconclusive/LimitExceeded. |
+| T008 | constituição 4.0.0; plan | T007 | ReaderBoundaryTests.cs; ProjectSelectionTests.cs | Dados sintéticos: IDs cruzados, duas funcionalidades, destino interno/junção, ACL ampla e edição externa; observar hashes e respostas reais das APIs. | A aplicação só lê documentos autorizados, não grava na origem nem confunde sessões. |
 | T009 | US1-AC01/02; contracts/verification.md ReadDocumentCapability | T008 | SpecAudit/Infrastructure/Documents/DocumentCatalog.cs; SpecAudit/Infrastructure/Documents/DocumentBroker.cs | Executar testes Windows de abertura permitida, .cs/.razor/config e arquivo fora do catálogo negados antes de ler; junction trocada e arquivo substituído geram OutOfScope/Changed. | Somente docs/registros reconhecidos, não só extensão; sem cópia da solução, write/delete/ACL ou pré-checagem isolada vulnerável a TOCTOU. |
-| T010 | US1-AC02; contrato selo ReaderBoundary | T009 | evidence/ReaderBoundary-proof.md | Rodar ReaderBoundaryTests; tentar create/write/rename/delete e leitura de código/configuração por executor/filho; provar caminho autorizado e edição normal pelo usuário; hashes + instrumentação de acesso. | Todas as tentativas indevidas negadas antes de efeito/leitura; origem intacta; qualquer falha mantém selo NotVerified/Failed e bloqueia próxima habilitação. |
-| T011 | US1-AC01/02/03 | T010 | SpecAudit/Application/ProjectService.cs; SpecAudit/Components/Pages/Projects.razor | Abrir fixture com origem/destino, recusar interno e junction, alternar projeto e mudar destino; repetir com selo ausente/adulterado. | Sem selo válido a operação fica indisponível; origem/destino/contextos separados e nenhum registro criado. |
+| T010 | constituição 4.0.0; plan | T009 | evidence/ReaderBoundary-v4-proof.md | Executar ReaderBoundaryTests/ProjectSelectionTests, ler via broker, negar código/config/IDs/junções, comparar origem e preservar edição normal do usuário. | Controles de aplicação demonstrados; nenhuma promessa de negação pelo kernel a agente arbitrário. |
+| T011 | US1-AC01/02/03; constituição 4.0.0 | T010, T098 | ProjectService.cs; NativeFolderPicker.cs; Projects.razor | Exercitar seleção controlada com filesystem real, destinos internos/junção, troca de projetos/destino e página em navegador real | APIs readonly e contextos separados; diálogo nativo continua sujeito à validação humana integrada da US1 |
 | T012 | US1-AC04 | T011 | SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs; SpecAudit/Application/ProjectService.cs | Editar documento durante leitura, entre Prepare/Execute e antes de Save; verificar Stale/Changed e falta de monitoramento de conteúdo de código. | Não mistura snapshots, não restaura, não dispara agente/gate; troca de projeto cancela trabalho próprio sem salvar. |
 | T013 | US1-S01–S04 / US1-AC01–AC04 | T012 | evidence/US1-validation.md | Usar receita/host de quickstart.md; executar testes aplicáveis e ações reais dos cenários; conferir acessos, origem e relatório oficial antes de Salvar. | Asserções dos cenários observadas; falha/ausência fica explícita e bloqueia habilitação dependente; mocks não substituem integração. |
 | T014 | US1-S01–S04 / US1-AC01–AC04 | T013 | evidence/US1-review.md | Comparar diff à base do PR, cada critério à asserção real e evidências; listar arquivo/linha/efeito/prioridade e limites. | Review atual com achados rastreáveis; nenhum aceite humano preenchido. |
@@ -397,3 +401,21 @@ Cada história termina com validação real, review/correções, roteiro IA/DEV 
 Este arquivo e verification/tasks-stage.json identificam a revisão por SHA256. verification/tasks-review.md e verification/tasks-validation.json registram inspeção documental/estrutural, não execução de produto. Aplicar PASSAGENS.md antes de declarar READY e antes de implementar: spec/plan atuais, origem/deps/contratos por task, grafo acíclico, cobertura dos 29 critérios, PRs resolvidos e análise de consistência sem impeditivos. Hooks pré/pós: conferir extensions.yml; ausente nesta geração, sem obrigação adicional identificada.
 
 READY de tasks significa lista pronta para uma futura solicitação de implementação; não executa tarefa, não aprova proteção, PR ou história. Se testes/provas não puderem ocorrer no futuro, registrar NÃO EXECUTADO/causa/impacto/próximo passo e rascunho de impossibilidade para o DEV; somente ele confirma e decide. Nenhuma instalação, elevação, commit/push ou alteração de solução auditada é autorizada automaticamente por concluir a geração.
+
+## Migração autorizada para constituição 4.0.0 (PR-A)
+
+IDs preservados, com descrições/contratos redefinidos pela emenda explícita. Executar T095–T098 como migração antes de concluir T006–T010 e iniciar T011. As versões anteriores estão no arquivo histórico.
+
+- [x] T095 Sincronizar constituição 4.0.0, spec, plan e contratos para isolamento flexível, preservando somente leitura e dois comandos; registrar evidence/isolation-v4-amendment.md.
+- [x] T096 Arquivar código/testes experimentais de isolamento e substituir sua execução por TrustedCommandRunner em SpecAudit/Infrastructure/Execution/TrustedCommandRunner.cs, sem tokens, memória de processos ou worker nativo.
+- [x] T097 Atualizar testes e registro de capacidades para o contrato v4 em tests/SpecAudit.Windows.Tests/ e CapabilityRegistry.cs, preservando a evidência histórica SEC-001 sem contá-la como teste aprovado.
+- [x] T098 Executar análise de consistência e regressão da migração v4, registrar evidence/isolation-v4-revalidation.md e atualizar verification/implementation-stage.json antes de retomar T011.
+
+| ID | Origem | Depende de | Entrega | Como verificar | Resultado esperado |
+|---|---|---|---|---|---|
+| T095 | constituição 4.0.0; plan | T005 | constitution.md; spec.md; plan.md; contracts/verification.md | Conferir autorização, versão, escopo documental, limitações e remoção das exigências ativas de sandbox. | Artefatos consistentes; falhas anteriores continuam históricas. |
+| T096 | constituição 4.0.0; plan | T095 | verification/archive/constitution-v3-isolation/; TrustedCommandRunner.cs | Build sem código experimental ativo; executor gerenciado usa somente operações fechadas e cwd externo. | Nenhum experimento nativo executado automaticamente. |
+| T097 | constituição 4.0.0; plan | T096 | tests/SpecAudit.Windows.Tests/; CapabilityRegistry.cs | Regressão de broker real e executor gerenciado; conferir lista dos testes retirados por emenda. | Cobertura dos controles atuais; retirada de escopo explicitamente rastreada. |
+| T098 | constituição 4.0.0; plan | T097 | evidence/isolation-v4-revalidation.md; implementation-stage.json | Conferir contratos/código/testes, saídas reais e revisão atual; aprovação humana e histórias continuam pendentes. | Migração funcional validada, sem alegar correção da antiga garantia OS. |
+
+T011 exige T098 (migração validada) e T010 (prova de aplicação v4). T095–T098 pertencem ao PR-A; não há dependência do antigo sandbox OS. Histórias e aceite humano preservados.

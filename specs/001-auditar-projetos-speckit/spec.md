@@ -13,7 +13,7 @@ Estes metadados registram a procedência desta revisão; não comprovam funciona
 
 ## Objetivo e escopo
 
-Permitir ao responsável acompanhar o progresso declarado nos documentos, inconsistências documentais e estados registrados dos gates do SpecKit, com conclusões rastreáveis. Aplicação local no navegador, conforme constituição 3.0.0. Inclui projetos, funcionalidades, dashboard, ficha documental de requisito, documentos, verificações, sugestões e histórico salvo.
+Permitir ao responsável acompanhar o progresso declarado nos documentos, inconsistências documentais e estados registrados dos gates do SpecKit, com conclusões rastreáveis. Aplicação local no navegador, conforme constituição 4.0.0. Inclui projetos, funcionalidades, dashboard, ficha documental de requisito, documentos, verificações, sugestões e histórico salvo.
 
 A primeira versão lê exclusivamente documentos e registros gerados pelo SpecKit e recursos locais de apresentação a eles vinculados e autorizados. O suporte independe da linguagem do projeto: não há interpretação de código C#, Razor ou de outras linguagens. Referências a código podem ser exibidas como texto do documento, sem abrir ou analisar o código referenciado.
 
@@ -39,7 +39,7 @@ As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e
 #### Critérios de aceite
 
 - US1-AC01: Solicitar origem e destino externo ao carregar; reconhecer funcionalidades e artefatos SpecKit presentes/ausentes, sem escrever na origem.
-- US1-AC02: Recusar destino interno/igual à origem, inclusive por links/junções. Bloquear criação, alteração, renomeação e exclusão pelo aplicativo, agentes e subprocessos, incluindo caches, temporários e metadados, sem limitar a edição normal do usuário.
+- US1-AC02: Recusar destino interno/igual à origem, inclusive por links/junções. Impedir gravações pelos fluxos/APIs do aplicativo e configurar integrações para análise documental/somente leitura, com caches e temporários externos, sem limitar a edição normal do usuário. Não prometer contenção pelo SO de agente comprometido ou que ignore restrições.
 - US1-AC03: Separar contexto por projeto; ao trocar destino, novos registros usam a nova pasta e o histórico anterior permanece onde está, sem movimento/exclusão automática.
 - US1-AC04: Detectar mudança externa durante/depois da análise e marcar resultados afetados como desatualizados/inconclusivos, sem restaurar arquivos nem misturar versões silenciosamente.
 
@@ -48,7 +48,7 @@ As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e
 | Cenário | Critério | Dado | Quando | Então |
 |---|---|---|---|---|
 | US1-S01 | US1-AC01 | Projeto com duas funcionalidades | Carregar com destino externo | Mostrar artefatos e escopos, sem escrita na origem |
-| US1-S02 | US1-AC02 | Link que resolve para origem e executor restrito | Escolher destino ou tentar escrita | Recusar e preservar conteúdo |
+| US1-S02 | US1-AC02 | Link que resolve para origem e APIs somente leitura | Escolher destino ou tentar escrita | Recusar e preservar conteúdo |
 | US1-S03 | US1-AC03 | Dois projetos e histórico salvo | Alternar projeto e mudar destino | Manter contextos e arquivos anteriores |
 | US1-S04 | US1-AC04 | Análise em andamento | Usuário editar documento monitorado | Preservar edição e indicar perda de atualidade |
 
@@ -163,7 +163,7 @@ As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e
 #### Critérios de aceite
 
 - US5-AC01: Descobrir Codex, Antigravity, Claude Code e Kiro; localização manual só para agente desejado não encontrado. Mostrar versão/compatibilidade/limitações e seleção por projeto. Não exigir agente para check_gate.
-- US5-AC02: Codex e Antigravity devem comprovar análise documental, captura de saída/erros, cancelamento e proteção efetiva de origem/escopo/persistência. Integração sem prova fica indisponível, sem bloquear leitor/gates. Não ampliar permissões para superar falha.
+- US5-AC02: Codex e Antigravity devem comprovar análise documental, captura de saída/erros, cancelamento e controles de somente leitura da aplicação, escopo documental e persistência externa. Integração sem prova fica indisponível, sem bloquear leitor/gates. Não ampliar permissões para superar falha.
 - US5-AC03: Combo fechada com exatamente speckit-analyze — Consistência documental e check_gate — Validar gates, visível em Verificações e na ficha do requisito. Mesma seleção por projeto entre essas telas. Sem campo de comando, terceira opção, cadeia de comandos ou execução automática ao selecionar. Executar só ao clicar Executar; exibir progresso, duração, resumo, saída, estado e ferramenta/versão.
 - US5-AC04: analyze opera sobre documentos autorizados; não lê código nem executa scripts, hooks, plugins, instruções ou configurações da origem. Informar adaptação, escopo e possível envio ao serviço do agente. Conversas/caches internos só fora da origem; relatórios oficiais só por Salvar. Credenciais/serviços da solução não são utilizados. Pré-requisitos ausentes de spec/plan/tasks geram bloqueio, sem criar esses arquivos.
 - US5-AC05: Falha, cancelamento, autenticação ausente e incompatibilidade não viram aprovação/reprovação do requisito. Encerrar descendentes pertencentes à execução ao cancelar. Leitor e gate continuam utilizáveis sem IA.
@@ -311,7 +311,7 @@ A história US7 e seus antigos critérios US7-AC01 a US7-AC03 ficam reservados p
 
 ## Premissas, dependências e questões abertas
 
-Fonte: decisão explícita de 2026-11-16, subordinada à constituição 3.0.0. O escopo atual substitui leitura de código por análise exclusivamente documental e duas verificações na combo. Leitura/comparação de código é futura. Salvar continua manual e externo.
+Fonte: decisão explícita de 2026-11-16, subordinada à constituição 4.0.0. O escopo atual substitui leitura de código por análise exclusivamente documental e duas verificações na combo. Leitura/comparação de código é futura. Salvar continua manual e externo.
 
 Usuário previsto: responsável local; DEV reproduz e aceita a entrega. Colaboração multiusuário e hospedagem remota não integram o escopo aprovado.
 
@@ -353,3 +353,7 @@ Cada história descreve acionamento, observação e condições de reprodução.
 ## Registro de mudança de escopo — 2026-11-16
 
 Constituição 2.0.0 → 3.0.0 por autorização explícita. US3/US4 e FR-008/009 passam a cobertura documental; US5-AC03 define as duas opções e US5-AC06/07 acrescentam gates. US7/FR-017 ficam adiados, com IDs reservados. Não misturar evidências históricas de análise de código ou worker WFP com comprovação da V1. Código-fonte, C#/Razor aprofundado, converge e consulta de dependências da solução exigem versão futura. Nenhuma execução/implementação ou autorização elevada é concedida por esta revisão.
+
+## Emenda de isolamento — constituição 4.0.0
+
+Autorização explícita do usuário em 2026-11-16: retirar a exigência de sandbox OS dos agentes, preservar a solução somente leitura e apenas speckit-analyze/check_gate. O contrato de análise entrega documentos selecionados a integrações confiáveis/configuradas, sem shell livre ou hooks/configuração da origem. Runtime/cwd/estado são externos. Antes de analyze, informar que um agente comprometido ou que ignore restrições não está contido pelo SO. Integração incapaz de cumprir o contrato funcional permanece indisponível. Essa emenda não aceita uma escrita na origem, não aprova os testes antigos e não altera o aceite pelo DEV.

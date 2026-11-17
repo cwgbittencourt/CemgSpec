@@ -337,14 +337,13 @@ function Get-Python3Command {
             if ($LASTEXITCODE -eq 0) { return @($override) }
         }
     }
-    if (Get-Command python3 -ErrorAction SilentlyContinue) { return @('python3') }
-    if (Get-Command python -ErrorAction SilentlyContinue) {
-        $ver = & python --version 2>&1
-        if ($ver -match 'Python 3') { return @('python') }
-    }
-    if (Get-Command py -ErrorAction SilentlyContinue) {
-        $ver = & py -3 --version 2>&1
-        if ($ver -match 'Python 3') { return @('py', '-3') }
+    # Windows may expose a Microsoft Store alias that exists but cannot run Python.
+    # Probe execution and PyYAML before selecting a candidate for manifest parsing.
+    foreach ($candidate in @('python3', 'python', 'py')) {
+        if (-not (Get-Command $candidate -ErrorAction SilentlyContinue)) { continue }
+        $candidateArgs = if ($candidate -eq 'py') { @('-3') } else { @() }
+        & $candidate @candidateArgs -c 'import sys, yaml; sys.exit(0 if sys.version_info.major == 3 else 1)' *> $null
+        if ($LASTEXITCODE -eq 0) { return (@($candidate) + $candidateArgs) }
     }
     return $null
 }

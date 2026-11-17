@@ -1,0 +1,8 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+  Worker.c
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\reader-process-tests\cwagn_TRABALHO_2026-11-16_20_12_02_net10.0.trx
+
+Aprovado!  – Com falha:     0, Aprovado:     4, Ignorado:     0, Total:     4, Duração: 682 ms - SpecAudit.Windows.Tests.dll (net10.0)

@@ -1,0 +1,1 @@
+D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\Components\Pages\Projects.razor(4,46): error CS0542: "Projects": nomes de membro não podem ser os mesmos do seu tipo delimitador [D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\SpecAudit.csproj]

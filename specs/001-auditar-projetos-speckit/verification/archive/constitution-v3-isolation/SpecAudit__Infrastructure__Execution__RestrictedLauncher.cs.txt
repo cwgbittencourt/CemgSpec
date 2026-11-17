@@ -1,0 +1,77 @@
+using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+using System.Security.Cryptography;
+using System.Security.Principal;
+namespace SpecAudit.Infrastructure.Execution;
+
+internal sealed record TrustedWorker(string ExecutablePath,string Sha256,string? SyntheticProbeDirectory=null);
+internal sealed record RestrictedExecutionResult(bool Started,bool Cancelled,bool TimedOut,int? ExitCode,bool IsAppContainer,int? InitialThreadImpersonationLevel,bool ExclusiveSidVerified,bool ZeroPrivilegesVerified,bool AdminEnabled,bool JobAssigned,uint TotalProcesses,bool TerminationConfirmed,uint ActiveAfterTermination,int? ProfileDeleteResult,string Output,string? DiagnosticTrace,string? Error,string StageDirectory);
+
+// Trusted application plumbing only: never register this as an agent's general shell tool.
+internal sealed class RestrictedLauncher
+{
+    // SEC-001 remains unresolved. Do not run the experimental token/bootstrap
+    // candidate from tests or product code until the design is reviewed.
+    private static bool CandidateValidated => false;
+
+    public Task<RestrictedExecutionResult> RunAsync(TrustedWorker worker,ExecutionChannel channel,int timeoutMs,CancellationToken cancellation=default,bool waitForCancellation=false)
+    {
+        if(!CandidateValidated)
+            throw new InvalidOperationException("Isolation candidate disabled: SEC-001 is unresolved and low-level experiments are stopped.");
+        if(timeoutMs<1 || timeoutMs>30000)throw new ArgumentOutOfRangeException(nameof(timeoutMs));
+        if(!channel.Authorize(channel.RunId,channel.Token,channel.CatalogGeneration))throw new InvalidOperationException("Execution channel is revoked.");
+        return Task.Run(()=>Run(worker,channel,timeoutMs,cancellation,waitForCancellation),CancellationToken.None);
+    }
+    private static RestrictedExecutionResult Run(TrustedWorker worker,ExecutionChannel channel,int timeoutMs,CancellationToken cancellation,bool waitForCancellation)
+    {
+        if(!OperatingSystem.IsWindows())throw new PlatformNotSupportedException();
+        cancellation.ThrowIfCancellationRequested();
+        var path=Path.GetFullPath(worker.ExecutablePath);
+        if(!string.Equals(Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path))),worker.Sha256,StringComparison.Ordinal))throw new InvalidOperationException("Trusted worker hash mismatch.");
+        var stage=Path.Combine(Path.GetTempPath(),"SpecAudit-Worker-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(stage);
+        var executable=Path.Combine(stage,"Worker.exe");File.Copy(path,executable,false);
+        if(Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(executable)))!=worker.Sha256)throw new InvalidOperationException("Staged worker hash mismatch.");
+        var native=new RestrictedNative{Cancellation=cancellation,InputHandle=channel.ToWorker.ClientSafePipeHandle.DangerousGetHandle(),OutputChannelHandle=channel.FromWorker.ClientSafePipeHandle.DangerousGetHandle()};
+        native.BeforeContainerLaunch=sid=>
+        {
+            if(!OperatingSystem.IsWindows())throw new PlatformNotSupportedException();
+            var identity=new SecurityIdentifier(sid);
+            var directory=new DirectoryInfo(stage);var acl=directory.GetAccessControl();
+            acl.AddAccessRule(new FileSystemAccessRule(identity,FileSystemRights.ReadAndExecute,InheritanceFlags.ContainerInherit|InheritanceFlags.ObjectInherit,PropagationFlags.None,AccessControlType.Allow));
+            directory.SetAccessControl(acl);
+        };
+        native.BeforeRestrictingSid=native.BeforeContainerLaunch;
+        native.BeforeResume=()=>
+        {
+            // Initial message is sent only through the explicitly inherited pipe, never a URL or log.
+            var message=System.Text.Encoding.UTF8.GetBytes($"{channel.RunId:D}|{channel.CatalogGeneration}|{channel.Token}\n");
+            channel.ToWorker.Write(message);channel.ToWorker.Flush();
+            channel.ToWorker.DisposeLocalCopyOfClientHandle();channel.FromWorker.DisposeLocalCopyOfClientHandle();
+        };
+        using var executableLock=new FileStream(executable,FileMode.Open,FileAccess.Read,FileShare.Read);
+        var arguments=new List<string>{worker.SyntheticProbeDirectory is not null ? "--probe" : waitForCancellation ? "--wait" : "--bootstrap",native.OutputChannelHandle.ToInt64().ToString(System.Globalization.CultureInfo.InvariantCulture)};
+        if(worker.SyntheticProbeDirectory is not null)
+        {
+            var probe=Path.GetFullPath(worker.SyntheticProbeDirectory);
+            var parent=Directory.GetParent(probe);
+            if(parent is null || !parent.Name.StartsWith("SpecAudit-V1-",StringComparison.Ordinal) || !string.Equals(parent.Parent?.FullName,Path.GetTempPath().TrimEnd(Path.DirectorySeparatorChar),StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException("Direct-path probes are restricted to synthetic TEMP fixtures.");
+            arguments.Add(probe);
+        }
+        var result=native.RunRestricted(executable,arguments.ToArray(),stage,timeoutMs);
+        if(result.ProcessId!=0 && result.Output?.Contains("SYNTHETIC_WORKER_READY",StringComparison.Ordinal)==true)
+        {
+            try
+            {
+                using var deadline=new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                var reply=new byte[256];var count=channel.FromWorker.ReadAsync(reply.AsMemory(),deadline.Token).AsTask().GetAwaiter().GetResult();
+                var parts=System.Text.Encoding.UTF8.GetString(reply,0,count).Trim().Split('|');
+                if(parts.Length!=3 || !Guid.TryParse(parts[0],out var run) || !long.TryParse(parts[1],out var generation) || !channel.Authorize(run,parts[2],generation))
+                    result.Error="Worker channel authentication failed.";
+            }
+            catch(Exception error){result.Error="Worker channel failed: "+error.GetType().Name;}
+        }
+        else if(result.Error is null)result.Error="Worker handshake was not observed.";
+        return new(result.ProcessId!=0,native.Cancelled,result.TimedOut,result.ExitCode,result.TokenIsAppContainer==1,result.InitialThreadImpersonationLevel,result.ExclusiveSidVerified,result.ZeroPrivilegesVerified,result.AdminGroupEnabled!=false,result.JobAssigned,result.TotalProcesses,result.TerminationConfirmed,result.ActiveAfterTerminate,result.ProfileDeleteResult,result.Output??"",result.DiagnosticTrace,result.Error,stage);
+    }
+}

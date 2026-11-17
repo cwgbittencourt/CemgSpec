@@ -1,0 +1,178 @@
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
+using System.Text;
+using Microsoft.Win32.SafeHandles;
+namespace SpecAudit.Infrastructure.Execution;
+internal sealed class BoundaryResult
+{
+    public string? Phase,Error,Output,ContainerProfile,DiagnosticTrace;
+    public int? ProfileDeleteResult,TokenIsAppContainer,ExitCode,InitialThreadImpersonationLevel;
+    public bool? AdminGroupEnabled;
+    public bool TimedOut,JobAssigned,TerminationConfirmed,ExclusiveSidVerified,ZeroPrivilegesVerified;
+    public uint ProcessId,TotalProcesses,ActiveAfterTerminate;
+}
+internal sealed class RestrictedNative
+{
+    public Action<IntPtr>? BeforeContainerLaunch,BeforeRestrictingSid;
+    public Action? BeforeResume;
+    public CancellationToken Cancellation;
+    public bool Cancelled;
+    public IntPtr InputHandle,OutputChannelHandle;
+    [StructLayout(LayoutKind.Sequential)] private struct SidAttributes {public IntPtr Sid;public uint Attributes;}
+    [StructLayout(LayoutKind.Sequential)] private struct SecurityAttributes {public int Size;public IntPtr Descriptor;[MarshalAs(UnmanagedType.Bool)]public bool Inherit;}
+    [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Unicode)] private struct StartupInfo {public int Size;public string? Reserved,Desktop,Title;public int X,Y,XSize,YSize,XChars,YChars,Fill,Flags;public short Show,ReservedSize;public IntPtr ReservedPointer,Input,Output,Error;}
+    [StructLayout(LayoutKind.Sequential)] private struct StartupExtended {public StartupInfo Startup;public IntPtr Attributes;}
+    [StructLayout(LayoutKind.Sequential)] private struct ProcessInformation {public IntPtr Process,Thread;public uint Pid,Tid;}
+    [StructLayout(LayoutKind.Sequential)] private struct BasicLimits {public long ProcessTime,JobTime;public uint Flags;public UIntPtr Minimum,Maximum;public uint ActiveProcessLimit;public UIntPtr Affinity;public uint Priority,Scheduling;}
+    [StructLayout(LayoutKind.Sequential)] private struct IoCounters {public ulong A,B,C,D,E,F;}
+    [StructLayout(LayoutKind.Sequential)] private struct ExtendedLimits {public BasicLimits Basic;public IoCounters Io;public UIntPtr ProcessMemory,JobMemory,PeakProcessMemory,PeakJobMemory;}
+    [StructLayout(LayoutKind.Sequential)] private struct Accounting {public long A,B,C,D;public uint Faults,Total,Active,Terminated;}
+    [StructLayout(LayoutKind.Sequential)] private struct Luid {public uint Low;public int High;}
+    [StructLayout(LayoutKind.Sequential)] private struct TokenPrivileges {public uint Count;public Luid Luid;public uint Attributes;}
+    public BoundaryResult RunRestricted(string executable,string[] arguments,string cwd,int timeoutMs)
+    {
+        if(!OperatingSystem.IsWindows())throw new PlatformNotSupportedException();
+        var result=new BoundaryResult();
+        IntPtr original=IntPtr.Zero,initial=IntPtr.Zero,primary=IntPtr.Zero,impersonation=IntPtr.Zero,restriction=IntPtr.Zero,admin=IntPtr.Zero,users=IntPtr.Zero,world=IntPtr.Zero,userSid=IntPtr.Zero,logonBuffer=IntPtr.Zero,integrity=IntPtr.Zero,descriptor=IntPtr.Zero,pipeRead=IntPtr.Zero,pipeWrite=IntPtr.Zero,job=IntPtr.Zero,attributes=IntPtr.Zero,handleList=IntPtr.Zero,environment=IntPtr.Zero;
+        var process=new ProcessInformation();StreamReader? reader=null;bool attributesReady=false;
+        try
+        {
+            result.Phase="restrict-token";
+            Check(OpenProcessToken(GetCurrentProcess(),0xF01FF,out original));
+            Check(ConvertStringSidToSid("S-1-5-32-544",out admin));Check(ConvertStringSidToSid("S-1-5-32-545",out users));
+            var random=Guid.NewGuid().ToByteArray();
+            var restrictionName=$"S-1-5-21-{BitConverter.ToUInt32(random,0)}-{BitConverter.ToUInt32(random,4)}-{BitConverter.ToUInt32(random,8)}-{BitConverter.ToUInt32(random,12)}";
+            Check(ConvertStringSidToSid(restrictionName,out restriction));BeforeRestrictingSid?.Invoke(restriction);
+            var user=WindowsIdentity.GetCurrent().User?.Value ?? throw new InvalidOperationException("User SID unavailable.");Check(ConvertStringSidToSid(user,out userSid));Check(ConvertStringSidToSid("S-1-1-0",out world));logonBuffer=ReadToken(original,28);var logonSid=Marshal.ReadIntPtr(logonBuffer,8);
+            var disabled=Marshal.AllocHGlobal(Marshal.SizeOf<SidAttributes>());var restricted=Marshal.AllocHGlobal(5*Marshal.SizeOf<SidAttributes>());
+            try
+            {
+                Marshal.StructureToPtr(new SidAttributes{Sid=admin},disabled,false);Marshal.StructureToPtr(new SidAttributes{Sid=restriction},restricted,false);
+                Marshal.StructureToPtr(new SidAttributes{Sid=users},restricted+Marshal.SizeOf<SidAttributes>(),false);
+                Marshal.StructureToPtr(new SidAttributes{Sid=world},restricted+2*Marshal.SizeOf<SidAttributes>(),false);Marshal.StructureToPtr(new SidAttributes{Sid=userSid},restricted+3*Marshal.SizeOf<SidAttributes>(),false);Marshal.StructureToPtr(new SidAttributes{Sid=logonSid},restricted+4*Marshal.SizeOf<SidAttributes>(),false);
+                Check(CreateRestrictedToken(original,1,1,disabled,0,IntPtr.Zero,5,restricted,out initial));
+                Marshal.StructureToPtr(new SidAttributes{Sid=logonSid},restricted+Marshal.SizeOf<SidAttributes>(),false);
+                Check(CreateRestrictedToken(original,1,1,disabled,0,IntPtr.Zero,2,restricted,out primary));
+            }
+            finally {Marshal.FreeHGlobal(disabled);Marshal.FreeHGlobal(restricted);}
+            Check(ConvertStringSidToSid("S-1-16-4096",out integrity));var label=Marshal.AllocHGlobal(Marshal.SizeOf<SidAttributes>());
+            try{Marshal.StructureToPtr(new SidAttributes{Sid=integrity,Attributes=0x20},label,false);Check(SetTokenInformation(initial,25,label,Marshal.SizeOf<SidAttributes>()+(int)GetLengthSid(integrity)));Check(SetTokenInformation(primary,25,label,Marshal.SizeOf<SidAttributes>()+(int)GetLengthSid(integrity)));}
+            finally {Marshal.FreeHGlobal(label);}
+            // DISABLE_MAX_PRIVILEGE retains SeChangeNotifyPrivilege. Remove it too:
+            // the confined process must not bypass directory traversal checks.
+            Check(LookupPrivilegeValue(null,"SeChangeNotifyPrivilege",out var traverse));
+            var removal=new TokenPrivileges{Count=1,Luid=traverse,Attributes=4};
+            Check(AdjustTokenPrivileges(primary,false,ref removal,0,IntPtr.Zero,IntPtr.Zero));
+            Check(ConvertStringSecurityDescriptorToSecurityDescriptor($"D:(A;;GA;;;SY)(A;;GA;;;{user})(A;;GA;;;{restrictionName})",1,out descriptor,out _));
+            Check(SetKernelObjectSecurity(primary,4,descriptor));
+            var raw=new System.Security.AccessControl.RawSecurityDescriptor($"D:(A;;GA;;;SY)(A;;GA;;;{user})(A;;GA;;;{restrictionName})");
+            var aclBytes=new byte[raw.DiscretionaryAcl!.BinaryLength];raw.DiscretionaryAcl.GetBinaryForm(aclBytes,0);
+            var acl=Marshal.AllocHGlobal(aclBytes.Length);var dacl=Marshal.AllocHGlobal(IntPtr.Size);
+            try{Marshal.Copy(aclBytes,0,acl,aclBytes.Length);Marshal.WriteIntPtr(dacl,acl);Check(SetTokenInformation(primary,6,dacl,IntPtr.Size));}
+            finally {Marshal.FreeHGlobal(dacl);Marshal.FreeHGlobal(acl);}
+            Check(DuplicateTokenEx(initial,0xF01FF,IntPtr.Zero,2,2,out impersonation));
+            result.Phase="pipe-job";
+            var pipeSecurity=new SecurityAttributes{Size=Marshal.SizeOf<SecurityAttributes>(),Inherit=true};
+            Check(CreatePipe(out pipeRead,out pipeWrite,ref pipeSecurity,0));Check(SetHandleInformation(pipeRead,1,0));
+            job=CreateJobObject(IntPtr.Zero,null);Check(job!=IntPtr.Zero);
+            var limits=new ExtendedLimits{Basic=new BasicLimits{Flags=0x2000}};
+            Check(SetInformationJobObject(job,9,ref limits,Marshal.SizeOf<ExtendedLimits>()));
+            IntPtr size=IntPtr.Zero;InitializeProcThreadAttributeList(IntPtr.Zero,1,0,ref size);attributes=Marshal.AllocHGlobal(size);
+            Check(InitializeProcThreadAttributeList(attributes,1,0,ref size));attributesReady=true;
+            var inherited=new[]{pipeWrite,InputHandle,OutputChannelHandle};handleList=Marshal.AllocHGlobal(inherited.Length*IntPtr.Size);
+            for(var i=0;i<inherited.Length;i++)Marshal.WriteIntPtr(handleList,i*IntPtr.Size,inherited[i]);
+            Check(UpdateProcThreadAttribute(attributes,0,new IntPtr(0x20002),handleList,new IntPtr(inherited.Length*IntPtr.Size),IntPtr.Zero,IntPtr.Zero));
+            var startup=new StartupExtended{Startup=new StartupInfo{Size=Marshal.SizeOf<StartupExtended>(),Flags=0x100,Input=InputHandle,Output=pipeWrite,Error=pipeWrite},Attributes=attributes};
+            environment=Marshal.StringToHGlobalUni($"SystemRoot={Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\0TEMP={cwd}\0TMP={cwd}\0\0");
+            var command=new StringBuilder(Quote(executable));foreach(var argument in arguments)command.Append(' ').Append(Quote(argument));
+            var objectSecurity=new SecurityAttributes{Size=Marshal.SizeOf<SecurityAttributes>(),Descriptor=descriptor};
+            result.Phase="create-suspended";
+            Check(CreateProcessAsUser(primary,executable,command,ref objectSecurity,ref objectSecurity,true,0x08080406,environment,cwd,ref startup,out process));
+            result.ProcessId=process.Pid;
+            SerialBootstrap.Configure(process.Process,executable);
+            Check(AssignProcessToJobObject(job,process.Process));result.JobAssigned=true;
+            Check(OpenProcessToken(process.Process,8,out var actual));
+            try
+            {
+                result.ExclusiveSidVerified=VerifyOnlyRestriction(actual,restriction,logonSid);
+                result.ZeroPrivilegesVerified=ReadCount(actual,3)==0;
+                result.AdminGroupEnabled=IsGroupEnabled(actual,admin);
+                result.TokenIsAppContainer=ReadCount(actual,29);
+                if(!result.ExclusiveSidVerified || !result.ZeroPrivilegesVerified || result.AdminGroupEnabled!=false)throw new InvalidOperationException("Effective primary token does not match strict isolation policy.");
+            }
+            finally{CloseHandle(actual);}
+            Check(SetThreadToken(ref process.Thread,impersonation));Check(OpenThreadToken(process.Thread,8,true,out var threadToken));try{result.InitialThreadImpersonationLevel=ReadCount(threadToken,9);}finally{CloseHandle(threadToken);}
+            if(result.InitialThreadImpersonationLevel<2)throw new InvalidOperationException("Windows downgraded the bootstrap impersonation token to identification level.");
+            CloseHandle(pipeWrite);pipeWrite=IntPtr.Zero;
+            reader=new StreamReader(new FileStream(new SafeFileHandle(pipeRead,true),FileAccess.Read),Encoding.UTF8);pipeRead=IntPtr.Zero;
+            var output=ReadBoundedAsync(reader);BeforeResume?.Invoke();
+            if(ResumeThread(process.Thread)==uint.MaxValue)throw new Win32Exception();
+            result.DiagnosticTrace=OwnedBootstrapDiagnostic.Pump(process.Process,timeoutMs);
+            result.Phase="wait";var clock=System.Diagnostics.Stopwatch.StartNew();
+            uint wait;
+            while((wait=WaitForSingleObject(process.Process,50))==258)
+            {if(Cancellation.IsCancellationRequested){Cancelled=true;break;}if(clock.ElapsedMilliseconds>=timeoutMs){result.TimedOut=true;break;}}
+            if(wait==uint.MaxValue)throw new Win32Exception();
+            Check(QueryInformationJobObject(job,1,out var accounting,Marshal.SizeOf<Accounting>(),IntPtr.Zero));result.TotalProcesses=accounting.Total;
+            Check(TerminateJobObject(job,124));
+            for(var i=0;i<100;i++){Check(QueryInformationJobObject(job,1,out accounting,Marshal.SizeOf<Accounting>(),IntPtr.Zero));result.ActiveAfterTerminate=accounting.Active;if(accounting.Active==0){result.TerminationConfirmed=true;break;}Thread.Sleep(20);}
+            if(!result.TerminationConfirmed)throw new InvalidOperationException("Job termination not confirmed.");
+            Check(GetExitCodeProcess(process.Process,out var exit));result.ExitCode=unchecked((int)exit);
+            if(!output.Wait(5000))throw new InvalidOperationException("Output pipe did not close.");result.Output=output.Result;result.Phase="finished";
+        }
+        catch(Exception error){result.Error=result.Phase+": "+error.GetType().Name+": "+error.Message;}
+        finally
+        {
+            if(job!=IntPtr.Zero){TerminateJobObject(job,124);CloseHandle(job);}
+            if(process.Process!=IntPtr.Zero){if(!result.TerminationConfirmed)TerminateProcess(process.Process,125);CloseHandle(process.Process);}
+            if(process.Thread!=IntPtr.Zero)CloseHandle(process.Thread);reader?.Dispose();
+            foreach(var handle in new[]{original,initial,primary,impersonation,pipeRead,pipeWrite})if(handle!=IntPtr.Zero)CloseHandle(handle);
+            if(attributesReady)DeleteProcThreadAttributeList(attributes);
+            foreach(var pointer in new[]{attributes,handleList,environment,logonBuffer})if(pointer!=IntPtr.Zero)Marshal.FreeHGlobal(pointer);
+            foreach(var pointer in new[]{restriction,admin,users,world,userSid,integrity,descriptor})if(pointer!=IntPtr.Zero)LocalFree(pointer);
+        }
+        return result;
+    }
+    private static bool VerifyOnlyRestriction(IntPtr token,IntPtr expected,IntPtr logon)
+    {var data=ReadToken(token,11);try{if(Marshal.ReadInt32(data)!=2)return false;var first=Marshal.ReadIntPtr(data,8);var second=Marshal.ReadIntPtr(data,8+Marshal.SizeOf<SidAttributes>());return (EqualSid(first,expected)&&EqualSid(second,logon))||(EqualSid(first,logon)&&EqualSid(second,expected));}finally{Marshal.FreeHGlobal(data);}}
+    private static bool IsGroupEnabled(IntPtr token,IntPtr sid)
+    {var data=ReadToken(token,2);try{for(var i=0;i<Marshal.ReadInt32(data);i++){var entry=Marshal.PtrToStructure<SidAttributes>(data+8+i*Marshal.SizeOf<SidAttributes>());if(EqualSid(entry.Sid,sid))return(entry.Attributes&4)!=0;}return false;}finally{Marshal.FreeHGlobal(data);}}
+    private static int ReadCount(IntPtr token,int kind){var data=ReadToken(token,kind);try{return Marshal.ReadInt32(data);}finally{Marshal.FreeHGlobal(data);}}
+    private static IntPtr ReadToken(IntPtr token,int kind){GetTokenInformation(token,kind,IntPtr.Zero,0,out var needed);if(needed<4)throw new Win32Exception();var data=Marshal.AllocHGlobal(needed);if(!GetTokenInformation(token,kind,data,needed,out needed)){Marshal.FreeHGlobal(data);throw new Win32Exception();}return data;}
+    private static async Task<string> ReadBoundedAsync(StreamReader reader){var value=new StringBuilder();var buffer=new char[4096];int count;while((count=await reader.ReadAsync(buffer))>0){if(value.Length+count>65536)throw new InvalidOperationException("Output limit exceeded.");value.Append(buffer,0,count);}return value.ToString();}
+    private static void Check(bool condition){if(!condition)throw new Win32Exception(Marshal.GetLastWin32Error());}
+    public static string Quote(string value){var output=new StringBuilder("\"");var slashes=0;foreach(var c in value){if(c=='\\'){slashes++;continue;}output.Append('\\',c=='"'?slashes*2+1:slashes);output.Append(c);slashes=0;}return output.Append('\\',slashes*2).Append('"').ToString();}
+    [DllImport("kernel32.dll")]private static extern IntPtr GetCurrentProcess();
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool OpenThreadToken(IntPtr thread,uint access,bool asSelf,out IntPtr token);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool OpenProcessToken(IntPtr process,uint access,out IntPtr token);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool CreateRestrictedToken(IntPtr token,uint flags,uint disabledCount,IntPtr disabled,uint deletedCount,IntPtr deleted,uint restrictedCount,IntPtr restricted,out IntPtr result);
+    [DllImport("advapi32.dll",CharSet=CharSet.Unicode,SetLastError=true)]private static extern bool ConvertStringSidToSid(string value,out IntPtr sid);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool SetTokenInformation(IntPtr token,int kind,IntPtr data,int size);
+    [DllImport("advapi32.dll")]private static extern uint GetLengthSid(IntPtr sid);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool DuplicateTokenEx(IntPtr token,uint access,IntPtr security,int level,int type,out IntPtr result);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool SetThreadToken(ref IntPtr thread,IntPtr token);
+    [DllImport("advapi32.dll",CharSet=CharSet.Unicode,SetLastError=true)]private static extern bool LookupPrivilegeValue(string? system,string name,out Luid luid);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool AdjustTokenPrivileges(IntPtr token,bool disableAll,ref TokenPrivileges value,int length,IntPtr previous,IntPtr needed);
+    [DllImport("advapi32.dll",CharSet=CharSet.Unicode,SetLastError=true)]private static extern bool ConvertStringSecurityDescriptorToSecurityDescriptor(string value,uint revision,out IntPtr descriptor,out uint size);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool SetKernelObjectSecurity(IntPtr handle,uint info,IntPtr descriptor);
+    [DllImport("advapi32.dll",SetLastError=true)]private static extern bool GetTokenInformation(IntPtr token,int kind,IntPtr data,int size,out int needed);
+    [DllImport("advapi32.dll")]private static extern bool EqualSid(IntPtr a,IntPtr b);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool CreatePipe(out IntPtr read,out IntPtr write,ref SecurityAttributes security,int size);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool SetHandleInformation(IntPtr handle,uint mask,uint flags);
+    [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)]private static extern IntPtr CreateJobObject(IntPtr security,string? name);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool SetInformationJobObject(IntPtr job,int kind,ref ExtendedLimits value,int size);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool AssignProcessToJobObject(IntPtr job,IntPtr process);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool QueryInformationJobObject(IntPtr job,int kind,out Accounting value,int size,IntPtr needed);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool TerminateJobObject(IntPtr job,uint code);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool InitializeProcThreadAttributeList(IntPtr list,int count,int flags,ref IntPtr size);
+    [DllImport("kernel32.dll",SetLastError=true)]private static extern bool UpdateProcThreadAttribute(IntPtr list,uint flags,IntPtr kind,IntPtr value,IntPtr size,IntPtr previous,IntPtr returned);
+    [DllImport("kernel32.dll")]private static extern void DeleteProcThreadAttributeList(IntPtr list);
+    [DllImport("advapi32.dll",EntryPoint="CreateProcessAsUserW",CharSet=CharSet.Unicode,SetLastError=true)]private static extern bool CreateProcessAsUser(IntPtr token,string executable,StringBuilder command,ref SecurityAttributes processSecurity,ref SecurityAttributes threadSecurity,bool inherit,uint flags,IntPtr environment,string cwd,ref StartupExtended startup,out ProcessInformation process);
+    [DllImport("kernel32.dll")]private static extern uint ResumeThread(IntPtr thread);
+    [DllImport("kernel32.dll")]private static extern uint WaitForSingleObject(IntPtr handle,uint milliseconds);
+    [DllImport("kernel32.dll")]private static extern bool GetExitCodeProcess(IntPtr process,out uint code);
+    [DllImport("kernel32.dll")]private static extern bool TerminateProcess(IntPtr process,uint code);
+    [DllImport("kernel32.dll")]private static extern bool CloseHandle(IntPtr handle);
+    [DllImport("kernel32.dll")]private static extern IntPtr LocalFree(IntPtr value);
+}

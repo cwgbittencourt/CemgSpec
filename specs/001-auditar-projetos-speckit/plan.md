@@ -1,11 +1,11 @@
 # Plano de implementação: Auditoria documental de projetos SpecKit — V1
 
 **Branch real**: main | **Revisão**: 2026-11-16 | **Spec**: [spec.md](spec.md)
-**Estado**: READY para geração de tarefas; desenho Phase 1 concluído. Proteções/fluxos ainda NÃO EXECUTADOS, a comprovar na implementação antes de habilitar integrações.
+**Estado**: atualizado à constituição 4.0.0; implementação retomada com controles de aplicação. Provas funcionais por história e integração continuam obrigatórias.
 **Preset**: cemg-speckit 3.0.0 | **Template**: plan-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/plan-template.md.
 **Resolvedor**: .specify/scripts/powershell/resolve-template.ps1.
-**Constituição**: 3.0.0; core + adendo append. Base Git da revisão: 79d9c3d; candidato identificado por hash dos documentos atuais.
+**Constituição**: 4.0.0; core + adendo append. Base Git da revisão: 79d9c3d; candidato identificado por hash dos documentos atuais.
 
 ## Resumo
 
@@ -21,9 +21,9 @@ O antigo B2-WFP e suas duas provas falhas são históricos; a V1 NÃO depende de
 - Dependências candidatas: parser Markdown, sanitizador e Mermaid locais. Fixar versões estáveis e consultar vulnerabilidades antes de adicioná-las. Nenhum pacote alterado nesta revisão. Não adicionar Roslyn, compilador Razor analítico, MSBuildWorkspace ou leitor de manifests do projeto auditado.
 - Armazenamento: estado e resultados oficiais em memória; gravação só por Salvar no destino externo escolhido ao carregar. Caches/conversas dos agentes permitidos apenas fora da origem, com locais informados. Sem autosave ou logs próprios com conteúdo.
 - Ferramenta gate: core check_gate.py/política CEMG 3.0.0 empacotados e pinados por hash, runtime Python confiável absoluto com -I -B; runner do SpecAudit invoca validate/validate_impossibility com Path de capacidade do catálogo. Nenhum caminho real da origem é entregue ao core/runner. A mesma semântica do core é verificada por equivalência em fixtures. Python ausente torna só o gate indisponível, sem instalação/fallback automático.
-- Gate isolado: processo Python/runner confiável em identidade restrita sem acesso à origem, sem shell/rede; core só lê por broker no ponto de acesso. Sem main/active/--project: --project executaria specify preset resolve. Política/runtime são recursos confiáveis do aplicativo; Path de capacidade redireciona TODAS as leituras da validação documental e impede TOCTOU, conforme contracts/verification.md. Não copiar a solução para satisfazer caminhos.
-- Ferramenta analyze: adaptação declarada, documentos via broker/canal em memória, sem raiz navegável, shell/escrita/leitura arbitrária/plugins/configuração da solução. Launcher normal do usuário, executor AppContainer/identidade restrita sem grant na origem, Job Object e herança explícita de handles. Provas técnicas de execução/estado/auth/rede ficam nas primeiras tarefas da implementação; ausência de proteção mantém adaptador desabilitado, não o planejamento bloqueado.
-- Rede: gate offline; preview local offline e recursos remotos somente por ação explícita já prevista. analyze pode usar serviço do agente selecionado após informação ao usuário e compatibilidade comprovada. Não acessar serviços da solução. A fronteira de acesso é broker + restrição de SO/ferramentas, com capacidades de rede limitadas aos canais necessários do provedor; seu enforcement real integra a prova do adaptador antes de habilitação. WFP elevado não é pré-condição automática; se necessária outra permissão/mecanismo, suspender habilitação e revisar sem relaxar o contrato.
+- Gate: subprocesso comum não elevado, runtime absoluto conferido com -I -B, cwd externo e runner/core/política confiáveis. Somente funções de validação, sem --project/main/hooks da origem. Catálogo virtual e broker continuam validando cada leitura; não há garantia de firewall/sandbox OS.
+- Ferramenta analyze: adaptação documental com snapshots selecionados, ferramentas/configuração restritas e cwd/estado externos. Executor gerenciado comum, sem shell de comandos livres, carregamento de configuração da origem ou argumentos vindos de documentos. Compatibilidade e limites comprovados por adaptador; ausência de contenção OS é informada antes de executar.
+- Rede: leitura/gate funcionam sem rede; analyze pode acessar o provedor selecionado após informação ao usuário. O SpecAudit não oferece ferramentas para bancos/APIs/serviços da solução. Controles são de aplicação/adaptador, sem promessa de bloqueio de rede pelo kernel.
 - Limites técnicos: configuração interna versionada e aplicada por broker/runner a entrada, saída, grafo, duração e cancelamento. A tarefa de implementação calibra valores em fixture antes de habilitar; excesso gera LimitExceeded/Inconclusive explícito, nunca truncamento/READY parcial. Não são metas de desempenho de produto inventadas.
 
 ## Verificação da constituição
@@ -61,7 +61,7 @@ Todos os cenários abaixo são PROPOSTOS/NÃO EXECUTADOS no produto. Reutilizar 
 | História | Critério/cenário | Nível e teste a criar/reutilizar | Execução e asserção esperada | Evidência |
 |---|---|---|---|---|
 | US1 | US1-AC01 / US1-S01 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US1-S01 | Preparar Projeto com duas funcionalidades; Carregar com destino externo; observar: Mostrar artefatos e escopos, sem escrita na origem. Ver quickstart.md. | evidence/US1-validation.md |
-| US1 | US1-AC02 / US1-S02 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US1-S02 | Preparar Link que resolve para origem e executor restrito; Escolher destino ou tentar escrita; observar: Recusar e preservar conteúdo. Ver quickstart.md. | evidence/US1-validation.md |
+| US1 | US1-AC02 / US1-S02 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US1-S02 | Preparar Link que resolve para origem e APIs somente leitura; Escolher destino ou tentar escrita; observar: Recusar e preservar conteúdo. Ver quickstart.md. | evidence/US1-validation.md |
 | US1 | US1-AC03 / US1-S03 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US1-S03 | Preparar Dois projetos e histórico salvo; Alternar projeto e mudar destino; observar: Manter contextos e arquivos anteriores. Ver quickstart.md. | evidence/US1-validation.md |
 | US1 | US1-AC04 / US1-S04 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US1-S04 | Preparar Análise em andamento; Usuário editar documento monitorado; observar: Preservar edição e indicar perda de atualidade. Ver quickstart.md. | evidence/US1-validation.md |
 | US2 | US2-AC01 / US2-S01 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US2-S01 | Preparar Links válidos e quebrados; Buscar/navegar; observar: Abrir destino autorizado ou explicar ausência. Ver quickstart.md. | evidence/US2-validation.md |
@@ -92,7 +92,7 @@ Todos os cenários abaixo são PROPOSTOS/NÃO EXECUTADOS no produto. Reutilizar 
 
 Para US5-S06, usar registros locais CEMG conhecidos: READY com hash correto; BLOCKED com bloqueio declarado; estado READY com evidence hash adulterado; revisão divergente; registro ausente. Comparar saída/exit do script empacotado, captura da UI e ausência de qualquer escrita. Para US5-S07, incluir referência .cs, junção para fora e referência aninhada em logs/artifacts; instrumentar abertura real e comprovar que o destino proibido não foi lido. Gate nunca recebe `--project`.
 
-Para US1-S02/US5-S02/S04, ensaiar tentativas reais de escrita/acesso indevido em fixture por aplicação, adaptador e descendentes, observar conteúdo/hashes e permitir edição normal pelo usuário. Mocks não comprovam fronteira Windows nem integração real. Provar que um payload documental não libera ferramenta ou configura agente. Simulação de erro serve apenas à apresentação.
+Para US1-S02/US5-S02/S04, testar as APIs reais da aplicação, rejeição de destinos/junções e IDs alheios, preservação dos hashes, seleção documental e configuração/cwd/estado externos dos adaptadores. Código/configuração não entram no catálogo. As antigas provas de negação de syscall em processos maliciosos são históricas, não requisitos ativos. Testes reais das integrações continuam obrigatórios; mocks não as comprovam.
 
 ## Ambiente e dados
 
@@ -130,7 +130,7 @@ Planejamento define controles e dependências, implementação comprova. A autor
 1. Gerar tarefas a partir de modelo/contratos/matriz/quickstart. Incluir infraestrutura de ReaderBoundary e provas Windows reais em fixture ANTES de qualquer tarefa que exponha origem ao executor; se falhar, bloquear dependente e manter UI indisponível. Não exige produto pronto para escrever tarefa.
 2. Implementar gate confiável: core/política pinados + runner Path de capacidade/broker; provas de equivalência/offline/paths aninhados/TOCTOU/cancelamento. GateAdapter habilita apenas após passar. Sem --project, subprocesso de verificação adicional ou script da origem.
 3. Implementar leitor/domínio/ficha/temas com catálogo seguro e teste do meio real de uso. Leitor/gate independem do analyze.
-4. Implementar/provar adaptadores individuais Codex/Antigravity com canal documental, restrição de SO/ferramentas/rede e cache externo. Analyzer sem selo Passed permanece indisponível. Nenhum novo teste elevado ou instalação está autorizado por esta fase.
+4. Implementar/provar adaptadores individuais Codex/Antigravity com canal documental, contrato documental, ferramentas configuradas e finalidades de rede e cache externo. Analyzer sem selo Passed permanece indisponível. Nenhum novo teste elevado ou instalação está autorizado por esta fase.
 5. Implementar writer/Save/histórico com fronteira externa e provas; demonstrar fluxo final pela IA e roteiro pelo DEV. Revalidar após alterações; nenhum aceite ou aprovação humana inferido.
 
 ## Complexidade e exceções
@@ -166,7 +166,7 @@ Após implementação, IA inicia host loopback e carrega corpus/destino externo,
 - SpecAudit/Domain/: modelo documental/indicadores/ocorrências e estados de execução, sem dependência de filesystem de origem.
 - SpecAudit/Application/: serviços tipados de sessão/catálogo/ficha/verificações/Save.
 - SpecAudit/Infrastructure/Documents/: broker por IDs/handles Windows, catálogo e invalidação.
-- SpecAudit/Infrastructure/Execution/: launcher restrito/Job Object e capacidades por execução.
+- SpecAudit/Infrastructure/Execution/: executor gerenciado fechado/cancelamento e capacidades por execução.
 - SpecAudit/Infrastructure/Agents/: descoberta e adaptadores independentes Codex/Antigravity.
 - SpecAudit/Infrastructure/Gates/: runner confiável, Path de capacidade e pacote do core/política CEMG.
 - SpecAudit/Infrastructure/Reports/: writer externo create-new e leitura/comparação de pacotes salvos.
@@ -174,3 +174,14 @@ Após implementação, IA inicia host loopback e carrega corpus/destino externo,
 - tests/SpecAudit.Tests, tests/SpecAudit.Windows.Tests e tests/SpecAudit.Ui.Tests: domínio, fronteiras reais e host/navegador. Framework/versões estáveis devem ser fixados e auditados antes de introdução; não são dependências adicionadas nesta revisão.
 
 Detalhes de operações/erros em contracts/, propriedades e relações em data-model.md. Esta estrutura é plano, não código existente. APIs Blazor internas, sem REST público ou leitura por path arbitrário.
+
+
+## Modelo de confiança vigente — constituição 4.0.0
+
+A fronteira de somente leitura é imposta nas APIs/catálogo/broker e testada com filesystem real, inclusive identidade, junções, alteração concorrente, ID de outra sessão e destino externo. Manter abertura readonly e nenhuma operação de escrita/execução da origem. Os dois valores de VerificationType são o conjunto fechado de verificações.
+
+Processos externos são confiados à configuração validada de cada adaptador: executável absoluto/hash conferido, ArgumentList sem shell, cwd externo, dados selecionados via stdin/canal, saída limitada e cancelamento da árvore própria. Não fornecer ferramenta genérica de filesystem/shell ao agente. Estado externo precisa ser identificável. Não executar scripts/presets/configuração do projeto. Antes de analyze informar explicitamente a ausência de contenção de agente comprometido pelo SO.
+
+Retirar do produto AppContainer/LPAC, alteração de tokens, ajuste de memória, depuração de bootstrap e compilação de worker nativo. Preservar fontes/provas em verification/archive/constitution-v3-isolation/. SEC-001 permanece uma falha histórica da garantia retirada; não foi corrigida ou aprovada por esta emenda. Nenhum experimento bloqueado de privilégio será repetido para destravar a V1.
+
+T095 sincroniza documentos; T096 substitui o candidato experimental por execução gerenciada; T097 adapta testes ao contrato aprovado sem contar testes retirados como aprovados; T098 executa análise/regressão e registra o checkpoint. Em seguida concluir T006–T010 pelo contrato atual e retomar T011. Os 29 critérios ativos e sete roteiros DEV permanecem; somente requisitos específicos de sandbox OS são substituídos.

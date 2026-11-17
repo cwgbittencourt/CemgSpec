@@ -1,0 +1,49 @@
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Text;
+namespace SpecAudit.Infrastructure.Execution;
+
+// Version-pinned metadata adjustment for our owned, hash-verified suspended worker.
+// No executable bytes, registry, global loader settings or arbitrary PIDs are accepted.
+internal static class SerialBootstrap
+{
+    public static void Configure(IntPtr ownSuspendedProcess, string expectedExecutable)
+    {
+        if (!OperatingSystem.IsWindows() || !Environment.Is64BitProcess || Environment.OSVersion.Version.Build != 26300)
+            throw new PlatformNotSupportedException("Bootstrap layout is verified only on Windows x64 build 26300.");
+        var basic = new byte[48];
+        if (NtQueryInformationProcess(ownSuspendedProcess, 0, basic, basic.Length, out _) != 0)
+            throw new InvalidOperationException("Cannot query owned suspended worker.");
+        var peb = new IntPtr(BitConverter.ToInt64(basic, 8));
+        var loaderFlags = BitConverter.GetBytes(BitConverter.ToUInt32(Read(ownSuspendedProcess, peb + 0xbc, 4)) | 2u);
+        if (!WriteProcessMemory(ownSuspendedProcess, peb + 0xbc, loaderFlags, 4, out var flagWritten) || flagWritten.ToInt64() != 4)
+            throw new Win32Exception();
+        var parameters = new IntPtr(BitConverter.ToInt64(Read(ownSuspendedProcess, peb + 0x20, 8)));
+        var values = Read(ownSuspendedProcess, parameters, 0x410);
+        if (BitConverter.ToUInt32(values, 4) < 0x410 || BitConverter.ToUInt32(values, 0) > 16 * 1024 * 1024)
+            throw new InvalidOperationException("Unsupported process-parameter layout.");
+        var nameLength = BitConverter.ToUInt16(values, 0x60);
+        if (nameLength == 0 || nameLength > 32766 || nameLength % 2 != 0)
+            throw new InvalidOperationException("Invalid worker image identity.");
+        var name = Encoding.Unicode.GetString(Read(ownSuspendedProcess, new IntPtr(BitConverter.ToInt64(values, 0x68)), nameLength));
+        if (!string.Equals(name, expectedExecutable, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException("Worker image does not match bootstrap target.");
+        if (BitConverter.ToUInt32(values, 0x40c) > 16)
+            throw new InvalidOperationException("Unsupported loader-thread state.");
+        byte[] one = [1, 0, 0, 0];
+        if (!WriteProcessMemory(ownSuspendedProcess, parameters + 0x40c, one, 4, out var written) || written.ToInt64() != 4)
+            throw new Win32Exception();
+        if (BitConverter.ToUInt32(Read(ownSuspendedProcess, parameters + 0x40c, 4)) != 1)
+            throw new InvalidOperationException("Serial loader setting not confirmed.");
+    }
+    private static byte[] Read(IntPtr process, IntPtr address, int count)
+    {
+        var bytes = new byte[count];
+        if (!ReadProcessMemory(process, address, bytes, count, out var read) || read.ToInt64() != count)
+            throw new Win32Exception();
+        return bytes;
+    }
+    [DllImport("ntdll.dll")] private static extern int NtQueryInformationProcess(IntPtr process, int kind, byte[] data, int length, out int returned);
+    [DllImport("kernel32.dll", SetLastError = true)] private static extern bool ReadProcessMemory(IntPtr process, IntPtr address, byte[] data, int length, out IntPtr read);
+    [DllImport("kernel32.dll", SetLastError = true)] private static extern bool WriteProcessMemory(IntPtr process, IntPtr address, byte[] data, int length, out IntPtr written);
+}

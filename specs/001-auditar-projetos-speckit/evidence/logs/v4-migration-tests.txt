@@ -1,0 +1,20 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.CommandFixture -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.CommandFixture\bin\Debug\net10.0\SpecAudit.CommandFixture.dll
+  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+1 arquivos de teste no total corresponderam ao padrão especificado.
+  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\v4-migration-tests\cwagn_TRABALHO_2026-11-16_21_27_32_net10.0.trx
+
+Aprovado!  – Com falha:     0, Aprovado:     7, Ignorado:     0, Total:     7, Duração: 27 ms - SpecAudit.Tests.dll (net10.0)
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\v4-migration-tests\cwagn_TRABALHO_2026-11-16_21_27_33_net10.0.trx
+
+Aprovado!  – Com falha:     0, Aprovado:     7, Ignorado:     0, Total:     7, Duração: 1 s - SpecAudit.Ui.Tests.dll (net10.0)
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\v4-migration-tests\cwagn_TRABALHO_2026-11-16_21_27_33_net10.0[1].trx
+
+Aprovado!  – Com falha:     0, Aprovado:    13, Ignorado:     0, Total:    13, Duração: 2 s - SpecAudit.Windows.Tests.dll (net10.0)

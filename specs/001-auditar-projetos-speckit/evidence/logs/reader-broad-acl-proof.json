@@ -1,0 +1,16 @@
+{
+  "Started": true,
+  "Cancelled": false,
+  "TimedOut": false,
+  "ExitCode": 81,
+  "IsAppContainer": true,
+  "AdminEnabled": false,
+  "JobAssigned": true,
+  "TotalProcesses": 2,
+  "TerminationConfirmed": true,
+  "ActiveAfterTermination": 0,
+  "ProfileDeleteResult": 0,
+  "Output": "SYNTHETIC_WORKER_READY\n",
+  "Error": null,
+  "StageDirectory": "C:\\Users\\cwagn\\AppData\\Local\\Temp\\SpecAudit-Worker-f8373fd815dd420b8acf3901fa3ae0c5"
+}

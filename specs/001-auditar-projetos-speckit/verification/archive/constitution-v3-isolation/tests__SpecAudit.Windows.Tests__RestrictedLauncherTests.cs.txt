@@ -1,0 +1,38 @@
+using System.Security.Cryptography;
+using System.Text.Json;
+using SpecAudit.Infrastructure.Execution;
+namespace SpecAudit.Windows.Tests;
+public sealed class RestrictedLauncherTests
+{
+    [Fact]
+    public async Task StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob()
+    {
+        var root=new DirectoryInfo(AppContext.BaseDirectory);
+        while(root is not null && !File.Exists(Path.Combine(root.FullName,"SpecAudit.slnx")))root=root.Parent;
+        var path=Path.Combine(root!.FullName,"tests","SpecAudit.Windows.Tests","bin","native","Worker.exe");
+        Assert.True(File.Exists(path),"Build the native synthetic worker before this proof; absence is not a simulated pass.");
+        using var channel=new ExecutionChannel(Guid.NewGuid(),0);
+        var descriptor=new TrustedWorker(path,Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path))));
+        var result=await new RestrictedLauncher().RunAsync(descriptor,channel,5000);
+        var evidence=Path.Combine(root.FullName,"specs","001-auditar-projetos-speckit","evidence","logs","launcher-proof.json");
+        File.WriteAllText(evidence,JsonSerializer.Serialize(result,new JsonSerializerOptions{WriteIndented=true}));
+        Assert.True(result.Started,result.Error);Assert.True(result.IsAppContainer,result.Error);Assert.False(result.AdminEnabled);
+        Assert.True(result.JobAssigned,result.Error);Assert.Equal(0,result.ExitCode);Assert.Contains("SYNTHETIC_WORKER_READY",result.Output);
+        Assert.True(result.TerminationConfirmed);Assert.Equal(0u,result.ActiveAfterTermination);Assert.Equal(0,result.ProfileDeleteResult);Assert.Null(result.Error);
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>new RestrictedLauncher().RunAsync(descriptor with {Sha256=new string('0',64)},channel,5000));
+    }
+
+    [Fact]
+    public async Task CancellationTerminatesParentAndChildBeforeReportingCompletion()
+    {
+        var root=new DirectoryInfo(AppContext.BaseDirectory);
+        while(root is not null && !File.Exists(Path.Combine(root.FullName,"SpecAudit.slnx")))root=root.Parent;
+        var path=Path.Combine(root!.FullName,"tests","SpecAudit.Windows.Tests","bin","native","Worker.exe");
+        using var channel=new ExecutionChannel(Guid.NewGuid(),3);using var cancellation=new CancellationTokenSource(TimeSpan.FromSeconds(2));
+        var descriptor=new TrustedWorker(path,Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path))));
+        var result=await new RestrictedLauncher().RunAsync(descriptor,channel,10000,cancellation.Token,true);
+        File.WriteAllText(Path.Combine(root.FullName,"specs","001-auditar-projetos-speckit","evidence","logs","launcher-cancellation-proof.json"),JsonSerializer.Serialize(result,new JsonSerializerOptions{WriteIndented=true}));
+        Assert.True(result.Cancelled,result.Error);Assert.Contains("CHILD_READY",result.Output);Assert.True(result.TotalProcesses>=2);
+        Assert.True(result.TerminationConfirmed);Assert.Equal(0u,result.ActiveAfterTermination);Assert.Equal(0,result.ProfileDeleteResult);Assert.Null(result.Error);
+    }
+}

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b98739f0-1a8e-4164-927f-e619473a6944" name="cwagn@TRABALHO 2026-11-16 19:56:36" runUser="TRABALHO\cwagn" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-16T19:56:36.2578315-03:00" queuing="2026-11-16T19:56:36.2578319-03:00" start="2026-11-16T19:56:35.5347723-03:00" finish="2026-11-16T19:56:36.2645086-03:00" />
+  <TestSettings name="default" id="65e7b745-5188-496f-a225-1ed383686d4b">
+    <Deployment runDeploymentRoot="cwagn_TRABALHO_2026-11-16_19_56_36" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b9a76f55-c6cd-48c8-823e-1ee995bd7a08" testId="fe14ded2-ba09-59c6-e49e-0d0d47fe69c3" testName="SpecAudit.Windows.Tests.PlatformBaselineTests.WindowsBoundarySuiteRunsOnWindowsX64" computerName="TRABALHO" duration="00:00:00.0050273" startTime="2026-11-16T19:56:36.0242602-03:00" endTime="2026-11-16T19:56:36.0340420-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b9a76f55-c6cd-48c8-823e-1ee995bd7a08" />
+    <UnitTestResult executionId="953b03dc-e08e-4aa1-b102-9aee2c87cb6c" testId="fb0211d4-d57a-a258-c3e6-8d2818d3bf9b" testName="SpecAudit.Windows.Tests.DocumentaryFixtureTests.CreatesIndependentProjectsWithKnownCountsAndNegativeGateRecords" computerName="TRABALHO" duration="00:00:00.1159728" startTime="2026-11-16T19:56:36.0232179-03:00" endTime="2026-11-16T19:56:36.1428775-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="953b03dc-e08e-4aa1-b102-9aee2c87cb6c" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SpecAudit.Windows.Tests.DocumentaryFixtureTests.CreatesIndependentProjectsWithKnownCountsAndNegativeGateRecords" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="fb0211d4-d57a-a258-c3e6-8d2818d3bf9b">
+      <Execution id="953b03dc-e08e-4aa1-b102-9aee2c87cb6c" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.DocumentaryFixtureTests" name="CreatesIndependentProjectsWithKnownCountsAndNegativeGateRecords" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.PlatformBaselineTests.WindowsBoundarySuiteRunsOnWindowsX64" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="fe14ded2-ba09-59c6-e49e-0d0d47fe69c3">
+      <Execution id="b9a76f55-c6cd-48c8-823e-1ee995bd7a08" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.PlatformBaselineTests" name="WindowsBoundarySuiteRunsOnWindowsX64" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fe14ded2-ba09-59c6-e49e-0d0d47fe69c3" executionId="b9a76f55-c6cd-48c8-823e-1ee995bd7a08" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb0211d4-d57a-a258-c3e6-8d2818d3bf9b" executionId="953b03dc-e08e-4aa1-b102-9aee2c87cb6c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)&#xD;
+[xUnit.net 00:00:00.06]   Discovering: SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.09]   Discovered:  SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.10]   Starting:    SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.24]   Finished:    SpecAudit.Windows.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

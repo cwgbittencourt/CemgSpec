@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="443830e5-9e65-4b15-b40b-8addebfc5ffb" name="cwagn@TRABALHO 2026-11-16 21:37:52" runUser="TRABALHO\cwagn" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-16T21:37:52.1929357-03:00" queuing="2026-11-16T21:37:52.1929362-03:00" start="2026-11-16T21:37:51.1415870-03:00" finish="2026-11-16T21:37:52.1997251-03:00" />
+  <TestSettings name="default" id="31313134-9310-41ad-85d6-abaf6d5b31b8">
+    <Deployment runDeploymentRoot="cwagn_TRABALHO_2026-11-16_21_37_52" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a8c84c7c-afc5-4c7c-98d4-28d80f523de3" testId="3ed11f89-0653-e996-020e-16083ae08f40" testName="SpecAudit.Tests.LocalSessionServiceTests.RejectsUnissuedTokenAndForeignSessionOwnership" computerName="TRABALHO" duration="00:00:00.0078216" startTime="2026-11-16T21:37:52.0213027-03:00" endTime="2026-11-16T21:37:52.0289626-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8c84c7c-afc5-4c7c-98d4-28d80f523de3" />
+    <UnitTestResult executionId="b40b3941-5496-4ac5-bdd9-24da630045ae" testId="1a3dfd43-5959-e9b3-1c15-031f7cdb3fe3" testName="SpecAudit.Tests.SessionContractTests.SelectionDoesNotCreateRunAndRejectsUnknownVerification" computerName="TRABALHO" duration="00:00:00.0029074" startTime="2026-11-16T21:37:52.0013803-03:00" endTime="2026-11-16T21:37:52.0014158-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b40b3941-5496-4ac5-bdd9-24da630045ae" />
+    <UnitTestResult executionId="cd0036da-4ae5-4ec1-92fa-9e502c54cd3b" testId="88db3bec-de5a-ba89-b5a0-be61edf97a5a" testName="SpecAudit.Tests.SessionContractTests.AssessmentRequiresActualChecksAndMatchingVersionPolicyEnvironment" computerName="TRABALHO" duration="00:00:00.0044845" startTime="2026-11-16T21:37:52.0010212-03:00" endTime="2026-11-16T21:37:52.0010690-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd0036da-4ae5-4ec1-92fa-9e502c54cd3b" />
+    <UnitTestResult executionId="ba862041-38f9-49ae-933c-0b7de9619cd5" testId="67b2820f-e035-dd36-4e6c-24a871c9a311" testName="SpecAudit.Tests.SessionContractTests.SnapshotsOwnTheirBytesAndHashReadContent" computerName="TRABALHO" duration="00:00:00.0035867" startTime="2026-11-16T21:37:52.0012481-03:00" endTime="2026-11-16T21:37:52.0012827-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba862041-38f9-49ae-933c-0b7de9619cd5" />
+    <UnitTestResult executionId="6e78d606-e7e5-4daa-bc5d-b1ac0694e2fc" testId="d187fe7c-342c-e5b5-e3b3-db07debcf1a1" testName="SpecAudit.Tests.RuntimeBaselineTests.DevelopmentUsesSupportedStableRuntime" computerName="TRABALHO" duration="00:00:00.0105616" startTime="2026-11-16T21:37:51.9799279-03:00" endTime="2026-11-16T21:37:51.9934326-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6e78d606-e7e5-4daa-bc5d-b1ac0694e2fc" />
+    <UnitTestResult executionId="728d5a07-3f99-4c84-975e-cf3fea945ab4" testId="ade9c33d-bf54-3379-05dd-e1699a04faa3" testName="SpecAudit.Tests.LocalSessionServiceTests.RefusesServiceWithoutHostIssuedSession" computerName="TRABALHO" duration="00:00:00.0420876" startTime="2026-11-16T21:37:51.9819827-03:00" endTime="2026-11-16T21:37:52.0210130-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="728d5a07-3f99-4c84-975e-cf3fea945ab4" />
+    <UnitTestResult executionId="6568294e-81cd-4f15-8e3c-76ea77b1e873" testId="c7f73480-7078-86d5-6caf-69ec2d59431e" testName="SpecAudit.Tests.SessionContractTests.SessionAndFeatureIdsCannotCrossProjects" computerName="TRABALHO" duration="00:00:00.0060211" startTime="2026-11-16T21:37:51.9831860-03:00" endTime="2026-11-16T21:37:51.9883618-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6568294e-81cd-4f15-8e3c-76ea77b1e873" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SpecAudit.Tests.LocalSessionServiceTests.RejectsUnissuedTokenAndForeignSessionOwnership" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.tests\bin\debug\net10.0\specaudit.tests.dll" id="3ed11f89-0653-e996-020e-16083ae08f40">
+      <Execution id="a8c84c7c-afc5-4c7c-98d4-28d80f523de3" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Tests.LocalSessionServiceTests" name="RejectsUnissuedTokenAndForeignSessionOwnership" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Tests.SessionContractTests.SelectionDoesNotCreateRunAndRejectsUnknownVerification" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.tests\bin\debug\net10.0\specaudit.tests.dll" id="1a3dfd43-5959-e9b3-1c15-031f7cdb3fe3">
+      <Execution id="b40b3941-5496-4ac5-bdd9-24da630045ae" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Tests.SessionContractTests" name="SelectionDoesNotCreateRunAndRejectsUnknownVerification" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Tests.SessionContractTests.AssessmentRequiresActualChecksAndMatchingVersionPolicyEnvironment" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.tests\bin\debug\net10.0\specaudit.tests.dll" id="88db3bec-de5a-ba89-b5a0-be61edf97a5a">
+      <Execution id="cd0036da-4ae5-4ec1-92fa-9e502c54cd3b" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Tests.SessionContractTests" name="AssessmentRequiresActualChecksAndMatchingVersionPolicyEnvironment" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Tests.RuntimeBaselineTests.DevelopmentUsesSupportedStableRuntime" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.tests\bin\debug\net10.0\specaudit.tests.dll" id="d187fe7c-342c-e5b5-e3b3-db07debcf1a1">
+      <Execution id="6e78d606-e7e5-4daa-bc5d-b1ac0694e2fc" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Tests.RuntimeBaselineTests" name="DevelopmentUsesSupportedStableRuntime" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Tests.SessionContractTests.SnapshotsOwnTheirBytesAndHashReadContent" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.tests\bin\debug\net10.0\specaudit.tests.dll" id="67b2820f-e035-dd36-4e6c-24a871c9a311">
+      <Execution id="ba862041-38f9-49ae-933c-0b7de9619cd5" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Tests.SessionContractTests" name="SnapshotsOwnTheirBytesAndHashReadContent" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Tests.LocalSessionServiceTests.RefusesServiceWithoutHostIssuedSession" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.tests\bin\debug\net10.0\specaudit.tests.dll" id="ade9c33d-bf54-3379-05dd-e1699a04faa3">
+      <Execution id="728d5a07-3f99-4c84-975e-cf3fea945ab4" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Tests.LocalSessionServiceTests" name="RefusesServiceWithoutHostIssuedSession" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Tests.SessionContractTests.SessionAndFeatureIdsCannotCrossProjects" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.tests\bin\debug\net10.0\specaudit.tests.dll" id="c7f73480-7078-86d5-6caf-69ec2d59431e">
+      <Execution id="6568294e-81cd-4f15-8e3c-76ea77b1e873" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Tests.SessionContractTests" name="SessionAndFeatureIdsCannotCrossProjects" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3ed11f89-0653-e996-020e-16083ae08f40" executionId="a8c84c7c-afc5-4c7c-98d4-28d80f523de3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a3dfd43-5959-e9b3-1c15-031f7cdb3fe3" executionId="b40b3941-5496-4ac5-bdd9-24da630045ae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88db3bec-de5a-ba89-b5a0-be61edf97a5a" executionId="cd0036da-4ae5-4ec1-92fa-9e502c54cd3b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="67b2820f-e035-dd36-4e6c-24a871c9a311" executionId="ba862041-38f9-49ae-933c-0b7de9619cd5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d187fe7c-342c-e5b5-e3b3-db07debcf1a1" executionId="6e78d606-e7e5-4daa-bc5d-b1ac0694e2fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ade9c33d-bf54-3379-05dd-e1699a04faa3" executionId="728d5a07-3f99-4c84-975e-cf3fea945ab4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c7f73480-7078-86d5-6caf-69ec2d59431e" executionId="6568294e-81cd-4f15-8e3c-76ea77b1e873" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="7" executed="7" passed="7" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)&#xD;
+[xUnit.net 00:00:00.06]   Discovering: SpecAudit.Tests&#xD;
+[xUnit.net 00:00:00.10]   Discovered:  SpecAudit.Tests&#xD;
+[xUnit.net 00:00:00.16]   Starting:    SpecAudit.Tests&#xD;
+[xUnit.net 00:00:00.23]   Finished:    SpecAudit.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,53 @@
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <stdio.h>
+#include <wchar.h>
+#include <string.h>
+#include <stdlib.h>
+static void output(const char* value){DWORD written;WriteFile(GetStdHandle(STD_OUTPUT_HANDLE),value,(DWORD)strlen(value),&written,NULL);}
+static int probe(const wchar_t* root){
+ wchar_t source[32768],created[32768],renamed[32768],config[32768];
+ if(swprintf_s(source,32768,L"%s\\DoNotRead.cs",root)<0 || swprintf_s(created,32768,L"%s\\unexpected.txt",root)<0 || swprintf_s(renamed,32768,L"%s\\renamed.cs",root)<0 || swprintf_s(config,32768,L"%s\\appsettings.json",root)<0)return 80;
+ DWORD accesses[2]={GENERIC_READ,GENERIC_WRITE};
+ for(int i=0;i<2;i++){HANDLE file=CreateFileW(source,accesses[i],FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE,NULL,OPEN_EXISTING,0,NULL);if(file!=INVALID_HANDLE_VALUE){CloseHandle(file);return 81+i;}if(GetLastError()!=ERROR_ACCESS_DENIED)return 83;}
+ HANDLE settings=CreateFileW(config,GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,0,NULL);if(settings!=INVALID_HANDLE_VALUE){CloseHandle(settings);return 84;}if(GetLastError()!=ERROR_ACCESS_DENIED)return 85;
+ HANDLE file=CreateFileW(created,GENERIC_WRITE,0,NULL,CREATE_NEW,0,NULL);if(file!=INVALID_HANDLE_VALUE){CloseHandle(file);return 86;}if(GetLastError()!=ERROR_ACCESS_DENIED)return 87;
+ if(MoveFileW(source,renamed) || GetLastError()!=ERROR_ACCESS_DENIED)return 88;
+ if(DeleteFileW(source) || GetLastError()!=ERROR_ACCESS_DENIED)return 89;
+ output("READ_CODE_CONFIG_WRITE_CREATE_RENAME_DELETE_DENIED\n");return 0;
+}
+static int spawn_child(const wchar_t* probeRoot){
+ wchar_t executable[32768],command[32768];
+ if(!GetModuleFileNameW(NULL,executable,32768))return 70;
+ if((probeRoot ? swprintf_s(command,32768,L"\"%s\" --probe-child \"%s\"",executable,probeRoot) : swprintf_s(command,32768,L"\"%s\" --child",executable))<0)return 71;
+ STARTUPINFOEXW startup={0};PROCESS_INFORMATION process={0};SIZE_T size=0;
+ InitializeProcThreadAttributeList(NULL,1,0,&size);
+ startup.lpAttributeList=(LPPROC_THREAD_ATTRIBUTE_LIST)HeapAlloc(GetProcessHeap(),0,size);
+ if(!startup.lpAttributeList)return 72;
+ if(!InitializeProcThreadAttributeList(startup.lpAttributeList,1,0,&size)){HeapFree(GetProcessHeap(),0,startup.lpAttributeList);return 73;}
+ HANDLE inherited=GetStdHandle(STD_OUTPUT_HANDLE);
+ int result=74;
+ if(UpdateProcThreadAttribute(startup.lpAttributeList,0,PROC_THREAD_ATTRIBUTE_HANDLE_LIST,&inherited,sizeof(inherited),NULL,NULL)){
+  startup.StartupInfo.cb=sizeof(startup);startup.StartupInfo.dwFlags=STARTF_USESTDHANDLES;startup.StartupInfo.hStdOutput=inherited;startup.StartupInfo.hStdError=inherited;
+  if(CreateProcessW(executable,command,NULL,NULL,TRUE,EXTENDED_STARTUPINFO_PRESENT|CREATE_NO_WINDOW,NULL,NULL,&startup.StartupInfo,&process)){
+   CloseHandle(process.hThread);output("CHILD_CREATED\n");result=0;
+   if(probeRoot){if(WaitForSingleObject(process.hProcess,5000)!=WAIT_OBJECT_0)result=75;else{DWORD code=0;if(!GetExitCodeProcess(process.hProcess,&code))result=76;else result=(int)code;}}
+   CloseHandle(process.hProcess);
+  }
+ }
+ DeleteProcThreadAttributeList(startup.lpAttributeList);HeapFree(GetProcessHeap(),0,startup.lpAttributeList);return result;
+}
+int wmain(int argc,wchar_t** argv){
+ if(!RevertToSelf())return 91;
+ if(argc==3 && wcscmp(argv[1],L"--probe-child")==0)return probe(argv[2]);
+ if(argc==2 && wcscmp(argv[1],L"--child")==0){output("CHILD_READY\n");Sleep(30000);return 0;}
+ if((argc!=3 && argc!=4) || (wcscmp(argv[1],L"--bootstrap")!=0 && wcscmp(argv[1],L"--wait")!=0 && wcscmp(argv[1],L"--probe")!=0))return 64;
+ char message[256]={0};DWORD count=0,written=0;
+ if(!ReadFile(GetStdHandle(STD_INPUT_HANDLE),message,sizeof(message)-1,&count,NULL) || count==0)return 65;
+ HANDLE reply=(HANDLE)(ULONG_PTR)_wcstoui64(argv[2],NULL,10);
+ if(!WriteFile(reply,message,count,&written,NULL) || written!=count)return 66;
+ output("SYNTHETIC_WORKER_READY\n");
+ if(wcscmp(argv[1],L"--probe")==0){if(argc!=4)return 90;int result=probe(argv[3]);if(result!=0)return result;return spawn_child(argv[3]);}
+ if(wcscmp(argv[1],L"--wait")==0){int result=spawn_child(NULL);if(result!=0)return result;Sleep(30000);}
+ return 0;
+}

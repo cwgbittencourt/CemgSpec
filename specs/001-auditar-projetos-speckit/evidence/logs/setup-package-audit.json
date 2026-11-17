@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "parameters": "--vulnerable --include-transitive",
+  "sources": [
+    "https://api.nuget.org/v3/index.json",
+    "C:/Users/cwagn/source/repos/Tryvia.GeoAdapter/artifacts/packages",
+    "C:/Program Files (x86)/Microsoft SDKs/NuGetPackages/"
+  ],
+  "projects": [
+    {
+      "path": "D:/Codex_Workspace/Projetos/SpecAudit/SpecAudit/SpecAudit.csproj"
+    },
+    {
+      "path": "D:/Codex_Workspace/Projetos/SpecAudit/tests/SpecAudit.Tests/SpecAudit.Tests.csproj"
+    },
+    {
+      "path": "D:/Codex_Workspace/Projetos/SpecAudit/tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj"
+    },
+    {
+      "path": "D:/Codex_Workspace/Projetos/SpecAudit/tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj"
+    }
+  ]
+}

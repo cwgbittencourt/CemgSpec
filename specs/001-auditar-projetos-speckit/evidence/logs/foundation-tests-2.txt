@@ -1,0 +1,34 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\foundation-tests-2\cwagn_TRABALHO_2026-11-16_20_07_58_net10.0.trx
+
+Aprovado!  – Com falha:     0, Aprovado:     7, Ignorado:     0, Total:     7, Duração: 30 ms - SpecAudit.Tests.dll (net10.0)
+  Worker.c
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\foundation-tests-2\cwagn_TRABALHO_2026-11-16_20_07_59_net10.0.trx
+
+Aprovado!  – Com falha:     0, Aprovado:     7, Ignorado:     0, Total:     7, Duração: 1 s - SpecAudit.Ui.Tests.dll (net10.0)
+[xUnit.net 00:00:00.43]     SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [FAIL]
+[xUnit.net 00:00:00.46]     SpecAudit.Windows.Tests.RestrictedLauncherTests.CancellationTerminatesParentAndChildBeforeReportingCompletion [FAIL]
+  Com falha SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [118 ms]
+  Mensagem de erro:
+   Win32Exception: O sistema não pôde encontrar a opção de ambiente digitada.
+  Rastreamento de pilha:
+     at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 19
+--- End of stack trace from previous location ---
+  Com falha SpecAudit.Windows.Tests.RestrictedLauncherTests.CancellationTerminatesParentAndChildBeforeReportingCompletion [24 ms]
+  Mensagem de erro:
+   Win32Exception: O sistema não pôde encontrar a opção de ambiente digitada.
+  Rastreamento de pilha:
+     at SpecAudit.Windows.Tests.RestrictedLauncherTests.CancellationTerminatesParentAndChildBeforeReportingCompletion() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 35
+--- End of stack trace from previous location ---
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\foundation-tests-2\cwagn_TRABALHO_2026-11-16_20_08_00_net10.0.trx
+
+Com falha! – Com falha:     2, Aprovado:     6, Ignorado:     0, Total:     8, Duração: 216 ms - SpecAudit.Windows.Tests.dll (net10.0)

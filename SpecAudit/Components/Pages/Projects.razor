@@ -1,0 +1,55 @@
+@page "/"
+@page "/projetos"
+@implements IDisposable
+@inject SpecAudit.Application.ProjectService ProjectStore
+
+<PageTitle>Projetos — SpecAudit</PageTitle>
+<section class="project-page">
+    <header class="project-heading">
+        <div><p class="eyebrow">SPECAUDIT · AUDITORIA DOCUMENTAL</p><h1>Projetos</h1><p class="muted">Consulte seus documentos SpecKit. A solução permanece somente leitura.</p></div>
+        <button class="primary" @onclick="Open" disabled="@busy">@(busy ? "Selecionando pastas…" : "Carregar projeto")</button>
+    </header>
+    @if(error is not null){<div role="alert" class="notice error-notice">@error</div>}
+    @if(ProjectStore.Active is not { } active)
+    {
+        <section class="project-empty"><div class="folder-mark" aria-hidden="true">▱</div><h2>Escolha um projeto para começar</h2><p>Selecione a pasta da solução e uma pasta externa para os relatórios.</p><p class="muted">Carregar e consultar documentos não salva relatórios nem altera a origem.</p></section>
+    }
+    else
+    {
+        <div class="project-toolbar"><label>Projeto <select aria-label="Projeto" value="@active.Session.ProjectId" @onchange="SelectProject">@foreach(var project in ProjectStore.Projects){<option value="@project.Session.ProjectId">@project.Session.DisplayName</option>}</select></label><span class="readonly-badge">◇ Somente leitura</span></div>
+        <div class="path-grid">
+            <section class="path-card"><p class="eyebrow">ORIGEM</p><h2>@active.Session.DisplayName</h2><p class="path-value">@active.Session.OriginDisplayPath</p><p class="muted">Documentos autorizados, sem alterações na solução.</p></section>
+            <section class="path-card"><p class="eyebrow">DESTINO EXTERNO</p><h2>Relatórios</h2><p class="path-value">@active.OutputDisplayPath</p><button class="secondary" @onclick="ChangeOutput" disabled="@busy">Alterar destino</button><p class="muted">A troca não move ou exclui relatórios anteriores.</p></section>
+        </div>
+        @if(active.Catalog.HasPendingChanges){<div role="status" class="notice">Os documentos foram alterados externamente. Atualize a leitura antes de continuar. <button class="secondary" @onclick="Refresh">Atualizar documentos</button></div>}
+        <section class="feature-section"><div class="section-heading"><h2>Funcionalidades</h2><span class="muted">@active.Session.Features.Count encontradas</span></div>
+        @if(active.Session.Features.Count==0){<p>Nenhuma funcionalidade SpecKit reconhecida na origem.</p>}
+        else
+        {
+            <label class="feature-selector">Funcionalidade <select aria-label="Funcionalidade" value="@active.Session.ActiveFeatureId" @onchange="SelectFeature">@foreach(var feature in active.Session.Features){<option value="@feature.FeatureId">@feature.Title</option>}</select></label>
+            <table><thead><tr><th>Artefato</th><th>Estado documental</th></tr></thead><tbody>
+            @foreach(var name in new[]{"spec.md","plan.md","tasks.md"})
+            {
+                var exists=active.Catalog.Entries.Any(e=>e.FeatureId==active.Session.ActiveFeatureId && System.IO.Path.GetFileName(e.RelativePath)==name);
+                <tr><td>@name</td><td><span class="@(exists ? "present-state" : "missing-state")">@(exists ? "Presente" : "Ausente")</span></td></tr>
+            }
+            </tbody></table>
+        }
+        </section>
+        <div class="future-actions"><button disabled>Executar verificação</button><button disabled>Salvar resultados</button><span class="muted">Verificações e salvamento ainda indisponíveis nesta etapa.</span></div>
+    }
+</section>
+
+@code {
+    private bool busy;
+    private string? error;
+    protected override void OnInitialized()=>ProjectStore.Changed+=OnProjectsChanged;
+    private void OnProjectsChanged()=>_ = InvokeAsync(StateHasChanged);
+    private async Task Open(){busy=true;error=null;try{await ProjectStore.OpenProjectAsync();}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException or System.ComponentModel.Win32Exception){error=Message(failure);}finally{busy=false;}}
+    private async Task ChangeOutput(){if(ProjectStore.Active is not {} active)return;busy=true;error=null;try{await ProjectStore.ChangeOutputDirectoryAsync(active.Session.ProjectId);}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}finally{busy=false;}}
+    private void SelectProject(ChangeEventArgs args){if(Guid.TryParse(args.Value?.ToString(),out var id)){try{ProjectStore.SelectProject(id);error=null;}catch(KeyNotFoundException){error="Projeto indisponível nesta sessão.";}}}
+    private void SelectFeature(ChangeEventArgs args){if(ProjectStore.Active is {} active && Guid.TryParse(args.Value?.ToString(),out var id)){try{active.Session.SelectFeature(id);error=null;}catch(KeyNotFoundException){error="Funcionalidade indisponível neste projeto.";}}}
+    private void Refresh(){if(ProjectStore.Active is not {} active)return;try{ProjectStore.Refresh(active.Session.ProjectId);error=null;}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}}
+    private static string Message(Exception failure)=>failure.Message switch{"DestinationInsideOrigin"=>"Escolha um destino externo. A origem e suas subpastas não podem receber relatórios.","Changed"=>"A pasta ou os documentos mudaram. Selecione ou atualize o projeto novamente.","Unreadable"=>"Não foi possível ler a pasta selecionada. Confira a existência e as permissões.",_=>"Não foi possível concluir a seleção. Os relatórios não foram salvos; confira as pastas e tente novamente."};
+    public void Dispose()=>ProjectStore.Changed-=OnProjectsChanged;
+}

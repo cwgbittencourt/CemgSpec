@@ -1,0 +1,58 @@
+using System.Runtime.InteropServices;
+using System.Text;
+namespace SpecAudit.Infrastructure.Execution;
+
+// Diagnostic only: receives handles returned by creation of our suspended worker.
+internal static class OwnedBootstrapDiagnostic
+{
+    [StructLayout(LayoutKind.Explicit, Size = 176)]
+    private struct DebugEvent
+    {
+        [FieldOffset(0)] public uint Kind;
+        [FieldOffset(4)] public uint ProcessId;
+        [FieldOffset(8)] public uint ThreadId;
+        [FieldOffset(16)] public IntPtr FileOrString;
+        [FieldOffset(16)] public uint ExceptionCode;
+        [FieldOffset(24)] public ushort Unicode;
+        [FieldOffset(26)] public ushort StringLength;
+    }
+    public static string Pump(IntPtr ownedProcess, int timeoutMs)
+    {
+        var trace = new StringBuilder();
+        var clock = System.Diagnostics.Stopwatch.StartNew();
+        while (clock.ElapsedMilliseconds < timeoutMs)
+        {
+            if (!WaitForDebugEvent(out var item, 100)) continue;
+            uint status = 0x10002;
+            if (item.Kind == 1)
+            {
+                trace.AppendLine($"Exception {item.ExceptionCode:x8}");
+                if (item.ExceptionCode != 0x80000003) status = 0x80010001;
+            }
+            if ((item.Kind == 3 || item.Kind == 6) && item.FileOrString != IntPtr.Zero)
+            {
+                try
+                {
+                    var name = new StringBuilder(32768);
+                    if (GetFinalPathNameByHandle(item.FileOrString, name, (uint)name.Capacity, 0) != 0)
+                        trace.AppendLine("Image " + name);
+                }
+                finally { CloseHandle(item.FileOrString); }
+            }
+            if (item.Kind == 8 && item.StringLength > 0 && item.StringLength < 16000)
+            {
+                var bytes = new byte[item.StringLength * (item.Unicode != 0 ? 2 : 1)];
+                if (ReadProcessMemory(ownedProcess, item.FileOrString, bytes, bytes.Length, out _))
+                    trace.AppendLine((item.Unicode != 0 ? Encoding.Unicode : Encoding.UTF8).GetString(bytes));
+            }
+            ContinueDebugEvent(item.ProcessId, item.ThreadId, status);
+            if (item.Kind == 5) return trace.ToString();
+        }
+        return trace.AppendLine("Diagnostic timeout").ToString();
+    }
+    [DllImport("kernel32.dll", SetLastError = true)] private static extern bool WaitForDebugEvent(out DebugEvent value, uint timeout);
+    [DllImport("kernel32.dll", SetLastError = true)] private static extern bool ContinueDebugEvent(uint pid, uint tid, uint status);
+    [DllImport("kernel32.dll", EntryPoint = "GetFinalPathNameByHandleW", CharSet = CharSet.Unicode)] private static extern uint GetFinalPathNameByHandle(IntPtr file, StringBuilder value, uint length, uint flags);
+    [DllImport("kernel32.dll")] private static extern bool CloseHandle(IntPtr handle);
+    [DllImport("kernel32.dll")] private static extern bool ReadProcessMemory(IntPtr process, IntPtr address, byte[] data, int length, out IntPtr read);
+}

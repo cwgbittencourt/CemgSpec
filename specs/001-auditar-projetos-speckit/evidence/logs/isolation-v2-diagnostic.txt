@@ -1,0 +1,14 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.33]     SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [FAIL]
+  Com falha SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [141 ms]
+  Mensagem de erro:
+   exclusive-token: Win32Exception: Parâmetro incorreto.
+  Rastreamento de pilha:
+     at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 19
+--- End of stack trace from previous location ---
+Arquivo de resultados: D:\Codex_Workspace\Projetos\SpecAudit\specs\001-auditar-projetos-speckit\evidence\logs\isolation-v2-diagnostic\cwagn_TRABALHO_2026-11-16_20_54_19_net10.0.trx
+
+Com falha! – Com falha:     1, Aprovado:     0, Ignorado:     0, Total:     1, Duração: 159 ms - SpecAudit.Windows.Tests.dll (net10.0)

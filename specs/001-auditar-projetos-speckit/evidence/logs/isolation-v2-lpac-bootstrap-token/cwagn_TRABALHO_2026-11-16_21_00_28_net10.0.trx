@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="21ef04df-172d-4f97-8ba1-eea3a139be13" name="cwagn@TRABALHO 2026-11-16 21:00:28" runUser="TRABALHO\cwagn" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-16T21:00:28.8106004-03:00" queuing="2026-11-16T21:00:28.8106008-03:00" start="2026-11-16T21:00:27.7878761-03:00" finish="2026-11-16T21:00:28.8162640-03:00" />
+  <TestSettings name="default" id="2aff63e1-8670-45fa-aadf-765ee78d8735">
+    <Deployment runDeploymentRoot="cwagn_TRABALHO_2026-11-16_21_00_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="692053f8-8f53-49bb-9966-acc6281b3e3d" testId="3c76710e-0178-86da-a87e-35a05c55c568" testName="SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" computerName="TRABALHO" duration="00:00:00.3382025" startTime="2026-11-16T21:00:28.3307266-03:00" endTime="2026-11-16T21:00:28.6931102-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="692053f8-8f53-49bb-9966-acc6281b3e3d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   -1073741659</Message>
+          <StackTrace>   at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs:line 20&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="3c76710e-0178-86da-a87e-35a05c55c568">
+      <Execution id="692053f8-8f53-49bb-9966-acc6281b3e3d" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.RestrictedLauncherTests" name="StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3c76710e-0178-86da-a87e-35a05c55c568" executionId="692053f8-8f53-49bb-9966-acc6281b3e3d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)&#xD;
+[xUnit.net 00:00:00.06]   Discovering: SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.09]   Discovered:  SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.11]   Starting:    SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.49]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:00.49]       Expected: 0&#xD;
+[xUnit.net 00:00:00.49]       Actual:   -1073741659&#xD;
+[xUnit.net 00:00:00.49]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.49]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\RestrictedLauncherTests.cs(20,0): at SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob()&#xD;
+[xUnit.net 00:00:00.49]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.50]   Finished:    SpecAudit.Windows.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="TRABALHO" outcome="Error" timestamp="2026-11-16T21:00:28.6958798-03:00">
+        <Text>[xUnit.net 00:00:00.49]     SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

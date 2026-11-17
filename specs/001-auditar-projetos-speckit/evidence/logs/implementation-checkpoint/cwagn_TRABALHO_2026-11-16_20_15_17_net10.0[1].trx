@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="341fe409-ab7c-42f8-bab0-d8af6eac09de" name="cwagn@TRABALHO 2026-11-16 20:15:17" runUser="TRABALHO\cwagn" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-16T20:15:17.5466721-03:00" queuing="2026-11-16T20:15:17.5466724-03:00" start="2026-11-16T20:15:16.0726466-03:00" finish="2026-11-16T20:15:19.5930418-03:00" />
+  <TestSettings name="default" id="849cccde-b7cd-449d-bcfe-2b60b6c397b3">
+    <Deployment runDeploymentRoot="cwagn_TRABALHO_2026-11-16_20_15_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="54847b19-53f3-4e1e-be4b-0ac4a7f7c1ac" testId="2fb8a0ac-ccc4-2d6f-927f-671179ef3d1f" testName="SpecAudit.Windows.Tests.CapabilityContractTests.CalibratedBoundariesRejectExcessWithoutPartialSuccess" computerName="TRABALHO" duration="00:00:00.1905592" startTime="2026-11-16T20:15:17.0672580-03:00" endTime="2026-11-16T20:15:17.2462122-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54847b19-53f3-4e1e-be4b-0ac4a7f7c1ac" />
+    <UnitTestResult executionId="bb738799-f2e8-488c-9997-aded46b829d9" testId="fb0211d4-d57a-a258-c3e6-8d2818d3bf9b" testName="SpecAudit.Windows.Tests.DocumentaryFixtureTests.CreatesIndependentProjectsWithKnownCountsAndNegativeGateRecords" computerName="TRABALHO" duration="00:00:00.1189063" startTime="2026-11-16T20:15:17.3186756-03:00" endTime="2026-11-16T20:15:17.4377350-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bb738799-f2e8-488c-9997-aded46b829d9" />
+    <UnitTestResult executionId="74f1903f-aa17-491c-b00a-a8103f87328c" testId="05e139ee-9c36-40d1-0eed-6a351bbb6e17" testName="SpecAudit.Windows.Tests.ExecutionContractTests.ChannelRejectsForeignRunTokenAndGenerationAndRevokesOnDispose" computerName="TRABALHO" duration="00:00:00.0751031" startTime="2026-11-16T20:15:16.9961305-03:00" endTime="2026-11-16T20:15:17.0755572-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="74f1903f-aa17-491c-b00a-a8103f87328c" />
+    <UnitTestResult executionId="e87a0ab9-c7ee-4660-92dc-671c7ab08e82" testId="6394b0a3-da53-2aa1-2886-6142450bc4b4" testName="SpecAudit.Windows.Tests.CapabilityContractTests.MissingOrIncompleteProofCannotEnableCapability" computerName="TRABALHO" duration="00:00:00.0171508" startTime="2026-11-16T20:15:17.0352996-03:00" endTime="2026-11-16T20:15:17.0593755-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e87a0ab9-c7ee-4660-92dc-671c7ab08e82" />
+    <UnitTestResult executionId="0f00a4da-8fc7-4c02-8c35-d22023b962db" testId="d3d2d77b-c4db-c679-039f-0c0ee807e725" testName="SpecAudit.Windows.Tests.ReaderBoundaryTests.ExecutorAndChildCannotReadCodeConfigOrMutateSyntheticOrigin" computerName="TRABALHO" duration="00:00:00.3980021" startTime="2026-11-16T20:15:17.2586841-03:00" endTime="2026-11-16T20:15:17.6568846-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f00a4da-8fc7-4c02-8c35-d22023b962db" />
+    <UnitTestResult executionId="351ecb5c-764a-4277-9614-72917a6056ee" testId="4090fe55-30bb-67e2-b1b4-75e371ed4638" testName="SpecAudit.Windows.Tests.ReaderBoundaryTests.ReplacedFileAndChangedGenerationDoNotReturnSnapshot" computerName="TRABALHO" duration="00:00:00.1738435" startTime="2026-11-16T20:15:17.0849850-03:00" endTime="2026-11-16T20:15:17.2584668-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="351ecb5c-764a-4277-9614-72917a6056ee" />
+    <UnitTestResult executionId="b367b4d5-d4f2-4a9b-bdae-52b8cf73248a" testId="3c76710e-0178-86da-a87e-35a05c55c568" testName="SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" computerName="TRABALHO" duration="00:00:00.4281654" startTime="2026-11-16T20:15:17.0689261-03:00" endTime="2026-11-16T20:15:17.4862926-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b367b4d5-d4f2-4a9b-bdae-52b8cf73248a" />
+    <UnitTestResult executionId="0da33a16-c409-43c9-aba1-45bbc8a38bf3" testId="36abab6c-54d2-2098-3966-3254b9c9ddca" testName="SpecAudit.Windows.Tests.ReaderBoundaryTests.BoundaryMustAlsoDenyCodeWhenOriginHasBroadAppPackageReadPermission" computerName="TRABALHO" duration="00:00:00.2814185" startTime="2026-11-16T20:15:17.6572511-03:00" endTime="2026-11-16T20:15:17.9466265-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0da33a16-c409-43c9-aba1-45bbc8a38bf3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   81</Message>
+          <StackTrace>   at SpecAudit.Windows.Tests.ReaderBoundaryTests.BoundaryMustAlsoDenyCodeWhenOriginHasBroadAppPackageReadPermission() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\ReaderBoundaryTests.cs:line 87&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e3952807-a151-4cc2-a13a-e15b35c92cce" testId="c080d7a3-418c-6d0a-1a44-6d03f604dd95" testName="SpecAudit.Windows.Tests.ReaderBoundaryTests.RejectsJunctionAtActualOpenBeforeReadingAnyBytes" computerName="TRABALHO" duration="00:00:00.0566170" startTime="2026-11-16T20:15:17.9513127-03:00" endTime="2026-11-16T20:15:18.0028970-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3952807-a151-4cc2-a13a-e15b35c92cce" />
+    <UnitTestResult executionId="c8819e15-3fbb-40df-a428-2c7be4f35e4d" testId="13fd8b36-c094-a080-bf8b-5b45ac1d6ceb" testName="SpecAudit.Windows.Tests.DocumentaryFixtureTests.JunctionSwapCanBeReproducedAtAnExplicitRaceBarrier" computerName="TRABALHO" duration="00:00:00.2361649" startTime="2026-11-16T20:15:17.0761809-03:00" endTime="2026-11-16T20:15:17.3167040-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8819e15-3fbb-40df-a428-2c7be4f35e4d" />
+    <UnitTestResult executionId="5418a1e9-f794-40ba-98c2-f680cb08f1c5" testId="7f939d1f-83a6-92a9-82c8-dd69556a190b" testName="SpecAudit.Windows.Tests.RestrictedLauncherTests.CancellationTerminatesParentAndChildBeforeReportingCompletion" computerName="TRABALHO" duration="00:00:02.0406622" startTime="2026-11-16T20:15:17.5128066-03:00" endTime="2026-11-16T20:15:19.5306050-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5418a1e9-f794-40ba-98c2-f680cb08f1c5" />
+    <UnitTestResult executionId="80f63190-ef01-473b-bf8d-2153bdfc5ab4" testId="f6901857-ff30-a2d6-16fb-8a0fbe5addb8" testName="SpecAudit.Windows.Tests.ReaderBoundaryTests.CatalogReadsOnlyRecognizedDocumentsAndRejectsForeignIds" computerName="TRABALHO" duration="00:00:00.0485369" startTime="2026-11-16T20:15:18.0030909-03:00" endTime="2026-11-16T20:15:18.0515224-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80f63190-ef01-473b-bf8d-2153bdfc5ab4" />
+    <UnitTestResult executionId="d582eb98-2a47-4096-b388-8a27d4e97c0a" testId="fe14ded2-ba09-59c6-e49e-0d0d47fe69c3" testName="SpecAudit.Windows.Tests.PlatformBaselineTests.WindowsBoundarySuiteRunsOnWindowsX64" computerName="TRABALHO" duration="00:00:00.0024082" startTime="2026-11-16T20:15:17.0523032-03:00" endTime="2026-11-16T20:15:17.0553143-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d582eb98-2a47-4096-b388-8a27d4e97c0a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SpecAudit.Windows.Tests.PlatformBaselineTests.WindowsBoundarySuiteRunsOnWindowsX64" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="fe14ded2-ba09-59c6-e49e-0d0d47fe69c3">
+      <Execution id="d582eb98-2a47-4096-b388-8a27d4e97c0a" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.PlatformBaselineTests" name="WindowsBoundarySuiteRunsOnWindowsX64" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.ReaderBoundaryTests.BoundaryMustAlsoDenyCodeWhenOriginHasBroadAppPackageReadPermission" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="36abab6c-54d2-2098-3966-3254b9c9ddca">
+      <Execution id="0da33a16-c409-43c9-aba1-45bbc8a38bf3" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.ReaderBoundaryTests" name="BoundaryMustAlsoDenyCodeWhenOriginHasBroadAppPackageReadPermission" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.ReaderBoundaryTests.RejectsJunctionAtActualOpenBeforeReadingAnyBytes" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="c080d7a3-418c-6d0a-1a44-6d03f604dd95">
+      <Execution id="e3952807-a151-4cc2-a13a-e15b35c92cce" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.ReaderBoundaryTests" name="RejectsJunctionAtActualOpenBeforeReadingAnyBytes" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.RestrictedLauncherTests.StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="3c76710e-0178-86da-a87e-35a05c55c568">
+      <Execution id="b367b4d5-d4f2-4a9b-bdae-52b8cf73248a" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.RestrictedLauncherTests" name="StartsOnlyHashVerifiedWorkerInAppContainerAndClosesOwnJob" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.DocumentaryFixtureTests.CreatesIndependentProjectsWithKnownCountsAndNegativeGateRecords" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="fb0211d4-d57a-a258-c3e6-8d2818d3bf9b">
+      <Execution id="bb738799-f2e8-488c-9997-aded46b829d9" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.DocumentaryFixtureTests" name="CreatesIndependentProjectsWithKnownCountsAndNegativeGateRecords" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.ReaderBoundaryTests.ExecutorAndChildCannotReadCodeConfigOrMutateSyntheticOrigin" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="d3d2d77b-c4db-c679-039f-0c0ee807e725">
+      <Execution id="0f00a4da-8fc7-4c02-8c35-d22023b962db" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.ReaderBoundaryTests" name="ExecutorAndChildCannotReadCodeConfigOrMutateSyntheticOrigin" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.ReaderBoundaryTests.ReplacedFileAndChangedGenerationDoNotReturnSnapshot" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="4090fe55-30bb-67e2-b1b4-75e371ed4638">
+      <Execution id="351ecb5c-764a-4277-9614-72917a6056ee" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.ReaderBoundaryTests" name="ReplacedFileAndChangedGenerationDoNotReturnSnapshot" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.CapabilityContractTests.CalibratedBoundariesRejectExcessWithoutPartialSuccess" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="2fb8a0ac-ccc4-2d6f-927f-671179ef3d1f">
+      <Execution id="54847b19-53f3-4e1e-be4b-0ac4a7f7c1ac" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.CapabilityContractTests" name="CalibratedBoundariesRejectExcessWithoutPartialSuccess" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.CapabilityContractTests.MissingOrIncompleteProofCannotEnableCapability" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="6394b0a3-da53-2aa1-2886-6142450bc4b4">
+      <Execution id="e87a0ab9-c7ee-4660-92dc-671c7ab08e82" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.CapabilityContractTests" name="MissingOrIncompleteProofCannotEnableCapability" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.DocumentaryFixtureTests.JunctionSwapCanBeReproducedAtAnExplicitRaceBarrier" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="13fd8b36-c094-a080-bf8b-5b45ac1d6ceb">
+      <Execution id="c8819e15-3fbb-40df-a428-2c7be4f35e4d" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.DocumentaryFixtureTests" name="JunctionSwapCanBeReproducedAtAnExplicitRaceBarrier" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.ExecutionContractTests.ChannelRejectsForeignRunTokenAndGenerationAndRevokesOnDispose" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="05e139ee-9c36-40d1-0eed-6a351bbb6e17">
+      <Execution id="74f1903f-aa17-491c-b00a-a8103f87328c" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.ExecutionContractTests" name="ChannelRejectsForeignRunTokenAndGenerationAndRevokesOnDispose" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.RestrictedLauncherTests.CancellationTerminatesParentAndChildBeforeReportingCompletion" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="7f939d1f-83a6-92a9-82c8-dd69556a190b">
+      <Execution id="5418a1e9-f794-40ba-98c2-f680cb08f1c5" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.RestrictedLauncherTests" name="CancellationTerminatesParentAndChildBeforeReportingCompletion" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Windows.Tests.ReaderBoundaryTests.CatalogReadsOnlyRecognizedDocumentsAndRejectsForeignIds" storage="d:\codex_workspace\projetos\specaudit\tests\specaudit.windows.tests\bin\debug\net10.0\specaudit.windows.tests.dll" id="f6901857-ff30-a2d6-16fb-8a0fbe5addb8">
+      <Execution id="80f63190-ef01-473b-bf8d-2153bdfc5ab4" />
+      <TestMethod codeBase="D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Windows.Tests.ReaderBoundaryTests" name="CatalogReadsOnlyRecognizedDocumentsAndRejectsForeignIds" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2fb8a0ac-ccc4-2d6f-927f-671179ef3d1f" executionId="54847b19-53f3-4e1e-be4b-0ac4a7f7c1ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb0211d4-d57a-a258-c3e6-8d2818d3bf9b" executionId="bb738799-f2e8-488c-9997-aded46b829d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="05e139ee-9c36-40d1-0eed-6a351bbb6e17" executionId="74f1903f-aa17-491c-b00a-a8103f87328c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6394b0a3-da53-2aa1-2886-6142450bc4b4" executionId="e87a0ab9-c7ee-4660-92dc-671c7ab08e82" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3d2d77b-c4db-c679-039f-0c0ee807e725" executionId="0f00a4da-8fc7-4c02-8c35-d22023b962db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4090fe55-30bb-67e2-b1b4-75e371ed4638" executionId="351ecb5c-764a-4277-9614-72917a6056ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c76710e-0178-86da-a87e-35a05c55c568" executionId="b367b4d5-d4f2-4a9b-bdae-52b8cf73248a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36abab6c-54d2-2098-3966-3254b9c9ddca" executionId="0da33a16-c409-43c9-aba1-45bbc8a38bf3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c080d7a3-418c-6d0a-1a44-6d03f604dd95" executionId="e3952807-a151-4cc2-a13a-e15b35c92cce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13fd8b36-c094-a080-bf8b-5b45ac1d6ceb" executionId="c8819e15-3fbb-40df-a428-2c7be4f35e4d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7f939d1f-83a6-92a9-82c8-dd69556a190b" executionId="5418a1e9-f794-40ba-98c2-f680cb08f1c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6901857-ff30-a2d6-16fb-8a0fbe5addb8" executionId="80f63190-ef01-473b-bf8d-2153bdfc5ab4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe14ded2-ba09-59c6-e49e-0d0d47fe69c3" executionId="d582eb98-2a47-4096-b388-8a27d4e97c0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="12" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)&#xD;
+[xUnit.net 00:00:00.11]   Discovering: SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.19]   Discovered:  SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:00.24]   Starting:    SpecAudit.Windows.Tests&#xD;
+[xUnit.net 00:00:01.24]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.24]       Expected: 0&#xD;
+[xUnit.net 00:00:01.24]       Actual:   81&#xD;
+[xUnit.net 00:00:01.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.24]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\ReaderBoundaryTests.cs(87,0): at SpecAudit.Windows.Tests.ReaderBoundaryTests.BoundaryMustAlsoDenyCodeWhenOriginHasBroadAppPackageReadPermission()&#xD;
+[xUnit.net 00:00:01.25]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.83]   Finished:    SpecAudit.Windows.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="TRABALHO" outcome="Error" timestamp="2026-11-16T20:15:17.9488418-03:00">
+        <Text>[xUnit.net 00:00:01.24]     SpecAudit.Windows.Tests.ReaderBoundaryTests.BoundaryMustAlsoDenyCodeWhenOriginHasBroadAppPackageReadPermission [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

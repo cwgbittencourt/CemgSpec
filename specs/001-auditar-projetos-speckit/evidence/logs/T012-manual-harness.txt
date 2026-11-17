@@ -1,0 +1,26 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.06]   Discovering: SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.10]   Discovered:  SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.13]   Starting:    SpecAudit.Ui.Tests
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.DisposingServiceCancelsPendingWorkWithoutSaving [149 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.SwitchingProjectCancelsOnlyItsOwnWorkWithoutSaving [131 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments [549 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.SelectedFoldersLoadTwoFeaturesAndCancelDoesNotCreateProject [52 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.ContextAndExistingHistoryStaySeparatedWhenChangingOutput [77 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities [183 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.RenamingRecognizedDocumentOutOfCatalogInvalidatesVersion [123 ms]
+[xUnit.net 00:00:01.73]   Finished:    SpecAudit.Ui.Tests
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.DocumentaryDirectoriesCreatedAfterOpeningAreObserved [41 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.RemovingDocumentDirectoryWithDotInNameInvalidatesCatalog [48 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.ExternalDocumentEditInvalidatesSnapshotAndRefreshPreservesDocumentIdentity [56 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.CapturedVersionIsCancelledByEditAndCannotBeReusedAfterRefresh [96 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.InternalAndJunctionDestinationsAreRejectedWithoutWritingOrigin [48 ms]
+
+Execução de Teste Bem-sucedida.
+Total de testes: 12
+     Aprovados: 12
+Tempo total: 2,1778 Segundos

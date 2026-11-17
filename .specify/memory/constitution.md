@@ -1,3 +1,15 @@
+<!-- Sync Impact Report
+Version: 3.0.0 → 4.0.0 (MAJOR: redefinição explícita da garantia de isolamento).
+Autorização: usuário solicitou flexibilizar isolamento, preservar origem somente leitura,
+apenas speckit-analyze/check_gate, atualizar plan/tasks e retomar implementação (2026-11-16).
+Modified: I. Preservação integral; V. Agentes substituíveis; Restrições de plataforma e segurança.
+Preserved: escopo documental, dois comandos, sem shell/hooks da origem, Save externo,
+privacidade, revisão, testes reais por história, roteiro DEV e decisões humanas.
+Added/removed sections: nenhuma. Templates do preset preservados; adendo de qualidade mantido.
+Sync: revisar spec, plan, contratos, tasks e testes; arquivar provas OS como históricas,
+sem convertê-las em aprovação. Nenhum placeholder ou decisão de isolamento pendente.
+Remover este comentário de revisão antes de eventual commit da emenda.
+-->
 # SpecAudit Constitution
 
 **Preset**: `cemg-speckit` **3.0.0**.
@@ -18,9 +30,18 @@ arquivo nessa origem, incluindo documentos SpecKit, código, configurações, me
 caches e temporários. Alterar e depois restaurar o original NÃO É um mecanismo permitido.
 O fluxo NÃO DEVE depender de uma cópia isolada da solução.
 
-A restrição DEVE ser imposta tecnicamente ao executor e aos processos descendentes,
-sem depender apenas de prompts, atributos de pasta ou promessas do agente. O executor
-NÃO DEVE elevar privilégios ou ampliar permissões para contornar incompatibilidade.
+A aplicação DEVE impor somente leitura em suas próprias APIs, catálogo, broker e fluxos,
+com validação de identidade e contenção no acesso real. Interfaces de análise NÃO DEVEM
+expor escrita, shell livre ou execução de conteúdo da origem. Integrações DEVEM receber
+somente documentos autorizados e usar ferramentas/configurações restritas quando disponíveis.
+
+Não é exigido sandbox de sistema operacional para conter agentes externos e todos os seus
+subprocessos. O produto NÃO DEVE prometer contenção de agente comprometido ou que ignore
+suas restrições. Essa limitação DEVE ser informada antes da execução de analyze. Flexibilizar
+o isolamento NÃO autoriza gravação ou execução na solução, instalação, elevação, alteração
+de ACL da origem ou uso de suas credenciais. Se a integração não conseguir operar pelo
+contrato documental/somente leitura, ela DEVE ficar indisponível.
+
 As permissões normais do usuário para editar sua solução NÃO DEVEM ser restringidas.
 Mudanças externas durante uma análise DEVEM ser detectadas e ter seu impacto informado;
 a aplicação NÃO DEVE sobrescrevê-las nem misturar versões silenciosamente.
@@ -98,9 +119,12 @@ um executável manualmente SOMENTE DEVE ser oferecido quando a descoberta não l
 o agente desejado. Encontrar a instalação NÃO significa comprovar compatibilidade.
 
 Na V1, agentes SOMENTE DEVEM ser usados para análise documental speckit-analyze.
-Cada integração DEVE demonstrar automação, captura de resultados e erros, cancelamento e
-respeito às restrições de acesso, incluindo subprocessos e estado de sessão. Limitações
-DEVEM ser explícitas. Uma integração sem proteção comprovada DEVE ficar indisponível.
+Cada integração DEVE demonstrar automação, captura de resultados e erros, cancelamento,
+contrato documental/somente leitura e estado de sessão externo. A execução DEVE usar
+inicialização e configuração confiáveis externas à origem, sem carregar suas instruções,
+plugins ou hooks. Capacidades e limitações DEVEM ser explícitas; sem compatibilidade
+com esse contrato, a integração DEVE ficar indisponível. Essa comprovação funcional
+NÃO equivale a confinamento obrigatório pelo sistema operacional.
 Verificações determinísticas DEVEM funcionar sem IA. Fluxos adaptados do SpecKit DEVEM
 ser identificados como adaptações; NÃO DEVEM executar etapas que alterem os artefatos originais.
 
@@ -180,9 +204,13 @@ suportado para esse alvo, sem recursos de linguagem em preview. O suporte docume
 inicial DEVE independer da linguagem da solução. Análise aprofundada de C# e Razor
 fica reservada a versão futura, sem obrigar leitura de código na V1.
 
-O executor DEVE ser separado e restrito pelo sistema operacional, com acesso de leitura
-à origem e escrita apenas nas áreas externas autorizadas. O mecanismo exato DEVE ser
-validado no planejamento, sem alegar proteção instalada apenas por existir esta regra.
+Integrações externas PODEM usar subprocessos comuns não elevados, com executável conferido,
+argumentos construídos pelo adaptador, diretório de trabalho externo, entrada documental
+selecionada e captura/cancelamento controlados. Somente speckit-analyze e check_gate são
+operações de verificação permitidas; nomes de comando não são uma garantia de sandbox.
+Não exigir AppContainer/LPAC, tokens restritos, alteração de memória de processos ou
+mediadores privilegiados para entregar a V1. O planejamento DEVE demonstrar os controles
+da aplicação e declarar o limite de confiança nos agentes externos.
 
 Telas, paleta, formatos, frequências, estados de interface, critérios detalhados de análise
 e integrações de entrega DEVEM ser definidos na especificação. Esta constituição NÃO
@@ -227,7 +255,7 @@ instalados: tais controles exigem implementação e verificação próprias. Os 
 acordados na conversa DEVEM ser transpostos à especificação em etapa posterior, sem criação
 ou implementação de funcionalidades nesta etapa constitucional.
 
-**Version**: 3.0.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-16
+**Version**: 4.0.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-16
 
 # Adendo à constituição — qualidade por história
 

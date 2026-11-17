@@ -1,0 +1,16 @@
+$ErrorActionPreference='Stop'
+$testRoot=Split-Path $PSScriptRoot -Parent
+$vswhere=Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+$installation=& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+if(-not $installation){throw 'Existing MSVC tools are required; no automatic installation.'}
+$tools=Get-ChildItem (Join-Path $installation 'VC/Tools/MSVC') -Directory | Sort-Object {[version]$_.Name} -Descending | Select-Object -First 1
+$sdkRoot=Join-Path ${env:ProgramFiles(x86)} 'Windows Kits/10'
+$sdk=Get-ChildItem (Join-Path $sdkRoot 'Include') -Directory | Where-Object {Test-Path (Join-Path $_.FullName 'um/windows.h')} | Sort-Object {[version]$_.Name} -Descending | Select-Object -First 1
+if(-not $tools -or -not $sdk){throw 'MSVC/Windows SDK missing; no automatic installation.'}
+$output=Join-Path $testRoot 'bin/native';$objects=Join-Path $testRoot 'obj/native'
+New-Item -ItemType Directory -Force $output,$objects | Out-Null
+$arguments=@('/nologo','/W4','/WX','/O2','/MT','/DUNICODE','/D_UNICODE',"/I$($tools.FullName)/include")
+foreach($part in @('shared','um','ucrt')){$arguments+="/I$($sdk.FullName)/$part"}
+$arguments+=@((Join-Path $PSScriptRoot 'Worker.c'),"/Fo$objects/Worker.obj","/Fe$output/Worker.exe",'/link',"/LIBPATH:$($tools.FullName)/lib/x64","/LIBPATH:$sdkRoot/Lib/$($sdk.Name)/um/x64","/LIBPATH:$sdkRoot/Lib/$($sdk.Name)/ucrt/x64",'advapi32.lib','/DYNAMICBASE','/NXCOMPAT')
+& (Join-Path $tools.FullName 'bin/Hostx64/x64/cl.exe') @arguments
+if($LASTEXITCODE -ne 0){throw 'Synthetic worker compilation failed.'}

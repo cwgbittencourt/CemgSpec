@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "revision": "sha256:06eafe07a98e3b44d9ac9a142d3a2de902724749b63bafbaf45afe9bf23e5c9e",
+  "executor": "AI",
+  "medium": "LIBRARY",
+  "state": "OBSERVED",
+  "startup": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T012-complete' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T012-complete-results",
+  "input": "ProjectSelectionTests and ReaderBoundaryTests invoke application service/catalog/broker with synthetic real Windows files; controlled folder picker only.",
+  "expected": "Changed on stale/concurrent inputs; old work cancelled; external edit preserved; no automatic output writes; unrelated code ignored.",
+  "observed": "All assertions passed; 41 total tests passed, zero failed/skipped.",
+  "effects_checked": "Fixture baseline, preserved edit and original immutable snapshot, empty output folders, project cancellation tokens, stable identities after refresh.",
+  "scenarios": [
+    "US1-AC04 infrastructure / T012; future Prepare/Execute/Save integration not executed"
+  ],
+  "artifacts": [
+    {
+      "path": "evidence/logs/T012-suite-complete.txt",
+      "sha256": "60d0cd7f56a41e9d3d121ecfe94c691fe404f9ab24fb7ce4381824375db2cae0"
+    }
+  ]
+}
