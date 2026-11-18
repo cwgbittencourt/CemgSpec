@@ -1,0 +1,8 @@
+{
+  "baseCommit": "f2b29a20e5f9e724a9c32f8d8e3a703e0587d541",
+  "state": "PASSED",
+  "rawResults": "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-US1-DEV-beb04f12198b4106ab5176d6a7baa7c7",
+  "exportDirectory": "evidence/logs/T016",
+  "sdk": "10.0.404",
+  "timestamp": "2026-11-18T00:32:23.8815853+00:00"
+}

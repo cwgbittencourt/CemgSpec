@@ -13,15 +13,15 @@
     "ai_product_execution_observed": true
   },
   "blockers": [
-    "T016 developer script consolidation and subsequent PR-A closure remain pending.",
-    "Human PR approval and story acceptance not granted."
+    "T017-T020 PR-A validation, review and closure remain pending.",
+    "DEV execution/acceptance and human PR approval not granted."
   ],
   "human_decisions": [],
   "evidence": [
     {
       "path": "tasks.md",
       "kind": "document",
-      "sha256": "3c28246156af81196e9224f92934fa149a9ac015ff78770cab6e07ebf39af233"
+      "sha256": "ec217eccac8518eb7d443b7e4a51cf4da1fc941d11be33fd58a738ef860679e3"
     },
     {
       "path": "evidence/maintenance-code-manifest.json",
@@ -29,24 +29,29 @@
       "sha256": "530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8"
     },
     {
+      "path": "validation/US1-dev.md",
+      "kind": "document",
+      "sha256": "3ea21b9ce6fa06269fdf634c4dc039aeb09d9ee8274681b436e45fd98f97078d"
+    },
+    {
+      "path": "acceptance/US1.md",
+      "kind": "document",
+      "sha256": "bbe898813b75e4fcda4a0ed2508c7a0e2c5b75094b9ef17a069ea126ea4b1641"
+    },
+    {
       "path": "evidence/US1-validation.md",
       "kind": "document",
-      "sha256": "bacffb3c2c27f07bf0d9fcb3a2d0df7b77da630b3c09b41f4e94806c6c270f27"
+      "sha256": "9ece78259126555b518c2baf015abf11b8e74ad61484d8d585f35e4a95b0b0b4"
     },
     {
       "path": "evidence/US1-review.md",
       "kind": "document",
-      "sha256": "a3b0bf7d1ac0e70e7cc713a0b6b2d64541f5e1640c37c30eae44abe4b0dd84f5"
+      "sha256": "3402dbabe167e9b734f11baf9327d35c849f2abf627fd6e3cc5ed0513db54b14"
     },
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "5548141092c0cb4153065059c5670b2dfe9a32358fac44a4106e58a652b0339a"
-    },
-    {
-      "path": "evidence/T015-context.json",
-      "kind": "document",
-      "sha256": "688e498e9abd300eaf834315ae1097fdfd45faddcfaf87f514a4e1b09b8ee2e9"
+      "sha256": "a3c5d73cba6145d5df85d59c550e654da24eacc5db551dc57a3cab9ca9209600"
     },
     {
       "path": "evidence/T015-findings.json",
@@ -54,34 +59,34 @@
       "sha256": "a07c2a75ebe5ac206e18e4e5e48ec3a8229bd2ec9ae18559ff8dc55f4900b137"
     },
     {
-      "path": "evidence/T015-test-run.json",
-      "kind": "test-run",
-      "sha256": "7f70b769e7bbe5facddfbb0d6ad0db4f2d134a5ec75ed34165df4036094898f3"
+      "path": "evidence/T016-verification.json",
+      "kind": "document",
+      "sha256": "1ac4aef99bfb3c4f4ebf7ea606549cb3fddc974fd5a27c8b9682042304949ca2"
     },
     {
-      "path": "evidence/T015-product-execution.json",
+      "path": "evidence/T016-test-run.json",
+      "kind": "test-run",
+      "sha256": "0f67cded82828080fbe33977d137ebf2bc6d36ddf684eefb43594d244af24b64"
+    },
+    {
+      "path": "evidence/T016-product-execution.json",
       "kind": "product-execution",
-      "sha256": "4fae2d27835a2c881332a0d2fb199505d5f2bc0927022518c69dddfd0b9e24d1"
+      "sha256": "52de9ed971ab7d9350b710cca29c43dec9bcf3f2265a055a497e88bdc3ada052"
     },
     {
       "path": "evidence/maintenance-manifest.json",
       "kind": "document",
-      "sha256": "84b0a6734ef1b50d60408c5804f83e2a08e50f400247d1cec27652c71a11a985"
+      "sha256": "9b74a92b68b149e7a50015b4b87ebfb4de98aa080fcd9f8470d9b4a09b7e986c"
     },
     {
       "path": "evidence/maintenance-inventory.json",
       "kind": "document",
-      "sha256": "f30b69834023b2bf6e2ad1f08e7ded52dad98bcc420edde2b9febe42b1db902d"
+      "sha256": "edea582a05dad16e365cd31e292dab4160e16af251b0a104117bbb7352ad136a"
     },
     {
       "path": "evidence/README.md",
       "kind": "document",
-      "sha256": "7a6032dca529f3018ed88188e6991b0251a6f4dec6ff1f4f59397e14541f7a63"
-    },
-    {
-      "path": "evidence/T015-verification.json",
-      "kind": "document",
-      "sha256": "210fed2cf9ffc0be47d6463e4589daf3b51bc226009a1bb2ae3d2295ff7345c1"
+      "sha256": "93aac327fbc0504215c9d5ccfd2bff57dbbfb790b90c44968cca2f9e90d9fa81"
     }
   ],
   "tasks_completed": [
@@ -103,17 +108,19 @@
     "T098",
     "T013",
     "T014",
-    "T015"
+    "T015",
+    "T016"
   ],
-  "next_task": "T016",
+  "next_task": "T017",
   "work_stopped_at_user_request": false,
   "test_summary": {
     "passed": 52,
     "failed": 0,
     "skipped": 0,
-    "original_probes_passed": 3,
-    "watcher_retests_passed": 5
+    "scenario_filter_passed": 4,
+    "correction_filter_passed": 7,
+    "note": "Filtered cases included in full suite; not cumulative."
   },
-  "manuals_state": "T015 harness reproduction checked by AI; full story script consolidation in T016 and human execution/acceptance pending.",
-  "review_outcome": "T015_CORRECTIONS_REVIEWED_NO_OPEN_BLOCKERS"
+  "manuals_state": "US1 primary harness guide CONFERIDO_PELA_IA; additional loaded-GUI exploration CONFERENCIA_PARCIAL; DEV execution/decision pending.",
+  "review_outcome": "T016_GUIDE_CHECKED_HUMAN_DECISIONS_PENDING"
 }

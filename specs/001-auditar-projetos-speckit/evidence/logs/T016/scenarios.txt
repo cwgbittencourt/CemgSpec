@@ -1,0 +1,7 @@
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Ui.Tests -> __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Arquivo de resultados: __USER_HOME__\AppData\Local\Temp\SpecAudit-US1-DEV-beb04f12198b4106ab5176d6a7baa7c7\scenarios\US1-scenarios_net10.0_20261117213209.trx
+
+Aprovado!  – Com falha:     0, Aprovado:     4, Ignorado:     0, Total:     4, Duração: 1 s - SpecAudit.Ui.Tests.dll (net10.0)

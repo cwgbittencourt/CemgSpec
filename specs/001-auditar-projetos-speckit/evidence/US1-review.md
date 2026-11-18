@@ -112,3 +112,10 @@ Resultados finais: suíte 52/52, replay original 3/3 e cinco retestes do teste a
 Não surgiram achados adicionais impeditivos nesta inspeção e nas execuções realizadas. Limites: handler Razor exercitado por harness/reflexão, sem novo screenshot da mensagem em circuito carregado; integrações de agente/Save continuam futuras e indisponíveis. O código de políticas/histórico/credenciais não foi ampliado. Consulta de dependências executada, sem novo pacote ou achado listado no alcance consultado.
 
 Estado técnico apto a seguir para T016 (consolidação do roteiro), não aprovação de PR nem aceite da história. Evidências de execução e critérios em `US1-validation.md`, fechamento por ID em `T015-findings.json`. O manifesto anterior da T014 e a fonte que falhou são recuperáveis no commit base, com os registros negativos originais preservados. Gate PR-A normal permanece BLOCKED por fechamento/dependências e decisão humana, sem manter estes dois defeitos como abertos.
+
+
+## Conferência documental — T016
+
+Modalidade AUTORREVISAO por Codex, 2026-11-17, America/Sao_Paulo, produto/testes f2b29a2 sem alteração e documentação local. Conferidos os templates efetivos com overrides 4.1.0, vínculo da versão, cobertura dos quatro critérios, comandos executados, resultados esperados/observados, limites de modalidade, campos humanos em branco e separação entre execução do roteiro, aprovação de PR e aceite. O rascunho antigo T012 não é mais apresentado como roteiro corrente; os caminhos manuais opcionais distinguem corretamente as origens/junções de cada fixture e a subpasta origin dos roots S03.
+
+Roteiro principal repetido: restore, 4/4, 7/7 e 52/52. Blocos PowerShell analisados sem erro de sintaxe e a receita de resolução da fixture conferida, com tasks ausente no segundo escopo e nenhum relatório criado. A exploração de todas as ações de uma sessão GUI carregada não foi declarada executada. Nenhum novo achado documental impeditivo identificado no alcance inspecionado; as correções T015 continuam verificadas na mesma fonte. Fechamento PR-A T017–T020, execução e decisão humanas permanecem pendentes. A T016 não aprova publicação ou integração.

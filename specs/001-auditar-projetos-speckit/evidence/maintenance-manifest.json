@@ -2729,6 +2729,73 @@
         }
       ],
       "renamed": []
+    },
+    {
+      "base_commit": "f2b29a20e5f9e724a9c32f8d8e3a703e0587d541",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [
+        {
+          "path": "evidence/logs/T016/errors.txt",
+          "original_sha256": "0f9892c5f3b5ad0ce5b9d487f33764c72d07e99667c48573312d70e841069a00",
+          "sanitized_sha256": "f384aed700c71b927f14f78b250314506ce4cf49296a6415acb461f7a41d63d4"
+        },
+        {
+          "path": "evidence/logs/T016/execution.json",
+          "original_sha256": "6a395b99732109d2163c9f1422223921f023d4ccc42238c9a06a32474f1bbcaa",
+          "sanitized_sha256": "6335a528d86ed5b9362132c15cf4cb34582d50df25fd1875d4ad305200e6ae03"
+        },
+        {
+          "path": "evidence/logs/T016/full.txt",
+          "original_sha256": "8f920956e47b1756e3f0c0220e4e929f92f7e2279b5c98d023d65955245f8ab6",
+          "sanitized_sha256": "24caf4028d4ddb5413b5be841c9910a23af55e00ee015c0cfcb712821365ffba"
+        },
+        {
+          "path": "evidence/logs/T016/scenarios.txt",
+          "original_sha256": "db192d9409e7eb259e56c3afe0bdee38b589bb39086fea457d588dfc20f438f9",
+          "sanitized_sha256": "31ee6088f55c839dede4297aff57b6234c1b526b180ec755cec287a6a48df2a0"
+        },
+        {
+          "path": "evidence/logs/T016/errors/US1-errors_net10.0_20261117213215.trx",
+          "original_sha256": "5e1cc8fb5c86edd09f6cdbdc37ea4d55056f5f017ce8b9aa5a821d46da969b0c",
+          "sanitized_sha256": "0f00c2265569736b12d00a203c7245939c5c3dcea282888b62ee44dbeebd270a"
+        },
+        {
+          "path": "evidence/logs/T016/full/US1-full_net10.0_20261117213218.trx",
+          "original_sha256": "7717ecb1bfec2410e634cf9dea0deab861fd4634de93b9266300949247345795",
+          "sanitized_sha256": "1cc562a52645b448bfb48b87d364ad277b4e54802759a778ed252fd1a2297b6c"
+        },
+        {
+          "path": "evidence/logs/T016/full/US1-full_net10.0_20261117213221.trx",
+          "original_sha256": "b0650a20ca695a09a42909f26e955e6c3bfbb46bcfe4029bd5acd40be1e7b315",
+          "sanitized_sha256": "1811faa67b8825ce218aa98a5e7a3795b9c99fe695a2f7f6b547e95f0e55e30d"
+        },
+        {
+          "path": "evidence/logs/T016/full/US1-full_net10.0_20261117213223.trx",
+          "original_sha256": "dc85b92cc66d277683c713aba2f1d2dcd8139bd7132adbb8c64155aa3b65253a",
+          "sanitized_sha256": "ffdc305b08c5e6f4bcffb8286c5faa018a52a9ec3092c728a1ea43a4c1c340d2"
+        },
+        {
+          "path": "evidence/logs/T016/scenarios/US1-scenarios_net10.0_20261117213209.trx",
+          "original_sha256": "251f0299ff3fb6c43dffab04f7bcf9a42993c43d326494b7e5670b39785edd08",
+          "sanitized_sha256": "0bc8acbbd92a91969efdae3be3a09aea49078174f9a6d99486a8ebeba5c5e83f"
+        }
+      ],
+      "consolidated": [],
+      "renamed": []
+    },
+    {
+      "base_commit": "f2b29a20e5f9e724a9c32f8d8e3a703e0587d541",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [],
+      "consolidated": [
+        {
+          "removed": "evidence/logs/T016/gate.txt",
+          "canonical": "evidence/logs/T012-gate.txt",
+          "original_sha256": "5d7815f851ac706533e5a4b106380a7f9aab50abbae268da82b80859acc75c37",
+          "canonical_sha256": "5d7815f851ac706533e5a4b106380a7f9aab50abbae268da82b80859acc75c37"
+        }
+      ],
+      "renamed": []
     }
   ]
 }

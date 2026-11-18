@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "base_commit": "f2b29a20e5f9e724a9c32f8d8e3a703e0587d541",
+  "code_revision": "sha256:530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8",
+  "scope": "T016 documentation and technical-state consolidation only; no product/test code changed",
+  "guide": {
+    "path": "validation/US1-dev.md",
+    "sha256": "3ea21b9ce6fa06269fdf634c4dc039aeb09d9ee8274681b436e45fd98f97078d",
+    "primary_state": "CONFERIDO_PELA_IA",
+    "additional_gui_state": "CONFERENCIA_PARCIAL"
+  },
+  "acceptance": {
+    "path": "acceptance/US1.md",
+    "sha256": "bbe898813b75e4fcda4a0ed2508c7a0e2c5b75094b9ef17a069ea126ea4b1641",
+    "state": "PENDING_HUMAN_EXECUTION_AND_DECISION"
+  },
+  "results": {
+    "scenarios": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    "errors": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    "full": {
+      "total": 52,
+      "passed": 52,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "restore_locked": "PASSED",
+  "powershell_blocks_parsed": 3,
+  "optional_fixture_resolution_checked": true,
+  "human_section_preserved_byte_for_byte": true,
+  "reserved_acceptance_fields_blank": true,
+  "human_decisions": [],
+  "review": {
+    "modality": "AUTORREVISAO",
+    "executor": "Codex",
+    "templates": "Installed CEMG 3.0.0 plus actual local 4.1.0 overrides resolved and checked",
+    "coverage": "All four US1 criteria mapped to real assertions; commands, fixtures, outputs, cleanup, limitations and human-record source checked",
+    "blocking_document_findings_open": 0,
+    "limits": "Additional manual GUI is explicitly partial; no independent/human review claimed"
+  },
+  "next_task": "T017",
+  "privacy_scan": {
+    "text_files_scanned": 426,
+    "secret_pattern_matches": 0,
+    "personal_metadata_matches": 0,
+    "structured_files_parsed": {
+      "json": 125,
+      "trx": 117,
+      "jsonl": 1
+    },
+    "limitation": "Pattern scan does not guarantee absence of every secret."
+  }
+}
