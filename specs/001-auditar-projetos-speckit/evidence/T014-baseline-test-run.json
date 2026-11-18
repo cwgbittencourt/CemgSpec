@@ -1,0 +1,16 @@
+{
+  "revision": "sha256:2d8c07395c5c6d039b94d4578224317ec103414a2885e4597e0e08429a574228",
+  "result": "PASSED",
+  "exit_code": 0,
+  "command": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T014-baseline' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T014-review/baseline-results",
+  "timestamp": "2026-11-17T20:56:47.2953563-03:00",
+  "stdout": {
+    "path": "evidence/logs/T014-review/baseline-suite.txt",
+    "sha256": "2d19dbe55981559f2c3ed6c267fbcdcda9531fb8da33f7f7f5f7061718ce5a14"
+  },
+  "stderr": {
+    "path": "evidence/logs/T014-review/baseline-suite.txt",
+    "sha256": "2d19dbe55981559f2c3ed6c267fbcdcda9531fb8da33f7f7f5f7061718ce5a14"
+  },
+  "note": "Combined stdout/stderr. Baseline 45/45 passed; review probes 0/3 passed with 2 confirmed findings; failures preserved."
+}

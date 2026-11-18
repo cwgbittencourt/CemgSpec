@@ -2508,6 +2508,68 @@
         }
       ],
       "renamed": []
+    },
+    {
+      "base_commit": "89242b285c15e24fac3fb89cfc6ec93dd076e18a",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [
+        {
+          "path": "evidence/logs/T014-review/baseline-suite.txt",
+          "original_sha256": "8ba95aa3ea46e1a86883b444c49fa2a3a2580df0c87f6e895a7ec376e29d787f",
+          "sanitized_sha256": "2d19dbe55981559f2c3ed6c267fbcdcda9531fb8da33f7f7f5f7061718ce5a14"
+        },
+        {
+          "path": "evidence/logs/T014-review/package-audit.json",
+          "original_sha256": "c587381ea510c20f22afcacc0aa0f430e81f465b840b76ae06740e9da24f5ba1",
+          "sanitized_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97"
+        },
+        {
+          "path": "evidence/logs/T014-review/probe-cleanup-build.txt",
+          "original_sha256": "bae6f283a54d51feae87d179d097bee334a6980bcc921533a57c616d40a476ff",
+          "sanitized_sha256": "f459feb101daa2c08733fb17758283d4878584e531bb972579d4da1c76ba4731"
+        },
+        {
+          "path": "evidence/logs/T014-review/probes.txt",
+          "original_sha256": "d8358dbc89ff8751af1348c1f1aee962f28350ae38cd171110cfe7ea5aa6aef0",
+          "sanitized_sha256": "70884b60a57d62dd5404012bd52dd5b27cf6474d91c0967a47c9b044977838f2"
+        },
+        {
+          "path": "evidence/logs/T014-review/baseline-results/T014-baseline_net10.0_20261117205643.trx",
+          "original_sha256": "51ee7395c9f5fbf0e04af4ef02f37ab6c00417d243bd176aa6917ac3642d6bab",
+          "sanitized_sha256": "4497d58d4faa604d16f6270d0b44cc470eb3e65cc47a7d07c2368f1b818c45b7"
+        },
+        {
+          "path": "evidence/logs/T014-review/baseline-results/T014-baseline_net10.0_20261117205646.trx",
+          "original_sha256": "d4648f9d7fb10cf6c7e5b5c96140d8ac268d8688007c60932683c9d0587db61b",
+          "sanitized_sha256": "c9663147defd79608a8f54fac90268218c331628c73e096cda3562e7a19a7622"
+        },
+        {
+          "path": "evidence/logs/T014-review/baseline-results/T014-baseline_net10.0_20261117205647.trx",
+          "original_sha256": "30a42b5e6f14818449524f1c038785e1ceba519fd3fd7f29770d1dcfdf18d0e5",
+          "sanitized_sha256": "aec45d46c6f7afedf80c7515172a419be61999dcbe2f112343514bc4d8daf241"
+        },
+        {
+          "path": "evidence/logs/T014-review/probe-results/T014-probes_net10.0_20261117205741.trx",
+          "original_sha256": "f202c02ec4ab8e6505898269d561d8aa2bc35a1f97dbd9309f3b303dbb581884",
+          "sanitized_sha256": "a64dbdcfc17fdbd4e5583e8391210da7e2b8380285d60c565413ef07046ee811"
+        }
+      ],
+      "consolidated": [],
+      "renamed": []
+    },
+    {
+      "base_commit": "89242b285c15e24fac3fb89cfc6ec93dd076e18a",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [],
+      "consolidated": [
+        {
+          "removed": "evidence/logs/T014-review/package-audit.json",
+          "canonical": "evidence/logs/v4-package-audit.json",
+          "original_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97",
+          "canonical_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97"
+        }
+      ],
+      "renamed": []
     }
   ]
 }

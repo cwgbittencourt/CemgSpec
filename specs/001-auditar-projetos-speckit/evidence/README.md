@@ -6,6 +6,7 @@ Este diretório guarda comprovação técnica do desenvolvimento do SpecAudit, n
 
 - [Estado atual da implementação](implementation-status.md) e [gate do incremento](../verification/implementation-stage.json).
 - [Validação US1 / T013](US1-validation.md): quatro cenários reais e respectivas limitações.
+- [Review US1 / T014](US1-review.md): dois achados abertos, três probes falhos e próximos passos para T015.
 - [Manutenção das evidências](maintenance-review.md): sanitização, consolidação, execução renovada e verificações.
 - [Histórico de transformações](maintenance-manifest.json): hashes anteriores/posteriores e consolidações por rodada.
 - `logs/`: saídas, TRX e capturas indispensáveis à inspeção dos resultados registrados.

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "reviewed_commit": "89242b285c15e24fac3fb89cfc6ec93dd076e18a",
+  "code_revision": "sha256:2d8c07395c5c6d039b94d4578224317ec103414a2885e4597e0e08429a574228",
+  "modality": "AUTORREVISAO",
+  "outcome": "CHANGES_REQUESTED",
+  "findings": [
+    {
+      "id": "REV-US1-01",
+      "priority": 2,
+      "state": "OPEN",
+      "blocking_normal_closure": true,
+      "file": "SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs",
+      "start": 30,
+      "end": 30,
+      "criteria": [
+        "US1-AC04"
+      ],
+      "explanation": "A LastWrite event for the feature directory invalidates unchanged document content and cancels captured work.",
+      "observed": {
+        "origin_content_unchanged": true,
+        "has_pending_changes": true,
+        "cancelled": true
+      },
+      "evidence": "evidence/logs/T014-review/directory-metadata.json",
+      "prior_observation": "OBS-MAINT-01 mechanism consistent, exact cause of original intermittent round unconfirmed",
+      "correction_task": "T015"
+    },
+    {
+      "id": "REV-US1-02",
+      "priority": 2,
+      "state": "OPEN",
+      "blocking_normal_closure": true,
+      "file": "SpecAudit/Components/Pages/Projects.razor",
+      "start": 48,
+      "end": 48,
+      "related_line": 52,
+      "criteria": [
+        "US1-AC01",
+        "US1-AC04",
+        "T007 limit handling"
+      ],
+      "explanation": "LimitExceededException is not caught by Projects.Open; bytes and graph limits escape the callback with no displayed error. Same missing catch in Refresh (static inspection).",
+      "observed": {
+        "cases": [
+          "document-bytes",
+          "evidence-graph"
+        ],
+        "exception": "LimitExceededException",
+        "displayed_error": null,
+        "origin_content_unchanged": true
+      },
+      "evidence": "evidence/logs/T014-review/probes.txt",
+      "correction_task": "T015"
+    }
+  ],
+  "human_decisions": []
+}

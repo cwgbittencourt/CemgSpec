@@ -1,6 +1,8 @@
-# Implementação — checkpoint T013
+# Implementação — checkpoint T014 (review com achados)
 
 Data 2026-11-17, America/Sao_Paulo. T013 concluída tecnicamente após corrigir lacuna de cobertura com harness integrado real. Próxima task T014; nenhuma task posterior iniciada. Checkpoint anterior preservado em T013-before/implementation-status.md.
+
+Atualização T014: passagem de autorrevisão executada sobre `89242b285c15e24fac3fb89cfc6ec93dd076e18a`. Review para aprovação BLOQUEADO por REV-US1-01 e REV-US1-02. Baseline 45/45; três probes novos falharam, com origem preservada e sem relatório criado. Próxima task T015, correção/revalidação. Nenhum código de produção ou teste permanente alterado nesta task. Detalhes e reprodução em US1-review.md e T014-review-context.json. As seções T013/manutenção abaixo registram os checkpoints anteriores, não aprovação da revisão atual.
 
 Constituição 4.0.0 preservada: origem readonly pela aplicação; apenas speckit-analyze/check_gate; nenhum retorno aos experimentos de isolamento OS. SEC-001 continua histórica, não foi convertida em aprovação.
 

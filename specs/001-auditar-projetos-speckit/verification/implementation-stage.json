@@ -4,25 +4,25 @@
   "revision": "sha256:2d8c07395c5c6d039b94d4578224317ec103414a2885e4597e0e08429a574228",
   "state": "BLOCKED",
   "checks": {
-    "applicable_tests_passed": true,
-    "review_complete": false,
+    "applicable_tests_passed": false,
+    "review_complete": true,
     "blocking_findings_resolved": false,
-    "safe_intermediate_state": true,
+    "safe_intermediate_state": false,
     "dependencies_satisfied": false,
     "human_pr_approved": false,
     "ai_product_execution_observed": true
   },
   "blockers": [
-    "T014 full US1 review and subsequent PR-A closure remain pending; T013 technical validation completed.",
-    "OBS-MAINT-01: prior intermittent watcher test failure not reproduced in five isolated retests and final suite; root cause pending review.",
-    "Human PR approval and story acceptance not granted."
+    "REV-US1-01: unchanged document version invalidated by feature-directory metadata; correct and retest in T015.",
+    "REV-US1-02: expected operational limits escape Projects error handling; correct and retest in T015.",
+    "PR-A closure, human PR approval and story acceptance remain pending."
   ],
   "human_decisions": [],
   "evidence": [
     {
       "path": "tasks.md",
       "kind": "document",
-      "sha256": "6066aed56b4bdfcdc627932f1f02c26ac1f25a4fb736e8a15645627a3e7ab78e"
+      "sha256": "4c69b715d2d4d95ed4ce0f1cb0695190b8a4e8e8c258a0e54ecdf64c0d93608d"
     },
     {
       "path": "evidence/maintenance-code-manifest.json",
@@ -32,12 +32,12 @@
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "5eb451913e28f0cc8314bfa7425ef06b1d247eeaa8c929466b4c38a862a9159d"
+      "sha256": "1c2aad4520923dcbfe1541bf1bed363f8f0fa4c1a20dcd640eb7e4fbcc529be7"
     },
     {
       "path": "evidence/US1-validation.md",
       "kind": "document",
-      "sha256": "04afb23357ae4e84ac35382c4f350af9d3f10c83470d09faa80042afcf588304"
+      "sha256": "9f44b4169d036007d9be63c6646cfd1fab152140e9e0985905126800e9167a51"
     },
     {
       "path": "evidence/maintenance-review.md",
@@ -57,22 +57,57 @@
     {
       "path": "evidence/maintenance-manifest.json",
       "kind": "document",
-      "sha256": "c8f52405988c69bc8fa17c7db7be5336fdd687fb491cefa6d11556c84898a225"
+      "sha256": "2f440fe9db2e18a0aa2149d8c806648007f1c92ba149b190b39b9ed5cc36545a"
     },
     {
       "path": "evidence/README.md",
       "kind": "document",
-      "sha256": "cc1dc4a0cf5b38971e390e460c73868378693a631cdc6398aed6799e3de3737d"
+      "sha256": "cd10ec616f6faa421c1c003648e348e2afadf371fb1270bbdbc642351062ef29"
     },
     {
       "path": "evidence/maintenance-inventory.json",
       "kind": "document",
-      "sha256": "da16308c60f0305e0b4ef056fc3cd2959f6d9a608d4fa605e900aef2ef601254"
+      "sha256": "16caf7f5353832e6a45cf5649e0682610fc0f5c0195c0c46b48d449739568644"
     },
     {
       "path": "evidence/maintenance-verification.json",
       "kind": "document",
       "sha256": "f5b0a1850b6492d647488ec6356332cb08477a2544c7c6aeb6eed4f99a21c75b"
+    },
+    {
+      "path": "evidence/US1-review.md",
+      "kind": "document",
+      "sha256": "35a722056e34a0ef5ddce13c54bc6230b89ae1cb635e935ed7e389809d6dd1e6"
+    },
+    {
+      "path": "evidence/T014-review-context.json",
+      "kind": "document",
+      "sha256": "59de20335b7bef9c06cd5d93e2045f563c44879bfbd34a54b3b89aa248fd8d69"
+    },
+    {
+      "path": "evidence/T014-findings.json",
+      "kind": "document",
+      "sha256": "f724c55561e5a61196fa39a0bff0f695a49103994ec87cc35f9570fddfdc50db"
+    },
+    {
+      "path": "evidence/T014-baseline-test-run.json",
+      "kind": "test-run",
+      "sha256": "21d140c50f53ac20663e703fa988973eb5d65f9204c8998bb20303a83cd5038d"
+    },
+    {
+      "path": "evidence/T014-probes-test-run.json",
+      "kind": "test-run",
+      "sha256": "a266cabdb446d839f1e438ad4ead29f0711125c8ddcfba873c9cf9704b4f0d8a"
+    },
+    {
+      "path": "evidence/T014-product-execution.json",
+      "kind": "product-execution",
+      "sha256": "0cc3775c7794f63d5e26683a881bed22748ec8fe353460c1efbb9f5a89a4517a"
+    },
+    {
+      "path": "evidence/T014-verification.json",
+      "kind": "document",
+      "sha256": "893233ce5bf5f1eb12c5f13bc5b44a25de9bb9808d87a3292a82c68fddbf8ddd"
     }
   ],
   "tasks_completed": [
@@ -92,14 +127,25 @@
     "T096",
     "T097",
     "T098",
-    "T013"
+    "T013",
+    "T014"
   ],
-  "next_task": "T014",
+  "next_task": "T015",
   "work_stopped_at_user_request": false,
   "test_summary": {
     "passed": 45,
-    "failed": 0,
-    "skipped": 0
+    "failed": 3,
+    "skipped": 0,
+    "baseline": {
+      "passed": 45,
+      "failed": 0
+    },
+    "review_probes": {
+      "passed": 0,
+      "failed": 3
+    },
+    "note": "Separate executions; baseline pass does not approve the failed negative scenarios."
   },
-  "manuals_state": "T013 real native-picker/library harness checked by AI; full DEV script consolidation and human execution pending."
+  "manuals_state": "T014 reproduction checked by AI; two findings open, full DEV script and human execution pending.",
+  "review_outcome": "CHANGES_REQUESTED"
 }

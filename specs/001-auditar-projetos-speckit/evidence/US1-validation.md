@@ -1,5 +1,7 @@
 # Evidências de validação — US1 / T013
 
+Atualização de revisão T014 (2026-11-17): validação adicional FALHOU em três probes, confirmando dois achados; ver [US1-review.md](US1-review.md) e `logs/T014-review/`. A aprovação técnica T013 descrita abaixo é histórica e limitada aos cenários então executados; não representa aprovação da revisão atual. Correção/revalidação pendentes na T015.
+
 Estado: APROVADA no escopo técnico da T013. Review completo de US1 (T014), fechamento de PR-A, reprodução e aceite humano continuam pendentes.
 Executor: Codex, dotnet test/xUnit, harness Windows e Playwright/Edge.
 Data: 2026-11-17, America/Sao_Paulo (UTC−03:00); horários UTC exatos nos TRX e JSONs.

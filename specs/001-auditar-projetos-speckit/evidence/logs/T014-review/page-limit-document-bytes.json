@@ -1,0 +1,9 @@
+{
+  "dimension": "document-bytes",
+  "exception": "LimitExceededException",
+  "message": "LimitExceeded: document-bytes",
+  "displayedError": null,
+  "projects": 0,
+  "originContentUnchanged": true,
+  "reports": 0
+}

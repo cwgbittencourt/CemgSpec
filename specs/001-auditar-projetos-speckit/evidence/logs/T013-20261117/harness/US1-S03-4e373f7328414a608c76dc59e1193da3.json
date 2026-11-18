@@ -1,0 +1,16 @@
+{
+  "scenario": "US1-S03",
+  "timestamp": "2026-11-17T23:56:45.4207334+00:00",
+  "result": "PASSOU",
+  "observed": {
+    "firstRoot": "__TEMP_ROOT__\\SpecAudit-V1-aed491f299ea4afc89502bfaab43ad98",
+    "secondRoot": "__TEMP_ROOT__\\SpecAudit-V1-a1a786db75b54ffc84ee4a6bd8d874da",
+    "history": "__TEMP_ROOT__\\SpecAudit-V1-aed491f299ea4afc89502bfaab43ad98\\reports\\existing.md",
+    "historyHash": "61d2a8b2a012b7c331f8afdc80c90219bb954df52819923bff7973d16d76ea2f",
+    "newDestination": "__TEMP_ROOT__\\SpecAudit-V1-aed491f299ea4afc89502bfaab43ad98\\dev-evidence",
+    "contexts": 2,
+    "originsUnchanged": true,
+    "nativePicker": true,
+    "historyPreparedByHarness": true
+  }
+}

@@ -1,0 +1,55 @@
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Ui.Tests -> __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.57]     SpecAudit.Ui.Tests.T014ReviewProbe.ProjectPageMustDisplayLimitsWithoutPropagatingException(dimension: "evidence-graph") [FAIL]
+[xUnit.net 00:00:00.98]     SpecAudit.Ui.Tests.T014ReviewProbe.ProjectPageMustDisplayLimitsWithoutPropagatingException(dimension: "document-bytes") [FAIL]
+[xUnit.net 00:00:01.06]     SpecAudit.Ui.Tests.T014ReviewProbe.UnchangedDocumentsMustSurviveFeatureDirectoryMetadataEvent [FAIL]
+  Com falha SpecAudit.Ui.Tests.T014ReviewProbe.ProjectPageMustDisplayLimitsWithoutPropagatingException(dimension: "evidence-graph") [431 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SpecAudit.Infrastructure.Execution.LimitExceededException: LimitExceeded: evidence-graph
+   at SpecAudit.Infrastructure.Execution.ExecutionLimits.CheckGraph(Int32 nodes, Int32 depth) in __REPO_ROOT__\SpecAudit\Infrastructure\Execution\ExecutionLimits.cs:line 15
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Add(String relative, CatalogKind kind, Nullable`1 feature) in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 78
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Walk(String directory, String context, Guid feature, Int32 depth) in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 63
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Build() in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 43
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog..ctor(Guid projectId, String origin) in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 29
+   at SpecAudit.Application.ProjectService.OpenSelected(String origin, String output) in __REPO_ROOT__\SpecAudit\Application\ProjectService.cs:line 59
+   at SpecAudit.Application.ProjectService.OpenProjectAsync() in __REPO_ROOT__\SpecAudit\Application\ProjectService.cs:line 52
+   at SpecAudit.Components.Pages.Projects.Open() in __REPO_ROOT__\SpecAudit\Components\Pages\Projects.razor:line 48
+   at SpecAudit.Ui.Tests.T014ReviewProbe.<>c__DisplayClass4_0.<<ProjectPageMustDisplayLimitsWithoutPropagatingException>b__0>d.MoveNext() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\T014ReviewProbe.cs:line 91
+--- End of stack trace from previous location ---
+   at Xunit.Record.ExceptionAsync(Func`1 testCode) in /_/src/xunit.core/Record.cs:line 76
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.T014ReviewProbe.ProjectPageMustDisplayLimitsWithoutPropagatingException(String dimension) in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\T014ReviewProbe.cs:line 103
+--- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.T014ReviewProbe.ProjectPageMustDisplayLimitsWithoutPropagatingException(dimension: "document-bytes") [411 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SpecAudit.Infrastructure.Execution.LimitExceededException: LimitExceeded: document-bytes
+   at SpecAudit.Infrastructure.Execution.ExecutionLimits.CheckDocument(Int64 bytes) in __REPO_ROOT__\SpecAudit\Infrastructure\Execution\ExecutionLimits.cs:line 14
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Add(String relative, CatalogKind kind, Nullable`1 feature) in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 78
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog.Build() in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 41
+   at SpecAudit.Infrastructure.Documents.DocumentCatalog..ctor(Guid projectId, String origin) in __REPO_ROOT__\SpecAudit\Infrastructure\Documents\DocumentCatalog.cs:line 29
+   at SpecAudit.Application.ProjectService.OpenSelected(String origin, String output) in __REPO_ROOT__\SpecAudit\Application\ProjectService.cs:line 59
+   at SpecAudit.Application.ProjectService.OpenProjectAsync() in __REPO_ROOT__\SpecAudit\Application\ProjectService.cs:line 52
+   at SpecAudit.Components.Pages.Projects.Open() in __REPO_ROOT__\SpecAudit\Components\Pages\Projects.razor:line 48
+   at SpecAudit.Ui.Tests.T014ReviewProbe.<>c__DisplayClass4_0.<<ProjectPageMustDisplayLimitsWithoutPropagatingException>b__0>d.MoveNext() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\T014ReviewProbe.cs:line 91
+--- End of stack trace from previous location ---
+   at Xunit.Record.ExceptionAsync(Func`1 testCode) in /_/src/xunit.core/Record.cs:line 76
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.T014ReviewProbe.ProjectPageMustDisplayLimitsWithoutPropagatingException(String dimension) in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\T014ReviewProbe.cs:line 103
+--- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.T014ReviewProbe.UnchangedDocumentsMustSurviveFeatureDirectoryMetadataEvent [74 ms]
+  Mensagem de erro:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.T014ReviewProbe.UnchangedDocumentsMustSurviveFeatureDirectoryMetadataEvent() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\T014ReviewProbe.cs:line 67
+--- End of stack trace from previous location ---
+Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\T014-review\probe-results\T014-probes_net10.0_20261117205741.trx
+
+Com falha! – Com falha:     3, Aprovado:     0, Ignorado:     0, Total:     3, Duração: 926 ms - SpecAudit.Ui.Tests.dll (net10.0)

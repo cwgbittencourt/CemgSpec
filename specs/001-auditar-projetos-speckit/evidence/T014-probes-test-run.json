@@ -1,0 +1,16 @@
+{
+  "revision": "sha256:2d8c07395c5c6d039b94d4578224317ec103414a2885e4597e0e08429a574228",
+  "result": "FAILED",
+  "exit_code": 1,
+  "command": "dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~T014ReviewProbe --logger 'trx;LogFilePrefix=T014-probes' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T014-review/probe-results",
+  "timestamp": "2026-11-17T20:57:41.2130195-03:00",
+  "stdout": {
+    "path": "evidence/logs/T014-review/probes.txt",
+    "sha256": "70884b60a57d62dd5404012bd52dd5b27cf6474d91c0967a47c9b044977838f2"
+  },
+  "stderr": {
+    "path": "evidence/logs/T014-review/probes.txt",
+    "sha256": "70884b60a57d62dd5404012bd52dd5b27cf6474d91c0967a47c9b044977838f2"
+  },
+  "note": "Combined stdout/stderr. Baseline 45/45 passed; review probes 0/3 passed with 2 confirmed findings; failures preserved."
+}
