@@ -1,5 +1,8 @@
 # Implementação — checkpoint T016 (roteiro consolidado e conferido)
 
+Atualização vigente — T017 concluída: validação técnica PR-A e regressão 52/52, manutenção 6/6; bases ancestrais e fonte inalterada verificadas. Evidência PR-A-validation.md. Próxima T018; revisão completa, fechamento e decisões humanas pendentes. Checkpoints abaixo são históricos.
+
+
 Atualização vigente — 2026-11-17, America/Sao_Paulo: T016 concluída, produto/testes iguais ao commit f2b29a20e5f9e724a9c32f8d8e3a703e0587d541 e manifesto corrente. Roteiro validation/US1-dev.md refeito para o caminho principal de harness real e conferido: restore locked, cenários 4/4, correções 7/7 e suíte 52/52. Exploração GUI adicional tem conferência parcial explícita. acceptance/US1.md separa estado técnico de execução e decisão humanas, com campos reservados em branco. Próxima task T017; fechamento PR-A e aceite humano pendentes. Nenhum código de produto/teste, dependência ou decisão humana alterado. Checkpoints abaixo são históricos.
 
 Atualização vigente — 2026-11-17, America/Sao_Paulo: T015 concluída. REV-US1-01 e REV-US1-02 resolvidos na revisão local sobre `aaf89ba8c232e69e8fcd1529e2437d6147836dd4`; fonte exata no manifesto corrente. Metadados de diretórios existentes não invalidam documentos; eventos estruturais e erros do watcher continuam monitorados. Limites são tratados em Open/Refresh com mensagem e recuperação segura. Suíte 52/52, replay dos probes T014 3/3 e teste antes intermitente 5/5 aprovados. Review renovado sem impeditivo conhecido no escopo dos dois achados. Próxima task T016; fechamento/aceite/aprovação humana pendentes. Os checkpoints abaixo são históricos, não o estado corrente.

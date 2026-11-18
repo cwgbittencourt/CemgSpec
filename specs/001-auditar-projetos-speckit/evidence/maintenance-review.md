@@ -14,7 +14,7 @@ Data: 2026-11-17, America/Sao_Paulo. Autorização: solicitação do usuário pa
 
 | Rodada | Comando | Resultado observado | Evidência |
 |---|---|---|---|
-| Sanitizador | `python -m unittest discover -s tools -p test_maintain_evidence.py -v` | Seis testes passaram: JSON válido/emails omitidos, hashes transitivos, deduplicação, histórico preservado, metadados sem alterar palavras comuns e detecção de adulteração | logs/maintenance-20261117/maintenance-tests-sanitized.txt |
+| Sanitizador | `python -m unittest discover -s tools -p test_maintain_evidence.py -v` | Seis testes passaram: JSON válido/emails omitidos, hashes transitivos, deduplicação, histórico preservado, metadados sem alterar palavras comuns e detecção de adulteração | logs/T017/maintenance-tests.txt |
 | Exportação | `python tools/maintain_evidence.py --apply` e `--check` | Transformação idempotente; segunda passagem sem mudanças pendentes | maintenance-manifest.json; maintenance-verification.json |
 | Regressão inicial | `dotnet test SpecAudit.slnx --no-restore` com logger TRX | 44/45; uma falha no teste existente UncataloguedMarkdownAndCodeDoNotInvalidateDocuments | logs/maintenance-20261117/suite.txt; results/ |
 | Investigação | Mesmo teste, cinco execuções isoladas com `--no-build --no-restore --filter FullyQualifiedName~UncataloguedMarkdownAndCodeDoNotInvalidateDocuments` | 5/5 passaram; falha inicial não reproduzida | logs/maintenance-20261117/watcher-retests/; watcher-retest-1.txt a watcher-retest-5.txt |

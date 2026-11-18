@@ -11,7 +11,7 @@ Executor: Codex, dotnet test/xUnit, harness Windows e Playwright/Edge.
 Data: 2026-11-17, America/Sao_Paulo (UTC−03:00); horários UTC exatos nos TRX e JSONs.
 Base: `139fd81db66943bbc2e167ccd13a75b4a317a2fc`.
 Versão candidata: base + `US1IntegratedHarnessTests.cs`, identificado em `T013-code-manifest.json`; fonte preservada em `T013-code/`.
-Ambiente: Windows 10.0.26300 x64, SDK 10.0.404, runtime 10.0.15; inventário em `logs/T013-20261117/environment.txt`. Sem nova dependência ou alteração no código de produção.
+Ambiente: Windows 10.0.26300 x64, SDK 10.0.404, runtime 10.0.15; inventário em `logs/T017/environment.txt`. Sem nova dependência ou alteração no código de produção.
 PR previsto: PR-A; predecessor técnico T012. Escopo: validação do carregamento/preservação/invalidação da US1 por APIs públicas em harness real, conforme contrato da task.
 
 ## Pré-condições e consistência
@@ -33,7 +33,7 @@ Diretório de todos os comandos: `__REPO_ROOT__`.
 | Harness rodada 1 | Filtro `FullyQualifiedName~US1IntegratedHarnessTests` | Selecionar pastas em diálogo nativo | 4 falhas: harness buscava título da janela, mas título fornecido fica em controle filho | FALHOU | logs/T013-20261117/harness.txt; harness-results/ |
 | Harness rodada 2 | Mesmo filtro, após corrigir descoberta de janela | Quatro cenários observados | 4 aprovados, zero falhos/ignorados | PASSOU | logs/T013-20261117/harness-r2.txt; harness-r2-results/ |
 | Regressão final | Comando completo abaixo | Suíte e quatro cenários aprovados | 45 aprovados (7 domínio + 14 Windows + 24 UI/harness), zero falhos/ignorados; exit 0 | PASSOU | logs/T013-20261117/final-suite.txt; final-results/ |
-| Dependências | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta NuGet aplicável | Exit 0, nenhum pacote vulnerável listado; nenhuma dependência adicionada | PASSOU | logs/v4-package-audit.json |
+| Dependências | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta NuGet aplicável | Exit 0, nenhum pacote vulnerável listado; nenhuma dependência adicionada | PASSOU | logs/T017/packages.json |
 
 Consulta de pacotes não audita integralmente SDK, Windows ou navegador e não garante ausência de todas as vulnerabilidades.
 

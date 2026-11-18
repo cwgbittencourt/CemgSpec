@@ -6,7 +6,7 @@ Constituição 4.0.0 aplicada por autorização explícita: origem permanece som
 
 Concluídas no escopo técnico: T001–T011 e migração T095–T098. T012 permanece pendente; existe infraestrutura inicial de monitoramento escrita antes da parada, sem conclusão dessa tarefa. T013–T094 pendentes; nenhuma User Story concluída/aceita, PR aprovado ou deploy.
 
-Resultado final: **32 testes aprovados, 0 falhos, 0 ignorados**, exit 0, em logs/v4-T011-complete-2.txt. Auditoria NuGet executada, sem achados retornados (logs/v4-package-audit.json). Código experimental de tokens/memória/worker nativo fora do build; arquivos/falhas arquivados com rastreabilidade. Nenhum experimento nativo foi executado após a emenda v4.
+Resultado final: **32 testes aprovados, 0 falhos, 0 ignorados**, exit 0, em logs/v4-T011-complete-2.txt. Auditoria NuGet executada, sem achados retornados (logs/T017/packages.json). Código experimental de tokens/memória/worker nativo fora do build; arquivos/falhas arquivados com rastreabilidade. Nenhum experimento nativo foi executado após a emenda v4.
 
 T011: seleção/carregamento de projetos, origem/destino, contextos separados, artefatos presentes/ausentes e página real no Edge. Limitação: diálogo nativo não operado de ponta a ponta pela IA; serviço testado com caminhos sintéticos por IFolderPicker controlado. Essa validação humana/integrada da US1 permanece futura.
 

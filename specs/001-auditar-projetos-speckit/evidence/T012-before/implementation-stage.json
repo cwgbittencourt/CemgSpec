@@ -36,7 +36,7 @@
     {
       "path": "evidence/isolation-v4-revalidation.md",
       "kind": "document",
-      "sha256": "d848039e4efbef130879b7c65adf7a1c3dbc48cbd52b0ffd9b0d5dfad4a72e1e"
+      "sha256": "8babf1bfc6bb1f53c7a3edc919c6d5286d2ce808c51632fce9d49f240496c49e"
     },
     {
       "path": "evidence/ReaderBoundary-v4-proof.md",
@@ -51,7 +51,7 @@
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "85c986c6d9bd927e4cc83fef7bc9c8a71f8b0b9d7ff63ce6b1239bb49485947f"
+      "sha256": "39f8faf651af261d779814a9d81db8d3fe3386cd06436e5180c09c631b20b482"
     },
     {
       "path": "evidence/logs/v4-T011-complete-2.txt",

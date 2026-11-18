@@ -2796,6 +2796,148 @@
         }
       ],
       "renamed": []
+    },
+    {
+      "base_commit": "3bff5005a061b746e826c26b14d7e0f5f6e96016",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [
+        {
+          "path": "evidence/maintenance-inventory.json",
+          "original_sha256": "edea582a05dad16e365cd31e292dab4160e16af251b0a104117bbb7352ad136a",
+          "sanitized_sha256": "4bff6c49eaf1be0a7239882ca51962f7ea425978269bfc76591df218fd10af4a"
+        },
+        {
+          "path": "evidence/maintenance-review.md",
+          "original_sha256": "8b33d249d6e232867eb2282ed02edca375456f4458599809e185b0abe5b0dcd1",
+          "sanitized_sha256": "3e9e81e3c59dfae21e4739af67ff866c2574bfe20925c87771cc8ea4a932bc45"
+        },
+        {
+          "path": "evidence/PR-A-validation.md",
+          "original_sha256": "01050dd0a8ed55aeb032bab8649df56a584b5a9f1246e55bc159b2865d026a35",
+          "sanitized_sha256": "a11b1e7e175d7625fd0134ca1da1a4a67131ad5793eb23c875dda74d26418a5b"
+        },
+        {
+          "path": "evidence/T017-product-execution.json",
+          "original_sha256": "3ea68b039e3ece37731532dcc255495c685c3e4a58d6bfdd3dc29a5b63452a20",
+          "sanitized_sha256": "5164785ebdc4fef4bd2420131d7cfbe43068d944ea2f01387b29575a675bb116"
+        },
+        {
+          "path": "evidence/T017-test-run.json",
+          "original_sha256": "ce20fc001d94885d683f859f45ed0383c0dbfcf263684223235185a13000482f",
+          "sanitized_sha256": "564521fba60f7b7b25a8d7df6177de8d92e98b2efcba3b867529203929af54f5"
+        },
+        {
+          "path": "evidence/logs/T017/environment.txt",
+          "original_sha256": "b646ced319e0b7b628978861d4850b43d2ef4e1342fd1a2d115a17f00a2014b5",
+          "sanitized_sha256": "99a39826709184853ed29c57947586f06bbb5a69fb796520b3c13b75545309b8"
+        },
+        {
+          "path": "evidence/logs/T017/full.txt",
+          "original_sha256": "8f8ffa5232b2790ff13e5750163bc35dbed5f8f86eb0f579be388a01b2f69e95",
+          "sanitized_sha256": "b609f394c370b8716a19e4abfe1c784f2452af54f6e2a3fd149271673f1253ac"
+        },
+        {
+          "path": "evidence/logs/T017/packages.json",
+          "original_sha256": "c587381ea510c20f22afcacc0aa0f430e81f465b840b76ae06740e9da24f5ba1",
+          "sanitized_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97"
+        },
+        {
+          "path": "evidence/logs/T017/results/T017_net10.0_20261117215430.trx",
+          "original_sha256": "85ce12bfcbcf348e985f31621283ce85a3949e24eea7949d84d739ca26dea13f",
+          "sanitized_sha256": "1c5d60670752c43995e42291b0b6b235bc88fda868e74658c98f8365545018ba"
+        },
+        {
+          "path": "evidence/logs/T017/results/T017_net10.0_20261117215433.trx",
+          "original_sha256": "ae1ee03485acca71d48c497eb1604d775364fb0c678038f2f98a59e26cacc426",
+          "sanitized_sha256": "a6dfa21532f6f0cbbef389626f4ed7ab5561ca024908f62e34981f4d5dfe94fd"
+        },
+        {
+          "path": "evidence/logs/T017/results/T017_net10.0_20261117215436.trx",
+          "original_sha256": "478a24188d9ad4e9a892c652fe341306e29c1828abc5fb1e04d392f695572f9d",
+          "sanitized_sha256": "0721a8fa57c7899c72d96f8e3dd3f895c702e690d2a0c4acb88645ad5b7e50dd"
+        },
+        {
+          "path": "verification/implementation-stage.json",
+          "original_sha256": "1047f4d854676c78e92f6e61228e80622bd4146bf6aacdf9bb457cba2432cf9d",
+          "sanitized_sha256": "a917ea16d40bab8705b04fc7bfee250039407f0d514450361954903e85ba7380"
+        }
+      ],
+      "consolidated": [
+        {
+          "removed": "evidence/logs/maintenance-20261117/maintenance-tests-sanitized.txt",
+          "canonical": "evidence/logs/T017/maintenance-tests.txt",
+          "original_sha256": "e04ee1f1eb235871ac934646661463dc06df7228b61d563f575a16a9abeada30",
+          "canonical_sha256": "e04ee1f1eb235871ac934646661463dc06df7228b61d563f575a16a9abeada30"
+        },
+        {
+          "removed": "evidence/logs/T017/restore.txt",
+          "canonical": "evidence/logs/T016/restore.txt",
+          "original_sha256": "5e19bb104f42ed353eea282196d0c4325f200da10f26c11c1abab304f6d26e3e",
+          "canonical_sha256": "5e19bb104f42ed353eea282196d0c4325f200da10f26c11c1abab304f6d26e3e"
+        }
+      ],
+      "renamed": []
+    },
+    {
+      "base_commit": "3bff5005a061b746e826c26b14d7e0f5f6e96016",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [
+        {
+          "path": "evidence/isolation-v4-revalidation.md",
+          "original_sha256": "d848039e4efbef130879b7c65adf7a1c3dbc48cbd52b0ffd9b0d5dfad4a72e1e",
+          "sanitized_sha256": "8babf1bfc6bb1f53c7a3edc919c6d5286d2ce808c51632fce9d49f240496c49e"
+        },
+        {
+          "path": "evidence/maintenance-inventory.json",
+          "original_sha256": "e60c19e29dfd6f42411251c86b95b3d281cbb3268d038f66cc7d1e9a528763a8",
+          "sanitized_sha256": "45fd4189a7aa6d9cc42e1e0dd38936d4564ffb2b48bc5dc06cbc4c9bc6bdaf63"
+        },
+        {
+          "path": "evidence/setup-validation.md",
+          "original_sha256": "b527287e86352858395a2ea182c00cdf18dc85255735d939f2a9413be4844bd3",
+          "sanitized_sha256": "6bc84b070cb86a428e807ecc2249eb6a842e32f3cf0cd10f2df6fc81ea5446e5"
+        },
+        {
+          "path": "evidence/US1-validation.md",
+          "original_sha256": "9ece78259126555b518c2baf015abf11b8e74ad61484d8d585f35e4a95b0b0b4",
+          "sanitized_sha256": "cc3bcbbc49462049901bc6b46032b75e362888951771e52bc84d8cde9cd66e19"
+        },
+        {
+          "path": "evidence/isolation-v2/checkpoint-v1-implementation-status.md",
+          "original_sha256": "61c8dcd1a2977fab666f2ff726031d4ec2c3d1bfa416658bea5637d627f42990",
+          "sanitized_sha256": "72cf1b0cbecb792da02ffeb15d05dd9f2e9b15aa71d45a6082f064fa54b0ecd6"
+        },
+        {
+          "path": "evidence/T012-before/implementation-stage.json",
+          "original_sha256": "82b84ef0e695b07ec885efe9a1f29353c9b917d664f4835029559e6a69c5387c",
+          "sanitized_sha256": "5c40d13b1ac7c5ee52176f8c3b062154fb0888c9aeffdc0b7e13d1bdfae393b9"
+        },
+        {
+          "path": "evidence/T012-before/implementation-status.md",
+          "original_sha256": "85c986c6d9bd927e4cc83fef7bc9c8a71f8b0b9d7ff63ce6b1239bb49485947f",
+          "sanitized_sha256": "39f8faf651af261d779814a9d81db8d3fe3386cd06436e5180c09c631b20b482"
+        },
+        {
+          "path": "verification/implementation-stage.json",
+          "original_sha256": "21ddac6a045a18927ddcc529fba286ccd23abc4658d0da84c525a15d97c46190",
+          "sanitized_sha256": "bccd5cc6a23d3912c9796ee9f8f04bed97b20e0f3f60e568406fb72e31e6c243"
+        }
+      ],
+      "consolidated": [
+        {
+          "removed": "evidence/logs/v4-package-audit.json",
+          "canonical": "evidence/logs/T017/packages.json",
+          "original_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97",
+          "canonical_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97"
+        },
+        {
+          "removed": "evidence/logs/T013-20261117/environment.txt",
+          "canonical": "evidence/logs/T017/environment.txt",
+          "original_sha256": "99a39826709184853ed29c57947586f06bbb5a69fb796520b3c13b75545309b8",
+          "canonical_sha256": "99a39826709184853ed29c57947586f06bbb5a69fb796520b3c13b75545309b8"
+        }
+      ],
+      "renamed": []
     }
   ]
 }

@@ -5,7 +5,7 @@
   "state": "BLOCKED",
   "checks": {
     "applicable_tests_passed": true,
-    "review_complete": true,
+    "review_complete": false,
     "blocking_findings_resolved": true,
     "safe_intermediate_state": true,
     "dependencies_satisfied": false,
@@ -13,7 +13,7 @@
     "ai_product_execution_observed": true
   },
   "blockers": [
-    "T017-T020 PR-A validation, review and closure remain pending.",
+    "T018-T020 full PR-A review and closure remain pending.",
     "DEV execution/acceptance and human PR approval not granted."
   ],
   "human_decisions": [],
@@ -21,7 +21,7 @@
     {
       "path": "tasks.md",
       "kind": "document",
-      "sha256": "ec217eccac8518eb7d443b7e4a51cf4da1fc941d11be33fd58a738ef860679e3"
+      "sha256": "86b08ae729a2d1fdbe12bfbcefa4faae5c83cfa37b236977c6a79c5a26f8e9f6"
     },
     {
       "path": "evidence/maintenance-code-manifest.json",
@@ -41,7 +41,7 @@
     {
       "path": "evidence/US1-validation.md",
       "kind": "document",
-      "sha256": "9ece78259126555b518c2baf015abf11b8e74ad61484d8d585f35e4a95b0b0b4"
+      "sha256": "cc3bcbbc49462049901bc6b46032b75e362888951771e52bc84d8cde9cd66e19"
     },
     {
       "path": "evidence/US1-review.md",
@@ -51,7 +51,7 @@
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "a3c5d73cba6145d5df85d59c550e654da24eacc5db551dc57a3cab9ca9209600"
+      "sha256": "37aa0f12ce54b7bbe20d7dbf417fea406dd2e6fa019cbfc81be91716847fb287"
     },
     {
       "path": "evidence/T015-findings.json",
@@ -64,29 +64,39 @@
       "sha256": "1ac4aef99bfb3c4f4ebf7ea606549cb3fddc974fd5a27c8b9682042304949ca2"
     },
     {
-      "path": "evidence/T016-test-run.json",
+      "path": "evidence/T017-test-run.json",
       "kind": "test-run",
-      "sha256": "0f67cded82828080fbe33977d137ebf2bc6d36ddf684eefb43594d244af24b64"
+      "sha256": "564521fba60f7b7b25a8d7df6177de8d92e98b2efcba3b867529203929af54f5"
     },
     {
-      "path": "evidence/T016-product-execution.json",
+      "path": "evidence/T017-product-execution.json",
       "kind": "product-execution",
-      "sha256": "52de9ed971ab7d9350b710cca29c43dec9bcf3f2265a055a497e88bdc3ada052"
+      "sha256": "5164785ebdc4fef4bd2420131d7cfbe43068d944ea2f01387b29575a675bb116"
     },
     {
       "path": "evidence/maintenance-manifest.json",
       "kind": "document",
-      "sha256": "9b74a92b68b149e7a50015b4b87ebfb4de98aa080fcd9f8470d9b4a09b7e986c"
+      "sha256": "cda26f449c0b32af94feb0e7edb60987dc62bbc3ac8f1f5f36b1a9b339e77739"
     },
     {
       "path": "evidence/maintenance-inventory.json",
       "kind": "document",
-      "sha256": "edea582a05dad16e365cd31e292dab4160e16af251b0a104117bbb7352ad136a"
+      "sha256": "fb6fa20774c8c44f85ce9e238ab09120c1da2db394ffc3ed25b400f0ce24b2d6"
     },
     {
       "path": "evidence/README.md",
       "kind": "document",
-      "sha256": "93aac327fbc0504215c9d5ccfd2bff57dbbfb790b90c44968cca2f9e90d9fa81"
+      "sha256": "23a815040cd73f8282064b4acd95982864f736dbbbfe848628a7a0f19c867523"
+    },
+    {
+      "path": "evidence/PR-A-validation.md",
+      "kind": "document",
+      "sha256": "a11b1e7e175d7625fd0134ca1da1a4a67131ad5793eb23c875dda74d26418a5b"
+    },
+    {
+      "path": "evidence/T017-verification.json",
+      "kind": "document",
+      "sha256": "ef76fb0fc1abc01bea00316c40820ddc765f10ed8569a20d8d438e8cc857db16"
     }
   ],
   "tasks_completed": [
@@ -109,9 +119,10 @@
     "T013",
     "T014",
     "T015",
-    "T016"
+    "T016",
+    "T017"
   ],
-  "next_task": "T017",
+  "next_task": "T018",
   "work_stopped_at_user_request": false,
   "test_summary": {
     "passed": 52,
@@ -122,5 +133,5 @@
     "note": "Filtered cases included in full suite; not cumulative."
   },
   "manuals_state": "US1 primary harness guide CONFERIDO_PELA_IA; additional loaded-GUI exploration CONFERENCIA_PARCIAL; DEV execution/decision pending.",
-  "review_outcome": "T016_GUIDE_CHECKED_HUMAN_DECISIONS_PENDING"
+  "review_outcome": "T017_VALIDATION_PASSED_FULL_PR_REVIEW_PENDING"
 }

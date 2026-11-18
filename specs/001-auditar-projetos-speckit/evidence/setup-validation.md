@@ -13,7 +13,7 @@ Referência de integração dos runners: https://xunit.net/docs/nuget-packages-v
 Diretório: raiz de desenvolvimento do SpecAudit.
 - `dotnet restore SpecAudit.slnx --verbosity minimal`: exit 0; [saída](logs/setup-restore.txt).
 - `dotnet test SpecAudit.slnx --no-restore --logger trx --results-directory specs/001-auditar-projetos-speckit/evidence/logs/setup-tests`: exit 0; três testes aprovados (runtime estável, Windows x64, inicialização do Playwright); [saída](logs/setup-tests.txt) e TRX no diretório setup-tests.
-- `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --format json`: exit 0, nenhum achado retornado; [JSON](logs/v4-package-audit.json).
+- `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --format json`: exit 0, nenhum achado retornado; [JSON](logs/T017/packages.json).
 
 Esses três testes verificam pré-requisitos de execução; não exercitam histórias de usuário nem iniciam navegador. Nenhuma alegação de segurança integral, proteção Windows ou produto funcional.
 Sem instalação de ferramenta, elevação de privilégio ou alteração de solução de terceiros. Restore apenas das dependências próprias do desenvolvimento.

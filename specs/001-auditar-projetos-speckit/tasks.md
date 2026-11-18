@@ -64,7 +64,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T014 [US1] Revisar diff, critérios, contratos, segurança e resultados da versão de US1 em evidence/US1-review.md, declarando autorrevisão.
 - [x] T015 [US1] Resolver achados de US1 e repetir checks afetados em evidence/US1-validation.md e evidence/US1-review.md; se nenhum, registrar referência à revisão real.
 - [x] T016 [US1] Consolidar e conferir roteiro reproduzível em validation/US1-dev.md e registrar estado técnico em acceptance/US1.md, mantendo decisão do DEV pendente.
-- [ ] T017 [US1] Executar a verificação do incremento PR-A e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-A-validation.md.
+- [x] T017 [US1] Executar a verificação do incremento PR-A e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-A-validation.md.
 - [ ] T018 [US1] Revisar o incremento completo PR-A em evidence/PR-A-review.md com diff incremental, limites e achados por arquivo/linha.
 - [ ] T019 [US1] Resolver e revalidar achados do PR-A em evidence/PR-A-validation.md e evidence/PR-A-review.md; registrar nenhum achado somente com review real.
 - [ ] T020 [US1] Preparar verification/prs/PR-A.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.

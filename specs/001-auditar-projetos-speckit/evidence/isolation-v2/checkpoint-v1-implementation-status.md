@@ -16,7 +16,7 @@ Solicitação vigente autoriza implementação e testes; substitui a autorizaç�
 ## Resultado da execução pela IA
 
 Suíte completa `dotnet test SpecAudit.slnx --no-restore --logger trx --results-directory specs/001-auditar-projetos-speckit/evidence/logs/implementation-checkpoint`: exit 1; **26 aprovados, 1 falho, 0 ignorados**. A falha de segurança permanece no teste; não reclassificada como impossibilidade ou aprovação.
-[Saída](logs/implementation-checkpoint.txt), [autorrevisão](implementation-review.md), [auditoria de pacotes](logs/v4-package-audit.json).
+[Saída](logs/implementation-checkpoint.txt), [autorrevisão](implementation-review.md), [auditoria de pacotes](logs/T017/packages.json).
 
 ## Entrega manual
 

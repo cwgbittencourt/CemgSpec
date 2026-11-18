@@ -15,7 +15,7 @@ Autorrevisão pela IA, 2026-11-16; não é revisão independente, aprovação de
 
 Raiz de desenvolvimento: `dotnet test SpecAudit.slnx --no-restore --logger trx --results-directory specs/001-auditar-projetos-speckit/evidence/logs/v4-T011-complete-2`.
 Resultado: exit 0; 32 aprovados, 0 falhos, 0 ignorados. Logs e TRX preservados.
-Auditoria: `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --format json`, exit 0; logs/v4-package-audit.json não retornou achados. Não certifica ausência de toda vulnerabilidade.
+Auditoria: `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --format json`, exit 0; logs/T017/packages.json não retornou achados. Não certifica ausência de toda vulnerabilidade.
 
 Compilação anterior da migração: zero avisos/erros. Falhas intermediárias preservadas: colisão do nome Projects com componente, asserção do logo e codificação de título. Corrigidas; leitura/escrita de fonte agora usa UTF-8 explícito. Nenhum achado impeditivo conhecido nesse escopo de migração/seleção; histórias/integrações restantes não estão validadas.
 
