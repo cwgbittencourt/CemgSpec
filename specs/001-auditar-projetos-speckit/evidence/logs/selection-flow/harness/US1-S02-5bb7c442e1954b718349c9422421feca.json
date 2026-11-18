@@ -1,0 +1,16 @@
+{
+  "scenario": "US1-S02",
+  "timestamp": "2026-11-18T02:01:42.3604597+00:00",
+  "result": "PASSOU",
+  "observed": {
+    "Root": "__TEMP_ROOT__\\SpecAudit-V1-9c3565f4741f40569d23112e12222cdc",
+    "rejected": [
+      "__TEMP_ROOT__\\SpecAudit-V1-9c3565f4741f40569d23112e12222cdc\\origin",
+      "__TEMP_ROOT__\\SpecAudit-V1-9c3565f4741f40569d23112e12222cdc\\origin\\specs\\001-demo",
+      "__TEMP_ROOT__\\SpecAudit-V1-9c3565f4741f40569d23112e12222cdc\\origin-alias"
+    ],
+    "originUnchanged": true,
+    "projects": 0,
+    "nativePicker": true
+  }
+}

@@ -50,3 +50,13 @@ Estado da revisão técnica: CONCLUIDA, modalidade AUTORREVISAO em2026-11-17, Am
 Red5 antes da correção, green5, full57, manutenção6 e probes2 aprovados. Falhas anteriores preservadas. Revisão renovada do diff de correção, integração com baseline PR-A, testes e controles readonly não identificou outro impeditivo no escopo examinado. Mudança restrita a dois arquivos do produto e dois testes permanentes, sem dependências novas. Manifesto/diff e logs permitem conferir a versão; hash não autentica execução humana.
 
 A correção dos dois achados está tecnicamente validada. Não há impeditivos conhecidos abertos nesta revisão; prontidão para integração normal permanece bloqueada por T020 e decisões humanas. Limites anteriores mantidos: não é prova de todo padrão de processo descendente, passeio completo GUI, agentes ou Save futuros. Próxima T020; nenhum PR/commit/push/merge/aceite concedido.
+
+
+## Rodada vigente — falha relatada no teste manual de projetos
+
+Fonte `sha256:f6e296be248c77cb91dd07dbd4236c955755ff03ea63fd159278112bac008d58`; correção local posterior ao commit0fa5428. Reabertura pela identidade da origem reutiliza contexto; fluxo nativo concorrente recusado; prompts1/2 e orientação da página esclarecidos. Red2 antes da correção, regressão59/59 depois, zero falhas/ignorados. Primeira tentativa de build bloqueada pelo executável aberto; usuário encerrou a própria instância e repetição passou. Detalhes em [review da correção](manual-project-opening-review.json), [execução](manual-project-opening-test-run.json) e [produto](manual-project-opening-product.json). Modalidade AUTORREVISAO; sem novo impeditivo conhecido no escopo, reteste manual/aceite humano pendentes. Seções T019 anteriores são históricas; nenhum resultado humano concedido.
+
+
+## Estado vigente — fluxo explícito de seleção
+
+Fonte `sha256:89a4535be36e2b206ac62881eeb8f7eabbcc0346dd26a2f16c0e060e1eb1f70f`;61 testes aprovados, mas demonstração integral navegador+seletor nativo exigida pelo usuário permanece BLOQUEADA por falha de inicialização da ferramenta desktop. [Validação e limites](selection-flow-validation.md). Rodadas anteriores são históricas; não declarar prontidão por61 testes passarem.

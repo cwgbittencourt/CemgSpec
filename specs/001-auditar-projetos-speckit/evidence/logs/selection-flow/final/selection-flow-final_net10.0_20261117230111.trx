@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c91a03f1-425d-4b4f-9ccc-782651830ba4" name="__USER__@TRABALHO 2026-11-17 23:01:05" runUser="TRABALHO\__USER__" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-17T23:01:05.3813982-03:00" queuing="2026-11-17T23:01:05.3813986-03:00" start="2026-11-17T23:01:03.9407476-03:00" finish="2026-11-17T23:01:11.8877266-03:00" />
+  <TestSettings name="default" id="ae8d2987-067a-4291-938e-707b77276766">
+    <Deployment runDeploymentRoot="runner_2026-11-17_23_01_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0f6c800c-9aa2-45e2-ae99-6636fe58ced0" testId="9d964ef8-04fc-6823-0c7f-2f67ae542898" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutAntiforgery" computerName="__MACHINE__" duration="00:00:00.0229060" startTime="2026-11-17T23:01:06.3758516-03:00" endTime="2026-11-17T23:01:06.4007754-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f6c800c-9aa2-45e2-ae99-6636fe58ced0" />
+    <UnitTestResult executionId="a5a37583-5175-471a-90ef-a7622cfd4c90" testId="e43b2357-ecc5-57e9-8e01-9971285462c4" testName="SpecAudit.Ui.Tests.ProjectCorrectionTests.OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection(dimension: &quot;evidence-graph&quot;)" computerName="__MACHINE__" duration="00:00:01.0925173" startTime="2026-11-17T23:01:08.7690091-03:00" endTime="2026-11-17T23:01:09.8613718-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5a37583-5175-471a-90ef-a7622cfd4c90" />
+    <UnitTestResult executionId="f37f81ec-a4e4-408f-9f1f-3694b8d60376" testId="4fb7c5a7-cc3f-a444-9832-62fb63da48a8" testName="SpecAudit.Ui.Tests.ProjectPageBrowserTests.RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors" computerName="__MACHINE__" duration="00:00:04.1013369" startTime="2026-11-17T23:01:06.3588572-03:00" endTime="2026-11-17T23:01:10.4608951-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f37f81ec-a4e4-408f-9f1f-3694b8d60376" />
+    <UnitTestResult executionId="682c1753-21cf-421f-95ae-a45ccdd883dc" testId="3719aefa-5561-cc41-88c5-40b3f6decbfe" testName="SpecAudit.Ui.Tests.ExplicitSelectionFlowTests.RejectedDestinationRetainsActualSelectionsAndRetryLoadsSeparateContexts" computerName="__MACHINE__" duration="00:00:00.2694245" startTime="2026-11-17T23:01:04.9065381-03:00" endTime="2026-11-17T23:01:05.1760073-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="682c1753-21cf-421f-95ae-a45ccdd883dc" />
+    <UnitTestResult executionId="b1ed97f1-6840-4a5a-9762-9e7cef8fa564" testId="84e81c74-9e89-ef14-637a-d7735450cfb4" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.ContextAndExistingHistoryStaySeparatedWhenChangingOutput" computerName="__MACHINE__" duration="00:00:00.1243467" startTime="2026-11-17T23:01:06.1487317-03:00" endTime="2026-11-17T23:01:06.2729867-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1ed97f1-6840-4a5a-9762-9e7cef8fa564" />
+    <UnitTestResult executionId="9bd5add7-7436-4352-adc5-bba15e23e9ce" testId="41cc3e6a-1247-28c7-37d3-dd561518345c" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.DisposingServiceCancelsPendingWorkWithoutSaving" computerName="__MACHINE__" duration="00:00:00.1496192" startTime="2026-11-17T23:01:04.9996303-03:00" endTime="2026-11-17T23:01:05.1419028-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bd5add7-7436-4352-adc5-bba15e23e9ce" />
+    <UnitTestResult executionId="d91aae37-aa1c-46b8-ae16-c833103d0e43" testId="8fa233be-c93a-43a3-001d-2cdf5e3b8cf9" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.SwitchingProjectCancelsOnlyItsOwnWorkWithoutSaving" computerName="__MACHINE__" duration="00:00:00.2949749" startTime="2026-11-17T23:01:05.1427071-03:00" endTime="2026-11-17T23:01:05.4369839-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d91aae37-aa1c-46b8-ae16-c833103d0e43" />
+    <UnitTestResult executionId="728a5571-51fe-4757-96fa-b1a3e1654a71" testId="27c9d600-ff48-5b0e-da29-f639b50ac5f3" testName="SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel" computerName="__MACHINE__" duration="00:00:00.0276653" startTime="2026-11-17T23:01:04.9583949-03:00" endTime="2026-11-17T23:01:04.9884973-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="728a5571-51fe-4757-96fa-b1a3e1654a71" />
+    <UnitTestResult executionId="ebe11845-0242-4836-867b-20cddebad2ac" testId="0d6434f6-e2d7-ede5-270e-57cd5e4c9ec2" testName="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S04ExternalEditDuringDocumentaryWorkInvalidatesVersionAndPreservesEdit" computerName="__MACHINE__" duration="00:00:00.4763425" startTime="2026-11-17T23:01:07.5100763-03:00" endTime="2026-11-17T23:01:08.0342296-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ebe11845-0242-4836-867b-20cddebad2ac" />
+    <UnitTestResult executionId="92812863-f00d-4ea0-a54a-7976668d8d4a" testId="07dda748-973a-60d2-4110-42f583863f8f" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.ExternalDocumentEditInvalidatesSnapshotAndRefreshPreservesDocumentIdentity" computerName="__MACHINE__" duration="00:00:00.0928646" startTime="2026-11-17T23:01:06.6669756-03:00" endTime="2026-11-17T23:01:06.7599605-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92812863-f00d-4ea0-a54a-7976668d8d4a" />
+    <UnitTestResult executionId="e9f2f3d8-1b76-4176-b58b-ae2bbebe8e7d" testId="b3665d84-bd03-5497-ab58-82017a034182" testName="SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.ReopeningSameOriginSelectsExistingContextWithoutDuplicateAndKeepsOtherProject" computerName="__MACHINE__" duration="00:00:00.2550708" startTime="2026-11-17T23:01:04.9995016-03:00" endTime="2026-11-17T23:01:05.2436287-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e9f2f3d8-1b76-4176-b58b-ae2bbebe8e7d" />
+    <UnitTestResult executionId="f92721d3-2d67-4437-b25b-22a277bde61c" testId="a1487ea8-9d8e-489c-6067-5a39a35c04c7" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.DocumentaryDirectoriesCreatedAfterOpeningAreObserved" computerName="__MACHINE__" duration="00:00:00.0450537" startTime="2026-11-17T23:01:06.5398455-03:00" endTime="2026-11-17T23:01:06.5845579-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f92721d3-2d67-4437-b25b-22a277bde61c" />
+    <UnitTestResult executionId="65da3831-a50f-467e-b998-b7bc8dffc877" testId="c868d4f5-d984-11e5-2953-42510c64d851" testName="SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: &quot;spec.md&quot;)" computerName="__MACHINE__" duration="00:00:00.2183973" startTime="2026-11-17T23:01:05.6241408-03:00" endTime="2026-11-17T23:01:05.8448733-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65da3831-a50f-467e-b998-b7bc8dffc877" />
+    <UnitTestResult executionId="897a7206-8864-423b-8806-a1a795294e08" testId="4fecc36a-fdcf-c2ae-71de-1cf3818e4584" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies" computerName="__MACHINE__" duration="00:00:00.0168405" startTime="2026-11-17T23:01:06.4372526-03:00" endTime="2026-11-17T23:01:06.4544333-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="897a7206-8864-423b-8806-a1a795294e08" />
+    <UnitTestResult executionId="bbd15d52-337f-42ce-aaed-ea168a473083" testId="049064c0-b543-2ca2-adf6-694dd1140528" testName="SpecAudit.Ui.Tests.HostBaselineTests.BrowserAutomationRuntimeCanInitialize" computerName="__MACHINE__" duration="00:00:00.9316489" startTime="2026-11-17T23:01:04.9617007-03:00" endTime="2026-11-17T23:01:05.8976434-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbd15d52-337f-42ce-aaed-ea168a473083" />
+    <UnitTestResult executionId="981c597b-381e-4905-910e-0af818f5ab20" testId="8eb4620a-adb0-84a1-b8b2-9ca6167d2f56" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments" computerName="__MACHINE__" duration="00:00:00.6219308" startTime="2026-11-17T23:01:05.4374033-03:00" endTime="2026-11-17T23:01:06.0632835-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="981c597b-381e-4905-910e-0af818f5ab20" />
+    <UnitTestResult executionId="ca3572a9-7e58-45f1-885d-4093665e9507" testId="3ea53cb1-e1d5-7d1b-5dee-467b5a1e6ea2" testName="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S03NativeDestinationChangePreservesBothContextsAndHistory" computerName="__MACHINE__" duration="00:00:00.9819333" startTime="2026-11-17T23:01:06.4604949-03:00" endTime="2026-11-17T23:01:07.5097719-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ca3572a9-7e58-45f1-885d-4093665e9507" />
+    <UnitTestResult executionId="eccd0ad8-82c3-4caf-b87f-057e3134885e" testId="407a09a0-c14b-c522-9b36-bc8b8e9ff44f" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities" computerName="__MACHINE__" duration="00:00:00.2006014" startTime="2026-11-17T23:01:06.2750974-03:00" endTime="2026-11-17T23:01:06.4739797-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eccd0ad8-82c3-4caf-b87f-057e3134885e" />
+    <UnitTestResult executionId="d9eecabc-9d42-4e9d-bb6a-8653861bf162" testId="2d98704c-4e40-e30e-1d8e-d0ddba0f845c" testName="SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading" computerName="__MACHINE__" duration="00:00:01.3353704" startTime="2026-11-17T23:01:10.4612011-03:00" endTime="2026-11-17T23:01:11.7989243-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9eecabc-9d42-4e9d-bb6a-8653861bf162">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   1</Message>
+          <StackTrace>   at SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectPageBrowserTests.cs:line 39&#xD;
+   at SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectPageBrowserTests.cs:line 39&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3bd011db-c91a-444f-9125-8895df8a3e8b" testId="84fd61ee-5c08-0138-7341-be5f912069d4" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.SelectedFoldersLoadTwoFeaturesAndCancelDoesNotCreateProject" computerName="__MACHINE__" duration="00:00:00.0850814" startTime="2026-11-17T23:01:06.0635473-03:00" endTime="2026-11-17T23:01:06.1485245-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3bd011db-c91a-444f-9125-8895df8a3e8b" />
+    <UnitTestResult executionId="099c3d8e-d240-490f-a8d9-fe0810bbe9e8" testId="ffe2db4a-d1b1-bc24-8bea-de4fe988f1a0" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost" computerName="__MACHINE__" duration="00:00:00.0060834" startTime="2026-11-17T23:01:06.4307313-03:00" endTime="2026-11-17T23:01:06.4370355-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="099c3d8e-d240-490f-a8d9-fe0810bbe9e8" />
+    <UnitTestResult executionId="d62083f1-026a-48db-a737-aaa36f29bb93" testId="2823c832-0273-700c-26aa-fc8f57b46ad5" testName="SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: &quot;plan.md&quot;)" computerName="__MACHINE__" duration="00:00:00.4288474" startTime="2026-11-17T23:01:04.8884393-03:00" endTime="2026-11-17T23:01:05.3172053-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d62083f1-026a-48db-a737-aaa36f29bb93" />
+    <UnitTestResult executionId="da5f3b68-4ee6-451a-a096-c3399041e3ce" testId="986079b8-8b0a-c48d-86ca-c8af276b3104" testName="SpecAudit.Ui.Tests.ProjectCorrectionTests.RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry(dimension: &quot;document-bytes&quot;)" computerName="__MACHINE__" duration="00:00:01.3755291" startTime="2026-11-17T23:01:04.9502269-03:00" endTime="2026-11-17T23:01:06.3270631-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da5f3b68-4ee6-451a-a096-c3399041e3ce" />
+    <UnitTestResult executionId="a3363610-5f02-48c5-b58a-8c191f676912" testId="7797ab09-ffd2-7249-9e08-3ca20a39a238" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin" computerName="__MACHINE__" duration="00:00:00.0053079" startTime="2026-11-17T23:01:06.4250449-03:00" endTime="2026-11-17T23:01:06.4305319-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a3363610-5f02-48c5-b58a-8c191f676912" />
+    <UnitTestResult executionId="b5aa1e23-f7dc-420a-b093-69b21f52f054" testId="5ee0b881-5e3a-e4ae-fe8a-d4ceed41273b" testName="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S01NativeSelectionLoadsFeaturesAndMissingArtifactsWithoutWrites" computerName="__MACHINE__" duration="00:00:00.3306809" startTime="2026-11-17T23:01:06.1284572-03:00" endTime="2026-11-17T23:01:06.4594117-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5aa1e23-f7dc-420a-b093-69b21f52f054" />
+    <UnitTestResult executionId="0a4fe3e9-d468-4ebf-9cb3-0a42204fbbb0" testId="6ceaea19-35cc-3345-622a-f30239d43263" testName="SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: &quot;specs/001-demo&quot;)" computerName="__MACHINE__" duration="00:00:00.4881408" startTime="2026-11-17T23:01:10.8397733-03:00" endTime="2026-11-17T23:01:11.3318615-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a4fe3e9-d468-4ebf-9cb3-0a42204fbbb0" />
+    <UnitTestResult executionId="55190ee1-fdc7-4e65-93e1-80ecc7dc2882" testId="a5d3a045-1777-9bc4-431e-9e089d7c6266" testName="SpecAudit.Ui.Tests.ProjectCorrectionTests.RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry(dimension: &quot;evidence-graph&quot;)" computerName="__MACHINE__" duration="00:00:01.5747118" startTime="2026-11-17T23:01:06.3274759-03:00" endTime="2026-11-17T23:01:07.9149060-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="55190ee1-fdc7-4e65-93e1-80ecc7dc2882" />
+    <UnitTestResult executionId="47cb26ee-8029-406c-95e1-aaca2b764f4d" testId="c96d3743-cc72-eab2-a0fc-feb78baefc71" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.InternalAndJunctionDestinationsAreRejectedWithoutWritingOrigin" computerName="__MACHINE__" duration="00:00:00.0591551" startTime="2026-11-17T23:01:06.8673677-03:00" endTime="2026-11-17T23:01:06.9263653-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="47cb26ee-8029-406c-95e1-aaca2b764f4d" />
+    <UnitTestResult executionId="8f8668a2-f5b7-478c-aa12-84fecf92d86e" testId="e483e156-7e14-70f9-d521-8b37b8f47a14" testName="SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: &quot;.specify/memory&quot;)" computerName="__MACHINE__" duration="00:00:00.4707873" startTime="2026-11-17T23:01:09.8627802-03:00" endTime="2026-11-17T23:01:10.3343065-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f8668a2-f5b7-478c-aa12-84fecf92d86e" />
+    <UnitTestResult executionId="eb52a889-5655-4401-a0fc-3136461845c4" testId="25be81c8-9189-372b-e4ed-1c25c11d686a" testName="SpecAudit.Ui.Tests.ProjectCorrectionTests.OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection(dimension: &quot;document-bytes&quot;)" computerName="__MACHINE__" duration="00:00:00.8539436" startTime="2026-11-17T23:01:07.9158332-03:00" endTime="2026-11-17T23:01:08.7687678-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb52a889-5655-4401-a0fc-3136461845c4" />
+    <UnitTestResult executionId="bb24aa1d-6b2f-4b35-8571-9cc4c685917a" testId="a1345e87-96db-945a-f8ff-f72b24e0b7fa" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.RemovingDocumentDirectoryWithDotInNameInvalidatesCatalog" computerName="__MACHINE__" duration="00:00:00.0819933" startTime="2026-11-17T23:01:06.5848091-03:00" endTime="2026-11-17T23:01:06.6667282-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bb24aa1d-6b2f-4b35-8571-9cc4c685917a" />
+    <UnitTestResult executionId="c0f018ff-831e-440b-a0ca-f49eead55d92" testId="568b844a-4dec-0578-67ff-e96f0d3d8a6b" testName="SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: &quot;specs/001-demo/evidence/round.1&quot;)" computerName="__MACHINE__" duration="00:00:00.5044274" startTime="2026-11-17T23:01:10.3345027-03:00" endTime="2026-11-17T23:01:10.8395855-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0f018ff-831e-440b-a0ca-f49eead55d92" />
+    <UnitTestResult executionId="69c8f8e7-3594-4f48-bad3-b3d711dc8d84" testId="d8a81849-87d5-d5b0-0161-73c8eac4c3bc" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin" computerName="__MACHINE__" duration="00:00:00.0179217" startTime="2026-11-17T23:01:06.4010900-03:00" endTime="2026-11-17T23:01:06.4192199-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="69c8f8e7-3594-4f48-bad3-b3d711dc8d84" />
+    <UnitTestResult executionId="5173de7c-8960-4cbe-8e9e-1d699f83594c" testId="86223eb5-4d02-8529-100d-dbbd286cd9fa" testName="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation" computerName="__MACHINE__" duration="00:00:00.0051507" startTime="2026-11-17T23:01:06.4194244-03:00" endTime="2026-11-17T23:01:06.4248060-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5173de7c-8960-4cbe-8e9e-1d699f83594c" />
+    <UnitTestResult executionId="8f7d7122-1729-4ca2-9fed-0d6841d9ad37" testId="aacc0796-c3a5-4cbb-81b2-bede68f72d16" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.RenamingRecognizedDocumentOutOfCatalogInvalidatesVersion" computerName="__MACHINE__" duration="00:00:00.0652383" startTime="2026-11-17T23:01:06.4742142-03:00" endTime="2026-11-17T23:01:06.5395726-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f7d7122-1729-4ca2-9fed-0d6841d9ad37" />
+    <UnitTestResult executionId="b806f152-7615-498b-8f27-26e55bc13817" testId="207a4d9c-8155-2993-4a24-47c238732603" testName="SpecAudit.Ui.Tests.ProjectSelectionTests.CapturedVersionIsCancelledByEditAndCannotBeReusedAfterRefresh" computerName="__MACHINE__" duration="00:00:00.1066403" startTime="2026-11-17T23:01:06.7602061-03:00" endTime="2026-11-17T23:01:06.8670813-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b806f152-7615-498b-8f27-26e55bc13817" />
+    <UnitTestResult executionId="c1f30ff0-ef6b-4d63-b664-e68ff5666b51" testId="291e6579-6877-0edc-e8ad-11fed77af41e" testName="SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: &quot;tasks.md&quot;)" computerName="__MACHINE__" duration="00:00:00.3064568" startTime="2026-11-17T23:01:05.3458445-03:00" endTime="2026-11-17T23:01:05.6238254-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1f30ff0-ef6b-4d63-b664-e68ff5666b51" />
+    <UnitTestResult executionId="54cebf39-4b90-496e-8020-8c29ecb012f0" testId="c8a901ec-42e3-f53f-f684-f6381a7065ee" testName="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S02NativeSelectionsRejectOriginDescendantAndJunction" computerName="__MACHINE__" duration="00:00:01.2508526" startTime="2026-11-17T23:01:04.8734435-03:00" endTime="2026-11-17T23:01:06.1281677-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54cebf39-4b90-496e-8020-8c29ecb012f0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectCorrectionTests.RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry(dimension: &quot;document-bytes&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="986079b8-8b0a-c48d-86ca-c8af276b3104">
+      <Execution id="da5f3b68-4ee6-451a-a096-c3399041e3ce" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectCorrectionTests" name="RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.RenamingRecognizedDocumentOutOfCatalogInvalidatesVersion" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="aacc0796-c3a5-4cbb-81b2-bede68f72d16">
+      <Execution id="8f7d7122-1729-4ca2-9fed-0d6841d9ad37" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="RenamingRecognizedDocumentOutOfCatalogInvalidatesVersion" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="d8a81849-87d5-d5b0-0161-73c8eac4c3bc">
+      <Execution id="69c8f8e7-3594-4f48-bad3-b3d711dc8d84" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsMutationWithoutOrigin" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectCorrectionTests.OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection(dimension: &quot;evidence-graph&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="e43b2357-ecc5-57e9-8e01-9971285462c4">
+      <Execution id="a5a37583-5175-471a-90ef-a7622cfd4c90" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectCorrectionTests" name="OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: &quot;.specify/memory&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="e483e156-7e14-70f9-d521-8b37b8f47a14">
+      <Execution id="8f8668a2-f5b7-478c-aa12-84fecf92d86e" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectCorrectionTests" name="DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S01NativeSelectionLoadsFeaturesAndMissingArtifactsWithoutWrites" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="5ee0b881-5e3a-e4ae-fe8a-d4ceed41273b">
+      <Execution id="b5aa1e23-f7dc-420a-b093-69b21f52f054" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.US1IntegratedHarnessTests" name="S01NativeSelectionLoadsFeaturesAndMissingArtifactsWithoutWrites" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectCorrectionTests.RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry(dimension: &quot;evidence-graph&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="a5d3a045-1777-9bc4-431e-9e089d7c6266">
+      <Execution id="55190ee1-fdc7-4e65-93e1-80ecc7dc2882" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectCorrectionTests" name="RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.CapturedVersionIsCancelledByEditAndCannotBeReusedAfterRefresh" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="207a4d9c-8155-2993-4a24-47c238732603">
+      <Execution id="b806f152-7615-498b-8f27-26e55bc13817" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="CapturedVersionIsCancelledByEditAndCannotBeReusedAfterRefresh" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.SelectedFoldersLoadTwoFeaturesAndCancelDoesNotCreateProject" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="84fd61ee-5c08-0138-7341-be5f912069d4">
+      <Execution id="3bd011db-c91a-444f-9125-8895df8a3e8b" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="SelectedFoldersLoadTwoFeaturesAndCancelDoesNotCreateProject" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="2d98704c-4e40-e30e-1d8e-d0ddba0f845c">
+      <Execution id="d9eecabc-9d42-4e9d-bb6a-8653861bf162" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectPageBrowserTests" name="BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: &quot;specs/001-demo/evidence/round.1&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="568b844a-4dec-0578-67ff-e96f0d3d8a6b">
+      <Execution id="c0f018ff-831e-440b-a0ca-f49eead55d92" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectCorrectionTests" name="DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.ReopeningSameOriginSelectsExistingContextWithoutDuplicateAndKeepsOtherProject" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="b3665d84-bd03-5497-ab58-82017a034182">
+      <Execution id="e9f2f3d8-1b76-4176-b58b-ae2bbebe8e7d" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectOpeningRegressionTests" name="ReopeningSameOriginSelectsExistingContextWithoutDuplicateAndKeepsOtherProject" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="7797ab09-ffd2-7249-9e08-3ca20a39a238">
+      <Execution id="a3363610-5f02-48c5-b58a-8c191f676912" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsForeignOrigin" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: &quot;specs/001-demo&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="6ceaea19-35cc-3345-622a-f30239d43263">
+      <Execution id="0a4fe3e9-d468-4ebf-9cb3-0a42204fbbb0" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectCorrectionTests" name="DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectPageBrowserTests.RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="4fb7c5a7-cc3f-a444-9832-62fb63da48a8">
+      <Execution id="f37f81ec-a4e4-408f-9f1f-3694b8d60376" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectPageBrowserTests" name="RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.RemovingDocumentDirectoryWithDotInNameInvalidatesCatalog" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="a1345e87-96db-945a-f8ff-f72b24e0b7fa">
+      <Execution id="bb24aa1d-6b2f-4b35-8571-9cc4c685917a" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="RemovingDocumentDirectoryWithDotInNameInvalidatesCatalog" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="86223eb5-4d02-8529-100d-dbbd286cd9fa">
+      <Execution id="5173de7c-8960-4cbe-8e9e-1d699f83594c" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsUnissuedSessionOnMutation" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S04ExternalEditDuringDocumentaryWorkInvalidatesVersionAndPreservesEdit" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="0d6434f6-e2d7-ede5-270e-57cd5e4c9ec2">
+      <Execution id="ebe11845-0242-4836-867b-20cddebad2ac" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.US1IntegratedHarnessTests" name="S04ExternalEditDuringDocumentaryWorkInvalidatesVersionAndPreservesEdit" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.ExternalDocumentEditInvalidatesSnapshotAndRefreshPreservesDocumentIdentity" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="07dda748-973a-60d2-4110-42f583863f8f">
+      <Execution id="92812863-f00d-4ea0-a54a-7976668d8d4a" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="ExternalDocumentEditInvalidatesSnapshotAndRefreshPreservesDocumentIdentity" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.DisposingServiceCancelsPendingWorkWithoutSaving" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="41cc3e6a-1247-28c7-37d3-dd561518345c">
+      <Execution id="9bd5add7-7436-4352-adc5-bba15e23e9ce" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="DisposingServiceCancelsPendingWorkWithoutSaving" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutAntiforgery" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="9d964ef8-04fc-6823-0c7f-2f67ae542898">
+      <Execution id="0f6c800c-9aa2-45e2-ae99-6636fe58ced0" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsMutationWithoutAntiforgery" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S02NativeSelectionsRejectOriginDescendantAndJunction" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="c8a901ec-42e3-f53f-f684-f6381a7065ee">
+      <Execution id="54cebf39-4b90-496e-8020-8c29ecb012f0" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.US1IntegratedHarnessTests" name="S02NativeSelectionsRejectOriginDescendantAndJunction" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.US1IntegratedHarnessTests.S03NativeDestinationChangePreservesBothContextsAndHistory" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="3ea53cb1-e1d5-7d1b-5dee-467b5a1e6ea2">
+      <Execution id="ca3572a9-7e58-45f1-885d-4093665e9507" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.US1IntegratedHarnessTests" name="S03NativeDestinationChangePreservesBothContextsAndHistory" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.DocumentaryDirectoriesCreatedAfterOpeningAreObserved" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="a1487ea8-9d8e-489c-6067-5a39a35c04c7">
+      <Execution id="f92721d3-2d67-4437-b25b-22a277bde61c" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="DocumentaryDirectoriesCreatedAfterOpeningAreObserved" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="8eb4620a-adb0-84a1-b8b2-9ca6167d2f56">
+      <Execution id="981c597b-381e-4905-910e-0af818f5ab20" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="UncataloguedMarkdownAndCodeDoNotInvalidateDocuments" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.HostBaselineTests.BrowserAutomationRuntimeCanInitialize" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="049064c0-b543-2ca2-adf6-694dd1140528">
+      <Execution id="bbd15d52-337f-42ce-aaed-ea168a473083" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.HostBaselineTests" name="BrowserAutomationRuntimeCanInitialize" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.SwitchingProjectCancelsOnlyItsOwnWorkWithoutSaving" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="8fa233be-c93a-43a3-001d-2cdf5e3b8cf9">
+      <Execution id="d91aae37-aa1c-46b8-ae16-c833103d0e43" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="SwitchingProjectCancelsOnlyItsOwnWorkWithoutSaving" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ExplicitSelectionFlowTests.RejectedDestinationRetainsActualSelectionsAndRetryLoadsSeparateContexts" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="3719aefa-5561-cc41-88c5-40b3f6decbfe">
+      <Execution id="682c1753-21cf-421f-95ae-a45ccdd883dc" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ExplicitSelectionFlowTests" name="RejectedDestinationRetainsActualSelectionsAndRetryLoadsSeparateContexts" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="27c9d600-ff48-5b0e-da29-f639b50ac5f3">
+      <Execution id="728a5571-51fe-4757-96fa-b1a3e1654a71" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectOpeningRegressionTests" name="PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="407a09a0-c14b-c522-9b36-bc8b8e9ff44f">
+      <Execution id="eccd0ad8-82c3-4caf-b87f-057e3134885e" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="4fecc36a-fdcf-c2ae-71de-1cf3818e4584">
+      <Execution id="897a7206-8864-423b-8806-a1a795294e08" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="IssuesSeparateHttpOnlyStrictSessionCookies" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="ffe2db4a-d1b1-bc24-8bea-de4fe988f1a0">
+      <Execution id="099c3d8e-d240-490f-a8d9-fe0810bbe9e8" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.LocalSessionHttpTests" name="RejectsForeignHost" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: &quot;tasks.md&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="291e6579-6877-0edc-e8ad-11fed77af41e">
+      <Execution id="c1f30ff0-ef6b-4d63-b664-e68ff5666b51" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.PrAArtifactPresenceTests" name="RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: &quot;plan.md&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="2823c832-0273-700c-26aa-fc8f57b46ad5">
+      <Execution id="d62083f1-026a-48db-a737-aaa36f29bb93" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.PrAArtifactPresenceTests" name="RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.ContextAndExistingHistoryStaySeparatedWhenChangingOutput" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="84e81c74-9e89-ef14-637a-d7735450cfb4">
+      <Execution id="b1ed97f1-6840-4a5a-9762-9e7cef8fa564" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="ContextAndExistingHistoryStaySeparatedWhenChangingOutput" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: &quot;spec.md&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="c868d4f5-d984-11e5-2953-42510c64d851">
+      <Execution id="65da3831-a50f-467e-b998-b7bc8dffc877" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.PrAArtifactPresenceTests" name="RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectSelectionTests.InternalAndJunctionDestinationsAreRejectedWithoutWritingOrigin" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="c96d3743-cc72-eab2-a0fc-feb78baefc71">
+      <Execution id="47cb26ee-8029-406c-95e1-aaca2b764f4d" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectSelectionTests" name="InternalAndJunctionDestinationsAreRejectedWithoutWritingOrigin" />
+    </UnitTest>
+    <UnitTest name="SpecAudit.Ui.Tests.ProjectCorrectionTests.OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection(dimension: &quot;document-bytes&quot;)" storage="__REPO_ROOT__\tests\specaudit.ui.tests\bin\debug\net10.0\specaudit.ui.tests.dll" id="25be81c8-9189-372b-e4ed-1c25c11d686a">
+      <Execution id="eb52a889-5655-4401-a0fc-3136461845c4" />
+      <TestMethod codeBase="__REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="SpecAudit.Ui.Tests.ProjectCorrectionTests" name="OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="9d964ef8-04fc-6823-0c7f-2f67ae542898" executionId="0f6c800c-9aa2-45e2-ae99-6636fe58ced0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e43b2357-ecc5-57e9-8e01-9971285462c4" executionId="a5a37583-5175-471a-90ef-a7622cfd4c90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fb7c5a7-cc3f-a444-9832-62fb63da48a8" executionId="f37f81ec-a4e4-408f-9f1f-3694b8d60376" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3719aefa-5561-cc41-88c5-40b3f6decbfe" executionId="682c1753-21cf-421f-95ae-a45ccdd883dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="84e81c74-9e89-ef14-637a-d7735450cfb4" executionId="b1ed97f1-6840-4a5a-9762-9e7cef8fa564" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="41cc3e6a-1247-28c7-37d3-dd561518345c" executionId="9bd5add7-7436-4352-adc5-bba15e23e9ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8fa233be-c93a-43a3-001d-2cdf5e3b8cf9" executionId="d91aae37-aa1c-46b8-ae16-c833103d0e43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="27c9d600-ff48-5b0e-da29-f639b50ac5f3" executionId="728a5571-51fe-4757-96fa-b1a3e1654a71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d6434f6-e2d7-ede5-270e-57cd5e4c9ec2" executionId="ebe11845-0242-4836-867b-20cddebad2ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07dda748-973a-60d2-4110-42f583863f8f" executionId="92812863-f00d-4ea0-a54a-7976668d8d4a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3665d84-bd03-5497-ab58-82017a034182" executionId="e9f2f3d8-1b76-4176-b58b-ae2bbebe8e7d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1487ea8-9d8e-489c-6067-5a39a35c04c7" executionId="f92721d3-2d67-4437-b25b-22a277bde61c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c868d4f5-d984-11e5-2953-42510c64d851" executionId="65da3831-a50f-467e-b998-b7bc8dffc877" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fecc36a-fdcf-c2ae-71de-1cf3818e4584" executionId="897a7206-8864-423b-8806-a1a795294e08" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="049064c0-b543-2ca2-adf6-694dd1140528" executionId="bbd15d52-337f-42ce-aaed-ea168a473083" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8eb4620a-adb0-84a1-b8b2-9ca6167d2f56" executionId="981c597b-381e-4905-910e-0af818f5ab20" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ea53cb1-e1d5-7d1b-5dee-467b5a1e6ea2" executionId="ca3572a9-7e58-45f1-885d-4093665e9507" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="407a09a0-c14b-c522-9b36-bc8b8e9ff44f" executionId="eccd0ad8-82c3-4caf-b87f-057e3134885e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d98704c-4e40-e30e-1d8e-d0ddba0f845c" executionId="d9eecabc-9d42-4e9d-bb6a-8653861bf162" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="84fd61ee-5c08-0138-7341-be5f912069d4" executionId="3bd011db-c91a-444f-9125-8895df8a3e8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ffe2db4a-d1b1-bc24-8bea-de4fe988f1a0" executionId="099c3d8e-d240-490f-a8d9-fe0810bbe9e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2823c832-0273-700c-26aa-fc8f57b46ad5" executionId="d62083f1-026a-48db-a737-aaa36f29bb93" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="986079b8-8b0a-c48d-86ca-c8af276b3104" executionId="da5f3b68-4ee6-451a-a096-c3399041e3ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7797ab09-ffd2-7249-9e08-3ca20a39a238" executionId="a3363610-5f02-48c5-b58a-8c191f676912" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ee0b881-5e3a-e4ae-fe8a-d4ceed41273b" executionId="b5aa1e23-f7dc-420a-b093-69b21f52f054" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ceaea19-35cc-3345-622a-f30239d43263" executionId="0a4fe3e9-d468-4ebf-9cb3-0a42204fbbb0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5d3a045-1777-9bc4-431e-9e089d7c6266" executionId="55190ee1-fdc7-4e65-93e1-80ecc7dc2882" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c96d3743-cc72-eab2-a0fc-feb78baefc71" executionId="47cb26ee-8029-406c-95e1-aaca2b764f4d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e483e156-7e14-70f9-d521-8b37b8f47a14" executionId="8f8668a2-f5b7-478c-aa12-84fecf92d86e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25be81c8-9189-372b-e4ed-1c25c11d686a" executionId="eb52a889-5655-4401-a0fc-3136461845c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1345e87-96db-945a-f8ff-f72b24e0b7fa" executionId="bb24aa1d-6b2f-4b35-8571-9cc4c685917a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="568b844a-4dec-0578-67ff-e96f0d3d8a6b" executionId="c0f018ff-831e-440b-a0ca-f49eead55d92" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8a81849-87d5-d5b0-0161-73c8eac4c3bc" executionId="69c8f8e7-3594-4f48-bad3-b3d711dc8d84" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86223eb5-4d02-8529-100d-dbbd286cd9fa" executionId="5173de7c-8960-4cbe-8e9e-1d699f83594c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aacc0796-c3a5-4cbb-81b2-bede68f72d16" executionId="8f7d7122-1729-4ca2-9fed-0d6841d9ad37" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="207a4d9c-8155-2993-4a24-47c238732603" executionId="b806f152-7615-498b-8f27-26e55bc13817" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="291e6579-6877-0edc-e8ad-11fed77af41e" executionId="c1f30ff0-ef6b-4d63-b664-e68ff5666b51" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8a901ec-42e3-f53f-f684-f6381a7065ee" executionId="54cebf39-4b90-496e-8020-8c29ecb012f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="38" executed="38" passed="37" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)&#xD;
+[xUnit.net 00:00:00.11]   Discovering: SpecAudit.Ui.Tests&#xD;
+[xUnit.net 00:00:00.28]   Discovered:  SpecAudit.Ui.Tests&#xD;
+[xUnit.net 00:00:00.33]   Starting:    SpecAudit.Ui.Tests&#xD;
+[xUnit.net 00:00:07.28]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:07.28]       Expected: 0&#xD;
+[xUnit.net 00:00:07.28]       Actual:   1&#xD;
+[xUnit.net 00:00:07.28]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.28]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectPageBrowserTests.cs(39,0): at SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading()&#xD;
+[xUnit.net 00:00:07.28]         __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectPageBrowserTests.cs(39,0): at SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading()&#xD;
+[xUnit.net 00:00:07.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.30]   Finished:    SpecAudit.Ui.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="__MACHINE__" outcome="Error" timestamp="2026-11-17T23:01:11.8010550-03:00">
+        <Text>[xUnit.net 00:00:07.27]     SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

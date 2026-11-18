@@ -1,0 +1,17 @@
+{
+  "revision": "sha256:f6e296be248c77cb91dd07dbd4236c955755ff03ea63fd159278112bac008d58",
+  "result": "PASSED",
+  "exit_code": 0,
+  "timestamp": "2026-11-17T22:49:09.870690-03:00",
+  "command": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=manual-opening' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/manual-project-opening/validated",
+  "working_directory": "__REPO_ROOT__",
+  "stdout": {
+    "path": "evidence/logs/manual-project-opening/validated.txt",
+    "sha256": "9ccc1289b1abc978e21eb738b5dfccd857e932e752860264fc04f6f875d3a0a1"
+  },
+  "stderr": {
+    "path": "evidence/logs/manual-project-opening/validated.txt",
+    "sha256": "9ccc1289b1abc978e21eb738b5dfccd857e932e752860264fc04f6f875d3a0a1"
+  },
+  "note": "59 passed (7+16+36), zero failed/skipped. Two new cases failed before fixing. Earlier full build failed because running user host locked exe; retained as full.txt, then user stopped host and validated run passed."
+}

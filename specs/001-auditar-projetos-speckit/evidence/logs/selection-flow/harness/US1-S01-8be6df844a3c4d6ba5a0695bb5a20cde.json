@@ -1,0 +1,15 @@
+{
+  "scenario": "US1-S01",
+  "timestamp": "2026-11-18T02:01:42.7057823+00:00",
+  "result": "PASSOU",
+  "observed": {
+    "Root": "__TEMP_ROOT__\\SpecAudit-V1-d1fc532d9a2345b5a4033291a69eea13",
+    "Origin": "__TEMP_ROOT__\\SpecAudit-V1-d1fc532d9a2345b5a4033291a69eea13\\origin",
+    "Output": "__TEMP_ROOT__\\SpecAudit-V1-d1fc532d9a2345b5a4033291a69eea13\\reports",
+    "features": 2,
+    "missingTasks": "002-other",
+    "originUnchanged": true,
+    "reports": 0,
+    "nativePicker": true
+  }
+}

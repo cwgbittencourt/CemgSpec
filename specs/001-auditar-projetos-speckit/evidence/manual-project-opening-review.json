@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "revision": "sha256:f6e296be248c77cb91dd07dbd4236c955755ff03ea63fd159278112bac008d58",
+  "mode": "AUTORREVISAO",
+  "user_observation": "Screenshot shows duplicate Projeto-B, Relatorios-B in project list and Projeto-A as destination of B; cannot infer exact click sequence from screenshot.",
+  "reproduced": [
+    "Reopening same canonical origin creates duplicate context",
+    "Pending picker flow accepts concurrent open request"
+  ],
+  "corrections": [
+    "Reuse context by resolved origin identity; preserve feature selection and other project contexts; apply explicitly chosen validated output.",
+    "Serialize picker workflows per service; release after cancel/error; page busy guards.",
+    "Number native prompts1/2 and explain switching vs loading in page/guide."
+  ],
+  "verification": "Red2, full59 passing; readonly baselines and independent destinations asserted. Existing native harness passed.",
+  "review": "Output validated before existing context mutation; IDs still session-scoped; no new origin writes/permissions. Source diff examined; no known blocking issue in correction scope.",
+  "limitations": "Does not prove exact user click sequence or prevent deliberate selection of an unintended folder. Any directory remains allowed as origin, including folders without SpecKit features. Manual retest pending.",
+  "human_acceptance": "PENDING"
+}

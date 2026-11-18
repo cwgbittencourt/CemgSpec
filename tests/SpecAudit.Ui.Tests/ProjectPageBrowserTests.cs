@@ -22,4 +22,21 @@ public sealed class ProjectPageBrowserTests : IClassFixture<LocalHostFixture>
         var screenshot=Path.Combine(host.Root,"specs","001-auditar-projetos-speckit","evidence","logs","T011-project-page.png");
         await page.ScreenshotAsync(new(){Path=screenshot,FullPage=true});
     }
+    [Fact]
+    public async Task BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading()
+    {
+        using var playwright=await Playwright.CreateAsync();
+        await using var browser=await playwright.Chromium.LaunchAsync(new(){Channel="msedge",Headless=true});
+        var page=await browser.NewPageAsync();var errors=new List<string>();page.PageError+=(_,error)=>errors.Add(error);
+        await page.GotoAsync(host.Address.ToString());
+        await page.GetByRole(AriaRole.Button,new(){Name="Carregar projeto",Exact=true}).ClickAsync();
+        var panel=page.GetByRole(AriaRole.Region,new(){Name="Novo projeto"});await panel.WaitForAsync();
+        Assert.Equal("Nenhuma pasta selecionada",await page.GetByTestId("selected-origin").InnerTextAsync());
+        Assert.Equal("Nenhuma pasta selecionada",await page.GetByTestId("selected-output").InnerTextAsync());
+        Assert.False(await page.GetByRole(AriaRole.Button,new(){Name="Escolher destino",Exact=true}).IsEnabledAsync());
+        Assert.False(await page.GetByRole(AriaRole.Button,new(){Name="Confirmar carregamento",Exact=true}).IsEnabledAsync());
+        await page.GetByRole(AriaRole.Button,new(){Name="Cancelar carregamento",Exact=true}).ClickAsync();
+        await panel.WaitForAsync(new(){State=WaitForSelectorState.Detached});
+        Assert.Equal(0,await panel.CountAsync());Assert.Empty(errors);
+    }
 }

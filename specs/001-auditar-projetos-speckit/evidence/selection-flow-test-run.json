@@ -1,0 +1,17 @@
+{
+  "revision": "sha256:89a4535be36e2b206ac62881eeb8f7eabbcc0346dd26a2f16c0e060e1eb1f70f",
+  "result": "PASSED",
+  "exit_code": 0,
+  "timestamp": "2026-11-17T23:02:44.038730-03:00",
+  "command": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=selection-flow-confirmed' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/selection-flow/confirmed",
+  "working_directory": "__REPO_ROOT__",
+  "stdout": {
+    "path": "evidence/logs/selection-flow-confirmed.txt",
+    "sha256": "c91e886ae7c13d245a4cfd7cf5611d93cf06ee57a3f53645ee56689339005670"
+  },
+  "stderr": {
+    "path": "evidence/logs/selection-flow-confirmed.txt",
+    "sha256": "c91e886ae7c13d245a4cfd7cf5611d93cf06ee57a3f53645ee56689339005670"
+  },
+  "note": "61/61 (7+16+38). First new browser case failed because assertion did not wait for async DOM removal; fixed test to wait Detached, then full rerun passed. Prior run retained. Not full manual native/browser E2E."
+}

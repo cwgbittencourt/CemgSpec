@@ -1,0 +1,28 @@
+{
+  "page": 200,
+  "launcher": "Start-US1Manual.ps1 -Port <available-loopback-port>",
+  "ownHostStopped": true,
+  "environment": "Development",
+  "assets": [
+    {
+      "status": 200,
+      "asset": "app.iu0eqqa08c.css",
+      "bytes": 6161
+    },
+    {
+      "status": 200,
+      "asset": "SpecAudit.h4d45l8nxm.styles.css",
+      "bytes": 4940
+    },
+    {
+      "status": 200,
+      "asset": "Components/Layout/ReconnectModal.abdmv1u4y3.razor.js",
+      "bytes": 2448
+    },
+    {
+      "status": 200,
+      "asset": "_framework/blazor.web.whefm3rrpu.js",
+      "bytes": 200645
+    }
+  ]
+}

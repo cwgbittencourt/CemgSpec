@@ -42,19 +42,45 @@ public sealed class OpenProjectContext : IDisposable
 public sealed class ProjectService(LocalSessionService localSession,IFolderPicker picker) : IDisposable
 {
     private readonly Dictionary<Guid,OpenProjectContext> projects=[];
+    private int folderSelectionActive;
     public OpenProjectContext? Active {get;private set;}
     public IReadOnlyList<OpenProjectContext> Projects=>projects.Values.ToArray();
     public event Action? Changed;
+    public async Task<string?> PickProjectOriginAsync()=>await PickDirectoryAsync("Selecionar PROJETO (origem somente leitura)");
+    public async Task<string?> PickReportDestinationAsync()=>await PickDirectoryAsync("Selecionar RELATORIOS (destino externo)");
+    private async Task<string?> PickDirectoryAsync(string title)
+    {
+        if(Interlocked.CompareExchange(ref folderSelectionActive,1,0)!=0)throw new InvalidOperationException("FolderSelectionInProgress");
+        try
+        {
+            var selected=await picker.PickAsync(title);if(selected is null)return null;
+            using var handle=WindowsReadHandle.Open(Path.GetFullPath(selected),true);
+            return WindowsReadHandle.FinalPath(handle);
+        }
+        finally{Volatile.Write(ref folderSelectionActive,0);}
+    }
     public async Task<OpenProjectContext?> OpenProjectAsync()
     {
-        var origin=await picker.PickAsync("Selecionar origem — somente leitura");if(origin is null)return null;
-        var output=await picker.PickAsync("Selecionar destino externo dos relatórios");if(output is null)return null;
-        return OpenSelected(origin,output);
+        if(Interlocked.CompareExchange(ref folderSelectionActive,1,0)!=0)throw new InvalidOperationException("FolderSelectionInProgress");
+        try
+        {
+            var origin=await picker.PickAsync("1 de 2: selecionar PROJETO (origem somente leitura)");if(origin is null)return null;
+            var output=await picker.PickAsync("2 de 2: selecionar RELATORIOS (destino externo)");if(output is null)return null;
+            return OpenSelected(origin,output);
+        }
+        finally{Volatile.Write(ref folderSelectionActive,0);}
     }
     internal OpenProjectContext OpenSelected(string origin,string output)
     {
         using var originHandle=WindowsReadHandle.Open(Path.GetFullPath(origin),true);var originPath=WindowsReadHandle.FinalPath(originHandle);
         var destination=ValidateOutput(originPath,output);
+        var identity=WindowsReadHandle.Info(originHandle).Identity;
+        var existing=projects.Values.FirstOrDefault(p=>p.Session.OriginHandleIdentity==identity);
+        if(existing is not null)
+        {
+            existing.Session.ChangeOutputIdentity(destination.Identity);existing.OutputDisplayPath=destination.Path;
+            SelectProject(existing.Session.ProjectId);return existing;
+        }
         var session=new ProjectSession(localSession.SessionId,Path.GetFileName(originPath.TrimEnd(Path.DirectorySeparatorChar)),WindowsReadHandle.Info(originHandle).Identity,originPath,destination.Identity);
         var catalog=new DocumentCatalog(session.ProjectId,originPath);OpenProjectContext context;
         try{context=new(session,catalog,destination.Path);}catch{catalog.Dispose();throw;}
@@ -65,7 +91,11 @@ public sealed class ProjectService(LocalSessionService localSession,IFolderPicke
     public OpenProjectContext RequireProject(Guid id)=>projects.TryGetValue(id,out var project)&&project.Session.IsOwnedBy(localSession.SessionId)?project:throw new KeyNotFoundException("Project does not belong to the local session.");
     public void SelectProject(Guid id){var next=RequireProject(id);if(Active!=next)Active?.CancelWork();Active=next;Changed?.Invoke();}
     public async Task ChangeOutputDirectoryAsync(Guid id)
-    {var output=await picker.PickAsync("Selecionar novo destino externo");if(output is not null)ChangeOutputSelected(id,output);}
+    {
+        if(Interlocked.CompareExchange(ref folderSelectionActive,1,0)!=0)throw new InvalidOperationException("FolderSelectionInProgress");
+        try{var output=await picker.PickAsync("Selecionar RELATORIOS (novo destino externo)");if(output is not null)ChangeOutputSelected(id,output);}
+        finally{Volatile.Write(ref folderSelectionActive,0);}
+    }
     internal void ChangeOutputSelected(Guid id,string output)
     {var context=RequireProject(id);var destination=ValidateOutput(context.Catalog.FinalOriginPath,output);context.Session.ChangeOutputIdentity(destination.Identity);context.OutputDisplayPath=destination.Path;Changed?.Invoke();}
     // A prepared operation must retain this version and validate it at each boundary.

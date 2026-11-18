@@ -1,5 +1,10 @@
 # Evidências de desenvolvimento
 
+- Roteiros separados: [DEV](../validation/US1-dev.md) e [usuário comum](../validation/US1-user.md); preparação com um comando, execução manual/relato humano pendentes.
+
+- [Descrição PR-A / T020](../verification/prs/PR-A.md): escopo final, base/candidato, resultados, limites e roteiro; aprovação e integração pendentes.
+
+
 - [Rodada T019](T019-findings.json): dois achados PR-A resolvidos, regressão57/57 e manutenção6/6; detalhes nas rodadas finais de PR-A-validation.md e PR-A-review.md.
 
 

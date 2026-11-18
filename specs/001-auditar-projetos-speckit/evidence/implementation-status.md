@@ -1,5 +1,12 @@
 # Implementação — checkpoint T016 (roteiro consolidado e conferido)
 
+Estado vigente: seleção em etapas implementada, fonte no manifesto corrente.61 testes passaram; novo painel/cancelamento conferidos em Edge, caminhos/retry/A/B por picker controlado. Percurso completo navegador+seletor nativo NÃO comprovado: ferramentas desktop falham ao iniciar. Não pronto para novo reteste solicitado ao usuário; ver selection-flow-validation.md.
+
+Atualização vigente: correção após relato manual de abertura: reutilização por identidade, exclusão mútua dos seletores e orientação na tela. Dois testes red, suíte59/59 aprovada após usuário encerrar host que bloqueava build. Fonte/execução/review atuais em manual-project-opening-*.json; reteste e aceite humanos pendentes. Checkpoints abaixo são históricos.
+
+Atualização vigente — T020 concluída: descrição PR-A preparada conforme template CEMG, vinculada ao candidato 0fa5428159cc57707617ed51b5b236ead0155e92 e fonte validada T019. Produto/testes/ferramentas inalterados; resultados57/57,6/6 e2/2 conferidos, sem novo replay. Próxima T021, não iniciada. Aprovação humana de PR, integração e execução/aceite do DEV pendentes.
+
+
 Atualização vigente — T019 concluída: constituição normalizada e hasheada com/sem specs; presença de artefato consultada pela raiz exata. Red5/green5, suíte57/57, manutenção6/6, probes2/2. Autorrevisão renovada sem impeditivos conhecidos abertos; próxima T020. Fonte no manifesto corrente, decisões humanas pendentes.
 
 

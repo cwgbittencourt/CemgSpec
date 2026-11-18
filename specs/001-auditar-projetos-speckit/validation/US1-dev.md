@@ -1,109 +1,93 @@
-# Roteiro do DEV — US1: carregar e preservar o projeto
+# Roteiro do DEV — testar a tela de Projetos
 
-Estado do caminho principal: **CONFERIDO_PELA_IA em harness real**. Execução pelo DEV e decisão de aceite: **PENDENTES**. T019 renova a entrega técnica; não concede aceite humano nem aprovação/integração de PR.
+Atualização de fluxo: Carregar projeto abre o painel. Clique Escolher projeto e confira a origem exibida; clique Escolher destino e confira o destino exibido; só então Confirmar carregamento. Em caso de recusa os caminhos permanecem visíveis. A sequência automática de duas janelas descrita em registros anteriores foi substituída. Validação integral pelo desktop ainda bloqueada; não solicitar novo reteste do DEV/usuário antes da conferência. Ver ../evidence/selection-flow-validation.md.
 
-## Versão, escopo e condições
+**Público:** desenvolvedor responsável por preparar o ambiente e validar tecnicamente. Para uma pessoa sem conhecimento técnico, entregar o [roteiro do usuário comum](US1-user.md).
 
-Produto e testes: candidato local T019 sobre `0bf951ec4704e118fd80f63e59cc6819341fc93a`, correções T015/T019 incluídas. Fonte exata: [manifesto corrente](../evidence/maintenance-code-manifest.json), revisão `sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40`. Suite57/57 executada; cinco regressões T019 incluídas. Mudança posterior exige renovar evidências.
+Você pode testar a interface manualmente ou repetir os testes automatizados. São atividades diferentes: a interface permite conferir o uso da tela; os testes automatizados também verificam hashes, fronteiras de leitura, versões e cancelamento que não ficam visíveis na tela.
 
-Escopo: **HISTÓRIA US1 técnica, AC01–AC04**, por harness de carregamento/leitura/versionamento, conforme contrato das tasks. NativeFolderPicker, catálogo, broker por handles, filesystem e monitor Windows são reais. A suíte também inicia host loopback e Edge reais. Não são testes exclusivamente unitários nem uma integração de agente simulada. No S04 há trabalho documental real em andamento; Run de agente, check_gate e Save pertencem a histórias posteriores e não são necessários para executar este roteiro. Na UI, verificação e Save continuam desabilitados.
+**Estado:** testes automatizados conferidos pela IA; percurso manual completo ainda não declarado executado. Execução e aceite do DEV PENDENTES. Este roteiro não aprova nem integra PR.
 
-Requisitos: Windows x64 com sessão de desktop disponível, SDK .NET 10 estável compatível com global.json, PowerShell e Edge instalados. Ambiente conferido pela IA: SDK 10.0.404, mesmo código do manifesto. Usar usuário normal, sem instalação/elevação automática, credenciais de agentes ou dados reais. Se faltar ferramenta/acesso, registrar NÃO EXECUTADO com causa, impacto e próximo passo. Python 3 confiável é usado na conferência/sanitização de evidências, não na funcionalidade US1.
+## 1. Abrir a aplicação
 
-PR previsto da história: PR-A, dependência técnica T015 satisfeita. Validação e autorrevisão T017–T019 concluídas; descrição T020 e decisões humanas permanecem pendentes. Este roteiro cobre US1, não a V1 completa nem o aceite de US5/US6.
+Requisitos: Windows com desktop, PowerShell, SDK .NET10 compatível com global.json (ambiente validado:10.0.404) e navegador. Não precisa de agente, credencial ou projeto real.
 
-## Caminho principal — execução reproduzível conferida
-
-Abrir terminal na raiz do checkout. Os comandos são do desenvolvimento do próprio SpecAudit, nunca da solução auditada. O harness cria fixtures novas e não sensíveis em TEMP, duas funcionalidades e destinos externos, baselines e um arquivo de histórico sintético quando necessário. Não é preciso preparar dados ou configurar agente manualmente. Diretórios de fixture e relatórios oficiais do produto são coisas distintas dos logs técnicos deste teste.
-
-Executar sequencialmente, parando no primeiro exit diferente de zero:
+Abra o PowerShell na pasta do repositório SpecAudit. Cole **esta única linha** e pressione Enter:
 
 ```powershell
-Set-Location (git rev-parse --show-toplevel)
-git rev-parse HEAD
-dotnet --version
+& .\specs\001-auditar-projetos-speckit\validation\Start-US1Manual.ps1
+```
+
+O script prepara dois projetos fictícios novos na pasta temporária do Windows, mostra os caminhos e inicia o SpecAudit. As pastas são criadas pelo preparador do teste, não pelo aplicativo auditando uma origem. A cada execução os dados ficam em uma pasta nova; não há exclusão ou restauração automática. O preparador inclui um arquivo de histórico fictício em Relatorios-A e uma baseline de hashes fora das origens.
+
+Aguarde a mensagem **Now listening on**, mantenha o terminal aberto e abra [a aplicação no navegador](http://127.0.0.1:5187). A tela deve mostrar **Projetos** e o botão **Carregar projeto**. Se aparecer erro de SDK, restore, política de execução ou porta ocupada, guarde a mensagem e informe o problema; não é necessário alterar políticas do computador ou encerrar outros processos.
+
+O script inicia explicitamente em Development para carregar CSS e JavaScript do checkout; omitir esse ambiente com --no-launch-profile causava página sem estilos e sem Blazor. O script não abre o navegador automaticamente. Se quiser apenas preparar dados sem iniciar a aplicação, use o mesmo comando com `-PrepareOnly`. Se5187 estiver ocupada, use `-Port 5188` e abra o endereço exibido. Para iniciar diretamente sem preparar dados fictícios: `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`.
+
+Para alternar entre A e B já abertos, use a lista **Projeto**. **Carregar projeto** pede duas pastas em sequência: etapa1 origem, etapa2 relatórios. Reabrir a mesma origem reutiliza seu contexto, sem duplicá-la.
+
+## 2. Testar a interface
+
+Use os caminhos mostrados no terminal. A expressão “pasta do teste” abaixo é o caminho que começa com SpecAudit-Manual-, dentro de TEMP; abra-o no Explorador de Arquivos para localizar as pastas.
+
+| Passo | O que fazer | O que deve acontecer |
+|---|---|---|
+| Carregar A — AC01 | Clique **Carregar projeto**, depois **Escolher projeto** e selecione **Projeto-A**. Confira o caminho; clique **Escolher destino** e selecione **Relatorios-A**. Confira ambos e clique **Confirmar carregamento**. | Cartões com origem/destino e selo **Somente leitura**. Duas funcionalidades encontradas. |
+| Conferir documentos — AC01 | Em **Funcionalidade**, selecione **001-exemplo** e depois **002-segunda**. | Na primeira, spec.md, plan.md e tasks.md **Presente**. Na segunda, tasks.md **Ausente**; os outros presentes. |
+| Recusar destino interno — AC02 | Clique **Alterar destino** e escolha a própria pasta **Projeto-A**. Repita escolhendo **Projeto-A/specs/001-exemplo**. | Mensagem pedindo destino externo. O cartão continua com Relatorios-A; nenhum novo relatório. Cancelar o seletor também deve manter o destino. |
+| Separar projetos — AC03 | Abra o painel em **Carregar projeto**; use **Escolher projeto** para **Projeto-B**, **Escolher destino** para **Relatorios-B**, confira e **Confirmar carregamento**. Alterne A/B no campo **Projeto**. | A mostra seu destino e B mostra o dele. Não misturar origens nem funcionalidades entre projetos. |
+| Trocar destino — AC03 | Volte a A. Em **Alterar destino**, escolha **Relatorios-A-novo**. | Só o destino de A muda. No Explorador, historico-exemplo.txt continua em Relatorios-A, com o mesmo conteúdo; não foi movido para a pasta nova. |
+| Editar por fora — AC04, parte visível | No Bloco de Notas, abra Projeto-A/specs/001-exemplo/spec.md e acrescente uma frase. Salve e volte ao navegador. | Aparece aviso de alteração externa e botão **Atualizar documentos**. Clique nele: o aviso desaparece se a leitura concluir; sua frase permanece no arquivo. Não usar F5 como substituto dessa ação. |
+| Confirmar limites da entrega | Observe **Executar verificação** e **Salvar resultados**. | Permanecem desabilitados nesta etapa. Não há preview dos documentos nem execução de agentes disponível nesta tela. |
+
+A edição do passo AC04 é intencional e feita somente no projeto fictício. Não restaure o arquivo para esconder uma falha. As origens não devem sofrer outras mudanças. Relatorios-B e Relatorios-A-novo devem continuar vazias; Relatorios-A contém somente o histórico preparado no início.
+
+A constituição faz parte do catálogo, mas ainda não tem uma lista própria nesta tela. Os testes automatizados verificam sua leitura/hash. A interface permite observar a alteração externa; a prova completa de AC04, com trabalho em andamento, cancelamento e snapshot imutável, está no teste automatizado S04. Junções, identidade de arquivos, limites e hashes também têm asserções automatizadas. Completar apenas a tabela manual não comprova esses detalhes internos.
+
+Para encerrar, volte ao terminal que iniciou o aplicativo e pressione **Ctrl+C**. Os dados fictícios ficam disponíveis para inspeção. Cada nova execução do script cria outra pasta; não apaga a anterior.
+
+## Preparar a sessão de um usuário comum
+
+Execute Start-US1Manual.ps1, aguarde o host e abra o navegador. Preencha a ficha de caminhos do [roteiro do usuário](US1-user.md) com os dados exibidos no terminal, informe o commit e deixe a aplicação aberta. Acompanhe a edição externa do passo8 apenas nos dados fictícios; o usuário não precisa executar PowerShell nem editar arquivos técnicos. Registre o relato fielmente. O resultado de uso é separado da prova de fronteiras/hashes/cancelamento e do aceite técnico do DEV.
+
+## 3. Repetir os testes automatizados
+
+Esta opção não exige clicar na interface. No PowerShell aberto na raiz do repositório, você pode colar **todo o bloco abaixo de uma vez**. Ele executa em sequência e para se houver falha:
+
+```powershell
 $devRun = Join-Path ([IO.Path]::GetTempPath()) ('SpecAudit-US1-DEV-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $devRun -Force | Out-Null
-
-dotnet restore SpecAudit.slnx --locked-mode 2>&1 | Tee-Object (Join-Path $devRun 'restore.txt')
-if ($LASTEXITCODE -ne 0) { throw 'Restore falhou; registrar o resultado real.' }
-
-dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~US1IntegratedHarnessTests --logger 'trx;LogFilePrefix=US1-scenarios' --results-directory (Join-Path $devRun 'scenarios') 2>&1 | Tee-Object (Join-Path $devRun 'scenarios.txt')
-if ($LASTEXITCODE -ne 0) { throw 'Cenarios US1 falharam; preservar logs.' }
-
-dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~ProjectCorrectionTests --logger 'trx;LogFilePrefix=US1-errors' --results-directory (Join-Path $devRun 'errors') 2>&1 | Tee-Object (Join-Path $devRun 'errors.txt')
-if ($LASTEXITCODE -ne 0) { throw 'Casos de correcao falharam; preservar logs.' }
-
-dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=US1-full' --results-directory (Join-Path $devRun 'full') 2>&1 | Tee-Object (Join-Path $devRun 'full.txt')
-if ($LASTEXITCODE -ne 0) { throw 'Regressao falhou; preservar logs.' }
-
-Write-Output $devRun
+git rev-parse HEAD
+dotnet restore SpecAudit.slnx --locked-mode
+if ($LASTEXITCODE -ne 0) { throw 'Restore falhou; preserve a mensagem.' }
+dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=US1-full' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'full.txt')
+if ($LASTEXITCODE -ne 0) { throw 'Teste falhou; preserve os resultados.' }
+Write-Output "Resultados: $devRun"
 ```
 
-Esperado: restore exit 0; cenários **4/4**; correções **7/7**; suíte completa **57/57**, zero falhos/ignorados. Os números não se somam: os casos específicos estão incluídos na suíte completa. Conferir nomes e asserções nos TRX; processo iniciar/exit 0 sozinho não comprova o critério. Preservar saídas de falha e retestes com novos diretórios/rodadas. A execução do DEV só passa a existir quando ele executar, observar e preencher o registro humano abaixo.
+Esperado na versão validada: **59 testes aprovados, zero falhos/ignorados**. Inclui os quatro cenários US1, sete regressões T015 e cinco T019; esses números não se somam ao total. No fim aparece a pasta dos resultados. TRX identifica os testes e as asserções; o log mostra o resumo. As janelas nativas do harness são controladas pelos testes; não é necessário interagir com elas.
 
-### O que observar por cenário
+| Cenário automatizado | Resultado conferido |
+|---|---|
+| S01 / AC01 | Duas funcionalidades e tasks ausente; catálogo e origem preservados, sem relatório novo. |
+| S02 / AC02 | Destino igual, descendente e junção recusados; leitura fora do catálogo rejeitada. |
+| S03 / AC03 | Projetos separados; caminho/hash do histórico preservados ao mudar destino. |
+| S04 / AC04 | Edição durante trabalho documental causa Changed/cancelamento, preserva a edição e o snapshot anterior. |
 
-| Cenário / critério | Entrada e ação real do harness | Resultado esperado e efeitos | Onde observar |
-|---|---|---|---|
-| US1-S01 / AC01 | S01NativeSelectionLoadsFeaturesAndMissingArtifactsWithoutWrites: picker nativo seleciona fixture com duas funcionalidades e destino externo; segunda sem tasks.md; alterna escopo e lê catálogo | Duas funcionalidades, ausência explícita, leitura por IDs/handles; todos os arquivos/hashes da origem iguais à baseline; destino sem relatório | TRX scenarios; JSON US1-S01 com features=2, missingTasks=002-other, originUnchanged=true, reports=0 |
-| US1-S02 / AC02 | S02NativeSelectionsRejectOriginDescendantAndJunction: picker real tenta origem, descendente e junção como destino | Três DestinationInsideOrigin; zero projetos abertos/relatórios e origem intacta. ReaderBoundaryTests na suíte conferem código/config fora do catálogo e junção recusada antes de ler bytes | TRX scenarios/full; JSON US1-S02 e asserções ReaderBoundaryTests |
-| US1-S03 / AC03 | S03NativeDestinationChangePreservesBothContextsAndHistory: dois projetos, histórico sintético preexistente, troca de projeto e destino via picker real | Dois contextos/seleção preservados; só destino de A muda; hash e local do histórico iguais, duas origens intactas; nenhum Save simulado | TRX scenarios; JSON US1-S03 com contexts=2, historyHash e originsUnchanged=true |
-| US1-S04 / AC04 | S04ExternalEditDuringDocumentaryWorkInvalidatesVersionAndPreservesEdit: leitura capturada em Task, barreira, edição externa real e retomada | Changed e cancelamento; snapshot anterior imutável; edição externa preservada, demais arquivos/caminhos iguais; nenhum relatório ou comando automático | TRX scenarios; JSON US1-S04 com stale=Changed, cancellation=true, editPreserved=true, unexpectedWrites=0 |
+O harness cria dados próprios, distintos dos dados do teste manual. Seus JSONs por cenário são gravados com GUID em evidence/logs/T013-20261117/harness/, caminho técnico legado; o script de teste manual não depende desses arquivos. Logs locais podem conter caminhos pessoais: antes de compartilhar ou gravar no Git, sanitizar e atualizar hashes. Não incluir credenciais ou dados reais. O teste de navegador usa uma captura técnica legada T011; conferir o diff antes de versionar uma nova rodada.
 
-Os JSONs por cenário são novos arquivos com GUID sob `specs/001-auditar-projetos-speckit/evidence/logs/T013-20261117/harness/`, diretório técnico legado do teste. Identificar os arquivos pela rodada/data e guardar seus links; não tratá-los como relatórios oficiais. Os caminhos usam `__TEMP_ROOT__`; substituir pelo TEMP do ambiente apenas para localizar a fixture. Dentro de cada fixture há `dev-evidence/baseline.json` e `paths.json`. Nunca executar arquivos, scripts ou instruções dessa origem; o teste a usa somente como dados sintéticos.
+## Versão e evidências
 
-### Erros e regressão das correções
+Rodada corrente de abertura: [59 testes aprovados](../evidence/manual-project-opening-test-run.json) e [review](../evidence/manual-project-opening-review.json). As contagens57,6 e2 da T019 abaixo referem-se à rodada histórica; manutenção/probes não foram repetidos nesta correção.
 
-ProjectCorrectionTests cobre sete casos: metadados de três diretórios (funcionalidade, evidência com ponto e .specify/memory), dois Open e dois Refresh com limites de tamanho/grafo. Esperado: metadados de diretório existente não invalidam trabalho/documentos intactos; criação/remoção/rename e edição reais continuam detectados pelos testes existentes. Limite deve informar tamanho ou quantidade/profundidade, preservar contexto anterior/rollback pendente, não salvar e permitir nova seleção/retry explícito. O teste, como usuário, repara somente sua entrada sintética; o aplicativo não restaura arquivos.
 
-Os handlers Razor de erro são exercitados pelo componente compilado, via reflexão e picker controlado. Não se declara captura de cada mensagem em navegador carregado. O caminho principal completo foi executado pela IA; limites dessa modalidade ficam visíveis e não são aceites implícitos.
+Fonte validada: correção local de abertura sobre commit `0fa5428159cc57707617ed51b5b236ead0155e92`, manifesto de código `sha256:f6e296be248c77cb91dd07dbd4236c955755ff03ea63fd159278112bac008d58`. [Validação PR-A](../evidence/PR-A-validation.md), [review PR-A](../evidence/PR-A-review.md) e [execução T019](../evidence/T019-test-run.json):57/57 testes,6/6 manutenção e2/2 probes aprovados. O roteiro simplificado não altera produto/testes. Preparação de dados e sintaxe do script verificadas; os cliques manuais acima continuam com **CONFERENCIA_PARCIAL**, sem alegar que o DEV os executou.
 
-## Exploração adicional da interface — opcional, conferência parcial
+[Descrição PR-A](../verification/prs/PR-A.md) preparada na T020. Aprovação humana, integração, execução do DEV e aceite permanecem pendentes. [Estado técnico/aceite](../acceptance/US1.md). Nada neste roteiro exige executar scripts ou código da solução auditada: os comandos são ferramentas do desenvolvimento do próprio SpecAudit.
 
-Esta seção não substitui as asserções do caminho principal. Estado: ESCRITO/CONFERENCIA_PARCIAL pela IA; host e página inicial conferidos em Edge, mas não se declara clique humano em cada passo de sessão carregada. Não usar o antigo texto de quickstart que descreve funcionalidades ainda futuras para ampliar US1.
+## Como registrar sua conferência
 
-Iniciar em outro terminal, na mesma revisão:
-
-```powershell
-dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --urls http://127.0.0.1:5187
-```
-
-Abrir `http://127.0.0.1:5187`. Se a porta estiver ocupada, não encerrar processo de terceiros: escolher outra porta loopback e registrar o endereço efetivo. Usar fixtures intactas produzidas pelo harness desta rodada; selecionar uma origem real é desnecessário.
-
-Para localizar uma fixture de S01, escolher conscientemente um JSON da sua rodada; o exemplo mostra o arquivo mais recente e valida o marcador antes de decodificar o caminho:
-
-```powershell
-$scenario = Get-ChildItem specs/001-auditar-projetos-speckit/evidence/logs/T013-20261117/harness/US1-S01-*.json | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
-$data = Get-Content -LiteralPath $scenario.FullName -Raw | ConvertFrom-Json
-if (-not $data.observed.Origin.StartsWith('__TEMP_ROOT__')) { throw 'Use uma fixture nova desta revisao.' }
-$origin = $data.observed.Origin.Replace('__TEMP_ROOT__', [IO.Path]::GetTempPath().TrimEnd([IO.Path]::DirectorySeparatorChar))
-$output = $data.observed.Output.Replace('__TEMP_ROOT__', [IO.Path]::GetTempPath().TrimEnd([IO.Path]::DirectorySeparatorChar))
-[pscustomobject]@{Origin=$origin;Output=$output}
-```
-
-| Passo | Ação | Resultado esperado |
-|---|---|---|
-| 1 | Carregar projeto, selecionar Origin e Output acima | Cartões de origem/destino e selo Somente leitura; duas funcionalidades. Na segunda, tasks.md Ausente |
-| 2 | Usar origem e destinos do mesmo JSON S02, decodificados: rejected[0] é a origem; testar rejected[0], rejected[1] e rejected[2] como destinos. Não misturar origens/junções de fixtures diferentes | Recusa com mensagem de destino externo; projeto anterior preservado, sem relatório |
-| 3 | Decodificar firstRoot/secondRoot do JSON S03 e acrescentar origin para as origens e reports para os destinos. Carregar ambos, alternar e usar newDestination decodificado em Alterar destino | Contextos separados; confirmar origem no cartão ao alternar projetos com nomes iguais. Histórico original permanece no local/hash anterior |
-| 4 | Editar externamente spec.md da fixture e retornar à página | Aviso de alteração; Atualizar documentos refaz leitura sem restaurar a edição. Não clicar em Executar/Salvar, ainda indisponíveis; o cenário de trabalho em andamento é conferido no harness S04 |
-
-Comparar baseline e conteúdo nas fixtures, registrando separadamente a edição externa intencional. Para atestar renderização/operabilidade desta seção, executar os passos e guardar evidência específica; não marcar conferida por existir este texto. Não se exige interface gráfica para o DEV executar/observar o caminho principal permitido pelo contrato.
-
-## Evidências da IA e estado de entrega
-
-A IA repetiu esta receita sobre o código indicado: restore, 4/4 cenários, 7/7 erros e 52/52 regressão. Logs/TRX exportados e sanitizados em `../evidence/logs/T016/`; [verificação da T016](../evidence/T016-verification.json) registra modalidade, versão, comandos e limites. [Validação US1](../evidence/US1-validation.md) e [review US1](../evidence/US1-review.md) preservam falhas históricas T014, red T015 e correções. Nenhum achado técnico dos dois problemas permanece aberto; isso não concede aceite humano.
-
-Roteiro principal: CONFERIDO_PELA_IA. Exploração adicional: CONFERENCIA_PARCIAL. Execução do DEV: PENDENTE. [Estado técnico e aceite](../acceptance/US1.md) separa implementação, teste, review, fechamento PR-A e decisão humana. T017–T020 ainda tratam fechamento do incremento; a T016 não abre/aprova/integra PR.
-
-## Limpeza, privacidade e repetição
-
-1. O harness encerra seus próprios hosts/processos; se iniciou o host manualmente, encerrar apenas essa instância com Ctrl+C. Não matar processos arbitrários por nome.
-2. Preservar fixtures, baselines, históricos e logs para inspeção. Não há exclusão recursiva automática; não restaurar uma alteração indevida para apresentar sucesso. Uma nova rodada cria GUIDs novos.
-3. Logs técnicos em $devRun/TEMP podem conter caminhos pessoais. Não copiá-los diretamente para Git. Antes de compartilhar, usar a manutenção/sanitização do projeto e renovar os hashes afetados; a IA pode fazer essa conferência quando solicitado. Não incluir credenciais, tokens ou dados reais nas evidências.
-4. O teste de navegador grava a captura técnica legada T011; conferir o diff e preservar a rodada nova separadamente se a imagem mudar. Não sobrescrever evidência histórica sem manter a versão anterior. A captura desta rodada permaneceu igual.
-5. Preencher o registro humano na versão efetivamente executada, com fonte das evidências e data/fuso. Mudanças posteriores de produto/teste exigem revalidação. O roteiro anterior rascunhado permanece recuperável no commit f2b29a2.
+Anote qual caminho executou (manual, automatizado ou ambos), commit/manifesto, data/hora, o que observou e eventuais erros. Use as tabelas abaixo. Se não executou um cenário completo, registre **NÃO EXECUTADO** ou explique a cobertura parcial. A IA pode ajudar a organizar seu relato; não marca execução ou aceite em seu nome. Resultados aprovados não substituem sua decisão explícita de aceite.
 
 ## Registro humano e aceite
 

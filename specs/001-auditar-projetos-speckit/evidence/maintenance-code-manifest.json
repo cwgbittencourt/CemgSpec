@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "base_commit": "0bf951ec4704e118fd80f63e59cc6819341fc93a",
-  "task": "T019",
-  "scope": "Current corrected T019 candidate. Prior manifest preserved in base commit; T018 local review records the historical pre-correction source.",
+  "base_commit": "0fa5428159cc57707617ed51b5b236ead0155e92",
+  "task": "EXPLICIT_SELECTION_FLOW",
+  "scope": "Current staged-selection candidate; source manifest distinguishes prior runs. Full browser/native manual path not yet demonstrated.",
   "files": [
     {
       "path": "SpecAudit.slnx",
@@ -22,7 +22,7 @@
     },
     {
       "path": "SpecAudit/Application/ProjectService.cs",
-      "sha256": "9d70657e620023a14ce0daaa25a57a5de021407a63e5d0cec779ffcda09dd9dc"
+      "sha256": "6f6927374c9e5b49f918b3be579a041a2ab065492f4d8985dfcf5d26bb4701fa"
     },
     {
       "path": "SpecAudit/Components/App.razor",
@@ -62,7 +62,7 @@
     },
     {
       "path": "SpecAudit/Components/Pages/Projects.razor",
-      "sha256": "d2dec81b063b83a62cbe52958a2f5a05579f4a811ce034b3a3ff5361bc16384e"
+      "sha256": "870b71cd7980ab419f8c1e9a220f4b1fa4b16b6b01e00852ff1961c6dd476923"
     },
     {
       "path": "SpecAudit/Components/Routes.razor",
@@ -177,6 +177,10 @@
       "sha256": "a0baae779aaf2559740053150182650016ba546f7bc4c04e59137df521b6c37d"
     },
     {
+      "path": "tests/SpecAudit.Ui.Tests/ExplicitSelectionFlowTests.cs",
+      "sha256": "e899e0d8c8f952c035fec20ce03584124b7f446e1d584194aba48519921c1209"
+    },
+    {
       "path": "tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs",
       "sha256": "971464ec2dc7b8e4fe26b05ddf7d11a1f97cd51643ba74c2ad6d58d22c33bd27"
     },
@@ -194,11 +198,15 @@
     },
     {
       "path": "tests/SpecAudit.Ui.Tests/ProjectCorrectionTests.cs",
-      "sha256": "b196e37244e824614d835c87d4ae9fbd9558303c50d0b9116bf8ff970a06593d"
+      "sha256": "6452d20ba0a409ba741520e5b50c043a964231568aa9c6bb61934064af6454a2"
+    },
+    {
+      "path": "tests/SpecAudit.Ui.Tests/ProjectOpeningRegressionTests.cs",
+      "sha256": "98cbab27630380274d5b25dacda5f94ad821957f64d21b2f1051822f38498aaa"
     },
     {
       "path": "tests/SpecAudit.Ui.Tests/ProjectPageBrowserTests.cs",
-      "sha256": "d60e7c441cbaf3fd2ae254b03c01e8d3f412fbd0d81dd93200a4b2f96ff2f2df"
+      "sha256": "da0cc204a63c9bb3037121a8b3b86e0bf411036318fff0918f2491d3f0097d41"
     },
     {
       "path": "tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs",

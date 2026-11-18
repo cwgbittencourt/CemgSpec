@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "revision": "sha256:89a4535be36e2b206ac62881eeb8f7eabbcc0346dd26a2f16c0e060e1eb1f70f",
+  "mode": "AUTORREVISAO",
+  "user_request_status": "PARTIALLY_COMPLETED_FULL_NATIVE_BROWSER_VALIDATION_BLOCKED",
+  "changes": [
+    "Explicit choose-origin, choose-output, confirm actions; no automatic second native dialog",
+    "Canonical handle-resolved chosen paths remain visible, including invalid destination; no catalog loaded before confirm",
+    "Changing origin clears destination; cancel retains previous active project; same origin reuse and per-service picker serialization retained"
+  ],
+  "verified": {
+    "full_suite": 61,
+    "failed": 0,
+    "skipped": 0,
+    "real_edge": "Panel opens from browser; paths initially empty; output/confirm disabled; cancel removes panel without circuit errors.",
+    "controlled_picker_real_filesystem": "Exact returned origin/output preserved on DestinationInsideOrigin; retry then A/B loading/switching keep canonical paths and independent destinations.",
+    "native_harness": "Existing native picker harness passed separately; not the full new browser/native sequence."
+  },
+  "blocker": "Both node_repl @oai/sky and cua_repl fail to initialize: windows sandbox failed: helper_unknown_error: setup refresh had errors. Retried supported entry point; no full desktop walk claimed.",
+  "remaining": "Exercise actual native selection from browser, inspect displayed chosen paths, load A/B, switch, invalid destination retry and cancel; no request for user retest before this proof.",
+  "review": "Server-held selected paths only, no arbitrary browser path endpoint. OpenSelected revalidates destination and canonical identities on confirmation. Existing context remains on validation failure. No known blocking code finding in inspected correction scope; missing demanded integration proof remains blocking.",
+  "human_acceptance": "PENDING"
+}

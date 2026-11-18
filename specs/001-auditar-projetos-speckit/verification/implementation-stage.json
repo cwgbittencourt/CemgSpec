@@ -1,37 +1,37 @@
 {
   "schema_version": 1,
   "stage": "pr",
-  "revision": "sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40",
+  "revision": "sha256:89a4535be36e2b206ac62881eeb8f7eabbcc0346dd26a2f16c0e060e1eb1f70f",
   "state": "BLOCKED",
   "checks": {
     "applicable_tests_passed": true,
     "review_complete": true,
     "blocking_findings_resolved": true,
     "safe_intermediate_state": true,
-    "dependencies_satisfied": false,
+    "dependencies_satisfied": true,
     "human_pr_approved": false,
-    "ai_product_execution_observed": true
+    "ai_product_execution_observed": false
   },
   "blockers": [
-    "T020 PR-A description/closure pending.",
-    "DEV execution/acceptance and human PR approval not granted."
+    "Requested complete browser/native picker validation not executed: computer-use kernel initialization fails with Windows sandbox error.",
+    "Human PR approval, DEV execution/acceptance pending."
   ],
   "human_decisions": [],
   "evidence": [
     {
       "path": "tasks.md",
       "kind": "document",
-      "sha256": "089ee4182b816803f9e29eff6a64e121270a6060adb305596cf895e97a7fc4b5"
+      "sha256": "de6fb473cd53eac7b1f49b41b9e8e87548bfdbe269918a49715b87dcdb735483"
     },
     {
       "path": "evidence/maintenance-code-manifest.json",
       "kind": "document",
-      "sha256": "fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40"
+      "sha256": "89a4535be36e2b206ac62881eeb8f7eabbcc0346dd26a2f16c0e060e1eb1f70f"
     },
     {
       "path": "validation/US1-dev.md",
       "kind": "document",
-      "sha256": "7031d6864f5dbb172ba676c8ca08a97b24c0b128f3ab5e9244231ce4ecaca9a7"
+      "sha256": "4aa20faf2f528e52f3a3907ef432f0828672fa0cdfbeb6755e756f8bed4128a8"
     },
     {
       "path": "acceptance/US1.md",
@@ -51,7 +51,7 @@
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "888cf62d429fb68c82a2733384eb61866f307dbcdde8f1ec3d7d4c693b6a76df"
+      "sha256": "04a8abb6c73158b8b8af6a5cd73aba298c374e19828a1e210e55bf7f2694665d"
     },
     {
       "path": "evidence/T015-findings.json",
@@ -64,34 +64,34 @@
       "sha256": "1ac4aef99bfb3c4f4ebf7ea606549cb3fddc974fd5a27c8b9682042304949ca2"
     },
     {
-      "path": "evidence/T019-test-run.json",
+      "path": "evidence/selection-flow-test-run.json",
       "kind": "test-run",
-      "sha256": "443b73eb7315570faa817be15363230be665e7f5b29b7c30b55f9a5aa24b2e13"
+      "sha256": "525f4265104d1e3ea71984257a243c76f2dffdafa30db6626530fc5a07da6a45"
     },
     {
-      "path": "evidence/T019-product-execution.json",
-      "kind": "product-execution",
-      "sha256": "a745e4326d715ed448430e5443eb27cf9c70e569c225c202618b51b77f749ecc"
+      "path": "evidence/manual-project-opening-product.json",
+      "kind": "document",
+      "sha256": "703c6485b7c56016252bcd9ed24c6eabf45132701a9f017ef4db08af64f83566"
     },
     {
       "path": "evidence/maintenance-manifest.json",
       "kind": "document",
-      "sha256": "53324f1a70855beaaac1719463cc59e3266d27c6506bdd5ab8eb450cc019a30e"
+      "sha256": "cc283e302028e6de9486008d1b8581304cb8f3f64d4c69200da81627fb536bd9"
     },
     {
       "path": "evidence/maintenance-inventory.json",
       "kind": "document",
-      "sha256": "b9395ecedc50ca5a46b1df7579b7efb6269f75dead678577b6104a5a76964bac"
+      "sha256": "6dd6656287d3a1ad27e9d715952d83f5e7c69fcbdbfe86106ff1a06315017ed1"
     },
     {
       "path": "evidence/README.md",
       "kind": "document",
-      "sha256": "ab98a59ea739384cbd236b109077d915e30d69f6261d14ac4898fa4a2c70d7d1"
+      "sha256": "32619d61740104c70ed91109de3010485db4b05a3650b03372d3388d47767d61"
     },
     {
       "path": "evidence/PR-A-validation.md",
       "kind": "document",
-      "sha256": "4e3e96263faf061e9ac19f3b028419897c6753a66abb69367abc57b4fe2b27c0"
+      "sha256": "40a20d91372f60799347e3be9a72245cad20a11197f8a25b5ebd17010b61dd4f"
     },
     {
       "path": "evidence/T017-verification.json",
@@ -101,7 +101,7 @@
     {
       "path": "evidence/PR-A-review.md",
       "kind": "document",
-      "sha256": "fe3cc544d8ae0832f284b3f7128ab5cd7f59ed7dc66c07f147795ffe96eb21c9"
+      "sha256": "01a946b8f8d98fd996e9275355d4c815a284f38406fc5c60bcfbbc2619192d88"
     },
     {
       "path": "evidence/T018-review-context.json",
@@ -112,6 +112,41 @@
       "path": "evidence/T019-findings.json",
       "kind": "document",
       "sha256": "fe93bd96ae2b435c4416bf89b253e112f6f3193c14f4ab22bf44e2fe23e23162"
+    },
+    {
+      "path": "verification/prs/PR-A.md",
+      "kind": "document",
+      "sha256": "966c112ad8a01c89dc5dbc1037efa0b9b9cb35c1230e5aa91857ae39ec4100f8"
+    },
+    {
+      "path": "evidence/T020-verification.json",
+      "kind": "document",
+      "sha256": "97e14ebcfcc811d46047207a7764b465a96b78ba3c3d481f1b7e181c182c5e95"
+    },
+    {
+      "path": "evidence/manual-guides-verification.json",
+      "kind": "document",
+      "sha256": "1c87f23eb566ad2b0b07535b85c2ce167f524ad92fbb880eb51a3346420eca22"
+    },
+    {
+      "path": "evidence/manual-startup-assets.json",
+      "kind": "document",
+      "sha256": "68f2666f43cc485b6398017b6204e5d4a9ad3cccaae681989ce598821e01d728"
+    },
+    {
+      "path": "evidence/manual-project-opening-review.json",
+      "kind": "document",
+      "sha256": "5e277fe416d431cab3e4e791bcdfe8f6835244f3b20b7405fc79c4ef3a41b80b"
+    },
+    {
+      "path": "evidence/selection-flow-review.json",
+      "kind": "document",
+      "sha256": "e3f0651e8e4bab36d6b684e26b04f7470083bf9f2f1daca1acdeeb99b311e122"
+    },
+    {
+      "path": "evidence/selection-flow-validation.md",
+      "kind": "document",
+      "sha256": "4f199b52390719359ffbfd25050c3f7b9ab49973153815c343793bb9dbe5cdb8"
     }
   ],
   "tasks_completed": [
@@ -137,19 +172,17 @@
     "T016",
     "T017",
     "T018",
-    "T019"
+    "T019",
+    "T020"
   ],
-  "next_task": "T020",
+  "next_task": "T021",
   "work_stopped_at_user_request": false,
   "test_summary": {
-    "passed": 57,
+    "passed": 61,
     "failed": 0,
     "skipped": 0,
-    "new_correction_cases_passed": 5,
-    "maintenance_passed": 6,
-    "probe_checks_passed": 2,
-    "note": "Correction cases included in full57. Historical failed red/probes retained outside active passing test-run evidence."
+    "note": "Full61 passed; not proof of full requested native/browser interaction."
   },
-  "manuals_state": "US1 primary harness guide CONFERIDO_PELA_IA; additional loaded-GUI exploration CONFERENCIA_PARCIAL; DEV execution/decision pending.",
-  "review_outcome": "T019_FINDINGS_RESOLVED_REVALIDATED_HUMAN_DECISIONS_PENDING"
+  "manuals_state": "DEV launcher startup/assets checked on own host; complete GUI walkthrough and common-user execution pending. T019 product evidence unchanged.",
+  "review_outcome": "EXPLICIT_SELECTION_FULL_NATIVE_BROWSER_PROOF_BLOCKED"
 }

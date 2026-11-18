@@ -4,7 +4,7 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T019 concluídas tecnicamente. T019 resolveu REV-PRA-01/02: red5, green5, regressão57/57, manutenção6/6 e probes2/2. Próxima T020. Aprovação/execução/aceite humanos pendentes; nenhuma User Story aceita. Ver evidence/PR-A-validation.md e evidence/PR-A-review.md.
+**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. Próxima T021, não iniciada. Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
 ## Checkpoint vigente — constituição 4.0.0
 
@@ -67,7 +67,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T017 [US1] Executar a verificação do incremento PR-A e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-A-validation.md.
 - [x] T018 [US1] Revisar o incremento completo PR-A em evidence/PR-A-review.md com diff incremental, limites e achados por arquivo/linha.
 - [x] T019 [US1] Resolver e revalidar achados do PR-A em evidence/PR-A-validation.md e evidence/PR-A-review.md; registrar nenhum achado somente com review real.
-- [ ] T020 [US1] Preparar verification/prs/PR-A.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
+- [x] T020 [US1] Preparar verification/prs/PR-A.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
 
 ## Fase 4 — US2: Documentos (P1)
 

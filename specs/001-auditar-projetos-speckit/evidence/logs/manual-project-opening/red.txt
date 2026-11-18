@@ -1,0 +1,25 @@
+  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Ui.Tests -> __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para __REPO_ROOT__\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.16]     SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel [FAIL]
+[xUnit.net 00:00:00.33]     SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.ReopeningSameOriginSelectsExistingContextWithoutDuplicateAndKeepsOtherProject [FAIL]
+  Com falha SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel [15 ms]
+  Mensagem de erro:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.InvalidOperationException)
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectOpeningRegressionTests.cs:line 33
+   at SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectOpeningRegressionTests.cs:line 34
+--- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.ReopeningSameOriginSelectsExistingContextWithoutDuplicateAndKeepsOtherProject [164 ms]
+  Mensagem de erro:
+   Assert.Same() Failure: Values are not the same instance
+Expected: OpenProjectContext { Catalog = DocumentCatalog { ChangeRevision = 0, Entries = [···], Features = [···], FinalOriginPath = "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-"···, Generation = 0, ··· }, LastError = null, Monitor = DocumentChangeMonitor { }, OutputDisplayPath = "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-"···, Session = ProjectSession { ActiveFeatureId = 8c0d29c6-1403-4f8e-ab5e-5e84daf82396, CreatedUtc = 2026-11-18T01:46:32.7526047+00:00, DisplayName = "origin", Features = [···], Generation = 0, ··· } }
+Actual:   OpenProjectContext { Catalog = DocumentCatalog { ChangeRevision = 0, Entries = [···], Features = [···], FinalOriginPath = "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-"···, Generation = 0, ··· }, LastError = null, Monitor = DocumentChangeMonitor { }, OutputDisplayPath = "__USER_HOME__\\AppData\\Local\\Temp\\SpecAudit-"···, Session = ProjectSession { ActiveFeatureId = 2ffbffa8-e948-4586-a14e-986493692d6d, CreatedUtc = 2026-11-18T01:46:32.8026870+00:00, DisplayName = "origin", Features = [···], Generation = 0, ··· } }
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.ReopeningSameOriginSelectsExistingContextWithoutDuplicateAndKeepsOtherProject() in __REPO_ROOT__\tests\SpecAudit.Ui.Tests\ProjectOpeningRegressionTests.cs:line 25
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Com falha! – Com falha:     2, Aprovado:     0, Ignorado:     0, Total:     2, Duração: 197 ms - SpecAudit.Ui.Tests.dll (net10.0)

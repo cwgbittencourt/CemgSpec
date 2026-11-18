@@ -33,7 +33,11 @@ public sealed class ProjectCorrectionTests
         return page;
     }
 
-    private static Task Open(Projects page) => (Task)typeof(Projects).GetMethod("Open", PrivateInstance)!.Invoke(page, null)!;
+    private static async Task Open(Projects page)
+    {
+        foreach(var method in new[]{"Open","ChooseOrigin","ChooseOutput","ConfirmOpen"})
+            await (Task)typeof(Projects).GetMethod(method,PrivateInstance)!.Invoke(page,null)!;
+    }
     private static void Refresh(Projects page) => typeof(Projects).GetMethod("Refresh", PrivateInstance)!.Invoke(page, null);
     private static string? Error(Projects page) => (string?)typeof(Projects).GetField("error", PrivateInstance)!.GetValue(page);
 

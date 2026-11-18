@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "scope": "Requested separate DEV/common-user guides",
+  "product_revision": "sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40",
+  "product_tests_tools_unchanged": true,
+  "human_owned_dev_suffix_unchanged": true,
+  "preparer": "PrepareOnly executed successfully; syntax, missing tasks and baseline hashes checked. Initial streaming baseline export failed on shared file; corrected by materializing rows before export.",
+  "launch_status": "Corrected launcher explicitly sets Development. Real launcher started on own free loopback port; page and all4 referenced CSS/JS returned200 with nonempty bodies. Own host tree stopped; user host untouched. Full manual interaction still pending.",
+  "user_guide_status": "WRITTEN; common-user execution pending",
+  "acceptance": "No human execution, PR approval or story acceptance inferred",
+  "startup_evidence": "evidence/manual-startup-assets.json"
+}

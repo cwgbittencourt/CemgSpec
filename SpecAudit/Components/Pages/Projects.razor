@@ -9,6 +9,20 @@
         <div><p class="eyebrow">SPECAUDIT · AUDITORIA DOCUMENTAL</p><h1>Projetos</h1><p class="muted">Consulte seus documentos SpecKit. A solução permanece somente leitura.</p></div>
         <button class="primary" @onclick="Open" disabled="@busy">@(busy ? "Selecionando pastas…" : "Carregar projeto")</button>
     </header>
+    <p class="muted">Para alternar projetos já abertos, use a lista Projeto. Um novo carregamento só acontece após conferir e confirmar as duas pastas.</p>
+    @if(opening)
+    {
+        <section class="selection-panel" aria-label="Novo projeto">
+            <h2>Conferir pastas do projeto</h2>
+            <div class="path-grid">
+                <section class="path-card"><h3>1. Pasta do projeto</h3><p class="path-value" data-testid="selected-origin">@(pendingOrigin ?? "Nenhuma pasta selecionada")</p><button class="secondary" @onclick="ChooseOrigin" disabled="@busy">Escolher projeto</button></section>
+                <section class="path-card"><h3>2. Pasta dos relatórios</h3><p class="path-value" data-testid="selected-output">@(pendingOutput ?? "Nenhuma pasta selecionada")</p><button class="secondary" @onclick="ChooseOutput" disabled="@(busy || pendingOrigin is null)">Escolher destino</button></section>
+            </div>
+            <p class="muted">O destino deve ficar fora da pasta do projeto. As seleções acima são os caminhos retornados pelo seletor, resolvidos pelo aplicativo.</p>
+            <button class="primary" @onclick="ConfirmOpen" disabled="@(busy || pendingOrigin is null || pendingOutput is null)">Confirmar carregamento</button>
+            <button class="secondary" @onclick="CancelOpen" disabled="@busy">Cancelar carregamento</button>
+        </section>
+    }
     @if(error is not null){<div role="alert" class="notice error-notice">@error</div>}
     @if(ProjectStore.Active is not { } active)
     {
@@ -42,11 +56,36 @@
 
 @code {
     private bool busy;
+    private bool opening;
+    private string? pendingOrigin;
+    private string? pendingOutput;
     private string? error;
     protected override void OnInitialized()=>ProjectStore.Changed+=OnProjectsChanged;
     private void OnProjectsChanged()=>_ = InvokeAsync(StateHasChanged);
-    private async Task Open(){busy=true;error=null;try{await ProjectStore.OpenProjectAsync();}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or SpecAudit.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException or System.ComponentModel.Win32Exception){error=Message(failure);}finally{busy=false;}}
-    private async Task ChangeOutput(){if(ProjectStore.Active is not {} active)return;busy=true;error=null;try{await ProjectStore.ChangeOutputDirectoryAsync(active.Session.ProjectId);}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}finally{busy=false;}}
+    private Task Open(){if(!busy){opening=true;pendingOrigin=null;pendingOutput=null;error=null;}return Task.CompletedTask;}
+    private async Task ChooseOrigin()
+    {
+        if(busy)return;busy=true;error=null;
+        try{var selected=await ProjectStore.PickProjectOriginAsync();if(selected is not null){pendingOrigin=selected;pendingOutput=null;}}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+    }
+    private async Task ChooseOutput()
+    {
+        if(busy || pendingOrigin is null)return;busy=true;error=null;
+        try{var selected=await ProjectStore.PickReportDestinationAsync();if(selected is not null)pendingOutput=selected;}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+    }
+    private Task ConfirmOpen()
+    {
+        if(busy || pendingOrigin is null || pendingOutput is null)return Task.CompletedTask;
+        busy=true;error=null;
+        try{ProjectStore.OpenSelected(pendingOrigin,pendingOutput);opening=false;pendingOrigin=null;pendingOutput=null;}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+        return Task.CompletedTask;
+    }
+    private void CancelOpen(){if(busy)return;opening=false;pendingOrigin=null;pendingOutput=null;error=null;}
+    private static bool IsSelectionError(Exception failure)=>failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or SpecAudit.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException or System.ComponentModel.Win32Exception;
+    private async Task ChangeOutput(){if(busy)return;if(ProjectStore.Active is not {} active)return;busy=true;error=null;try{await ProjectStore.ChangeOutputDirectoryAsync(active.Session.ProjectId);}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}finally{busy=false;}}
     private void SelectProject(ChangeEventArgs args){if(Guid.TryParse(args.Value?.ToString(),out var id)){try{ProjectStore.SelectProject(id);error=null;}catch(KeyNotFoundException){error="Projeto indisponível nesta sessão.";}}}
     private void SelectFeature(ChangeEventArgs args){if(ProjectStore.Active is {} active && Guid.TryParse(args.Value?.ToString(),out var id)){try{active.Session.SelectFeature(id);error=null;}catch(KeyNotFoundException){error="Funcionalidade indisponível neste projeto.";}}}
     private void Refresh(){if(ProjectStore.Active is not {} active)return;try{ProjectStore.Refresh(active.Session.ProjectId);error=null;}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or SpecAudit.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}}
@@ -59,7 +98,7 @@
                 "evidence-graph"=>"Não foi possível concluir a leitura: o catálogo excede o limite de quantidade ou profundidade de documentos. Os relatórios não foram salvos.",
                 _=>"Não foi possível concluir a leitura: o projeto excede um limite operacional. Os relatórios não foram salvos."
             };
-        return failure.Message switch{"DestinationInsideOrigin"=>"Escolha um destino externo. A origem e suas subpastas não podem receber relatórios.","Changed"=>"A pasta ou os documentos mudaram. Selecione ou atualize o projeto novamente.","Unreadable"=>"Não foi possível ler a pasta selecionada. Confira a existência e as permissões.",_=>"Não foi possível concluir a seleção. Os relatórios não foram salvos; confira as pastas e tente novamente."};
+        return failure.Message switch{"FolderSelectionInProgress"=>"Conclua ou cancele a seleção de pasta que já está aberta.","DestinationInsideOrigin"=>"Escolha um destino externo. A origem e suas subpastas não podem receber relatórios.","Changed"=>"A pasta ou os documentos mudaram. Selecione ou atualize o projeto novamente.","Unreadable"=>"Não foi possível ler a pasta selecionada. Confira a existência e as permissões.",_=>"Não foi possível concluir a seleção. Os relatórios não foram salvos; confira as pastas e tente novamente."};
     }
     public void Dispose()=>ProjectStore.Changed-=OnProjectsChanged;
 }
