@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "scope": "Current T015 exports and tested source; historical outcomes remain distinct",
+  "base_commit": "aaf89ba8c232e69e8fcd1529e2437d6147836dd4",
+  "code_revision": "sha256:530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8",
+  "final_suite": {
+    "passed": 52,
+    "failed": 0,
+    "skipped": 0
+  },
+  "new_regression_cases_passed": 7,
+  "original_probes_passed": 3,
+  "watcher_retests_passed": 5,
+  "resolved_findings": [
+    "REV-US1-01",
+    "REV-US1-02"
+  ],
+  "blocking_findings_open": 0,
+  "text_files_scanned": 403,
+  "secret_pattern_matches": 0,
+  "personal_metadata_matches": 0,
+  "structured_files_parsed": {
+    "json": 112,
+    "trx": 112,
+    "jsonl": 1
+  },
+  "source_manifest_matches": true,
+  "human_decisions": [],
+  "limitations": "Pattern scan is not a complete secret audit. Razor handlers exercised by reflection; full human script/acceptance pending T016."
+}

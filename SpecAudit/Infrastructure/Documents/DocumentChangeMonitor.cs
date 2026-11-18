@@ -37,7 +37,13 @@ public sealed class DocumentChangeMonitor : IDisposable
         return Directory.Exists(path) || containsDocuments(Path.GetRelativePath(origin,path)) || extension.Length==0 || extension is ".md" or ".json" or ".txt" or ".trx" ||
             (parts[2].Equals("design",StringComparison.OrdinalIgnoreCase) && extension is ".png" or ".jpg" or ".jpeg" or ".webp" or ".svg");
     }
-    private void Notify(object sender,FileSystemEventArgs args){if(Relevant(args.FullPath))Signal();}
+    private void Notify(object sender,FileSystemEventArgs args)
+    {
+        // LastWrite/Size on an existing directory is metadata, not a document
+        // edit. Structural Created/Deleted/Renamed events remain observable.
+        if(args.ChangeType==WatcherChangeTypes.Changed && Directory.Exists(args.FullPath))return;
+        if(Relevant(args.FullPath))Signal();
+    }
     private void Signal(){if(Volatile.Read(ref disposed)==0)Changed?.Invoke();}
     public void Dispose(){if(Interlocked.Exchange(ref disposed,1)==0)watcher.Dispose();}
 }

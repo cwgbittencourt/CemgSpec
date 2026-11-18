@@ -1,4 +1,8 @@
-# Implementação — checkpoint T014 (review com achados)
+# Implementação — checkpoint T015 (achados corrigidos e revalidados)
+
+Atualização vigente — 2026-11-17, America/Sao_Paulo: T015 concluída. REV-US1-01 e REV-US1-02 resolvidos na revisão local sobre `aaf89ba8c232e69e8fcd1529e2437d6147836dd4`; fonte exata no manifesto corrente. Metadados de diretórios existentes não invalidam documentos; eventos estruturais e erros do watcher continuam monitorados. Limites são tratados em Open/Refresh com mensagem e recuperação segura. Suíte 52/52, replay dos probes T014 3/3 e teste antes intermitente 5/5 aprovados. Review renovado sem impeditivo conhecido no escopo dos dois achados. Próxima task T016; fechamento/aceite/aprovação humana pendentes. Os checkpoints abaixo são históricos, não o estado corrente.
+
+## Checkpoints anteriores
 
 Data 2026-11-17, America/Sao_Paulo. T013 concluída tecnicamente após corrigir lacuna de cobertura com harness integrado real. Próxima task T014; nenhuma task posterior iniciada. Checkpoint anterior preservado em T013-before/implementation-status.md.
 

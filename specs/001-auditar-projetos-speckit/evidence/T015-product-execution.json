@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "revision": "sha256:530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8",
+  "executor": "AI",
+  "medium": "LIBRARY",
+  "state": "OBSERVED",
+  "startup": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T015-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T015/final-results",
+  "input": "Synthetic Windows files and directories; live OS watcher; compiled Razor Open/Refresh handlers; native picker and own loopback host/Edge in regression.",
+  "expected": "Directory metadata does not stale unchanged documents; structural/document edits still invalidate; size/graph limits display safe errors, preserve context and allow retry; no reports or origin writes.",
+  "observed": "52/52 suite, 7/7 correction cases included, exact original probes 3/3, watcher retests 5/5; corrected observations preserve origin and show no escaping exception.",
+  "effects_checked": "Baseline file paths/hashes; immutable snapshot and cancellation regressions; rollback/context retention; dimension-specific error; zero reports; explicit retry after external synthetic repair.",
+  "scenarios": [
+    "US1-S01 / US1-AC01",
+    "US1-S02 / US1-AC02",
+    "US1-S03 / US1-AC03",
+    "US1-S04 / US1-AC04",
+    "REV-US1-01",
+    "REV-US1-02"
+  ],
+  "artifacts": [
+    {
+      "path": "evidence/logs/T015/green.txt",
+      "sha256": "f967483f2e3e02f4bcbf7676bb0c30778646258fc9e53083c143691e5fa7d2b3"
+    },
+    {
+      "path": "evidence/logs/T015/original-probes.txt",
+      "sha256": "bca99499ce3cacbad6849ae817e5494a1a2b54d0329a96cf59947b4bbea8cac4"
+    },
+    {
+      "path": "evidence/logs/T015/final-suite.txt",
+      "sha256": "2d7a53cdfb0d46a14c3961320f3d205ca148edd1747c03c68a5cb07f614235a1"
+    },
+    {
+      "path": "evidence/logs/T015/original-probe-observations/directory-metadata.json",
+      "sha256": "be7f13e5bac2fdc23f3880ac87ab41b539408377b50f4c5aa6341ea42337c491"
+    },
+    {
+      "path": "evidence/logs/T015/original-probe-observations/page-limit-document-bytes.json",
+      "sha256": "6a56d69772ec192a024325c672c1b99ee06c61ad2db4d6f7f6c25d8bc18ed8ce"
+    },
+    {
+      "path": "evidence/logs/T015/original-probe-observations/page-limit-evidence-graph.json",
+      "sha256": "91c6af04d169f882dabe64dd9687e35c1c7ed6d56d1a3d443b6c96057fecca4c"
+    }
+  ],
+  "limitations": "Razor limit handlers invoked via reflection with controlled picker; no new screenshot of each message, human acceptance, actual agent analysis or Save workflow claimed."
+}

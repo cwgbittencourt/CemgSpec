@@ -1,0 +1,9 @@
+{
+  "dimension": "document-bytes",
+  "exception": null,
+  "message": null,
+  "displayedError": "N\u00E3o foi poss\u00EDvel concluir a leitura: um documento excede o limite de tamanho permitido. Os relat\u00F3rios n\u00E3o foram salvos.",
+  "projects": 0,
+  "originContentUnchanged": true,
+  "reports": 0
+}

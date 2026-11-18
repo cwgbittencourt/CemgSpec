@@ -1,4 +1,8 @@
-# Code review — US1 / T014
+# Code review — US1 (T014–T015)
+
+**Estado vigente — T015, 2026-11-17: autorrevisão técnica CONCLUÍDA, REV-US1-01 e REV-US1-02 RESOLVIDOS.** Correções, execuções e revisão renovada estão na rodada T015 ao final e em `T015-findings.json`. O registro T014 abaixo permanece histórico, incluindo os achados e os três testes que efetivamente falharam. Fechamento PR-A, reprodução/aceite do DEV e aprovação humana continuam pendentes.
+
+## Registro histórico T014
 
 Estado do review: BLOQUEADA para aprovação normal — ALTERAÇÕES SOLICITADAS.
 Execução da task T014: CONCLUÍDA; dois achados abertos para T015. Executar uma revisão e aprovar a implementação são estados distintos.
@@ -90,3 +94,21 @@ O caminho temporário fixo é arquivo criado por esta receita dentro do checkout
 Dois achados P2 confirmados e abertos. A passagem de autorrevisão T014 está executada e registrada; o review para aprovação permanece BLOQUEADO. T015 é a task autorizável de correção/revalidação; não iniciar fechamento normal T016/PR-A com esses achados abertos. Nenhuma alteração de produção foi feita para corrigi-los nesta solicitação de T014. Execução humana, aprovação de PR, integração e aceite continuam pendentes. Não foi presumida confirmação de impossibilidade ou exceção humana.
 
 Gate PR-A executado com `check_gate.py`, stage `pr`, registro `verification/implementation-stage.json` e revisão de código indicada acima: BLOCKED/exit 1 esperado pelos achados, probes falhos e condições de fechamento/decisão humana pendentes. Log final em `logs/T014-review/gate-final.txt`; `gate.txt` preserva a primeira conferência durante a atualização, ainda com um vínculo de hash pendente, posteriormente reparado. A conferência final não deve apresentar erro de hash/revisão; o erro de execução de teste é esperado e corresponde aos probes realmente falhos. Formatos, sanitização e vínculo ao código conferidos em `T014-verification.json`; o inventário corrente e o comando `python tools/maintain_evidence.py --verify` permitem conferir a integridade estrutural, sem transformar os resultados negativos em aprovação.
+
+
+## Rodada T015 — resolução e autorrevisão renovada
+
+Estado da rodada: CONCLUÍDA no escopo técnico dos dois achados; nenhum impeditivo conhecido aberto nesse escopo. Autor: Codex, modalidade AUTORREVISAO. Data: 2026-11-17, America/Sao_Paulo. Base do incremento de correção: `aaf89ba8c232e69e8fcd1529e2437d6147836dd4`; candidato local identificado pelo manifesto corrente e `T015-context.json`. Esta revisão não substitui T018/review humano do PR-A ou aceite do DEV.
+
+| Achado | Correção inspecionada | Revalidação executada | Estado |
+|---|---|---|---|
+| REV-US1-01 | DocumentChangeMonitor.cs:40–46: ignora Changed de diretórios existentes, preservando eventos de estrutura e Error. Nenhum filtro foi removido de arquivos documentais; nenhum acesso de escrita foi adicionado | Três diretórios reais (funcionalidade, evidência aninhada com ponto e .specify/memory) sem invalidação/cancelamento; replay do probe T014; cinco retestes do caso antes intermitente; regressões de create/rename/delete e edição/cancelamento na suíte | RESOLVIDO |
+| REV-US1-02 | Projects.razor:48,52–64: captura tipada de limite em Open/Refresh e mensagens por Dimension; ExecutionLimits.cs:4 expõe a dimensão, sem alterar valores ou resultado Inconclusive | Dois casos de Open e dois de Refresh, mensagem, preservação de contexto/rollback, ausência de relatórios e recuperação; replay dos dois probes T014 de tamanho/grafo | RESOLVIDO |
+
+Passagem explícita de autorrevisão: conferidos o diff de produção (somente três arquivos) e os sete novos testes, critérios AC01–AC04, caminhos readonly, janela de erro, retorno do fluxo e regressão de eventos estruturais. Ignorar metadados de diretório existente não ignora Created/Deleted/Renamed; o broker continua revalidando identidade/hash ao ler. Em limite, não há mudança de limiar, truncamento, criação de relatório ou troca involuntária de contexto. Open com erro preserva o trabalho anterior; Refresh com erro conserva catálogo pendente até nova ação explícita. As mensagens não expõem caminhos ou conteúdo de documentos.
+
+Resultados finais: suíte 52/52, replay original 3/3 e cinco retestes do teste antes intermitente aprovados. A falha inicial do observador de teste (separadores) foi corrigida antes do red conferido; rodadas preservadas. Nenhuma asserção do requisito foi relaxada para obter green. A correção resolve o mecanismo demonstrado de OBS-MAINT-01; a causa exata daquela rodada histórica sem instrumentação continua sem atribuição definitiva, não se apaga sua ocorrência.
+
+Não surgiram achados adicionais impeditivos nesta inspeção e nas execuções realizadas. Limites: handler Razor exercitado por harness/reflexão, sem novo screenshot da mensagem em circuito carregado; integrações de agente/Save continuam futuras e indisponíveis. O código de políticas/histórico/credenciais não foi ampliado. Consulta de dependências executada, sem novo pacote ou achado listado no alcance consultado.
+
+Estado técnico apto a seguir para T016 (consolidação do roteiro), não aprovação de PR nem aceite da história. Evidências de execução e critérios em `US1-validation.md`, fechamento por ID em `T015-findings.json`. O manifesto anterior da T014 e a fonte que falhou são recuperáveis no commit base, com os registros negativos originais preservados. Gate PR-A normal permanece BLOCKED por fechamento/dependências e decisão humana, sem manter estes dois defeitos como abertos.

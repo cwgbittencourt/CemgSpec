@@ -6,7 +6,7 @@ Este diretório guarda comprovação técnica do desenvolvimento do SpecAudit, n
 
 - [Estado atual da implementação](implementation-status.md) e [gate do incremento](../verification/implementation-stage.json).
 - [Validação US1 / T013](US1-validation.md): quatro cenários reais e respectivas limitações.
-- [Review US1 / T014](US1-review.md): dois achados abertos, três probes falhos e próximos passos para T015.
+- [Review US1 / T014–T015](US1-review.md): histórico dos dois achados e rodada atual de correção/revalidação, sem aceite humano.
 - [Manutenção das evidências](maintenance-review.md): sanitização, consolidação, execução renovada e verificações.
 - [Histórico de transformações](maintenance-manifest.json): hashes anteriores/posteriores e consolidações por rodada.
 - `logs/`: saídas, TRX e capturas indispensáveis à inspeção dos resultados registrados.
@@ -42,6 +42,8 @@ python tools/maintain_evidence.py --check
 `--check` é somente leitura e retorna 1 quando há sanitização/consolidação pendente. `--apply` opera somente nos artefatos desta feature, repara hashes transitivamente, consolida apenas bytes idênticos sob logs/ e registra a transformação. Não executa scripts da origem, não altera o código do produto, não apaga falhas únicas e não aprova testes ou decisões humanas. Arquivos não textuais permanecem inalterados. Preservar finais de linha existentes; o repositório registra bytes exatos por SHA256.
 
 `--verify` confere hashes e contenção de todas as referências do inventário exportado, manifesto de código corrente e gate vigente. Depois de adicionar novas evidências, atualizar o inventário com a revisão efetivamente conferida antes de executar essa verificação. O inventário exclui a si próprio e o gate que o referencia para evitar dependência circular. Registros históricos são conferidos contra sua revisão/snapshot e o manifesto de transformação, não tratados como se fossem do código corrente.
+
+Na T015, o manifesto de código corrente foi renovado para a revisão corrigida. O manifesto anterior e os resultados negativos T014 permanecem recuperáveis no commit `aaf89ba8c232e69e8fcd1529e2437d6147836dd4`; seus hashes/revisões históricos não são convertidos em aprovação da versão nova. As observações positivas do replay estão em `logs/T015/original-probe-observations/`; os JSONs negativos originais T014 foram preservados byte a byte.
 
 Antes do commit: conferir diff, conteúdo e nomes de arquivos, executar busca de segredos e os gates afetados. Os testes T013 já gravam os caminhos de fixtures usando `__TEMP_ROOT__`; o exportador TRX do framework ainda requer a passagem de sanitização. Não há CI ou hook automático instalado por esta manutenção.
 

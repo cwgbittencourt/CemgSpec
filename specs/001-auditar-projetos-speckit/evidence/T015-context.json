@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "base_commit": "aaf89ba8c232e69e8fcd1529e2437d6147836dd4",
+  "code_revision": "sha256:530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8",
+  "tracked_production_diff_command": "git diff --binary aaf89ba8c232e69e8fcd1529e2437d6147836dd4 -- SpecAudit",
+  "tracked_production_diff_sha256": "b7bcfc1d2ac09f3e5ab4fbb0472ea6cc1fc61c5351c07e3339bb7405ca3399c5",
+  "production_files_changed": [
+    "SpecAudit/Components/Pages/Projects.razor",
+    "SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs",
+    "SpecAudit/Infrastructure/Execution/ExecutionLimits.cs"
+  ],
+  "additional_regression_source": {
+    "path": "tests/SpecAudit.Ui.Tests/ProjectCorrectionTests.cs",
+    "sha256": "b196e37244e824614d835c87d4ae9fbd9558303c50d0b9116bf8ff970a06593d"
+  },
+  "red_candidate": "Base commit plus the same additional regression source, before production corrections; calibration path comparison repaired before red_verified.",
+  "results": {
+    "red_calibration": {
+      "total": 7,
+      "passed": 0,
+      "failed": 7,
+      "skipped": 0
+    },
+    "red_verified": {
+      "total": 7,
+      "passed": 0,
+      "failed": 7,
+      "skipped": 0
+    },
+    "green": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    "original_probes": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    "final": {
+      "total": 52,
+      "passed": 52,
+      "failed": 0,
+      "skipped": 0
+    },
+    "watcher_retests": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "original_probe_source": {
+    "path": "evidence/T014-probes/T014ReviewProbe.cs",
+    "sha256": "c0b9934dac7b9165a2d00dc49f44dc27dccf7b5c464caa7ff40a929eb73ce865"
+  },
+  "original_observations_preserved_byte_for_byte": true,
+  "original_probe_temporary_source_removed": true,
+  "environment": {
+    "os": "Windows-10-10.0.26300-SP0",
+    "sdk": "10.0.404"
+  },
+  "modality": "AUTORREVISAO",
+  "human_decisions": []
+}

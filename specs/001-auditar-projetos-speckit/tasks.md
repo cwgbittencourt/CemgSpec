@@ -4,11 +4,11 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T014 executadas no escopo técnico documentado, sob constituição vigente 4.1.0. T014 registrou dois achados abertos: revisão para aprovação BLOQUEADA; próxima task T015 (correção/revalidação). Baseline 45/45 e três falhas nos probes de review preservadas. Nenhuma User Story aceita. Ver evidence/US1-review.md e evidence/implementation-status.md.
+**Estado de execução**: migração e T001–T015 concluídas no escopo técnico documentado, sob constituição vigente 4.1.0. Os dois achados T014 foram corrigidos/revalidados: suíte 52/52, probes originais 3/3 e cinco retestes do monitor aprovados. Falhas anteriores preservadas. Próxima task T016; nenhuma User Story aceita. Ver evidence/US1-validation.md, evidence/US1-review.md e evidence/implementation-status.md.
 
 ## Checkpoint vigente — constituição 4.0.0
 
-A garantia de sandbox OS foi retirada por decisão explícita; SEC-001 permanece histórica. Somente leitura da aplicação, dois comandos, testes reais/roteiros por história e aceite do DEV permanecem obrigatórios. Migração T095–T098 preservada; T013 e baseline T014 com 45 testes aprovados. A autorrevisão T014 confirmou dois achados em três probes falhos; não há aprovação normal da revisão. Próximo passo T015; ver evidence/US1-review.md. Evidências anteriores permanecem históricas.
+A garantia de sandbox OS foi retirada por decisão explícita; SEC-001 permanece histórica. Somente leitura da aplicação, dois comandos, testes reais/roteiros por história e aceite do DEV permanecem obrigatórios. Migração T095–T098 preservada; T015 resolveu os dois achados e renovou a autorrevisão com 52 testes aprovados. Próximo passo T016, consolidação do roteiro/estado técnico; aprovação de PR e aceite humano pendentes. Evidências anteriores permanecem históricas.
 
 ## Referência visual obrigatória das interfaces
 
@@ -62,7 +62,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T012 [US1] Implementar geração/invalidação documental em SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs e integração de ProjectService.cs, preservando edição externa.
 - [x] T013 [US1] Executar os cenários US1-S01–S04 / US1-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US1-validation.md.
 - [x] T014 [US1] Revisar diff, critérios, contratos, segurança e resultados da versão de US1 em evidence/US1-review.md, declarando autorrevisão.
-- [ ] T015 [US1] Resolver achados de US1 e repetir checks afetados em evidence/US1-validation.md e evidence/US1-review.md; se nenhum, registrar referência à revisão real.
+- [x] T015 [US1] Resolver achados de US1 e repetir checks afetados em evidence/US1-validation.md e evidence/US1-review.md; se nenhum, registrar referência à revisão real.
 - [ ] T016 [US1] Consolidar e conferir roteiro reproduzível em validation/US1-dev.md e registrar estado técnico em acceptance/US1.md, mantendo decisão do DEV pendente.
 - [ ] T017 [US1] Executar a verificação do incremento PR-A e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-A-validation.md.
 - [ ] T018 [US1] Revisar o incremento completo PR-A em evidence/PR-A-review.md com diff incremental, limites e achados por arquivo/linha.

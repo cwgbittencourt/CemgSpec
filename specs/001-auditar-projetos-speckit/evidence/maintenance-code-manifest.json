@@ -1,7 +1,8 @@
 {
   "schema_version": 1,
-  "base_commit": "139fd81db66943bbc2e167ccd13a75b4a317a2fc",
-  "scope": "Evidence maintenance; production unchanged; native harness evidence uses portable temp root",
+  "base_commit": "aaf89ba8c232e69e8fcd1529e2437d6147836dd4",
+  "task": "T015",
+  "scope": "Current corrected candidate; prior manifest bytes remain in base Git commit. Historical executions retain their original revision.",
   "files": [
     {
       "path": "SpecAudit.slnx",
@@ -61,7 +62,7 @@
     },
     {
       "path": "SpecAudit/Components/Pages/Projects.razor",
-      "sha256": "afd6b9e6190639fa58670d0fe37ad6d89b2ffc05d004acdaad13c5b43f970fc5"
+      "sha256": "15158d38f691186aff4f6f86e7b41658abc169a07412b020d756eee75631209b"
     },
     {
       "path": "SpecAudit/Components/Routes.razor",
@@ -93,7 +94,7 @@
     },
     {
       "path": "SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs",
-      "sha256": "91c36c4eacc041632aacf73650c45b42aa7222606cea9cf39407e20f9594c802"
+      "sha256": "a7979527ceed755b5b1c24127934891c2fa32200b6f2257545c2be3107bd91ed"
     },
     {
       "path": "SpecAudit/Infrastructure/Documents/NativeFolderPicker.cs",
@@ -109,7 +110,7 @@
     },
     {
       "path": "SpecAudit/Infrastructure/Execution/ExecutionLimits.cs",
-      "sha256": "9b2df35ac126725405bdd1425a8b6e394916bc48d93dcf6247b62cedcb7ee3d9"
+      "sha256": "a5d89ff1e31b4e74e4f11acd0341610e598a8b6d394b0f86e8ddfc393123ac25"
     },
     {
       "path": "SpecAudit/Infrastructure/Execution/TrustedCommandRunner.cs",
@@ -186,6 +187,10 @@
     {
       "path": "tests/SpecAudit.Ui.Tests/LocalSessionHttpTests.cs",
       "sha256": "50cbcf31ddc32d1c439a6e3e5433d0c6e2611d8b8678d88870c2eef23ceedfe1"
+    },
+    {
+      "path": "tests/SpecAudit.Ui.Tests/ProjectCorrectionTests.cs",
+      "sha256": "b196e37244e824614d835c87d4ae9fbd9558303c50d0b9116bf8ff970a06593d"
     },
     {
       "path": "tests/SpecAudit.Ui.Tests/ProjectPageBrowserTests.cs",

@@ -2570,6 +2570,165 @@
         }
       ],
       "renamed": []
+    },
+    {
+      "base_commit": "aaf89ba8c232e69e8fcd1529e2437d6147836dd4",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [
+        {
+          "path": "evidence/logs/T015/final-suite.txt",
+          "original_sha256": "0b200b7284545b71fabf14c6a798209b5969a8986eef661956dcd720f914562f",
+          "sanitized_sha256": "2d7a53cdfb0d46a14c3961320f3d205ca148edd1747c03c68a5cb07f614235a1"
+        },
+        {
+          "path": "evidence/logs/T015/green.txt",
+          "original_sha256": "c0d7c14b855f00739b1414ba3f55c16083ccb7cc6a554142e2e828c45a50560c",
+          "sanitized_sha256": "f967483f2e3e02f4bcbf7676bb0c30778646258fc9e53083c143691e5fa7d2b3"
+        },
+        {
+          "path": "evidence/logs/T015/original-probes.txt",
+          "original_sha256": "b8147ce39e36c8a59c228a306c638e2a42bbecb4c8eefbdd9027f17498a5554c",
+          "sanitized_sha256": "bca99499ce3cacbad6849ae817e5494a1a2b54d0329a96cf59947b4bbea8cac4"
+        },
+        {
+          "path": "evidence/logs/T015/package-audit.json",
+          "original_sha256": "c587381ea510c20f22afcacc0aa0f430e81f465b840b76ae06740e9da24f5ba1",
+          "sanitized_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97"
+        },
+        {
+          "path": "evidence/logs/T015/red-verified.txt",
+          "original_sha256": "e39b8978f85d64bbe8df82a4f162f91acbed73e4e4ab88a2d28bfe4f5e8b0854",
+          "sanitized_sha256": "31c00ce70b0acb2cc31d9ea996f95a1e8a12211392f9b747d0b9301d5b127eaf"
+        },
+        {
+          "path": "evidence/logs/T015/red.txt",
+          "original_sha256": "02a0a48ec2c66c688600e2d529053acda4b3447dcb33c4927953c44afcfd209e",
+          "sanitized_sha256": "c7f324c104b5432644d75c56da198b65e50baea737c2c7066e24c0a384edc2bd"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-1.txt",
+          "original_sha256": "2e961e9f71398d74b8edc9830435e3ab61f8b7ff8fcd4aceaa8b32d3feefb30e",
+          "sanitized_sha256": "ed8ab62d83d35b2e254e6a8e70fae16a8a6071695cf12803f0bd4f07c56775cf"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-2.txt",
+          "original_sha256": "cbde43cc780255b5b8862afbf4efe26c24c1596be15dc70138e6343e0d4773d9",
+          "sanitized_sha256": "28a8985c41364bd8d0859a1bb93b950ae0c061fa5b41b74be793c5022544a585"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-3.txt",
+          "original_sha256": "2d23490a3c77ddeafe8404ee058357737bd31f3047ae840648e9aea7fd05b66d",
+          "sanitized_sha256": "6bb5e4f40df3f0524712c5c23484d5cdc08ea8dfa3a52bb39599931c8ca4ad85"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-4.txt",
+          "original_sha256": "423f61dd321b8360c995b53dc9e0b2d1b6c8c3b62f04e59aa354e76c0b6e78c7",
+          "sanitized_sha256": "88bc5f454a12899ac5b1eb6734c261f855405bc630f86ec7dacac75e770fcf1a"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-5.txt",
+          "original_sha256": "6c641e2aa5b0236198e7de31c606bb3356e657cb358ce709ee4c7198e6b0137b",
+          "sanitized_sha256": "ea3976ff26e6fdaaa28fc9d37abf5fa0646bfedbe679785a72f385abcb461cf9"
+        },
+        {
+          "path": "evidence/logs/T015/final-results/T015-final_net10.0_20261117211531.trx",
+          "original_sha256": "22db0c9c064860dc9536a9d5065987ece7ab18e0e5a10ddcb7bbe13ea896cc73",
+          "sanitized_sha256": "de58ac9743c1c9c44985b703ae77ecba8a459fe73efa2b4a8cb5239f1d4c2d70"
+        },
+        {
+          "path": "evidence/logs/T015/final-results/T015-final_net10.0_20261117211534.trx",
+          "original_sha256": "b062726201563a605e94b74969c4c14ae4072ab1b4eb65ea9335faafed8df141",
+          "sanitized_sha256": "237d8f70c28c0519cbd55b098e14b2aafdcf45ca9730c54e4910a211b2273002"
+        },
+        {
+          "path": "evidence/logs/T015/final-results/T015-final_net10.0_20261117211537.trx",
+          "original_sha256": "f8bdf84b4b224c6c4c645c4e39d03b1c7cfeefd4e916cfe1eaf8bb04c7d3c44c",
+          "sanitized_sha256": "83a5b1f6533a90c6ac72f3d6e6b8d0740dee3797c929cc593cf6101cb70532b2"
+        },
+        {
+          "path": "evidence/logs/T015/green-results/T015-green_net10.0_20261117211445.trx",
+          "original_sha256": "edb7299b45657c62bd7e2aa5f5b6bc98a51cf38e0d042be4b3eea02ef4bf84d4",
+          "sanitized_sha256": "64d88210830925bac147c2a4ead8492d9aba84f85c1e66af4c31bd11ed6cf4b3"
+        },
+        {
+          "path": "evidence/logs/T015/original-probe-results/T015-original-probes_net10.0_20261117211528.trx",
+          "original_sha256": "3dba1eab94e690f4d92267e244919b05fed22112f0090122c8578d26e47ec99f",
+          "sanitized_sha256": "9738483b7df12a9c96b989a57ee46807d7811c1d508dcb3e336286e23a172bb6"
+        },
+        {
+          "path": "evidence/logs/T015/red-results/T015-red_net10.0_20261117211347.trx",
+          "original_sha256": "e9d51a44aaf74c1b8b6e31faec61990b5b84236d5caaa83ffa60ecfdd256994a",
+          "sanitized_sha256": "14a65d4a494d7c9a6f415e35246a2f258f357cea7f41a0e14769bbde1f83c26a"
+        },
+        {
+          "path": "evidence/logs/T015/red-verified-results/T015-red-verified_net10.0_20261117211400.trx",
+          "original_sha256": "89c8cbb88682619ec5068ea9edc5341ac4ba9e3a738aeb7c011a0a6ccd3fa70d",
+          "sanitized_sha256": "b822904b404e15e4924599743225791a964a8f80839144a89620d55938e2602b"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-results/T015-watcher-1_net10.0_20261117211553.trx",
+          "original_sha256": "389967cd3ed6806b2dc5a07a5f35ae9fbbbd910b484e684ef4b10b4e0d32bcbc",
+          "sanitized_sha256": "087f3ede2382ef94de31c0544eed1713a018dc27a4c4f5a08ba587d0a01376b9"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-results/T015-watcher-2_net10.0_20261117211555.trx",
+          "original_sha256": "ea4ec006c73b2069b9483315288cc3771dab206bae66da4496b2725f4b34479a",
+          "sanitized_sha256": "4ee2d724a6f31bff3a1062b70fb955fc6050c21cac0f7b0e440a1c463930675a"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-results/T015-watcher-3_net10.0_20261117211557.trx",
+          "original_sha256": "80306e610e197e57e560da7d1be10efcf5a3982df8477d95e45d574783655d15",
+          "sanitized_sha256": "066304310df32e290fa2f30242abb5dca7f7dd3defbb3466dd45a1e037509e7f"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-results/T015-watcher-4_net10.0_20261117211559.trx",
+          "original_sha256": "0d4d669c357db2a105dadecc265ce95d1402d6b8b8d25e49df6bd1c55fbb3bcb",
+          "sanitized_sha256": "1f7f0612ef6c3e0157d864339eee4eba571ce0fd971c421969af900ea7495b04"
+        },
+        {
+          "path": "evidence/logs/T015/watcher-results/T015-watcher-5_net10.0_20261117211601.trx",
+          "original_sha256": "00e9e4f2e043d9575b6a0c370e64d2f56b3098ec00f1c5651834f371bcf02395",
+          "sanitized_sha256": "780d58d8d6b9f42243dbf40cbc6f58bfc4a1b099a6eda660aab0162ac9fd17fd"
+        }
+      ],
+      "consolidated": [],
+      "renamed": []
+    },
+    {
+      "base_commit": "aaf89ba8c232e69e8fcd1529e2437d6147836dd4",
+      "operation": "Path sanitization and exact-byte deduplication; not a test rerun or acceptance",
+      "changed": [
+        {
+          "path": "evidence/maintenance-inventory.json",
+          "original_sha256": "053ada14a19fae89874dfe531777ff94af306a811409df401e2c16d47bf51050",
+          "sanitized_sha256": "55a63b900dfaee7707eb4fe7a85e61e8137f0d5dafa2f83bbe041a8c9dc278e6"
+        },
+        {
+          "path": "evidence/US1-validation.md",
+          "original_sha256": "fb2f23442bf75958d7aea4517ed6af741026fa107ff92f7cea1f51399122255f",
+          "sanitized_sha256": "980db387e235c9cfa2df5108b4caa284766de1053a1ad9be710ba149f1c30fa6"
+        },
+        {
+          "path": "verification/implementation-stage.json",
+          "original_sha256": "8fdab1a5943cf762a6dee2bb6d2cd8318d7ef1cf0d441d89aee5b656e052fa5b",
+          "sanitized_sha256": "35d3c3e9218fa2230351bb60e9ddddc5d5194f275c636f0d332ac11c8dab9b83"
+        }
+      ],
+      "consolidated": [
+        {
+          "removed": "evidence/logs/T015/gate.txt",
+          "canonical": "evidence/logs/T012-gate.txt",
+          "original_sha256": "5d7815f851ac706533e5a4b106380a7f9aab50abbae268da82b80859acc75c37",
+          "canonical_sha256": "5d7815f851ac706533e5a4b106380a7f9aab50abbae268da82b80859acc75c37"
+        },
+        {
+          "removed": "evidence/logs/T015/package-audit.json",
+          "canonical": "evidence/logs/v4-package-audit.json",
+          "original_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97",
+          "canonical_sha256": "2a9510fe06837cc0f9cb17f4bbacad67c96a6192a04547b40c9f77a444b1df97"
+        }
+      ],
+      "renamed": []
     }
   ]
 }

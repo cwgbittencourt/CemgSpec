@@ -45,11 +45,21 @@
     private string? error;
     protected override void OnInitialized()=>ProjectStore.Changed+=OnProjectsChanged;
     private void OnProjectsChanged()=>_ = InvokeAsync(StateHasChanged);
-    private async Task Open(){busy=true;error=null;try{await ProjectStore.OpenProjectAsync();}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException or System.ComponentModel.Win32Exception){error=Message(failure);}finally{busy=false;}}
+    private async Task Open(){busy=true;error=null;try{await ProjectStore.OpenProjectAsync();}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or SpecAudit.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException or System.ComponentModel.Win32Exception){error=Message(failure);}finally{busy=false;}}
     private async Task ChangeOutput(){if(ProjectStore.Active is not {} active)return;busy=true;error=null;try{await ProjectStore.ChangeOutputDirectoryAsync(active.Session.ProjectId);}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}finally{busy=false;}}
     private void SelectProject(ChangeEventArgs args){if(Guid.TryParse(args.Value?.ToString(),out var id)){try{ProjectStore.SelectProject(id);error=null;}catch(KeyNotFoundException){error="Projeto indisponível nesta sessão.";}}}
     private void SelectFeature(ChangeEventArgs args){if(ProjectStore.Active is {} active && Guid.TryParse(args.Value?.ToString(),out var id)){try{active.Session.SelectFeature(id);error=null;}catch(KeyNotFoundException){error="Funcionalidade indisponível neste projeto.";}}}
-    private void Refresh(){if(ProjectStore.Active is not {} active)return;try{ProjectStore.Refresh(active.Session.ProjectId);error=null;}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}}
-    private static string Message(Exception failure)=>failure.Message switch{"DestinationInsideOrigin"=>"Escolha um destino externo. A origem e suas subpastas não podem receber relatórios.","Changed"=>"A pasta ou os documentos mudaram. Selecione ou atualize o projeto novamente.","Unreadable"=>"Não foi possível ler a pasta selecionada. Confira a existência e as permissões.",_=>"Não foi possível concluir a seleção. Os relatórios não foram salvos; confira as pastas e tente novamente."};
+    private void Refresh(){if(ProjectStore.Active is not {} active)return;try{ProjectStore.Refresh(active.Session.ProjectId);error=null;}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or SpecAudit.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}}
+    private static string Message(Exception failure)
+    {
+        if(failure is SpecAudit.Infrastructure.Execution.LimitExceededException limit)
+            return limit.Dimension switch
+            {
+                "document-bytes"=>"Não foi possível concluir a leitura: um documento excede o limite de tamanho permitido. Os relatórios não foram salvos.",
+                "evidence-graph"=>"Não foi possível concluir a leitura: o catálogo excede o limite de quantidade ou profundidade de documentos. Os relatórios não foram salvos.",
+                _=>"Não foi possível concluir a leitura: o projeto excede um limite operacional. Os relatórios não foram salvos."
+            };
+        return failure.Message switch{"DestinationInsideOrigin"=>"Escolha um destino externo. A origem e suas subpastas não podem receber relatórios.","Changed"=>"A pasta ou os documentos mudaram. Selecione ou atualize o projeto novamente.","Unreadable"=>"Não foi possível ler a pasta selecionada. Confira a existência e as permissões.",_=>"Não foi possível concluir a seleção. Os relatórios não foram salvos; confira as pastas e tente novamente."};
+    }
     public void Dispose()=>ProjectStore.Changed-=OnProjectsChanged;
 }

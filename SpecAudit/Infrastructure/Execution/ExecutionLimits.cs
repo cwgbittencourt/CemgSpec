@@ -1,6 +1,7 @@
 namespace SpecAudit.Infrastructure.Execution;
 public sealed class LimitExceededException(string dimension) : Exception($"LimitExceeded: {dimension}")
 {
+    public string Dimension { get; } = dimension;
     public string Result => "Inconclusive";
 }
 public sealed record ExecutionLimits
