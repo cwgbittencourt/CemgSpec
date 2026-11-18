@@ -1,0 +1,3 @@
+  Determinando os projetos a serem restaurados...
+  __REPO_ROOT__\SpecAudit\SpecAudit.csproj restaurado (em 151 ms).
+  4 de 5 projetos estão atualizados para restauração.

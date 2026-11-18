@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "stage": "pr",
-  "revision": "sha256:530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8",
+  "revision": "sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40",
   "state": "BLOCKED",
   "checks": {
     "applicable_tests_passed": true,
-    "review_complete": false,
+    "review_complete": true,
     "blocking_findings_resolved": true,
     "safe_intermediate_state": true,
     "dependencies_satisfied": false,
@@ -13,7 +13,7 @@
     "ai_product_execution_observed": true
   },
   "blockers": [
-    "T018-T020 full PR-A review and closure remain pending.",
+    "T020 PR-A description/closure pending.",
     "DEV execution/acceptance and human PR approval not granted."
   ],
   "human_decisions": [],
@@ -21,22 +21,22 @@
     {
       "path": "tasks.md",
       "kind": "document",
-      "sha256": "86b08ae729a2d1fdbe12bfbcefa4faae5c83cfa37b236977c6a79c5a26f8e9f6"
+      "sha256": "089ee4182b816803f9e29eff6a64e121270a6060adb305596cf895e97a7fc4b5"
     },
     {
       "path": "evidence/maintenance-code-manifest.json",
       "kind": "document",
-      "sha256": "530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8"
+      "sha256": "fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40"
     },
     {
       "path": "validation/US1-dev.md",
       "kind": "document",
-      "sha256": "3ea21b9ce6fa06269fdf634c4dc039aeb09d9ee8274681b436e45fd98f97078d"
+      "sha256": "7031d6864f5dbb172ba676c8ca08a97b24c0b128f3ab5e9244231ce4ecaca9a7"
     },
     {
       "path": "acceptance/US1.md",
       "kind": "document",
-      "sha256": "bbe898813b75e4fcda4a0ed2508c7a0e2c5b75094b9ef17a069ea126ea4b1641"
+      "sha256": "84e7a40ef5991d6a8535b7fdf543290d4ef7b258af1429cc0cf1c7ea99245c76"
     },
     {
       "path": "evidence/US1-validation.md",
@@ -51,7 +51,7 @@
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "37aa0f12ce54b7bbe20d7dbf417fea406dd2e6fa019cbfc81be91716847fb287"
+      "sha256": "888cf62d429fb68c82a2733384eb61866f307dbcdde8f1ec3d7d4c693b6a76df"
     },
     {
       "path": "evidence/T015-findings.json",
@@ -64,39 +64,54 @@
       "sha256": "1ac4aef99bfb3c4f4ebf7ea606549cb3fddc974fd5a27c8b9682042304949ca2"
     },
     {
-      "path": "evidence/T017-test-run.json",
+      "path": "evidence/T019-test-run.json",
       "kind": "test-run",
-      "sha256": "564521fba60f7b7b25a8d7df6177de8d92e98b2efcba3b867529203929af54f5"
+      "sha256": "443b73eb7315570faa817be15363230be665e7f5b29b7c30b55f9a5aa24b2e13"
     },
     {
-      "path": "evidence/T017-product-execution.json",
+      "path": "evidence/T019-product-execution.json",
       "kind": "product-execution",
-      "sha256": "5164785ebdc4fef4bd2420131d7cfbe43068d944ea2f01387b29575a675bb116"
+      "sha256": "a745e4326d715ed448430e5443eb27cf9c70e569c225c202618b51b77f749ecc"
     },
     {
       "path": "evidence/maintenance-manifest.json",
       "kind": "document",
-      "sha256": "cda26f449c0b32af94feb0e7edb60987dc62bbc3ac8f1f5f36b1a9b339e77739"
+      "sha256": "53324f1a70855beaaac1719463cc59e3266d27c6506bdd5ab8eb450cc019a30e"
     },
     {
       "path": "evidence/maintenance-inventory.json",
       "kind": "document",
-      "sha256": "fb6fa20774c8c44f85ce9e238ab09120c1da2db394ffc3ed25b400f0ce24b2d6"
+      "sha256": "b9395ecedc50ca5a46b1df7579b7efb6269f75dead678577b6104a5a76964bac"
     },
     {
       "path": "evidence/README.md",
       "kind": "document",
-      "sha256": "23a815040cd73f8282064b4acd95982864f736dbbbfe848628a7a0f19c867523"
+      "sha256": "ab98a59ea739384cbd236b109077d915e30d69f6261d14ac4898fa4a2c70d7d1"
     },
     {
       "path": "evidence/PR-A-validation.md",
       "kind": "document",
-      "sha256": "a11b1e7e175d7625fd0134ca1da1a4a67131ad5793eb23c875dda74d26418a5b"
+      "sha256": "4e3e96263faf061e9ac19f3b028419897c6753a66abb69367abc57b4fe2b27c0"
     },
     {
       "path": "evidence/T017-verification.json",
       "kind": "document",
       "sha256": "ef76fb0fc1abc01bea00316c40820ddc765f10ed8569a20d8d438e8cc857db16"
+    },
+    {
+      "path": "evidence/PR-A-review.md",
+      "kind": "document",
+      "sha256": "fe3cc544d8ae0832f284b3f7128ab5cd7f59ed7dc66c07f147795ffe96eb21c9"
+    },
+    {
+      "path": "evidence/T018-review-context.json",
+      "kind": "document",
+      "sha256": "7bbaeb8c3d00e1390bc333d366a5aded2d2c8fe9581f04c520eb46a6d67d509c"
+    },
+    {
+      "path": "evidence/T019-findings.json",
+      "kind": "document",
+      "sha256": "fe93bd96ae2b435c4416bf89b253e112f6f3193c14f4ab22bf44e2fe23e23162"
     }
   ],
   "tasks_completed": [
@@ -120,18 +135,21 @@
     "T014",
     "T015",
     "T016",
-    "T017"
+    "T017",
+    "T018",
+    "T019"
   ],
-  "next_task": "T018",
+  "next_task": "T020",
   "work_stopped_at_user_request": false,
   "test_summary": {
-    "passed": 52,
+    "passed": 57,
     "failed": 0,
     "skipped": 0,
-    "scenario_filter_passed": 4,
-    "correction_filter_passed": 7,
-    "note": "Filtered cases included in full suite; not cumulative."
+    "new_correction_cases_passed": 5,
+    "maintenance_passed": 6,
+    "probe_checks_passed": 2,
+    "note": "Correction cases included in full57. Historical failed red/probes retained outside active passing test-run evidence."
   },
   "manuals_state": "US1 primary harness guide CONFERIDO_PELA_IA; additional loaded-GUI exploration CONFERENCIA_PARCIAL; DEV execution/decision pending.",
-  "review_outcome": "T017_VALIDATION_PASSED_FULL_PR_REVIEW_PENDING"
+  "review_outcome": "T019_FINDINGS_RESOLVED_REVALIDATED_HUMAN_DECISIONS_PENDING"
 }

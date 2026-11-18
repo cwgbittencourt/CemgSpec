@@ -1,5 +1,11 @@
 # Implementação — checkpoint T016 (roteiro consolidado e conferido)
 
+Atualização vigente — T019 concluída: constituição normalizada e hasheada com/sem specs; presença de artefato consultada pela raiz exata. Red5/green5, suíte57/57, manutenção6/6, probes2/2. Autorrevisão renovada sem impeditivos conhecidos abertos; próxima T020. Fonte no manifesto corrente, decisões humanas pendentes.
+
+
+Atualização vigente — T018 executada: autorrevisão do incremento PR-A na revisão 0bf951ec4704e118fd80f63e59cc6819341fc93a; dois achados P2 confirmados por probes reais (constituição omitida e presença falsa de artefato raiz). Fechamento BLOQUEADO. Próxima T019. Produto não corrigido; execução/aceite/aprovação humana pendentes.
+
+
 Atualização vigente — T017 concluída: validação técnica PR-A e regressão 52/52, manutenção 6/6; bases ancestrais e fonte inalterada verificadas. Evidência PR-A-validation.md. Próxima T018; revisão completa, fechamento e decisões humanas pendentes. Checkpoints abaixo são históricos.
 
 

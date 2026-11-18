@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "base_commit": "aaf89ba8c232e69e8fcd1529e2437d6147836dd4",
-  "task": "T015",
-  "scope": "Current corrected candidate; prior manifest bytes remain in base Git commit. Historical executions retain their original revision.",
+  "base_commit": "0bf951ec4704e118fd80f63e59cc6819341fc93a",
+  "task": "T019",
+  "scope": "Current corrected T019 candidate. Prior manifest preserved in base commit; T018 local review records the historical pre-correction source.",
   "files": [
     {
       "path": "SpecAudit.slnx",
@@ -62,7 +62,7 @@
     },
     {
       "path": "SpecAudit/Components/Pages/Projects.razor",
-      "sha256": "15158d38f691186aff4f6f86e7b41658abc169a07412b020d756eee75631209b"
+      "sha256": "d2dec81b063b83a62cbe52958a2f5a05579f4a811ce034b3a3ff5361bc16384e"
     },
     {
       "path": "SpecAudit/Components/Routes.razor",
@@ -90,7 +90,7 @@
     },
     {
       "path": "SpecAudit/Infrastructure/Documents/DocumentCatalog.cs",
-      "sha256": "a21ef71a969a00503970658f3480928944502b5873cb156ea340f63d2f727a75"
+      "sha256": "e469cc5938d1584d10ea0d8e3ce6c49230dabd43134aad7fb8de15cd6a2bc50e"
     },
     {
       "path": "SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs",
@@ -189,6 +189,10 @@
       "sha256": "50cbcf31ddc32d1c439a6e3e5433d0c6e2611d8b8678d88870c2eef23ceedfe1"
     },
     {
+      "path": "tests/SpecAudit.Ui.Tests/PrAArtifactPresenceTests.cs",
+      "sha256": "845ec1c7f1d3aa768ba58d7ef8eb2dfb67484e5cb6065f287459c59c3790e0b6"
+    },
+    {
       "path": "tests/SpecAudit.Ui.Tests/ProjectCorrectionTests.cs",
       "sha256": "b196e37244e824614d835c87d4ae9fbd9558303c50d0b9116bf8ff970a06593d"
     },
@@ -235,6 +239,10 @@
     {
       "path": "tests/SpecAudit.Windows.Tests/PlatformBaselineTests.cs",
       "sha256": "58d181eceb8159a4c664b0ffdac3e4a1183889859ec4e86ba7911648d1db9e95"
+    },
+    {
+      "path": "tests/SpecAudit.Windows.Tests/PrACorrectionTests.cs",
+      "sha256": "8b7df1390c2cc8a87ddbbd8cc15f745f3847b1254b531a7340bdc4175d09cf21"
     },
     {
       "path": "tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs",

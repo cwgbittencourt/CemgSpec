@@ -32,8 +32,7 @@ public sealed class DocumentCatalog : IDisposable
     {
         Add(".specify/memory/constitution.md",CatalogKind.Constitution,null);
         var specs=Path.Combine(FinalOriginPath,"specs");
-        if(!IsPlainDirectory(specs))return;
-        foreach(var feature in Directory.EnumerateDirectories(specs))
+        foreach(var feature in IsPlainDirectory(specs)?Directory.EnumerateDirectories(specs):Array.Empty<string>())
         {
             if(!IsPlainDirectory(feature) || !System.Text.RegularExpressions.Regex.IsMatch(Path.GetFileName(feature),@"^\d{3}-[A-Za-z0-9_-]+$"))continue;
             var relative=Path.GetRelativePath(FinalOriginPath,feature);
@@ -66,7 +65,8 @@ public sealed class DocumentCatalog : IDisposable
     }
     private void Add(string relative,CatalogKind kind,Guid? feature)
     {
-        var path=Path.Combine(FinalOriginPath,relative);
+        var path=Path.GetFullPath(Path.Combine(FinalOriginPath,relative));
+        relative=Path.GetRelativePath(FinalOriginPath,path);
         if(!File.Exists(path))return;
         if(File.GetAttributes(path).HasFlag(FileAttributes.ReparsePoint))return;
         // Each ancestor is also checked; enumeration must never traverse a junction.

@@ -1,0 +1,17 @@
+{
+  "revision": "sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40",
+  "result": "PASSED",
+  "exit_code": 0,
+  "command": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T019-full' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/full",
+  "timestamp": "2026-11-17T22:11:06.767977-03:00",
+  "working_directory": "__REPO_ROOT__",
+  "stdout": {
+    "path": "evidence/logs/T019/full.txt",
+    "sha256": "d579a222246e621c075d2c5901af18fcdb10461e39212f0a5fe4b164f59085ca"
+  },
+  "stderr": {
+    "path": "evidence/logs/T019/full.txt",
+    "sha256": "d579a222246e621c075d2c5901af18fcdb10461e39212f0a5fe4b164f59085ca"
+  },
+  "note": "Combined output:57 passed (7+16+34), zero failed/skipped. Five correction cases included. Separate6 maintenance and2 probe checks passed."
+}

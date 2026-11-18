@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "fixture": "__TEMP_ROOT__/SpecAudit-T018-\u003Cunique\u003E",
+  "results": [
+    {
+      "id": "REV-PRA-01",
+      "expected": "Existing .specify/memory/constitution.md is catalogued",
+      "passed": true,
+      "fileExists": true,
+      "catalogCount": 1,
+      "constitutionRecognized": true
+    },
+    {
+      "id": "REV-PRA-02",
+      "expected": "Ausente for missing feature root spec.md",
+      "passed": true,
+      "shownPresent": false,
+      "actualPresent": false
+    }
+  ]
+}

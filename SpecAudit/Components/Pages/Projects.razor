@@ -30,7 +30,7 @@
             <table><thead><tr><th>Artefato</th><th>Estado documental</th></tr></thead><tbody>
             @foreach(var name in new[]{"spec.md","plan.md","tasks.md"})
             {
-                var exists=active.Catalog.Entries.Any(e=>e.FeatureId==active.Session.ActiveFeatureId && System.IO.Path.GetFileName(e.RelativePath)==name);
+                var exists=active.Catalog.Entries.Any(e=>e.FeatureId==active.Session.ActiveFeatureId && string.Equals(e.RelativePath,System.IO.Path.Combine(active.Session.RequireFeature(active.Session.ActiveFeatureId!.Value).SpecKitRelativeDirectory,name),StringComparison.OrdinalIgnoreCase));
                 <tr><td>@name</td><td><span class="@(exists ? "present-state" : "missing-state")">@(exists ? "Presente" : "Ausente")</span></td></tr>
             }
             </tbody></table>

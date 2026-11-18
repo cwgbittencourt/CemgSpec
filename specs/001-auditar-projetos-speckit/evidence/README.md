@@ -1,5 +1,11 @@
 # Evidências de desenvolvimento
 
+- [Rodada T019](T019-findings.json): dois achados PR-A resolvidos, regressão57/57 e manutenção6/6; detalhes nas rodadas finais de PR-A-validation.md e PR-A-review.md.
+
+
+- [Review PR-A / T018](PR-A-review.md): autorrevisão com dois achados P2 abertos; correção/revalidação na T019.
+
+
 - [Validação PR-A / T017](PR-A-validation.md): regressão 52/52, manutenção 6/6 e estado intermediário seguro; próxima T018.
 
 

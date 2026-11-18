@@ -1,5 +1,7 @@
 # Estado técnico e aceite — US1: carregar e preservar o projeto
 
+Atualização técnica T019: fonte `sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40` sobre `0bf951ec4704e118fd80f63e59cc6819341fc93a`;57/57 testes e6/6 manutenção aprovados, dois achados PR-A resolvidos. Ver [rodada atual](../evidence/PR-A-validation.md) e [review](../evidence/PR-A-review.md). T020 e decisões humanas pendentes. A consolidação T016 abaixo é histórica; campos humanos preservados.
+
 Consolidação T016, 2026-11-17, America/Sao_Paulo. Produto/testes: commit `f2b29a20e5f9e724a9c32f8d8e3a703e0587d541`, revisão de código `sha256:530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8`. Documentação/evidência T016 local; nenhum código de produto/teste alterado. Referência de bytes: [manifesto corrente](../evidence/maintenance-code-manifest.json).
 
 | Dimensão | Estado técnico | Evidência |

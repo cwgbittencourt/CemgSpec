@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "revision": "sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40",
+  "executor": "AI",
+  "medium": "LIBRARY",
+  "state": "OBSERVED",
+  "startup": "dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T019-full' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/full",
+  "input": "Fresh synthetic Windows fixtures; native picker, public application/document APIs and live filesystem watcher; own loopback host and Edge in regression. Same commands/data recipe delivered to DEV.",
+  "expected": "All57 tests pass, including four native-picker US1 scenarios, seven T015 and five T019 correction cases; source/output baselines preserved.",
+  "observed": "57/57 passed. Constitution discovery/hash/read and metadata-preserving edit rejection passed with/without specs. Actual Razor HTML shows missing root despite nested homonym and present uppercase root for all3 artifacts.",
+  "effects_checked": "Windows reader boundary, readonly baselines, watcher invalidation, history/context, external edit preservation, cancellation and limit recovery retained. New UI checks use HtmlRenderer and real ProjectService/catalog with controlled picker; not browser automation.",
+  "scenarios": [
+    "US1-S01 / US1-AC01",
+    "US1-S02 / US1-AC02",
+    "US1-S03 / US1-AC03",
+    "US1-S04 / US1-AC04"
+  ],
+  "artifacts": [
+    {
+      "path": "evidence/logs/T019/full/T019-full_net10.0_20261117220912.trx",
+      "sha256": "a53af7bff2a3f77a15f22582a546f857ffc56adb00b75dd6391d70466bc717b3"
+    },
+    {
+      "path": "evidence/logs/T019/full/T019-full_net10.0_20261117220915.trx",
+      "sha256": "c0046fd23d42207189fabcb26ff30b3f61a9d6fa611b785cc51f53c1bc639a62"
+    },
+    {
+      "path": "evidence/logs/T019/full/T019-full_net10.0_20261117220918.trx",
+      "sha256": "0a342214413fa45977afb0773664821a5edc2fe0f8db4aa36d8b30c079460d39"
+    },
+    {
+      "path": "evidence/logs/T019/probes.txt",
+      "sha256": "dc8d975ca04d5544599c1e46929d1fa2e193e7731b2f0500792d4201f55fd7f5"
+    }
+  ],
+  "limitations": "Real library/native-picker/filesystem harness and initial-page loopback/Edge test. Remaining page handlers use controlled picker, real filesystem and reflection. No full loaded-GUI walkthrough, real agents, Save, OS sandbox, human acceptance or PR approval claimed."
+}

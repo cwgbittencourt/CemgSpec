@@ -1,16 +1,16 @@
 # Roteiro do DEV — US1: carregar e preservar o projeto
 
-Estado do caminho principal: **CONFERIDO_PELA_IA em harness real**. Execução pelo DEV e decisão de aceite: **PENDENTES**. T016 consolida a entrega técnica; não concede aceite humano nem aprovação/integração de PR.
+Estado do caminho principal: **CONFERIDO_PELA_IA em harness real**. Execução pelo DEV e decisão de aceite: **PENDENTES**. T019 renova a entrega técnica; não concede aceite humano nem aprovação/integração de PR.
 
 ## Versão, escopo e condições
 
-Produto e testes: commit `f2b29a20e5f9e724a9c32f8d8e3a703e0587d541`, correções T015 incluídas. Fonte exata: [manifesto corrente](../evidence/maintenance-code-manifest.json), revisão `sha256:530031e68a790d3b2b186300c23441091ef951d6fb93fdc1bae4029b11b451f8`. Mudanças T016 são documentais/de evidência, sem alterar o produto/testes. Se a fonte diferir, identificar novo commit/diff e renovar a validação; não reutilizar aprovação de outra versão.
+Produto e testes: candidato local T019 sobre `0bf951ec4704e118fd80f63e59cc6819341fc93a`, correções T015/T019 incluídas. Fonte exata: [manifesto corrente](../evidence/maintenance-code-manifest.json), revisão `sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40`. Suite57/57 executada; cinco regressões T019 incluídas. Mudança posterior exige renovar evidências.
 
 Escopo: **HISTÓRIA US1 técnica, AC01–AC04**, por harness de carregamento/leitura/versionamento, conforme contrato das tasks. NativeFolderPicker, catálogo, broker por handles, filesystem e monitor Windows são reais. A suíte também inicia host loopback e Edge reais. Não são testes exclusivamente unitários nem uma integração de agente simulada. No S04 há trabalho documental real em andamento; Run de agente, check_gate e Save pertencem a histórias posteriores e não são necessários para executar este roteiro. Na UI, verificação e Save continuam desabilitados.
 
 Requisitos: Windows x64 com sessão de desktop disponível, SDK .NET 10 estável compatível com global.json, PowerShell e Edge instalados. Ambiente conferido pela IA: SDK 10.0.404, mesmo código do manifesto. Usar usuário normal, sem instalação/elevação automática, credenciais de agentes ou dados reais. Se faltar ferramenta/acesso, registrar NÃO EXECUTADO com causa, impacto e próximo passo. Python 3 confiável é usado na conferência/sanitização de evidências, não na funcionalidade US1.
 
-PR previsto da história: PR-A, dependência técnica T015 satisfeita. Verificação/review/descrição de fechamento T017–T020 e decisões humanas permanecem pendentes. Este roteiro cobre US1, não a V1 completa nem o aceite de US5/US6.
+PR previsto da história: PR-A, dependência técnica T015 satisfeita. Validação e autorrevisão T017–T019 concluídas; descrição T020 e decisões humanas permanecem pendentes. Este roteiro cobre US1, não a V1 completa nem o aceite de US5/US6.
 
 ## Caminho principal — execução reproduzível conferida
 
@@ -40,7 +40,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Regressao falhou; preservar logs.' }
 Write-Output $devRun
 ```
 
-Esperado: restore exit 0; cenários **4/4**; correções **7/7**; suíte completa **52/52**, zero falhos/ignorados. Os números não se somam: os casos específicos estão incluídos na suíte completa. Conferir nomes e asserções nos TRX; processo iniciar/exit 0 sozinho não comprova o critério. Preservar saídas de falha e retestes com novos diretórios/rodadas. A execução do DEV só passa a existir quando ele executar, observar e preencher o registro humano abaixo.
+Esperado: restore exit 0; cenários **4/4**; correções **7/7**; suíte completa **57/57**, zero falhos/ignorados. Os números não se somam: os casos específicos estão incluídos na suíte completa. Conferir nomes e asserções nos TRX; processo iniciar/exit 0 sozinho não comprova o critério. Preservar saídas de falha e retestes com novos diretórios/rodadas. A execução do DEV só passa a existir quando ele executar, observar e preencher o registro humano abaixo.
 
 ### O que observar por cenário
 

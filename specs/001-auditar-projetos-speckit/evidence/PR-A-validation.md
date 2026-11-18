@@ -36,3 +36,26 @@ Não executados: passeio manual completo da GUI carregada e funcionalidades de i
 ## Rodadas e passagem de revisão
 
 Esta rodada executa novamente a suíte sobre o candidato corrente. Não houve correção de fonte nesta task; evidências históricas negativas T014 e red T015 preservadas. Manifesto de código conferido sem divergências. AUTORREVISAO T017 da base, evidência, efeitos e controles sem novo impeditivo encontrado. Isso não substitui a revisão completa do incremento prevista na T018. Gate geral permanece BLOCKED por T018–T020 e decisões humanas, sem invalidar a validação técnica aqui registrada.
+
+
+## Rodada T019 — correção e revalidação vigente
+
+Estado técnico: APROVADA em 2026-11-17, America/Sao_Paulo. Executor IA / speckit-implement. Base local `0bf951ec4704e118fd80f63e59cc6819341fc93a` + alterações T018/T019; fonte exata `sha256:fbdf9dd12adb61c19c2eee94ffbd7ba6c971a3cd013b2c6946b85ec6abc79b40` no manifesto corrente. Base incremental PR-A permanece `79d9c3d08d75afe2fef7e233493b8648e61ed4e0`; predecessores nenhum. As seções T017 acima são históricas. Correção: DocumentCatalog normaliza caminho completo/relativo e finaliza hashes mesmo sem specs; Projects consulta caminho exato do artefato raiz, com comparação sem diferença de caixa. Nenhuma redução dos controles de identidade, hardlink/reparse ou readonly.
+
+Todos os comandos abaixo foram executados na raiz `__REPO_ROOT__`, Windows/SDK10.0.404, fixtures sintéticas novas.
+
+| Execução | Comando | Esperado / observado | Resultado / evidência |
+|---|---|---|---|
+| Red dos achados | `dotnet test SpecAudit.slnx --no-restore --filter 'FullyQualifiedName~PrACorrectionTests\|FullyQualifiedName~PrAArtifactPresenceTests' --logger 'trx;LogFilePrefix=T019-red' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/red` | Cinco falhas comportamentais antes da correção; exit1 | FALHOU esperado; logs/T019/red.txt e red/*.trx |
+| Green | Mesmo filtro, prefixo T019-green e diretório logs/T019/green | Cinco casos passam após corrigir; exit0 | PASSOU; logs/T019/green.txt e green/*.trx |
+| Restore | `dotnet restore SpecAudit.slnx --locked-mode` | Exit0, locks intactos | PASSOU; logs/T019/restore.txt ou alias no manifesto |
+| Regressão | `dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T019-full' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/full` | 57/57 (7 domínio,16 Windows,34 UI), zero falhas/ignorados; exit0 | PASSOU; logs/T019/full.txt e full/*.trx |
+| Replay cenários | `dotnet run --project specs/001-auditar-projetos-speckit/evidence/T019-probes/T019ReviewProbe.csproj` | Constituição reconhecida e raiz ausente corretamente identificada; dois checks true; exit0 | PASSOU; logs/T019/probes.txt |
+| Manutenção | `python -m unittest discover -s tools -p test_maintain_evidence.py -v` | 6/6, exit0 | PASSOU; logs/T019/maintenance-tests.txt ou alias |
+| Dependências | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Exit0, nenhum pacote vulnerável reportado | PASSOU; logs/T017/packages.json ou alias; não audita SO/SDK/browser |
+
+A barra antes de `|` no filtro da tabela é escape Markdown; o filtro executado usa `|` literal. Green repete exatamente o filtro da rodada red. Comandos concretos preservados nos logs/TRX. Fonte e saída negativas T018 não foram sobrescritas. O replay T019 atualiza o predicado copiado para a consulta corrigida; os três testes permanentes renderizam Projects pelo HtmlRenderer real, com catálogo/serviço/filesystem reais e picker controlado, sem alegar navegador carregado.
+
+Constituição: dois casos com/sem specs validam existência, bytes/hash e rejeição Changed após edição de mesmo tamanho/timestamp, preservando a edição e o snapshot anterior. Artefatos: três casos spec/plan/tasks verificam HTML Ausente com homônimo em evidence e Presente com nome raiz em maiúsculas. Baselines e destinos vazios verificados. Harness completo mantém picker nativo, broker/monitor e host/Edge iniciais reais, contextos/histórico e invalidação AC01–AC04.
+
+Revisão das correções AUTORREVISAO em PR-A-review.md e T019-findings.json, zero impeditivos conhecidos abertos. Roteiro US1-dev.md renovado para57 casos e fonte corrente; campos humanos intactos. T020 e aprovação/execução/aceite humanos pendentes; não autoriza integração.
