@@ -8,6 +8,8 @@ public sealed class DocumentBroker(DocumentCatalog catalog)
     {
         lock(catalog.SyncRoot)return ReadLocked(projectId,documentId,generation);
     }
+    public DocumentPreviewSession OpenPreview(Guid documentId, CancellationToken projectLifetime = default)
+        => new(catalog, this, documentId, projectLifetime);
     private DocumentSnapshot ReadLocked(Guid projectId,Guid documentId,long generation)
     {
         if(projectId!=catalog.ProjectId || !catalog.Index.TryGetValue(documentId,out var entry))throw new DocumentAccessException("OutOfScope");

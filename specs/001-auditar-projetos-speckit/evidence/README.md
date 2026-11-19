@@ -18,6 +18,8 @@ Este diretório guarda comprovação técnica do desenvolvimento do SpecAudit, n
 
 ## Pontos de entrada
 
+- [T023 — Segurança e navegação do preview](preview-safety.md) — broker, SVG e autorização de imagem remota.
+
 - [T022 — Renderizador local da US2](T022-local-preview.md) — auditoria, corpus e regressão selecionada.
 
 - [T021 — Testes da US2](T021-preview-tests.md) — falhas antecipadas, regressão e comparação visual preparada.

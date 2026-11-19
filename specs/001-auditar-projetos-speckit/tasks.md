@@ -4,7 +4,7 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021 concluída no escopo de testes, com cinco falhas esperadas e 57 testes de regressão selecionados aprovados. T022 concluiu a renderização local com corpus e regressão selecionada aprovados. Próxima T023. Ver [evidência da T021](evidence/T021-preview-tests.md) e [evidência da T022](evidence/T022-local-preview.md). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
+**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021 concluída no escopo de testes, com cinco falhas esperadas e 57 testes de regressão selecionados aprovados. T022 concluiu a renderização local com corpus e regressão selecionada aprovados. T023 concluiu a prova de segurança e navegação do preview. Próxima T024. Ver [evidência da T023](evidence/preview-safety.md). Ver [evidência da T021](evidence/T021-preview-tests.md) e [evidência da T022](evidence/T022-local-preview.md). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
 ## Checkpoint histórico — constituição 4.0.0
 
@@ -77,7 +77,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 
 - [x] T021 [P] [US2] Escrever testes de contrato/preview US2-S01–S04 em tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs e tests/SpecAudit.Tests/DocumentNavigationTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
 - [x] T022 [US2] Selecionar/fixar parser Markdown, sanitizador e Mermaid locais auditados e implementar renderização em SpecAudit/Infrastructure/Documents/MarkdownRenderer.cs e SpecAudit/wwwroot/lib/preview/; nenhum CDN.
-- [ ] T023 [US2] Validar segurança e navegação do preview antes de conectá-lo à UI em evidence/preview-safety.md, usando assets via broker.
+- [x] T023 [US2] Validar segurança e navegação do preview antes de conectá-lo à UI em evidence/preview-safety.md, usando assets via broker.
 - [ ] T024 [US2] Integrar árvore/busca/âncoras e Preview/Fonte/Lado a lado em SpecAudit/Components/Pages/Documents.razor e SpecAudit/Components/Documents/MarkdownPreview.razor após validação de segurança. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
 - [ ] T025 [US2] Executar os cenários US2-S01–S04 / US2-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US2-validation.md.
 - [ ] T026 [US2] Revisar diff, critérios, contratos, segurança e resultados da versão de US2 em evidence/US2-review.md, declarando autorrevisão.

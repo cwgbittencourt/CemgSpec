@@ -184,7 +184,30 @@ function runMermaidFrame() {
                 suppressErrorRendering: true
             });
             const result = await mermaid.render("specaudit-diagram", event.data.source);
-            drawing.innerHTML = result.svg;
+            const svgNamespace = "http://www.w3.org/2000/svg";
+            const template = document.createElement("template");
+            template.innerHTML = result.svg;
+            const svg = template.content.firstElementChild;
+            if (svg?.namespaceURI !== svgNamespace || svg.localName !== "svg") throw new Error("Invalid SVG.");
+
+            // Mermaid can emit SVG links even in strict mode. Keep the shape, without navigation.
+            for (const link of svg.querySelectorAll("a")) link.replaceWith(...link.childNodes);
+            for (const element of svg.querySelectorAll(
+                "script, foreignObject, image, feImage, animate, animateMotion, animateTransform, set, discard"
+            )) element.remove();
+            for (const element of [svg, ...svg.querySelectorAll("*")]) {
+                if (element.namespaceURI !== svgNamespace) {
+                    element.remove();
+                    continue;
+                }
+                for (const attribute of [...element.attributes]) {
+                    if (attribute.localName.startsWith("on") ||
+                        (attribute.localName === "href" && !attribute.value.startsWith("#"))) {
+                        element.removeAttributeNode(attribute);
+                    }
+                }
+            }
+            drawing.replaceChildren(svg);
             const box = drawing.getBoundingClientRect();
             parent.postMessage({
                 type: "specaudit-mermaid-result",

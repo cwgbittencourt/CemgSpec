@@ -121,6 +121,14 @@ public sealed class ProjectService(LocalSessionService localSession,IFolderPicke
     }
     public DocumentSnapshot ReadDocument(Guid projectId,Guid documentId)
     {var project=RequireProject(projectId);return new DocumentBroker(project.Catalog).Read(projectId,documentId,project.Catalog.Generation);}
+    public DocumentPreviewSession OpenPreview(Guid projectId, Guid documentId)
+    {
+        var project = RequireProject(projectId);
+        var lifetime = project.WorkToken;
+        if (project != Active) throw new DocumentAccessException("OutOfScope");
+        return new DocumentBroker(project.Catalog).OpenPreview(documentId, lifetime);
+    }
+
     public void Refresh(Guid projectId)
     {
         var project=RequireProject(projectId);

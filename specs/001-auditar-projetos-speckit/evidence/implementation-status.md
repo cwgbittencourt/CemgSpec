@@ -1,4 +1,8 @@
-# Implementação — checkpoint T022
+# Implementação — checkpoint T023
+
+T023 concluída com resolução de links e imagens pelo broker, autorização explícita de imagens remotas e sanitização adicional do SVG Mermaid. 71 testes aprovados na regressão selecionada. Próxima T024, integração da tela Documentos. Aceite da US1 pendente de validação do DEV. [Evidência da T023](preview-safety.md).
+
+## Checkpoint T022
 
 T022 concluída. Renderizador local e assets fixados e auditados. Corpus no Edge sem requisições externas e 61 testes aprovados na regressão selecionada. Próxima T023, prova de segurança e navegação com o broker antes da integração da tela. Aceite da US1 pendente da validação do DEV. [Evidência da T022](T022-local-preview.md).
 
