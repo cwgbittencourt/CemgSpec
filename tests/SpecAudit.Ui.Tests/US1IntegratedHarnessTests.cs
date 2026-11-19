@@ -12,7 +12,7 @@ namespace SpecAudit.Ui.Tests;
 [Collection("US1 native dialogs")]
 public sealed class US1IntegratedHarnessTests
 {
-    private sealed class AutomatedNativePicker(params string[] paths) : IFolderPicker
+    internal sealed class AutomatedNativePicker(params string[] paths) : IFolderPicker
     {
         private readonly Queue<string> pending = new(paths);
         public async Task<string?> PickAsync(string title)
@@ -20,26 +20,7 @@ public sealed class US1IntegratedHarnessTests
             var expected = pending.Dequeue();
             var uniqueTitle = title + " — T013-" + Guid.NewGuid().ToString("N");
             var selection = new NativeFolderPicker().PickAsync(uniqueTitle);
-            IntPtr dialog = IntPtr.Zero;
-            var deadline = DateTime.UtcNow.AddSeconds(10);
-            while (dialog == IntPtr.Zero && DateTime.UtcNow < deadline)
-            {
-                EnumWindows((window, _) =>
-                {
-                    GetWindowThreadProcessId(window, out var processId);
-                    if (processId != Environment.ProcessId) return true;
-                    EnumChildWindows(window, (child, _) =>
-                    {
-                        var text = new StringBuilder(1024);
-                        GetWindowText(child, text, text.Capacity);
-                        if (text.ToString() == uniqueTitle) dialog = window;
-                        return true;
-                    }, IntPtr.Zero);
-                    return dialog == IntPtr.Zero;
-                }, IntPtr.Zero);
-                if (dialog == IntPtr.Zero) await Task.Delay(25);
-            }
-            Assert.NotEqual(IntPtr.Zero, dialog);
+            var dialog = await FindDialogAsync(Environment.ProcessId, uniqueTitle);
             ShowWindow(dialog, 0);
             try
             {
@@ -56,11 +37,55 @@ public sealed class US1IntegratedHarnessTests
                 if (!selection.IsCompleted) SendMessage(dialog, 0x111, new IntPtr(2), IntPtr.Zero);
             }
         }
+        public static async Task SelectInBrowserHostAsync(int processId, string title, string path)
+        {
+            var dialog = await FindDialogAsync(processId, title);
+            // WM_SETTEXT is marshalled across processes. BFFM_SETSELECTIONW is not.
+            var edit = IntPtr.Zero;
+            EnumChildWindows(dialog, (child, _) =>
+            {
+                var className = new StringBuilder(64);
+                GetClassName(child, className, className.Capacity);
+                if (className.ToString() != "Edit") return true;
+                edit = child;
+                return false;
+            }, IntPtr.Zero);
+            if (edit == IntPtr.Zero) throw new InvalidOperationException("Folder dialog has no path field.");
+            SendMessage(edit, 0x000C, IntPtr.Zero, path);
+            SendMessage(dialog, 0x111, new IntPtr(1), IntPtr.Zero);
+        }
+
+        private static async Task<IntPtr> FindDialogAsync(int targetProcessId, string title)
+        {
+            IntPtr dialog = IntPtr.Zero;
+            var deadline = DateTime.UtcNow.AddSeconds(10);
+            while (dialog == IntPtr.Zero && DateTime.UtcNow < deadline)
+            {
+                EnumWindows((window, _) =>
+                {
+                    GetWindowThreadProcessId(window, out var processId);
+                    if (processId != targetProcessId) return true;
+                    EnumChildWindows(window, (child, _) =>
+                    {
+                        var text = new StringBuilder(1024);
+                        GetWindowText(child, text, text.Capacity);
+                        if (text.ToString() == title) dialog = window;
+                        return true;
+                    }, IntPtr.Zero);
+                    return dialog == IntPtr.Zero;
+                }, IntPtr.Zero);
+                if (dialog == IntPtr.Zero) await Task.Delay(25);
+            }
+            if (dialog == IntPtr.Zero) throw new TimeoutException($"Folder dialog did not appear: {title}");
+            return dialog;
+        }
+
         private delegate bool EnumWindow(IntPtr window, IntPtr parameter);
         [DllImport("user32.dll")] private static extern bool EnumWindows(EnumWindow callback, IntPtr parameter);
         [DllImport("user32.dll")] private static extern bool EnumChildWindows(IntPtr window, EnumWindow callback, IntPtr parameter);
         [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(IntPtr window, out uint processId);
         [DllImport("user32.dll", CharSet = CharSet.Unicode)] private static extern int GetWindowText(IntPtr window, StringBuilder text, int length);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)] private static extern int GetClassName(IntPtr window, StringBuilder name, int length);
         [DllImport("user32.dll")] private static extern bool ShowWindow(IntPtr window, int command);
         [DllImport("user32.dll", CharSet = CharSet.Unicode)] private static extern IntPtr SendMessage(IntPtr window, uint message, IntPtr parameter, string value);
         [DllImport("user32.dll")] private static extern IntPtr SendMessage(IntPtr window, uint message, IntPtr parameter, IntPtr value);

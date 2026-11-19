@@ -1,0 +1,14 @@
+  Determinando os projetos a serem restaurados...
+  D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.CommandFixture\SpecAudit.CommandFixture.csproj restaurado (em 81 ms).
+  D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\SpecAudit.csproj restaurado (em 180 ms).
+  D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\SpecAudit.Tests.csproj restaurado (em 185 ms).
+  D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj restaurado (em 185 ms).
+  D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj restaurado (em 185 ms).
+
+As fontes a seguir foram usadas:
+   https://api.nuget.org/v3/index.json
+
+O projeto fornecido `SpecAudit` não tem nenhum pacote vulnerável, considerando as fontes atuais.
+O projeto fornecido `SpecAudit.Tests` não tem nenhum pacote vulnerável, considerando as fontes atuais.
+O projeto fornecido `SpecAudit.Ui.Tests` não tem nenhum pacote vulnerável, considerando as fontes atuais.
+O projeto fornecido `SpecAudit.Windows.Tests` não tem nenhum pacote vulnerável, considerando as fontes atuais.

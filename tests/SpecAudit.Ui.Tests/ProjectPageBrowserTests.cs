@@ -28,9 +28,7 @@ public sealed class ProjectPageBrowserTests : IClassFixture<LocalHostFixture>
         using var playwright=await Playwright.CreateAsync();
         await using var browser=await playwright.Chromium.LaunchAsync(new(){Channel="msedge",Headless=true});
         var page=await browser.NewPageAsync();var errors=new List<string>();page.PageError+=(_,error)=>errors.Add(error);
-        await page.GotoAsync(host.Address.ToString());
-        await page.GetByRole(AriaRole.Button,new(){Name="Carregar projeto",Exact=true}).ClickAsync();
-        var panel=page.GetByRole(AriaRole.Region,new(){Name="Novo projeto"});await panel.WaitForAsync();
+        var panel = await host.OpenProjectPanelAsync(page);
         Assert.Equal("Nenhuma pasta selecionada",await page.GetByTestId("selected-origin").InnerTextAsync());
         Assert.Equal("Nenhuma pasta selecionada",await page.GetByTestId("selected-output").InnerTextAsync());
         Assert.False(await page.GetByRole(AriaRole.Button,new(){Name="Escolher destino",Exact=true}).IsEnabledAsync());

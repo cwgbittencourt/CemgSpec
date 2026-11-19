@@ -1,10 +1,12 @@
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using Microsoft.Playwright;
 namespace SpecAudit.Ui.Tests.Fixtures;
 public sealed class LocalHostFixture : IAsyncLifetime
 {
     private Process? process;
+    public int ProcessId => process?.Id ?? throw new InvalidOperationException("Local host is not running.");
     public Uri Address { get; private set; } = null!;
     public string Root { get; private set; } = "";
     public string Output { get; private set; } = "";
@@ -32,6 +34,27 @@ public sealed class LocalHostFixture : IAsyncLifetime
             await Task.Delay(100);
         }
         await DisposeAsync();throw new TimeoutException("Own loopback host failed to start.");
+    }
+    public async Task<ILocator> OpenProjectPanelAsync(IPage page)
+    {
+        var circuit = page.WaitForWebSocketAsync(new() { Predicate = socket => socket.Url.Contains("/_blazor?", StringComparison.Ordinal) });
+        await page.GotoAsync(Address.ToString());
+        await circuit;
+        var loadProject = page.GetByRole(AriaRole.Button, new() { Name = "Carregar projeto", Exact = true });
+        var panel = page.GetByRole(AriaRole.Region, new() { Name = "Novo projeto" });
+        await loadProject.ClickAsync();
+        try
+        {
+            await panel.WaitForAsync(new() { Timeout = 1000 });
+        }
+        catch (TimeoutException)
+        {
+            // The prerendered button can receive the first click before Blazor attaches its handler.
+            if (!await panel.IsVisibleAsync())
+                await loadProject.ClickAsync();
+            await Assertions.Expect(panel).ToBeVisibleAsync();
+        }
+        return panel;
     }
     public HttpClient CreateClient(bool cookies=true) => new(new HttpClientHandler{UseCookies=cookies,AllowAutoRedirect=false}) { BaseAddress=Address,Timeout=TimeSpan.FromSeconds(10) };
     public async Task DisposeAsync()

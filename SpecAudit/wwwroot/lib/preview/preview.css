@@ -1,0 +1,62 @@
+.markdown-preview {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.markdown-preview pre {
+    background: var(--preview-code-bg, #1b2230);
+    border-radius: .4rem;
+    color: var(--preview-code-text, #f7f8fa);
+    overflow: auto;
+    padding: .9rem 1rem;
+}
+
+.markdown-preview blockquote {
+    border-inline-start: .2rem solid var(--preview-accent, #4f8cff);
+    margin-inline: 0;
+    padding-inline-start: 1rem;
+}
+
+.markdown-preview table {
+    border-collapse: collapse;
+}
+
+.markdown-preview :is(th, td) {
+    border: 1px solid var(--preview-border, #667187);
+    padding: .35rem .6rem;
+}
+
+.markdown-preview img {
+    max-inline-size: 100%;
+}
+
+.markdown-preview .hljs-keyword,
+.markdown-preview .hljs-literal {
+    color: #c4a8ff;
+}
+
+.markdown-preview .hljs-string,
+.markdown-preview .hljs-number {
+    color: #9ce5c1;
+}
+
+.markdown-preview .hljs-comment {
+    color: #b0b9cb;
+}
+
+.preview-diagram-viewport {
+    max-inline-size: 100%;
+    overflow: auto;
+}
+
+.preview-diagram-frame {
+    border: 0;
+    display: block;
+    transform-origin: top left;
+}
+
+.preview-diagram-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+}

@@ -18,6 +18,10 @@ Este diretório guarda comprovação técnica do desenvolvimento do SpecAudit, n
 
 ## Pontos de entrada
 
+- [T022 — Renderizador local da US2](T022-local-preview.md) — auditoria, corpus e regressão selecionada.
+
+- [T021 — Testes da US2](T021-preview-tests.md) — falhas antecipadas, regressão e comparação visual preparada.
+
 - [Estado atual da implementação](implementation-status.md) e [gate do incremento](../verification/implementation-stage.json).
 - [Validação US1 / T013](US1-validation.md): quatro cenários reais e respectivas limitações.
 - [Review US1 / T014–T015](US1-review.md): histórico dos dois achados e rodada atual de correção/revalidação, sem aceite humano.

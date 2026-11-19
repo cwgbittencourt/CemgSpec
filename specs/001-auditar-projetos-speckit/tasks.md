@@ -4,9 +4,9 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. Próxima T021, não iniciada. Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
+**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021 concluída no escopo de testes, com cinco falhas esperadas e 57 testes de regressão selecionados aprovados. T022 concluiu a renderização local com corpus e regressão selecionada aprovados. Próxima T023. Ver [evidência da T021](evidence/T021-preview-tests.md) e [evidência da T022](evidence/T022-local-preview.md). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
-## Checkpoint vigente — constituição 4.0.0
+## Checkpoint histórico — constituição 4.0.0
 
 A garantia de sandbox OS foi retirada por decisão explícita; SEC-001 permanece histórica. Somente leitura da aplicação, dois comandos, testes reais/roteiros por história e aceite do DEV permanecem obrigatórios. T015 resolveu os dois achados; T016 conferiu o roteiro reproduzível na mesma fonte f2b29a2, sem mudar código/testes. Próximo passo T017, verificação do incremento PR-A; aprovação de PR, execução e aceite humano pendentes. Evidências anteriores permanecem históricas.
 
@@ -75,8 +75,8 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: PR-A técnico validado; proteção ReaderBoundary válida.
 **Teste independente**: US2-S01–S04 com corpus offline/remoto controlado; scripts nunca executados.
 
-- [ ] T021 [P] [US2] Escrever testes de contrato/preview US2-S01–S04 em tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs e tests/SpecAudit.Tests/DocumentNavigationTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
-- [ ] T022 [US2] Selecionar/fixar parser Markdown, sanitizador e Mermaid locais auditados e implementar renderização em SpecAudit/Infrastructure/Documents/MarkdownRenderer.cs e SpecAudit/wwwroot/lib/preview/; nenhum CDN.
+- [x] T021 [P] [US2] Escrever testes de contrato/preview US2-S01–S04 em tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs e tests/SpecAudit.Tests/DocumentNavigationTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
+- [x] T022 [US2] Selecionar/fixar parser Markdown, sanitizador e Mermaid locais auditados e implementar renderização em SpecAudit/Infrastructure/Documents/MarkdownRenderer.cs e SpecAudit/wwwroot/lib/preview/; nenhum CDN.
 - [ ] T023 [US2] Validar segurança e navegação do preview antes de conectá-lo à UI em evidence/preview-safety.md, usando assets via broker.
 - [ ] T024 [US2] Integrar árvore/busca/âncoras e Preview/Fonte/Lado a lado em SpecAudit/Components/Pages/Documents.razor e SpecAudit/Components/Documents/MarkdownPreview.razor após validação de segurança. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
 - [ ] T025 [US2] Executar os cenários US2-S01–S04 / US2-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US2-validation.md.

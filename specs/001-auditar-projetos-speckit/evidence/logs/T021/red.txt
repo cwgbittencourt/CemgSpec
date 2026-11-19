@@ -1,0 +1,117 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.CommandFixture -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.CommandFixture\bin\Debug\net10.0\SpecAudit.CommandFixture.dll
+  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\ExplicitSelectionFlowTests.cs(25,112): warning CS8602: Desreferência de uma referência possivelmente nula. [D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj]
+1 arquivos de teste no total corresponderam ao padrão especificado.
+1 arquivos de teste no total corresponderam ao padrão especificado.
+  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.07]   Discovering: SpecAudit.Tests
+[xUnit.net 00:00:00.07]   Discovering: SpecAudit.Windows.Tests
+[xUnit.net 00:00:00.11]   Discovered:  SpecAudit.Tests
+[xUnit.net 00:00:00.12]   Discovered:  SpecAudit.Windows.Tests
+[xUnit.net 00:00:00.13]   Starting:    SpecAudit.Tests
+Nenhum teste corresponde ao filtro de testcase `FullyQualifiedName~DocumentNavigationTests|FullyQualifiedName~S01SearchTree|FullyQualifiedName~S02PreviewSource|FullyQualifiedName~S03MermaidRenders|FullyQualifiedName~S04ActiveContent` determinado no D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+
+[xUnit.net 00:00:00.19]       Assert.Single() Failure: The collection did not contain any matching items
+[xUnit.net 00:00:00.19]       Expected:   (predicate expression)
+[xUnit.net 00:00:00.19]       Collection: []
+[xUnit.net 00:00:00.19]     SpecAudit.Tests.DocumentNavigationTests.S01SnapshotReferencesOnlyAuthorizeCataloguedDestinations [FAIL]
+[xUnit.net 00:00:00.19]       Stack Trace:
+[xUnit.net 00:00:00.19]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\DocumentNavigationTests.cs(36,0): at SpecAudit.Tests.DocumentNavigationTests.<S01SnapshotReferencesOnlyAuthorizeCataloguedDestinations>g__TargetOf|0_3(String target, <>c__DisplayClass0_0&)
+[xUnit.net 00:00:00.19]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\DocumentNavigationTests.cs(37,0): at SpecAudit.Tests.DocumentNavigationTests.S01SnapshotReferencesOnlyAuthorizeCataloguedDestinations()
+[xUnit.net 00:00:00.19]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.19]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.20]   Finished:    SpecAudit.Tests
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+  Com falha SpecAudit.Tests.DocumentNavigationTests.S01SnapshotReferencesOnlyAuthorizeCataloguedDestinations [24 ms]
+  Mensagem de erro:
+   Assert.Single() Failure: The collection did not contain any matching items
+Expected:   (predicate expression)
+Collection: []
+  Rastreamento de pilha:
+     at SpecAudit.Tests.DocumentNavigationTests.<S01SnapshotReferencesOnlyAuthorizeCataloguedDestinations>g__TargetOf|0_3(String target, <>c__DisplayClass0_0&) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\DocumentNavigationTests.cs:line 36
+   at SpecAudit.Tests.DocumentNavigationTests.S01SnapshotReferencesOnlyAuthorizeCataloguedDestinations() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\DocumentNavigationTests.cs:line 37
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Falha na Execução de Teste.
+Total de testes: 1
+     Com falha: 1
+Tempo total: 0,7433 Segundos
+[xUnit.net 00:00:00.07]   Discovering: SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.11]   Discovered:  SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.12]   Starting:    SpecAudit.Ui.Tests
+[xUnit.net 00:00:01.87]     SpecAudit.Ui.Tests.MarkdownPreviewTests.S02PreviewSourceAndSplitUseTheSameReadOnlyDocument [FAIL]
+[xUnit.net 00:00:01.87]       The Documentos route must be available. HTTP 404.
+[xUnit.net 00:00:01.87]       Stack Trace:
+[xUnit.net 00:00:01.87]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(246,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:01.87]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:01.87]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:01.87]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.80]     SpecAudit.Ui.Tests.MarkdownPreviewTests.S04ActiveContentIsInertAndExternalRequestsRequireAnAction [FAIL]
+[xUnit.net 00:00:02.80]       The Documentos route must be available. HTTP 404.
+[xUnit.net 00:00:02.80]       Stack Trace:
+[xUnit.net 00:00:02.80]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(246,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:02.80]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:02.80]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:02.80]         --- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.MarkdownPreviewTests.S02PreviewSourceAndSplitUseTheSameReadOnlyDocument [1 s]
+  Mensagem de erro:
+   The Documentos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 246
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+--- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.MarkdownPreviewTests.S04ActiveContentIsInertAndExternalRequestsRequireAnAction [923 ms]
+  Mensagem de erro:
+   The Documentos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 246
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.72]     SpecAudit.Ui.Tests.MarkdownPreviewTests.S01SearchTreeAndFollowOnlyAuthorisedDocumentLinks [FAIL]
+[xUnit.net 00:00:03.72]       The Documentos route must be available. HTTP 404.
+[xUnit.net 00:00:03.72]       Stack Trace:
+[xUnit.net 00:00:03.72]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(246,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:03.72]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:03.72]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:03.72]         --- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.MarkdownPreviewTests.S01SearchTreeAndFollowOnlyAuthorisedDocumentLinks [920 ms]
+  Mensagem de erro:
+   The Documentos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 246
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:04.61]     SpecAudit.Ui.Tests.MarkdownPreviewTests.S03MermaidRendersOfflineAndOtherDiagramsShowSourceAndExplanation [FAIL]
+[xUnit.net 00:00:04.61]       The Documentos route must be available. HTTP 404.
+[xUnit.net 00:00:04.61]       Stack Trace:
+[xUnit.net 00:00:04.61]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(246,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:04.61]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:04.61]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs(274,0): at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments)
+[xUnit.net 00:00:04.61]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.64]   Finished:    SpecAudit.Ui.Tests
+  Com falha SpecAudit.Ui.Tests.MarkdownPreviewTests.S03MermaidRendersOfflineAndOtherDiagramsShowSourceAndExplanation [893 ms]
+  Mensagem de erro:
+   The Documentos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 246
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+   at SpecAudit.Ui.Tests.MarkdownPreviewTests.WithCorpusAsync(Func`3 verify, Boolean openDocuments) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\MarkdownPreviewTests.cs:line 274
+--- End of stack trace from previous location ---
+
+Falha na Execução de Teste.
+Total de testes: 4
+     Com falha: 4
+Tempo total: 5,1235 Segundos
+dotnet exit code: 1

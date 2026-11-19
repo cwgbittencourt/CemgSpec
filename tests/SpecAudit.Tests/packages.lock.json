@@ -29,6 +29,16 @@
         "resolved": "4.0.1",
         "contentHash": "8CoAaZkniVekR1ycJyxn+hOz+6ZQCDPcoIsIs6ujd4WyFcBMlxGNU15Qb8Uxd4iO4UmOuETb0M6vzBbwX/mfLA=="
       },
+      "AngleSharp": {
+        "type": "Transitive",
+        "resolved": "1.10.5",
+        "contentHash": "+XcQgYnOCjizDLpBImAscxgyje0ypUdWXvP+TDEVowygb50J6frELXN3YD2SjOR/BuJInWUr6tFUwl9WN1l31w=="
+      },
+      "Markdig": {
+        "type": "Transitive",
+        "resolved": "1.6.0",
+        "contentHash": "rJEpDfPM8wrfXUgkNejjg2bJN9bciy44uVyRwKUI+92CnSmbaLeJTLPYcCdvgM4RFsKrhs8d2H2hO78yZpMl3g=="
+      },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
         "resolved": "18.4.0",
@@ -94,7 +104,11 @@
         }
       },
       "specaudit": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "AngleSharp": "[1.10.5, 1.10.5]",
+          "Markdig": "[1.6.0, 1.6.0]"
+        }
       }
     }
   }

@@ -1,4 +1,12 @@
-# Implementação — checkpoint T016 (roteiro consolidado e conferido)
+# Implementação — checkpoint T022
+
+T022 concluída. Renderizador local e assets fixados e auditados. Corpus no Edge sem requisições externas e 61 testes aprovados na regressão selecionada. Próxima T023, prova de segurança e navegação com o broker antes da integração da tela. Aceite da US1 pendente da validação do DEV. [Evidência da T022](T022-local-preview.md).
+
+## Checkpoint T021
+
+T021 concluída no escopo de testes da US2. Cinco falhas esperadas no produto atual e 57 testes aprovados na regressão selecionada, incluindo preparação pelo navegador com seletores nativos. Próxima T022. Aceite da US1 permanece pendente da validação do DEV. [Evidência da T021](T021-preview-tests.md).
+
+## Checkpoints da US1
 
 Estado vigente: seleção em etapas implementada, fonte no manifesto corrente.61 testes passaram; novo painel/cancelamento conferidos em Edge, caminhos/retry/A/B por picker controlado. Percurso completo navegador+seletor nativo NÃO comprovado: ferramentas desktop falham ao iniciar. Não pronto para novo reteste solicitado ao usuário; ver selection-flow-validation.md.
 

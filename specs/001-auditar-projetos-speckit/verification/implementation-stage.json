@@ -21,7 +21,7 @@
     {
       "path": "tasks.md",
       "kind": "document",
-      "sha256": "de6fb473cd53eac7b1f49b41b9e8e87548bfdbe269918a49715b87dcdb735483"
+      "sha256": "6bc6363984027728dadd7926c163db689a5b549e1fcb5af0735935f7846564f3"
     },
     {
       "path": "evidence/maintenance-code-manifest.json",
@@ -51,7 +51,7 @@
     {
       "path": "evidence/implementation-status.md",
       "kind": "document",
-      "sha256": "04a8abb6c73158b8b8af6a5cd73aba298c374e19828a1e210e55bf7f2694665d"
+      "sha256": "35159a3819ca894f3236a13acf179134fd985afccf326f2c889fcae7f692af2a"
     },
     {
       "path": "evidence/T015-findings.json",
@@ -86,7 +86,7 @@
     {
       "path": "evidence/README.md",
       "kind": "document",
-      "sha256": "32619d61740104c70ed91109de3010485db4b05a3650b03372d3388d47767d61"
+      "sha256": "25b68bb198faae16e18ab49b7b5819675be4cba762c0a71c3b452c2092a8c676"
     },
     {
       "path": "evidence/PR-A-validation.md",
@@ -173,9 +173,11 @@
     "T017",
     "T018",
     "T019",
-    "T020"
+    "T020",
+    "T021",
+    "T022"
   ],
-  "next_task": "T021",
+  "next_task": "T023",
   "work_stopped_at_user_request": false,
   "test_summary": {
     "passed": 61,
