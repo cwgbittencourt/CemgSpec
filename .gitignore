@@ -16,3 +16,4 @@
 *.key
 *.pem
 **/secrets.json
+/tmp/docs-executivo
