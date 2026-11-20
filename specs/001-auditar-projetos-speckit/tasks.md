@@ -4,7 +4,7 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente (`d2a34bc`). T029–T035 (US3 — Dashboard documental) concluídas tecnicamente (`32170ad`). T036 (`93dd7fd`), fix SignalR (`9baaa12`), T037 (`22b5246`) e T038 (`fa38766`) concluídas. T039 executou US4-S01–S04 no host/Edge real e regressão completa (4/4 domínio, 4/4 US4 E2E, 93/93 regressão) em [evidence/US4-validation.md](evidence/US4-validation.md). Próxima T040 (`evidence/US4-review.md`). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
+**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente (`d2a34bc`). T029–T035 (US3 — Dashboard documental) concluídas tecnicamente (`32170ad`). T036 (`93dd7fd`), fix SignalR (`9baaa12`), T037 (`22b5246`), T038 (`fa38766`) e T039 (`4d6e587`) concluídas. T040 concluiu a autorrevisão da US4 em [evidence/US4-review.md](evidence/US4-review.md) com 1 achado P2 (`REV-US4-01`) e 1 P3 (`REV-US4-02`) abertos para T041. Próxima T041. Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
 ## Checkpoint histórico — constituição 4.0.0
 
@@ -108,7 +108,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T037 [US4] Definir Requirement/Criterion/EvidenceLink/Finding e serviço de rastreabilidade em SpecAudit/Domain/Requirement.cs, SpecAudit/Domain/EvidenceLink.cs, SpecAudit/Domain/Finding.cs e SpecAudit/Application/RequirementTraceService.cs com as constraints literais abaixo.
 - [x] T038 [US4] Implementar ficha em SpecAudit/Components/Pages/Requirements.razor e SpecAudit/Components/Requirements/RequirementSheet.razor com descrição/critério/plano/tarefas/verificações/sugestões documentais. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
 - [x] T039 [US4] Executar os cenários US4-S01–S04 / US4-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US4-validation.md.
-- [ ] T040 [US4] Revisar diff, critérios, contratos, segurança e resultados da versão de US4 em evidence/US4-review.md, declarando autorrevisão.
+- [x] T040 [US4] Revisar diff, critérios, contratos, segurança e resultados da versão de US4 em evidence/US4-review.md, declarando autorrevisão.
 - [ ] T041 [US4] Resolver achados de US4 e repetir checks afetados em evidence/US4-validation.md e evidence/US4-review.md; se nenhum, registrar referência à revisão real.
 - [ ] T042 [US4] Consolidar e conferir roteiro reproduzível em validation/US4-dev.md e registrar estado técnico em acceptance/US4.md, mantendo decisão do DEV pendente.
 
