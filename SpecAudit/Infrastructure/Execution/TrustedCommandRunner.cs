@@ -24,7 +24,7 @@ internal sealed class TrustedCommandRunner
         if(WindowsReadHandle.Contains(originPath,executable))throw new InvalidOperationException("Never execute a tool from audited origin.");
         using var image=new FileStream(executable,FileMode.Open,FileAccess.Read,FileShare.Read);
         if(Convert.ToHexStringLower(SHA256.HashData(image))!=definition.Sha256)throw new InvalidOperationException("Trusted executable hash mismatch.");
-        var start=new ProcessStartInfo(executable){WorkingDirectory=workPath,UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
+        var start=new ProcessStartInfo(executable){WorkingDirectory=workPath,UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true,StandardInputEncoding=new UTF8Encoding(encoderShouldEmitUTF8Identifier:false),StandardOutputEncoding=Encoding.UTF8,StandardErrorEncoding=Encoding.UTF8};
         foreach(var argument in definition.Arguments)start.ArgumentList.Add(argument);
         start.Environment.Clear();
         foreach(var name in new[]{"SystemRoot","WINDIR","USERPROFILE","APPDATA","LOCALAPPDATA","TEMP","TMP"})

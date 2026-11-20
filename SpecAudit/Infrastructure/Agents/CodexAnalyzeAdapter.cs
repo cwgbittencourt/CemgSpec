@@ -20,12 +20,13 @@ public sealed class CodexAnalyzeAdapter
 {
     public const string PolicyVersion = "v4";
     public const string PlatformFingerprint = "win-x64";
+    public const string VerifiedCodexVersion = "0.147.0";
+    public const string VerifiedCodexSha256 = "935a1911ed2556e4ffcec995f4886ac2ac425863ba26fed264df62e30272ad9d";
     public const string AdapterDisclosure =
         "Adaptação somente leitura de speckit-analyze (SpecAudit / Codex): envia exclusivamente snapshots autorizados de constitution.md, spec.md, plan.md e tasks.md ao serviço do agente Codex; não lê código-fonte, não executa hooks/scripts/configurações da origem e mantém estado interno do agente em ~/.codex fora da origem.";
 
     private static readonly string OutputSchemaJson = """
     {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
       "type": "object",
       "additionalProperties": false,
       "required": ["summary", "findings"],
@@ -169,7 +170,7 @@ public sealed class CodexAnalyzeAdapter
         {
             var schemaPath = Path.Combine(workDir, "analyze-output-schema.json");
             var outputFilePath = Path.Combine(workDir, "last-message.json");
-            await File.WriteAllTextAsync(schemaPath, OutputSchemaJson, Encoding.UTF8, cancellationToken);
+            File.WriteAllText(schemaPath, OutputSchemaJson, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
 
             var toolLabel = $"speckit-analyze · Codex {installation.Version ?? "unknown"} (somente leitura)";
             run.BeginRunning(toolLabel);
@@ -188,6 +189,7 @@ public sealed class CodexAnalyzeAdapter
                     "--ephemeral",
                     "-c", "mcp_servers={}",
                     "-c", "tools.web_search=false",
+                    "-c", "model_reasoning_effort=\"low\"",
                     "--color", "never",
                     "--output-schema", schemaPath,
                     "-o", outputFilePath,
@@ -197,13 +199,27 @@ public sealed class CodexAnalyzeAdapter
             var workToken = context.WorkToken;
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, workToken);
 
-            var execResult = await runner(
-                command,
-                prompt,
-                workDir,
-                originPath,
-                limits.MaxDuration,
-                linkedCts.Token);
+            CommandExecutionResult execResult;
+            try
+            {
+                execResult = await runner(
+                    command,
+                    prompt,
+                    workDir,
+                    originPath,
+                    limits.MaxDuration,
+                    linkedCts.Token);
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested || workToken.IsCancellationRequested)
+            {
+                if (workToken.IsCancellationRequested) run.MarkStale();
+                if (!run.CancelRequested) run.RequestCancel();
+                var reason = cancellationToken.IsCancellationRequested
+                    ? "Análise Codex cancelada pelo usuário."
+                    : "Análise Codex cancelada por alteração documental ou troca de projeto.";
+                run.FinishCancellation(terminationConfirmed: true, reason);
+                return null;
+            }
 
             if (context.Catalog.HasPendingChanges || context.Catalog.Generation != generation || workToken.IsCancellationRequested)
                 run.MarkStale();
