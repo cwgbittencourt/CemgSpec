@@ -18,6 +18,8 @@ Este diretório guarda comprovação técnica do desenvolvimento do SpecAudit, n
 
 ## Pontos de entrada
 
+- [T068 — Adaptador documental Antigravity](T068-antigravity-adapter.md) — harness, regressão e limites da prova.
+
 - [T023 — Segurança e navegação do preview](preview-safety.md) — broker, SVG e autorização de imagem remota.
 
 - [T022 — Renderizador local da US2](T022-local-preview.md) — auditoria, corpus e regressão selecionada.

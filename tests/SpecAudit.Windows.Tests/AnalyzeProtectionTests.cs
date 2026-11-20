@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using SpecAudit.Application;
@@ -11,8 +10,6 @@ namespace SpecAudit.Windows.Tests;
 
 public sealed class AnalyzeProtectionTests
 {
-    private static readonly Assembly ProductAssembly = typeof(ProjectSession).Assembly;
-
     private sealed class UnusedPicker : IFolderPicker
     {
         public Task<string?> PickAsync(string title) => Task.FromResult<string?>(null);
@@ -245,18 +242,154 @@ public sealed class AnalyzeProtectionTests
         }
     }
 
-    [Fact]
-    [Trait("Provider", "Antigravity")]
-    public void S02AndS04AntigravityAdapterProvesDocumentaryContractExternalStateAndCancellation()
+    [Theory]
+    [Trait("Provider", "AntigravityContract")]
+    [InlineData("documentary")]
+    [InlineData("authentication")]
+    [InlineData("uncertain-termination")]
+    [InlineData("foreign-reference")]
+    [InlineData("invalid-hash")]
+    [InlineData("tool-event")]
+    [InlineData("cancelled")]
+    [InlineData("missing")]
+    public async Task AntigravityHarnessKeepsOnlyDocumentaryResults(string scenario)
     {
-        var adapterType = RequireType("SpecAudit.Infrastructure.Agents.AntigravityAnalyzeAdapter");
-        Assert.NotNull(adapterType);
-    }
+        var fixture = DocumentaryFixture.Create();
+        string? externalState = null;
+        try
+        {
+            var executable = Path.Combine(fixture.Root, "agy.exe");
+            File.Copy(typeof(AnalyzeProtectionTests).Assembly.Location, executable);
+            var discovery = new AgentDiscovery(new Dictionary<AgentProvider, AgentCandidatePaths>
+            {
+                [AgentProvider.Antigravity] = new([executable], [], [])
+            });
+            File.WriteAllText(Path.Combine(fixture.Origin, ".env"), "T068_SYNTHETIC_SECRET");
+            File.WriteAllText(Path.Combine(fixture.Feature, "spec.md"), "# Documento\nFR-002: requisito da fixture.\n");
+            if (scenario == "missing") File.Delete(Path.Combine(fixture.Feature, "tasks.md"));
+            fixture.CaptureBaseline();
 
-    private static Type RequireType(string fullName)
-    {
-        var type = ProductAssembly.GetType(fullName, throwOnError: false);
-        Assert.True(type is not null, $"Expected contract type '{fullName}' to be implemented in T065/T068.");
-        return type!;
+            using var projects = CreateProjectService();
+            var context = projects.OpenSelected(fixture.Origin, fixture.Output);
+            var installation = discovery.DiscoverAll(fixture.Origin).Single(agent => agent.Provider == AgentProvider.Antigravity);
+            var feature = context.Session.Features.Single(item => item.SpecKitRelativeDirectory.Contains("001-demo"));
+            var spec = context.Catalog.Entries.Single(entry => entry.FeatureId == feature.FeatureId && entry.Kind == CatalogKind.Spec);
+            var broker = new SpecAudit.Infrastructure.Documents.DocumentBroker(context.Catalog);
+            var snapshot = broker.Read(context.Session.ProjectId, spec.DocumentId, context.Catalog.Generation);
+            var adapter = new AntigravityAnalyzeAdapter(discovery, (command, input, work, origin, _, _) =>
+            {
+                Assert.Null(externalState);
+                externalState = work;
+                Assert.False(work.StartsWith(origin + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase));
+                Assert.False(work.StartsWith(fixture.Output + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase));
+                Assert.Equal(Path.Combine(work, "profile"), command.IsolatedProfile);
+                Assert.Contains("--disable-slash-commands", command.Arguments);
+                Assert.Contains("--sandbox", command.Arguments);
+                Assert.Contains(command.Arguments, arg => arg.Contains("command(*)") && arg.Contains("mcp(*)") && arg.Contains("read_file(*)"));
+                Assert.DoesNotContain(command.Arguments, arg => arg.Contains(fixture.Origin, StringComparison.OrdinalIgnoreCase));
+                using var line = JsonDocument.Parse(input);
+                Assert.Equal("user", line.RootElement.GetProperty("event").GetString());
+                var content = line.RootElement.GetProperty("message").GetProperty("content").GetString()!;
+                Assert.Contains("FR-002", content);
+                Assert.Contains(snapshot.ContentHash, content);
+                Assert.DoesNotContain("T068_SYNTHETIC_SECRET", content);
+                Assert.DoesNotContain("synthetic canary; never read by product", content);
+                Assert.DoesNotContain("002-other", content);
+                File.WriteAllText(Path.Combine(command.IsolatedProfile!, "internal-conversation.txt"), "estado sintético do agente");
+
+                var response = JsonSerializer.Serialize(new
+                {
+                    @event = "result",
+                    result = new
+                    {
+                        status = "SUCCESS",
+                        num_turns = 1,
+                        conversation_id = "never-becomes-official-history",
+                        structured_output = new
+                        {
+                            summary = "Uma lacuna documental",
+                            findings = new[]
+                            {
+                                new
+                                {
+                                    category = "CoverageGap", severity = "High", requirement_id = "FR-002",
+                                    explanation = "Requisito sem vínculo documental.", suggestion = "Vincule uma tarefa.",
+                                    sources = new[] { new { document_id = scenario == "foreign-reference" ? Guid.NewGuid() : spec.DocumentId,
+                                        content_hash = scenario == "invalid-hash" ? new string(' ', 64) : snapshot.ContentHash, line_number = 2 } }
+                                }
+                            }
+                        }
+                    }
+                });
+                return Task.FromResult(scenario switch
+                {
+                    "authentication" => new(1, "", "authentication required", false, false, false, true),
+                    "uncertain-termination" => new(0, response, "", false, false, false, false),
+                    "tool-event" => new(0, "{\"event\":\"step_update\",\"step_update\":{\"step_type\":\"tool\"}}\n" + response, "", false, false, false, true),
+                    "cancelled" => new(null, "", "", true, false, false, true),
+                    _ => new CommandExecutionResult(0, response, "", false, false, false, true)
+                });
+            });
+            var registry = new CapabilityRegistry();
+            var verifications = new VerificationService(projects, registry);
+            var unavailable = verifications.EvaluateAvailability(VerificationType.AnalyzeDocuments,
+                ProtectedCapability.AnalyzeAntigravity, "fixture", "win-x64", "v4");
+            Assert.NotEqual(CapabilityAvailability.Available, unavailable.Availability);
+            Assert.False(verifications.PrepareAnalyzeRun(context.Session.ProjectId, feature.FeatureId, installation, unavailable).Created);
+
+            // Exercise the adapter directly with a synthetic run. No real capability seal is recorded.
+            var run = new VerificationRun(context.Session.ProjectId, feature.FeatureId, VerificationType.AnalyzeDocuments,
+                context.Catalog.Generation, agentId: installation.AgentId);
+            run.BeginPreparing(context.Catalog.Entries.Where(entry =>
+                entry.Kind == CatalogKind.Constitution || entry.FeatureId == feature.FeatureId).Select(entry => entry.DocumentId).ToArray());
+            var metadata = await adapter.ExecuteAsync(context, feature.FeatureId, installation, run);
+
+            switch (scenario)
+            {
+                case "documentary":
+                    Assert.Equal(RunState.Completed, run.State);
+                    Assert.Equal(AnalyzeSemanticResult.Findings, run.SemanticResult!.AnalyzeResult);
+                    Assert.Equal(spec.DocumentId, Assert.Single(Assert.Single(run.Findings).SourceLocations).DocumentId);
+                    Assert.NotNull(metadata);
+                    Assert.Equal(4, metadata.AuthorizedSnapshotCount);
+                    Assert.Equal(externalState, Assert.Single(metadata.ExternalStateLocations));
+                    break;
+                case "authentication":
+                    Assert.Equal(RunState.Failed, run.State);
+                    Assert.Contains("Autenticação", run.Reason);
+                    Assert.Null(run.SemanticResult);
+                    break;
+                case "uncertain-termination":
+                    Assert.Equal(RunState.Failed, run.State);
+                    Assert.False(run.TerminationConfirmed);
+                    Assert.Null(run.SemanticResult);
+                    break;
+                case "foreign-reference":
+                case "invalid-hash":
+                case "tool-event":
+                    Assert.Equal(RunState.Completed, run.State);
+                    Assert.Equal(AnalyzeSemanticResult.Inconclusive, run.SemanticResult!.AnalyzeResult);
+                    Assert.Empty(run.Findings);
+                    break;
+                case "cancelled":
+                    Assert.Equal(RunState.Cancelled, run.State);
+                    Assert.True(run.TerminationConfirmed);
+                    Assert.Null(run.SemanticResult);
+                    break;
+                case "missing":
+                    Assert.Equal(RunState.Blocked, run.State);
+                    Assert.Null(externalState);
+                    Assert.False(File.Exists(Path.Combine(fixture.Feature, "tasks.md")));
+                    break;
+            }
+            Assert.DoesNotContain("never-becomes-official-history", run.Output);
+            Assert.True(fixture.IsUnchanged());
+            Assert.Empty(Directory.EnumerateFileSystemEntries(fixture.Output));
+        }
+        finally
+        {
+            if (externalState is not null) Directory.Delete(externalState, recursive: true);
+            Directory.Delete(fixture.Root, recursive: true);
+        }
     }
 }

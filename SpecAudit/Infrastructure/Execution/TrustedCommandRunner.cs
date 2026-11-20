@@ -6,7 +6,10 @@ using SpecAudit.Infrastructure.Documents;
 namespace SpecAudit.Infrastructure.Execution;
 
 // Created only by trusted adapters. No UI/agent/document can supply an executable or args.
-internal sealed record TrustedCommandDefinition(VerificationType Operation,string Executable,string Sha256,IReadOnlyList<string> Arguments);
+internal sealed record TrustedCommandDefinition(VerificationType Operation,string Executable,string Sha256,IReadOnlyList<string> Arguments)
+{
+    public string? IsolatedProfile { get; init; }
+}
 internal sealed record CommandExecutionResult(int? ExitCode,string Output,string Error,bool Cancelled,bool TimedOut,bool LimitExceeded,bool RootTerminationConfirmed);
 internal sealed class TrustedCommandRunner
 {
@@ -29,6 +32,18 @@ internal sealed class TrustedCommandRunner
         start.Environment.Clear();
         foreach(var name in new[]{"SystemRoot","WINDIR","USERPROFILE","APPDATA","LOCALAPPDATA","TEMP","TMP"})
             if(Environment.GetEnvironmentVariable(name) is { } value)start.Environment[name]=value;
+        if (definition.IsolatedProfile is { } isolatedProfile)
+        {
+            using var profileHandle = WindowsReadHandle.Open(isolatedProfile, true);
+            var profilePath = WindowsReadHandle.FinalPath(profileHandle);
+            if (!WindowsReadHandle.Contains(workPath, profilePath))
+                throw new InvalidOperationException("The isolated profile must be inside the validated external workspace.");
+            start.Environment["USERPROFILE"] = profilePath;
+            start.Environment["APPDATA"] = Path.Combine(profilePath, "AppData", "Roaming");
+            start.Environment["LOCALAPPDATA"] = Path.Combine(profilePath, "AppData", "Local");
+            start.Environment["TEMP"] = workPath;
+            start.Environment["TMP"] = workPath;
+        }
         start.Environment["PATH"]=Environment.SystemDirectory;
         start.Environment["DOTNET_CLI_TELEMETRY_OPTOUT"]="1";
         using var deadline=new CancellationTokenSource(timeout);using var limit=new CancellationTokenSource();

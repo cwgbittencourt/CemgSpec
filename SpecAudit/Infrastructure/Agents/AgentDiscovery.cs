@@ -247,6 +247,7 @@ public sealed class AgentDiscovery
             AgentProvider.Antigravity => new AgentCandidatePaths(
                 ExecutableCandidates:
                 [
+                    Path.Combine(localAppData, "agy", "bin", "agy.exe"),
                     Path.Combine(localAppData, "Programs", "antigravity", "Antigravity.exe"),
                     Path.Combine(localAppData, "Programs", "Antigravity IDE", "Antigravity IDE.exe")
                 ],
@@ -256,6 +257,7 @@ public sealed class AgentDiscovery
                 ],
                 ExternalStateLocations:
                 [
+                    Path.Combine(userProfile, ".gemini", "antigravity-cli"),
                     Path.Combine(userProfile, ".gemini", "antigravity")
                 ]),
 

@@ -45,4 +45,31 @@ public sealed class TrustedCommandRunnerTests
         try{using var child=Process.GetProcessById(childId);Assert.True(child.HasExited);}catch(ArgumentException){}
         Assert.True(fixture.IsUnchanged());
     }
+
+    [Fact]
+    public async Task ChildProcessUsesOnlyTheValidatedExternalProfile()
+    {
+        var fixture = DocumentaryFixture.Create();
+        try
+        {
+            var profile = Directory.CreateDirectory(Path.Combine(fixture.Evidence, "profile")).FullName;
+            var runner = new TrustedCommandRunner();
+            var command = Definition("--profile") with { IsolatedProfile = profile };
+            var timeout = TimeSpan.FromSeconds(15);
+            var result = await runner.RunAsync(command, "", fixture.Evidence, fixture.Origin, timeout);
+            Assert.Equal(0, result.ExitCode);
+            Assert.Equal(new[]
+            {
+                profile, Path.Combine(profile, "AppData", "Roaming"), Path.Combine(profile, "AppData", "Local"),
+                fixture.Evidence, fixture.Evidence
+            }, System.Text.Json.JsonSerializer.Deserialize<string[]>(result.Output));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => runner.RunAsync(
+                command with { IsolatedProfile = fixture.Origin }, "", fixture.Evidence, fixture.Origin, timeout));
+            Assert.True(fixture.IsUnchanged());
+        }
+        finally
+        {
+            Directory.Delete(fixture.Root, recursive: true);
+        }
+    }
 }

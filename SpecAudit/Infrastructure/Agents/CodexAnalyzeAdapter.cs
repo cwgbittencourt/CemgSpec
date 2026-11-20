@@ -57,7 +57,7 @@ public sealed class CodexAnalyzeAdapter
         return true;
     }
 
-    private static readonly string OutputSchemaJson = """
+    internal static readonly string OutputSchemaJson = """
     {
       "type": "object",
       "additionalProperties": false,
@@ -411,11 +411,11 @@ public sealed class CodexAnalyzeAdapter
         Feature feature,
         string rawOutput,
         IReadOnlyDictionary<Guid, (CatalogEntry Entry, DocumentSnapshot Snapshot, string Text)> authorizedSnapshots,
-        AgentInstallation installation)
+        AgentInstallation installation, string disclosure = AdapterDisclosure)
     {
         var limitations = new List<string>
         {
-            AdapterDisclosure,
+            disclosure,
             $"Agente: {installation.DisplayName} {installation.Version ?? "unknown"} (SHA-256: {installation.ExecutableSha256?[..Math.Min(12, installation.ExecutableSha256.Length)]}...).",
             $"Locais externos de estado do agente: {string.Join(", ", installation.ExternalStateLocations)}.",
             "Nenhum resultado de implementação é produzido; conclusões da IA são sugestões documentais e nunca constituem aceite humano ou relatório salvo antes de Salvar."
