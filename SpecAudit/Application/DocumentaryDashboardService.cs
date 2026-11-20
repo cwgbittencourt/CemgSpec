@@ -11,6 +11,9 @@ public sealed partial class DocumentaryDashboardService
     private static readonly UTF8Encoding Utf8 = new(false, throwOnInvalidBytes: true);
     private static readonly string[] CodeExtensions =
         [".cs", ".razor", ".ts", ".tsx", ".js", ".jsx", ".py", ".csproj", ".sln", ".slnx"];
+    private static bool IsArchivedPath(string relativePath) =>
+        relativePath.Contains("\\archive\\", StringComparison.OrdinalIgnoreCase) ||
+        relativePath.Contains("/archive/", StringComparison.OrdinalIgnoreCase);
     private readonly Dictionary<string, DashboardProjection> cache = new(StringComparer.Ordinal);
 
     public DashboardProjection Build(OpenProjectContext project, DashboardFilter? filter = null)
@@ -147,9 +150,10 @@ public sealed partial class DocumentaryDashboardService
                 }
             }
 
-            // Parse recorded gate JSON documents via broker without reading code targets.
+            // Parse recorded gate JSON documents via broker without reading code targets (ignoring archived folders).
             foreach (var gateEntry in entries.Where(entry => entry.Kind == CatalogKind.GateRecord &&
-                         entry.RelativePath.EndsWith(".json", StringComparison.OrdinalIgnoreCase)))
+                         entry.RelativePath.EndsWith(".json", StringComparison.OrdinalIgnoreCase) &&
+                         !IsArchivedPath(entry.RelativePath)))
             {
                 ParseGateRecord(catalog, broker, generation, feature, gateEntry, allGates, allOccurrences, ref freshness);
             }
