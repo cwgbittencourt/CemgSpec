@@ -15,4 +15,13 @@
     <PackageReference Include="Markdig" Version="[1.6.0]" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Infrastructure\Gates\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Update="Infrastructure\Gates\**\*.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
