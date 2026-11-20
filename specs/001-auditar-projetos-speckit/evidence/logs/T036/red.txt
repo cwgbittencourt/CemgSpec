@@ -1,0 +1,139 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.CommandFixture -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.CommandFixture\bin\Debug\net10.0\SpecAudit.CommandFixture.dll
+  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\ExplicitSelectionFlowTests.cs(25,112): warning CS8602: Desreferência de uma referência possivelmente nula. [D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj]
+  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.1 arquivos de teste no total corresponderam ao padrão especificado.
+
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.08]   Discovering: SpecAudit.Tests[xUnit.net 00:00:00.08]   Discovering: SpecAudit.Windows.Tests
+
+[xUnit.net 00:00:00.12]   Discovered:  SpecAudit.Tests
+[xUnit.net 00:00:00.13]   Discovered:  SpecAudit.Windows.Tests
+Nenhum teste corresponde ao filtro de testcase `FullyQualifiedName~RequirementTraceTests|FullyQualifiedName~RequirementSheetTests` determinado no D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+[xUnit.net 00:00:00.15]   Starting:    SpecAudit.Tests
+[xUnit.net 00:00:00.19]       T037 must implement Requirement, EvidenceLink, Finding, and RequirementTraceService keeping RequirementKey=(ProjectId, FeatureId, LocalId) distinct across features (e.g. FR-001 in 001-demo vs 002-other) and separating Explicit vs Inferred provenance.
+[xUnit.net 00:00:00.19]       Stack Trace:
+[xUnit.net 00:00:00.19]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs(17,0): at SpecAudit.Tests.RequirementTraceTests.S01RequirementKeysStayContextualAcrossFeaturesAndDistinguishExplicitFromInferredLinks()
+[xUnit.net 00:00:00.19]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.19]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+[xUnit.net 00:00:00.20]       T037 must keep .cs/.razor/config references as EvidenceLink with Resolution.OutOfScope / unverified text across any language without opening source files.
+[xUnit.net 00:00:00.20]       Stack Trace:
+[xUnit.net 00:00:00.20]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs(46,0): at SpecAudit.Tests.RequirementTraceTests.S04CodeAndConfigReferencesRemainUnverifiedTextAndAreNeverOpened()
+[xUnit.net 00:00:00.20]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.20]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.20]       T037 must present recorded validation/acceptance statements as third-party documentary declarations with source/version without granting SpecAudit approval.
+[xUnit.net 00:00:00.20]       Stack Trace:
+[xUnit.net 00:00:00.20]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs(37,0): at SpecAudit.Tests.RequirementTraceTests.S03ThirdPartyValidationDeclarationsStaySeparatedFromCalculatedVerification()
+[xUnit.net 00:00:00.20]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.20]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.20]       T037 must define Criterion and CoverageState (Linked, MissingLink, Ambiguous) without Implemented/NotImplemented states and detect duplicate IDs in the same feature as Ambiguous without merging.
+[xUnit.net 00:00:00.20]       Stack Trace:
+[xUnit.net 00:00:00.20]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs(28,0): at SpecAudit.Tests.RequirementTraceTests.S02CriteriaReportLinkedMissingOrAmbiguousWithoutClassifyingImplementation()
+[xUnit.net 00:00:00.20]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.20]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.20]   Finished:    SpecAudit.Tests
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.07]   Discovering: SpecAudit.Ui.Tests
+  Com falha SpecAudit.Tests.RequirementTraceTests.S01RequirementKeysStayContextualAcrossFeaturesAndDistinguishExplicitFromInferredLinks [3 ms]
+  Mensagem de erro:
+   T037 must implement Requirement, EvidenceLink, Finding, and RequirementTraceService keeping RequirementKey=(ProjectId, FeatureId, LocalId) distinct across features (e.g. FR-001 in 001-demo vs 002-other) and separating Explicit vs Inferred provenance.
+  Rastreamento de pilha:
+     at SpecAudit.Tests.RequirementTraceTests.S01RequirementKeysStayContextualAcrossFeaturesAndDistinguishExplicitFromInferredLinks() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs:line 17
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Com falha SpecAudit.Tests.RequirementTraceTests.S04CodeAndConfigReferencesRemainUnverifiedTextAndAreNeverOpened [< 1 ms]
+  Mensagem de erro:
+   T037 must keep .cs/.razor/config references as EvidenceLink with Resolution.OutOfScope / unverified text across any language without opening source files.
+  Rastreamento de pilha:
+     at SpecAudit.Tests.RequirementTraceTests.S04CodeAndConfigReferencesRemainUnverifiedTextAndAreNeverOpened() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs:line 46
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Com falha SpecAudit.Tests.RequirementTraceTests.S03ThirdPartyValidationDeclarationsStaySeparatedFromCalculatedVerification [< 1 ms]
+  Mensagem de erro:
+   T037 must present recorded validation/acceptance statements as third-party documentary declarations with source/version without granting SpecAudit approval.
+  Rastreamento de pilha:
+     at SpecAudit.Tests.RequirementTraceTests.S03ThirdPartyValidationDeclarationsStaySeparatedFromCalculatedVerification() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs:line 37
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Com falha SpecAudit.Tests.RequirementTraceTests.S02CriteriaReportLinkedMissingOrAmbiguousWithoutClassifyingImplementation [< 1 ms]
+  Mensagem de erro:
+   T037 must define Criterion and CoverageState (Linked, MissingLink, Ambiguous) without Implemented/NotImplemented states and detect duplicate IDs in the same feature as Ambiguous without merging.
+  Rastreamento de pilha:
+     at SpecAudit.Tests.RequirementTraceTests.S02CriteriaReportLinkedMissingOrAmbiguousWithoutClassifyingImplementation() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\RequirementTraceTests.cs:line 28
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Total de testes: 4
+     Com falha: 4
+Tempo total: 0,7876 Segundos
+[xUnit.net 00:00:00.12]   Discovered:  SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.14]   Starting:    SpecAudit.Ui.Tests
+[xUnit.net 00:00:02.52]       The Requisitos route must be available. HTTP 404.
+[xUnit.net 00:00:02.52]       Stack Trace:
+[xUnit.net 00:00:02.52]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(77,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:02.52]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:02.52]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:02.52]         --- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.RequirementSheetTests.S01RequirementSheetSeparatesSameLocalIdAcrossFeaturesAndDistinguishesExplicitVsInferred [1 s]
+  Mensagem de erro:
+   The Requisitos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 77
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.55]       The Requisitos route must be available. HTTP 404.
+[xUnit.net 00:00:03.55]       Stack Trace:
+[xUnit.net 00:00:03.55]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(77,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:03.55]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:03.55]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:03.55]         --- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.RequirementSheetTests.S04RequirementSheetKeepsCodeLinksUnverifiedAndInformsFutureCodeAnalysis [1 s]
+  Mensagem de erro:
+   The Requisitos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 77
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:04.58]       The Requisitos route must be available. HTTP 404.
+[xUnit.net 00:00:04.58]       Stack Trace:
+[xUnit.net 00:00:04.58]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(77,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:04.58]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:04.58]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:04.58]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.56]       The Requisitos route must be available. HTTP 404.
+[xUnit.net 00:00:05.56]       Stack Trace:
+[xUnit.net 00:00:05.56]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(77,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:05.56]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:05.56]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs(102,0): at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify)
+[xUnit.net 00:00:05.56]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.59]   Finished:    SpecAudit.Ui.Tests
+  Com falha SpecAudit.Ui.Tests.RequirementSheetTests.S02RequirementSheetShowsMissingAndAmbiguousCriteriaWithoutImplementationVerdict [1 s]
+  Mensagem de erro:
+   The Requisitos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 77
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+--- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.RequirementSheetTests.S03RequirementSheetShowsRecordedDeclarationsWithLimitsWithoutSpecAuditApproval [977 ms]
+  Mensagem de erro:
+   The Requisitos route must be available. HTTP 404.
+  Rastreamento de pilha:
+     at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 77
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+   at SpecAudit.Ui.Tests.RequirementSheetTests.WithRequirementsFixtureAsync(Func`3 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\RequirementSheetTests.cs:line 102
+--- End of stack trace from previous location ---
+
+Total de testes: 4
+     Com falha: 4
+Tempo total: 6,1596 Segundos
