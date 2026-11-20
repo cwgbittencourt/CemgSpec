@@ -305,7 +305,7 @@ public sealed partial class DocumentaryDashboardService
             if (line.StartsWith("## ", StringComparison.Ordinal))
             {
                 currentPhase = line[3..].Trim();
-                var phaseStoryMatch = StoryHeadingRegex().Match(line);
+                var phaseStoryMatch = PhaseStoryRegex().Match(line);
                 currentPhaseStory = phaseStoryMatch.Success ? phaseStoryMatch.Groups[1].Value.ToUpperInvariant() : null;
             }
 
@@ -493,6 +493,9 @@ public sealed partial class DocumentaryDashboardService
 
     [GeneratedRegex(@"^###\s+(US\d+)\b", RegexOptions.IgnoreCase)]
     private static partial Regex StoryHeadingRegex();
+
+    [GeneratedRegex(@"\b(US\d+)\b", RegexOptions.IgnoreCase)]
+    private static partial Regex PhaseStoryRegex();
 
     [GeneratedRegex(@"^\s*-\s*\*{0,2}((?:FR|NFR|REQ)-\d{3,})\*{0,2}\s*[:\-–—]\s*(.+)$", RegexOptions.IgnoreCase)]
     private static partial Regex RequirementLineRegex();
