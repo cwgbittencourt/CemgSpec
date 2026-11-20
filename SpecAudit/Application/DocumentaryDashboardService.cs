@@ -150,14 +150,17 @@ public sealed partial class DocumentaryDashboardService
                     feature.FeatureId, feature.Title, req.LocalId, req.Description,
                     req.Location, linkedTasks, isDuplicate, req.StoryRef));
 
-                if (!isDuplicate && linkedTasks.Count == 0)
+                var hasStoryTasks = !string.IsNullOrWhiteSpace(req.StoryRef) &&
+                    featureTasks.Any(t => string.Equals(t.StoryRef, req.StoryRef, StringComparison.OrdinalIgnoreCase));
+
+                if (!isDuplicate && linkedTasks.Count == 0 && !hasStoryTasks)
                 {
                     allOccurrences.Add(new(
                         Guid.NewGuid(), feature.FeatureId, feature.Title,
                         DocumentaryOccurrenceCategory.RequirementWithoutTask,
                         DocumentaryOccurrenceSeverity.Medium,
                         $"Requisito sem tarefa vinculada: {req.LocalId}",
-                        $"O requisito {req.LocalId} em {req.Location.RelativePath}:{req.Location.LineNumber} não possui vínculo documental explícito em tasks.md.",
+                        $"O requisito {req.LocalId} em {req.Location.RelativePath}:{req.Location.LineNumber} não possui vínculo documental explícito nem por história em tasks.md.",
                         req.Location, null, req.StoryRef, "Sem vínculo"));
                 }
             }
