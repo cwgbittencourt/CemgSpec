@@ -45,6 +45,12 @@
     gap: 16px;
 }
 
+.verif-card {
+    max-height: clamp(300px, 52vh, 560px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
 .verif-card h2 {
     margin: 0 0 6px 0;
     font-size: 16px;
