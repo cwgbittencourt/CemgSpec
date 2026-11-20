@@ -13,7 +13,7 @@
             <NavLink href="/dashboard" class="sidebar-link"><span aria-hidden="true">⌂</span> Dashboard</NavLink>
             <NavLink href="/requisitos" class="sidebar-link"><span aria-hidden="true">☰</span> Requisitos</NavLink>
             <NavLink href="/documentos" class="sidebar-link"><span aria-hidden="true">▤</span> Documentos</NavLink>
-            <a href="/verificacoes" class="@(IsRoute("verificacoes") ? "sidebar-link active" : "sidebar-link")" aria-current="@(IsRoute("verificacoes") ? "page" : null)"><span aria-hidden="true">▷</span> Verificações</a>
+            <NavLink href="/verificacoes" class="sidebar-link"><span aria-hidden="true">▷</span> Verificações</NavLink>
             <a href="/sugestoes" class="@(IsRoute("sugestoes") ? "sidebar-link active" : "sidebar-link")" aria-current="@(IsRoute("sugestoes") ? "page" : null)"><span aria-hidden="true">◈</span> Sugestões</a>
         </nav>
 
@@ -34,27 +34,7 @@
         </div>
     </aside>
     <main class="app-main">
-        @if (IsRoute("verificacoes"))
-        {
-            <section class="placeholder-page">
-                <p class="eyebrow">SPECAUDIT · VERIFICAÇÕES PERMITIDAS</p>
-                <h1>Verificações</h1>
-                <p class="muted">As verificações sob demanda (<code>speckit-analyze</code> e <code>check_gate</code>) permanecem indisponíveis até a conclusão das provas de proteção nas etapas seguintes.</p>
-                @if (ProjectStore.Active is { } current)
-                {
-                    <div class="placeholder-context">
-                        <strong>@current.Session.DisplayName</strong>
-                        <span class="readonly-badge">◇ Somente leitura</span>
-                        <span class="muted">Destino externo: <code>@current.OutputDisplayPath</code></span>
-                    </div>
-                }
-                <div class="future-actions">
-                    <button type="button" class="primary" disabled>Executar verificação</button>
-                    <span class="muted">Aguardando provas GateAdapter, AnalyzeCodex e AnalyzeAntigravity.</span>
-                </div>
-            </section>
-        }
-        else if (IsRoute("sugestoes"))
+        @if (IsRoute("sugestoes"))
         {
             <section class="placeholder-page">
                 <p class="eyebrow">SPECAUDIT · SUGESTÕES E HISTÓRICO</p>

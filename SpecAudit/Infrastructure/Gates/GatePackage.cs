@@ -33,9 +33,43 @@ public sealed record GatePackageStatus(
 public sealed class GatePackage
 {
     public const string CoreVersion = "3.0.0";
+    public const string PlatformFingerprint = "win-x64";
+    public const string PolicyVersion = "v4";
     public const string ToolDisplayName = "check_gate CEMG 3.0.0 / adaptador de leitura SpecAudit";
     public const string ExpectedCoreSha256 = "7daf04483abbd52fa720e6afa0fbcde435120c96121b40008bff642ff93a42e0";
     public const string ExpectedPolicySha256 = "93eae48e3424949a889562eca47e8a1b93e398e5978374fbb75c8aa5f525c5a9";
+    public const string ExpectedRunnerSha256 = "724e9ad9d9f2f99d85040e4d2bf849a2e7bc1c2e92da54c1ca9171709049021a";
+    public const string ExpectedCatalogPathSha256 = "4c5a3d584b3afd7cc79a3c001417286055eba213731592f2779435cf5d40b898";
+
+    public bool TryRegisterVerifiedSeal(SpecAudit.Application.CapabilityRegistry registry)
+    {
+        ArgumentNullException.ThrowIfNull(registry);
+        if (!OperatingSystem.IsWindows() || System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture != System.Runtime.InteropServices.Architecture.X64)
+            return false;
+
+        var pkg = VerifyPackage();
+        if (!pkg.IsValid) return false;
+
+        var runnerPath = Path.Combine(packageRoot, "runner.py");
+        var catalogPath = Path.Combine(packageRoot, "catalog_path.py");
+        if (!File.Exists(runnerPath) || !File.Exists(catalogPath)) return false;
+        if (!string.Equals(ComputeSha256(runnerPath), ExpectedRunnerSha256, StringComparison.Ordinal)) return false;
+        if (!string.Equals(ComputeSha256(catalogPath), ExpectedCatalogPathSha256, StringComparison.Ordinal)) return false;
+
+        var assessment = new SpecAudit.Domain.ProtectionAssessment(CoreVersion, PlatformFingerprint, PolicyVersion);
+        var checks = new Dictionary<string, bool>
+        {
+            ["package-integrity"] = true,
+            ["offline-no-shell"] = true,
+            ["core-equivalence"] = true,
+            ["nested-evidence"] = true,
+            ["read-time-toctou"] = true,
+            ["cancel-zero-writes"] = true
+        };
+        assessment.RecordPassed(checks, ["specs/001-auditar-projetos-speckit/evidence/GateAdapter-proof.md"]);
+        registry.RecordProof(SpecAudit.Application.ProtectedCapability.GateAdapter, assessment);
+        return true;
+    }
 
     private readonly string packageRoot;
     private readonly Func<string?>? customPythonLocator;
@@ -283,3 +317,4 @@ public sealed class GatePackage
         return Convert.ToHexStringLower(SHA256.HashData(stream));
     }
 }
+

@@ -138,7 +138,7 @@ public sealed class GateExecutor
                 preflightError.Message,
                 [
                     "O preflight de escopo bloqueia referências a código, configuração, caminhos externos, traversal, junções ou assets não documentais sem ler destinos proibidos.",
-                    "Nenhum READY parcial é emitido quando uma evidência exigida é inválida ou fora do escopo."
+                    "Nenhum resultado parcial de prontidão é emitido quando uma evidência exigida é inválida ou fora do escopo."
                 ]);
             return null;
         }

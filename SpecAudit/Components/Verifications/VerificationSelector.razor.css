@@ -1,0 +1,138 @@
+.v-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.v-selector.compact {
+    gap: 10px;
+}
+
+.v-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.v-selector.compact .v-grid {
+    grid-template-columns: 1fr;
+}
+
+.v-span-2 {
+    grid-column: span 2;
+}
+
+.v-selector.compact .v-span-2 {
+    grid-column: span 1;
+}
+
+.v-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.v-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sa-muted, #9aa6be);
+}
+
+.v-field select,
+.v-field input {
+    background: var(--sa-surface-2, #151b26);
+    color: var(--sa-text, #f7f8fa);
+    border: 1px solid var(--sa-border, #2a3448);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+.v-info-box {
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--sa-border, #2a3448);
+    background: rgba(79, 140, 255, 0.08);
+}
+
+.v-info-box.muted-box {
+    background: rgba(170, 140, 245, 0.08);
+    border-color: rgba(170, 140, 245, 0.3);
+}
+
+.v-info-box.warn-box {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+.v-info-box strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.v-scope-note {
+    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(79, 140, 255, 0.35);
+    background: rgba(79, 140, 255, 0.1);
+}
+
+.v-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.v-btn-primary {
+    background: #4f8cff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.v-btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.v-btn-secondary {
+    background: transparent;
+    color: var(--sa-text, #f7f8fa);
+    border: 1px solid var(--sa-border, #2a3448);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.v-compact-result {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--sa-border, #2a3448);
+    font-size: 12px;
+}
+
+.fresh-pill {
+    display: inline-block;
+    width: fit-content;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(79, 140, 255, 0.18);
+    color: #9dc0ff;
+}
+
+.fresh-pill.stale {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+}
+

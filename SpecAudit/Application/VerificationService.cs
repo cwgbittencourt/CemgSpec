@@ -171,12 +171,16 @@ public sealed class VerificationService(ProjectService projectService, Capabilit
     public void InvalidateProjectRuns(Guid projectId)
     {
         if (!runIdsByProject.TryGetValue(projectId, out var ids)) return;
+        var changed = false;
         foreach (var id in ids)
         {
-            if (runsById.TryGetValue(id, out var run))
+            if (runsById.TryGetValue(id, out var run) && run.Freshness != Freshness.Stale)
+            {
                 run.MarkStale();
+                changed = true;
+            }
         }
-        Changed?.Invoke();
+        if (changed) Changed?.Invoke();
     }
 
     public IReadOnlyList<VerificationRun> GetRuns(Guid projectId)
@@ -204,3 +208,4 @@ public sealed class VerificationService(ProjectService projectService, Capabilit
         list.Add(run.RunId);
     }
 }
+
