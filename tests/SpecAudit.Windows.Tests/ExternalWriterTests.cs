@@ -160,8 +160,88 @@ public sealed class ExternalWriterTests
     [Fact]
     public void S04SavedHistoryReadsValidPackagesDiffsFindingsAndDeletesOnlySelectedRecord()
     {
-        _ = RequireType("SpecAudit.Infrastructure.Reports.SavedHistoryReader");
-        _ = RequireType("SpecAudit.Application.SavedHistoryService");
+        var fixture = DocumentaryFixture.Create();
+        try
+        {
+            using var projectService = CreateProjectService();
+            var ctx = projectService.OpenSelected(fixture.Origin, fixture.Output);
+            var projectId = ctx.Session.ProjectId;
+
+            var writer = new ExternalReportWriter();
+            var registry = new CapabilityRegistry();
+            Assert.Equal(CapabilityAvailability.PendingValidation,
+                registry.Availability(ProtectedCapability.ExternalWriter, ExternalReportWriter.WriterVersion, ExternalReportWriter.PlatformFingerprint, ExternalReportWriter.PolicyVersion));
+            Assert.True(writer.TryRegisterVerifiedSeal(registry));
+            Assert.Equal(CapabilityAvailability.Available,
+                registry.Availability(ProtectedCapability.ExternalWriter, ExternalReportWriter.WriterVersion, ExternalReportWriter.PlatformFingerprint, ExternalReportWriter.PolicyVersion));
+
+            var findingA = new Finding(Guid.NewGuid(), null, "SpecGap", FindingSeverity.High, "Gap A", [], null, "fp-a");
+            var findingB = new Finding(Guid.NewGuid(), null, "TaskGap", FindingSeverity.Medium, "Gap B", [], null, "fp-b");
+            var findingC = new Finding(Guid.NewGuid(), null, "PlanGap", FindingSeverity.Low, "Gap C", [], null, "fp-c");
+
+            var rec1Id = Guid.NewGuid();
+            var rec2Id = Guid.NewGuid();
+            var save1 = writer.Save(ctx, new ReportExportPayload(
+                rec1Id, projectId, ctx.Session.DisplayName, "Projeto completo",
+                new DateTimeOffset(2026, 11, 20, 18, 0, 0, TimeSpan.Zero), false,
+                ExportFormat.Markdown | ExportFormat.Json, ctx.Session.OutputDirectoryIdentity,
+                new Dictionary<string, string>(), ["SpecAudit 1.0.0"], ["Documental."],
+                [findingA, findingB], [], null));
+            Assert.Equal(SaveState.Saved, save1.State);
+
+            var save2 = writer.Save(ctx, new ReportExportPayload(
+                rec2Id, projectId, ctx.Session.DisplayName, "Projeto completo",
+                new DateTimeOffset(2026, 11, 20, 18, 5, 0, TimeSpan.Zero), false,
+                ExportFormat.Markdown | ExportFormat.Json, ctx.Session.OutputDirectoryIdentity,
+                new Dictionary<string, string>(), ["SpecAudit 1.0.0"], ["Documental."],
+                [findingB, findingC], [], null));
+            Assert.Equal(SaveState.Saved, save2.State);
+
+            // Unrelated directory and incomplete SpecAudit directory
+            var unrelatedDir = Path.Combine(fixture.Output, "other-notes");
+            Directory.CreateDirectory(unrelatedDir);
+            File.WriteAllText(Path.Combine(unrelatedDir, "note.txt"), "keep me");
+            var incompleteDir = Path.Combine(fixture.Output, "SpecAudit-20261120T181000Z-incomplete");
+            Directory.CreateDirectory(incompleteDir);
+            File.WriteAllText(Path.Combine(incompleteDir, "report.md"), "partial");
+
+            var history = new SavedHistoryService(projectService, new SavedHistoryReader());
+            var listed = history.ListSaved(projectId);
+            Assert.Equal(3, listed.Count);
+            Assert.Equal(2, listed.Count(p => p.IsValid));
+            Assert.Single(listed, p => p.IsIncomplete && !p.IsValid);
+            Assert.True(history.GetTotalDiskBytes(projectId) > 0);
+
+            // Compare baseline (save1: A, B) against current (B, C) -> A Resolved, B Persistent, C New
+            var baseline = listed.Single(p => p.Record?.SavedRecordId == rec1Id);
+            var diff = history.Compare(baseline, [findingB, findingC], currentSampleIsComplete: true);
+            Assert.True(diff.IsComparable);
+            Assert.Contains(diff.Entries, e => e.Status == FindingDiffStatus.Resolved && e.Category == "SpecGap");
+            Assert.Contains(diff.Entries, e => e.Status == FindingDiffStatus.Persistent && e.Category == "TaskGap");
+            Assert.Contains(diff.Entries, e => e.Status == FindingDiffStatus.New && e.Category == "PlanGap");
+
+            // Incomplete current sample MUST NOT infer Resolved
+            var inconclusive = history.Compare(baseline, [findingB], currentSampleIsComplete: false);
+            Assert.False(inconclusive.IsComparable);
+            Assert.Empty(inconclusive.Entries);
+
+            // Tampering with save2 report.md marks it IsTampered
+            File.AppendAllText(Path.Combine(save2.RecordDirectoryPath!, "report.md"), "\nTAMPERED");
+            var afterTamper = history.ListSaved(projectId);
+            Assert.Single(afterTamper, p => p.DirectoryName == save2.Record!.RecordDirectoryName && p.IsTampered && !p.IsValid);
+
+            // Delete ONLY rec1; rec2, unrelatedDir and Origin MUST remain untouched
+            var deleted = history.DeleteSaved(projectId, rec1Id);
+            Assert.True(deleted.Deleted);
+            Assert.False(Directory.Exists(save1.RecordDirectoryPath));
+            Assert.True(Directory.Exists(save2.RecordDirectoryPath));
+            Assert.True(Directory.Exists(unrelatedDir));
+            Assert.True(fixture.IsUnchanged());
+        }
+        finally
+        {
+            Directory.Delete(fixture.Root, recursive: true);
+        }
     }
 
     private static Type RequireType(string fullName)
