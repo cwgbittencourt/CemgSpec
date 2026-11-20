@@ -57,9 +57,13 @@ app.Use(async(context,next)=>
     context.Response.Headers.CacheControl="no-store";
     context.Response.Headers.XContentTypeOptions="nosniff";
     context.Response.Headers["Content-Security-Policy"]="frame-ancestors 'none'";
-    // SignalR negotiation is transport setup, not a business mutation. It is protected
-    // by the mandatory exact Origin and existing host-issued session above.
-    if(!safe && context.Request.Path!="/_blazor/negotiate")
+    // SignalR transport endpoints (negotiate, LongPolling/SSE messages, disconnect) do not carry
+    // HTML form antiforgery tokens. They remain protected by loopback IP, exact Host/Origin,
+    // Sec-Fetch-Site and the existing host-issued HttpOnly SameSite=Strict session above.
+    var isBlazorTransport = context.Request.Path == "/_blazor"
+        || context.Request.Path == "/_blazor/negotiate"
+        || context.Request.Path == "/_blazor/disconnect";
+    if(!safe && !isBlazorTransport)
     {
         try {await context.RequestServices.GetRequiredService<IAntiforgery>().ValidateRequestAsync(context);}
         catch(AntiforgeryValidationException){context.Response.StatusCode=StatusCodes.Status400BadRequest;return;}

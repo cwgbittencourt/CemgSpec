@@ -48,4 +48,29 @@ public sealed class LocalSessionHttpTests : IClassFixture<LocalHostFixture>
         request.Headers.Add("Cookie","SpecAudit.Session=unissued");request.Headers.Add("Origin",host.Address.GetLeftPart(UriPartial.Authority));
         using var response=await client.SendAsync(request);Assert.Equal(HttpStatusCode.Unauthorized,response.StatusCode);
     }
+    [Fact]
+    public async Task AllowsBlazorFallbackTransportWithValidSessionAndExactOrigin()
+    {
+        var origin = host.Address.GetLeftPart(UriPartial.Authority);
+        using var client = host.CreateClient();
+        using var initial = await client.GetAsync("/");
+        Assert.Equal(HttpStatusCode.OK, initial.StatusCode);
+
+        // LongPolling fallback uses POST /_blazor?id=... without HTML form antiforgery tokens,
+        // protected by loopback IP, exact Host/Origin and host-issued session cookie.
+        using var negotiate = new HttpRequestMessage(HttpMethod.Post, "/_blazor/negotiate?negotiateVersion=1") { Content = new StringContent("") };
+        negotiate.Headers.Add("Origin", origin);
+        using var negResponse = await client.SendAsync(negotiate);
+        Assert.Equal(HttpStatusCode.OK, negResponse.StatusCode);
+
+        using var noOrigin = new HttpRequestMessage(HttpMethod.Post, "/_blazor?id=test") { Content = new StringContent("") };
+        using var noOriginResponse = await client.SendAsync(noOrigin);
+        Assert.Equal(HttpStatusCode.Forbidden, noOriginResponse.StatusCode);
+
+        using var validTransport = new HttpRequestMessage(HttpMethod.Post, "/_blazor?id=unknown-connection") { Content = new StringContent("") };
+        validTransport.Headers.Add("Origin", origin);
+        using var transportResponse = await client.SendAsync(validTransport);
+        // Must reach SignalR (404 for unknown connection id), NOT 400 AntiforgeryValidationException.
+        Assert.NotEqual(HttpStatusCode.BadRequest, transportResponse.StatusCode);
+    }
 }
