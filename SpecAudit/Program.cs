@@ -27,6 +27,8 @@ builder.Services.AddSingleton<LocalSessionRegistry>();
 builder.Services.AddScoped<LocalSessionService>();
 builder.Services.AddScoped<IFolderPicker,SpecAudit.Infrastructure.Documents.NativeFolderPicker>();
 builder.Services.AddSingleton<CapabilityRegistry>();
+builder.Services.AddSingleton<SpecAudit.Infrastructure.Gates.GatePackage>();
+builder.Services.AddSingleton<SpecAudit.Infrastructure.Gates.GateExecutor>();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<DocumentaryDashboardService>();
 builder.Services.AddScoped<RequirementTraceService>();
