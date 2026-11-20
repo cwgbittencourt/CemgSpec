@@ -135,7 +135,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: PR-A e PR-B técnicos prontos; as tarefas PR-C e PR-D são incrementos distintos da mesma história.
 **Teste independente**: US5-S01–S07; cada integração exige seu selo antes de Executar ficar habilitado.
 
-- [ ] T053 [US5] Escrever testes de contrato gate US5-S06/S07 e disponibilidade/seleção US5-S03/S05 em tests/SpecAudit.Windows.Tests/GateAdapterTests.cs e tests/SpecAudit.Ui.Tests/VerificationSelectionTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
+- [x] T053 [US5] Escrever testes de contrato gate US5-S06/S07 e disponibilidade/seleção US5-S03/S05 em tests/SpecAudit.Windows.Tests/GateAdapterTests.cs e tests/SpecAudit.Ui.Tests/VerificationSelectionTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
 - [ ] T054 [US5] Definir GateCandidate/VerificationRun e máquina de estados em SpecAudit/Domain/GateCandidate.cs, SpecAudit/Domain/VerificationRun.cs e SpecAudit/Application/VerificationService.cs; conservar enum de só duas opções.
 - [ ] T055 [US5] Empacotar core check_gate.py e gate-requirements.json CEMG 3.0.0 com hashes e runtime Python absoluto conferido em SpecAudit/Infrastructure/Gates/Core/ e SpecAudit/Infrastructure/Gates/GatePackage.cs; não importar script da origem.
 - [ ] T056 [US5] Implementar runner confiável Path de capacidade e cliente broker em SpecAudit/Infrastructure/Gates/runner.py, SpecAudit/Infrastructure/Gates/catalog_path.py e SpecAudit/Infrastructure/Gates/GateExecutor.cs, apenas validate/validate_impossibility.
