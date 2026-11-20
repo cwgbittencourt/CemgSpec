@@ -1,92 +1,74 @@
-# Plano de teste manual — US3: Acompanhar progresso documental e impedimentos — Prioridade P1
+# Roteiro do DEV — testar Dashboard documental (US3)
 
-**Estado: ESCRITO / RASCUNHO. Roteiro não conferido no produto e não executado pelo DEV.**
-**Estado da implementação:** migração para constituição 4.0.0 validada; trabalho parado após T011 por solicitação do usuário. A história completa ainda depende das tarefas restantes; não usar este roteiro como evidência de execução/aceite.
+**Estado do roteiro:** caminho automatizado **CONFERIDO_PELA_IA** sobre o commit `7b52ea290056c25317dc036670734e3086f5588c`; percurso manual interativo no navegador com **CONFERENCIA_PARCIAL** (interface exercitada pelo harness Edge/Playwright real; cliques manuais livres pelo DEV pendentes). Execução e aceite do DEV **PENDENTES**. Este roteiro não aprova nem integra PR.
 
-## Versão e escopo
+## 1. Pré-requisitos e ambiente
 
-Base de desenvolvimento: `197548db2e3efa20c23e1f66b6a0ffb86c0f328d` + alterações locais de implementação iniciadas em 2026-11-16. Consultar `evidence/implementation-code-manifest.json` para os hashes deste checkpoint. O checkpoint técnico até T011 está identificado; a revisão funcional final da história ainda depende das tarefas restantes. Registrar o commit/manifesto realmente testado ao executar.
+- Windows x64 com desktop, PowerShell 7 (`pwsh`), SDK .NET 10 compatível com `global.json` (validado em `10.0.404` / runtime `10.0.15`) e Microsoft Edge.
+- Nenhum agente de IA, credencial, acesso à internet ou projeto real é necessário. Todos os dados são sintéticos e temporários.
+- Não executar scripts, builds ou testes dentro de uma solução auditada; os comandos abaixo são exclusivamente do desenvolvimento do próprio `SpecAudit`.
 
-Cobertura planejada: todos os cenários ativos de US3. Não equivale a aceite, produto pronto ou teste aprovado.
+## 2. Repetir a validação automatizada (caminho principal conferido pela IA)
 
-## Preparação passo a passo
+Abra o PowerShell na raiz do repositório `SpecAudit` e execute o bloco abaixo:
 
-1. Após liberar as dependências desta história em tasks.md, obter a revisão identificada e conferir Windows x64 e SDK estável com `dotnet --info`.
-2. Na raiz de desenvolvimento, executar `dotnet restore SpecAudit.slnx --locked-mode` e `dotnet test SpecAudit.slnx --no-restore`. A suíte ativa deve passar antes da validação funcional; os testes de sandbox v3 arquivados não são requisitos da política v4.
-3. Criar somente dados sintéticos seguindo a receita em [quickstart.md](../quickstart.md#preparar-dados-sintéticos--ação-do-dev-fora-da-origem-real). Guardar os caminhos absolutos e baseline em dev-evidence. Repetir com novo GUID para o segundo projeto quando necessário. Não usar projeto real ou dados pessoais.
-4. Preparar os dados específicos dos cenários abaixo. Gates negativos, corpus Mermaid e servidor de imagem devem ser sintéticos/controlados. Se uma dependência não existir, registrar NÃO EXECUTADO e o motivo; não instalar ou elevar automaticamente.
-5. Iniciar o próprio SpecAudit: `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --urls http://127.0.0.1:5187`. Abrir esse endereço no navegador local. Não executar comandos da solução auditada.
-6. Escolher origem sintética e destino externo pelo picker nativo quando estiver implementado e habilitado. Usar o perfil local do usuário; autenticação de agente só será necessária para cenários analyze da US5, pela integração validada, sem copiar tokens.
+```powershell
+$devRun = Join-Path "$env:LOCALAPPDATA\Temp" ('SpecAudit-US3-DEV-' + [guid]::NewGuid().ToString('N'))
+New-Item -ItemType Directory -Path $devRun -Force | Out-Null
+$env:TEMP = "$env:LOCALAPPDATA\Temp"
+$env:TMP = $env:TEMP
+git rev-parse HEAD
+dotnet restore SpecAudit.slnx --locked-mode
+if ($LASTEXITCODE -ne 0) { throw 'Restore falhou; preserve a mensagem.' }
 
-## Execução por cenário
+# RUN-01: domínio, fórmulas, duplicidades e observador do broker (esperado: 5/5)
+dotnet test tests/SpecAudit.Tests/SpecAudit.Tests.csproj --no-restore `
+    --filter 'FullyQualifiedName~DocumentaryProgressTests' `
+    --logger 'trx;LogFilePrefix=US3-domain' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run01.txt')
+if ($LASTEXITCODE -ne 0) { throw 'RUN-01 falhou.' }
 
-### US3-S01 — US3-AC01
+# RUN-02: US3-S01..S04 no host loopback + Edge real (esperado: 4/4)
+dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore `
+    --filter 'FullyQualifiedName~DashboardTests' `
+    --logger 'trx;LogFilePrefix=US3-e2e' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run02.txt')
+if ($LASTEXITCODE -ne 0) { throw 'RUN-02 falhou.' }
 
-**Estado inicial/dados:** 30/40 tarefas marcadas e 12/20 requisitos vinculados.
+# RUN-03: regressão selecionada (esperado: 84/84 — 16 domínio, 16 Windows, 52 UI)
+$filtro = 'FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'
+dotnet test SpecAudit.slnx --no-build --no-restore --filter $filtro `
+    --logger 'trx;LogFilePrefix=US3-regression' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run03.txt')
+if ($LASTEXITCODE -ne 0) { throw 'RUN-03 falhou.' }
 
-| Passo | O que fazer | O que validar |
+Write-Output "Resultados preservados em: $devRun"
+```
+
+Para gerar também as capturas (`dashboard-demo.png` e `dashboard-empty.png`), defina `$env:SPECAUDIT_CAPTURE_DIR = Join-Path $devRun 'captures'` antes do `RUN-02`.
+
+| Cenário automatizado | Entrada / ação | Resultado esperado |
 |---|---|---|
-| 1 | Carregar o corpus de 40 tarefas, 30 marcadas, e 20 requisitos, 12 vinculados explicitamente. | O escopo e as contagens correspondem à fixture. |
-| 2 | Abrir Dashboard e conferir os dois indicadores. | 75% de progresso declarado e 60% de cobertura documental; nenhuma medida é chamada de implementação comprovada. |
-| 3 | Selecionar um escopo sem itens. | Exibir Sem itens, sem percentual inventado ou divisão por zero. |
+| US3-S01 / AC01 | `001-demo` (30/40 tarefas, 12/20 requisitos vinculados) e escopo vazio `003-empty` | `75%` (`30 / 40`) declarado e `60%` (`12 / 20`) de cobertura documental; `003-empty` exibe `Sem itens` sem percentual; ausência de `Implementação evidenciada` e `Validação aprovada`. |
+| US3-S02 / AC02 | Registros `ready.json`, `blocked.json`, `bad-hash.json`, `wrong-revision.json`, `code-reference.json` | Estados e revisão exibidos com fonte e aviso explícito de que `READY` não comprova funcionamento, testes ou aceite humano. |
+| US3-S03 / AC03 | Impedimentos registrados, requisitos sem tarefa (`FR-013`–`FR-020`), tarefas sem requisito (`T013`–`T040`), duplicidade e referência a `DoNotRead.cs` | Ocorrências listadas com fonte e gravidade; referência a `.cs` marcada `não verificada nesta versão` e observador do broker comprova que `DoNotRead.cs` nunca é aberto. |
+| US3-S04 / AC04 | Filtro por `Gravidade` (`Alta`/`Todas`) e edição externa em `tasks.md` marcando `T031` | Indicadores anteriores (`30 / 40`) permanecem visíveis marcados como `Desatualizado` até clicar em `Atualizar documentos`; após o clique, atualiza para `31 / 40` sem executar agente ou gate, preservando a edição externa e mantendo a pasta de relatórios vazia. |
 
-Registrar para US3-S01: resultado observado, PASSOU/FALHOU/NÃO EXECUTADO, evidência e revisão avaliada. Não preencher como passou por existir este roteiro.
+## 3. Conferência manual opcional no navegador
 
-### US3-S02 — US3-AC02
+1. Inicie a aplicação com `& .\specs\001-auditar-projetos-speckit\validation\Start-US1Manual.ps1` (ou `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`).
+2. Abra `http://127.0.0.1:5187`, carregue **Projeto-A** e **Relatorios-A** e clique em **Dashboard** na sidebar.
+3. Confira os cards de indicadores, filtros, tabela de requisitos, ocorrências documentais, estados de gate registrados e limites da V1 contra [dashboard-requisito.png](../design/mockups/dashboard-requisito.png) e [README dos mockups](../design/mockups/README.md) no tema escuro (tema claro será entregue na US8/T044).
+4. Encerre o host com `Ctrl+C`. Para limpeza opcional, remova apenas a pasta `$devRun`.
 
-**Estado inicial/dados:** Registro READY e declaração humana em documento.
+## Versão e evidências de referência
 
-| Passo | O que fazer | O que validar |
-|---|---|---|
-| 1 | Abrir o painel para documentos com registro READY e declaração humana textual. | Os registros são apresentados com fonte, revisão e atualidade. |
-| 2 | Consultar o detalhe das validações/declarações. | READY/hash/texto não são tratados como teste executado ou aceite humano autenticado pelo SpecAudit. |
-
-Registrar para US3-S02: resultado observado, PASSOU/FALHOU/NÃO EXECUTADO, evidência e revisão avaliada. Não preencher como passou por existir este roteiro.
-
-### US3-S03 — US3-AC03
-
-**Estado inicial/dados:** Contradição, vínculo ausente e referência a código.
-
-| Passo | O que fazer | O que validar |
-|---|---|---|
-| 1 | Carregar documentos com contradição, requisito sem tarefa e referência a código. | As ocorrências documentais aparecem no escopo correto. |
-| 2 | Abrir a fonte de cada ocorrência. | Fonte documental e limite da conclusão ficam identificáveis; código não é lido. |
-
-Registrar para US3-S03: resultado observado, PASSOU/FALHOU/NÃO EXECUTADO, evidência e revisão avaliada. Não preencher como passou por existir este roteiro.
-
-### US3-S04 — US3-AC04
-
-**Estado inicial/dados:** Resultado anterior e documento alterado.
-
-| Passo | O que fazer | O que validar |
-|---|---|---|
-| 1 | Selecionar filtros de funcionalidade, história, gravidade e situação existentes. | A lista muda de acordo com os dados documentais. |
-| 2 | Editar externamente tasks.md e aguardar a atualização. | Contagens locais são renovadas e resultados afetados ficam desatualizados. |
-| 3 | Observar processos/rede durante a alteração. | A atualização não dispara analyze nem check_gate. |
-
-Registrar para US3-S04: resultado observado, PASSOU/FALHOU/NÃO EXECUTADO, evidência e revisão avaliada. Não preencher como passou por existir este roteiro.
-
-## Evidências da IA e limitações
-
-- Estado global de execução: [implementation-status.md](../evidence/implementation-status.md).
-- Evidência específica da história será consolidada em `evidence/US3-validation.md` e `evidence/US3-review.md` quando as respectivas tasks forem executadas. Esses arquivos não são presumidos existentes.
-- Os passos da UI acima descrevem o contrato aprovado; nomes, localização final de controles e capturas precisam ser conferidos na implementação. Este documento não comprova esse comportamento.
-- Divergências entre ambiente da IA e DEV devem ser registradas, sem prometer reprodução só pela escrita do roteiro.
-
-## Limpeza e repetição
-
-1. Encerrar somente a instância do host e os descendentes pertencentes a esta rodada. Conferir término confirmado no relatório técnico.
-2. Comparar arquivos/hashes da origem com baseline; separar edições intencionais do DEV. Não restaurar uma alteração indevida e apresentar sucesso.
-3. Preservar fixture/evidências para inspeção. Não excluir origem real, histórico anterior ou caches do agente. Eventual exclusão da fixture exige decisão explícita do DEV e validação de que o caminho absoluto fica sob a raiz sintética desta rodada.
-4. Para repetir, gerar nova raiz sintética exclusiva e registrar novos caminhos/versão.
+- Commit validado pela IA: `7b52ea290056c25317dc036670734e3086f5588c`.
+- Evidências: [US3-validation.md](../evidence/US3-validation.md), [US3-review.md](../evidence/US3-review.md) e [T029-dashboard-tests.md](../evidence/T029-dashboard-tests.md).
+- Estado técnico e aceite: [acceptance/US3.md](../acceptance/US3.md).
 
 ## Registro humano e aceite
 
 ### Registro da execução humana
 
-Preenchimento reservado ao DEV. Os campos abaixo permanecem em branco: a existência do roteiro e os testes da IA não representam execução humana.
-
-Após avaliar cada cenário, registrar o resultado como **PASSOU**, **FALHOU** ou **NÃO EXECUTADO**, descrevendo o observado ou o motivo da não execução. Informar o hash do commit efetivamente testado; se houver alterações locais, identificar também o diff/manifesto. Registrar data/hora com fuso e links para capturas ou logs em `../evidence/`.
+Preenchimento reservado ao DEV. Os campos abaixo permanecem em branco até execução humana real.
 
 | Cenário / critério | Resultado | Resultado observado / motivo da não execução | Evidências (links) | Commit testado / diff ou manifesto | Responsável | Data/hora e fuso | Defeito / observações |
 |---|---|---|---|---|---|---|---|
@@ -97,15 +79,13 @@ Após avaliar cada cenário, registrar o resultado como **PASSOU**, **FALHOU** o
 
 ### Retestes e novas rodadas
 
-Preservar os registros anteriores. Em caso de correção ou mudança de versão, acrescentar uma linha por cenário reexecutado, identificando a rodada e a nova versão.
-
 | Rodada | Cenário / critério | Resultado | Resultado observado / motivo da não execução | Evidências (links) | Commit testado / diff ou manifesto | Responsável | Data/hora e fuso | Defeito / observações |
 |---|---|---|---|---|---|---|---|---|
 | | | | | | | | | |
 
 ### Decisão de aceite
 
-Preenchimento reservado ao DEV, após conferir os resultados e a versão avaliada. Selecionar explicitamente **ACEITO**, **REJEITADO** ou **ACEITO_COM_RESSALVAS** no campo Decisão. Campos em branco significam decisão pendente; resultados PASSOU na tabela não concedem aceite automaticamente.
+Preenchimento reservado ao DEV. Selecionar explicitamente **ACEITO**, **REJEITADO** ou **ACEITO_COM_RESSALVAS**. Campos em branco significam decisão pendente.
 
 | Campo | Registro do DEV |
 |---|---|
@@ -118,7 +98,3 @@ Preenchimento reservado ao DEV, após conferir os resultados e a versão avaliad
 | Escopo aceito ou rejeitado | |
 | Ressalvas, critérios não atendidos e riscos, se aplicável | |
 | Ações posteriores e responsáveis, se aplicável | |
-
-Quando solicitado pelo DEV, a IA deverá conferir esta declaração contra a versão, os resultados e as evidências referenciadas e transcrever a decisão para `acceptance/US3.md`, preservando autoria, data, escopo e referência a esta seção. Havendo inconsistência ou informação essencial ausente, deverá apontar a pendência antes de registrar o aceite como concluído. A transcrição não altera os resultados dos testes nem equivale a aprovação de PR ou autorização de publicação.
-
-Não há monitoramento automático deste arquivo. A IA não concede aceite por conta própria nem marca EXECUTADO_PELO_DEV sem referência à execução humana real. Se o DEV confirmar impossibilidade, usar o template CEMG próprio e decidir AGUARDAR, REJEITAR ou ACEITAR_COM_RESSALVAS, mantendo os resultados reais; eventual aceite com ressalvas deve ser declarado explicitamente acima.
