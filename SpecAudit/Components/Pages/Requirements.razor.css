@@ -1,0 +1,130 @@
+.req-page {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1480px;
+    margin: 0 auto;
+}
+
+.req-header h1 {
+    margin: 4px 0 6px;
+}
+
+.req-context-bar {
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 10px 14px;
+}
+
+.feature-inline {
+    align-items: center;
+    color: var(--muted);
+    display: inline-flex;
+    font-size: 13px;
+    gap: 8px;
+}
+
+.feature-inline select {
+    margin-left: 0;
+}
+
+.req-output-meta {
+    color: var(--muted);
+    font-size: 12px;
+    margin-inline-start: auto;
+    overflow-wrap: anywhere;
+}
+
+.req-output-meta code {
+    color: #d8deeb;
+    font-family: Consolas, monospace;
+}
+
+.req-workspace {
+    align-items: start;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 270px minmax(0, 1fr);
+}
+
+.req-list-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    max-height: calc(100vh - 230px);
+    overflow: auto;
+    padding: 12px 10px;
+}
+
+.panel-title {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    margin: 0 8px 10px;
+    text-transform: uppercase;
+}
+
+.req-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.req-item {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #d8deeb;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.req-item:hover {
+    background: #222b3c;
+}
+
+.req-item.active {
+    background: #2c4a86;
+    border-color: var(--blue);
+    color: #fff;
+}
+
+.req-item-desc {
+    color: var(--muted);
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.req-item.active .req-item-desc {
+    color: #dbe8ff;
+}
+
+.req-sheet-area {
+    min-width: 0;
+}
+
+.small {
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+    .req-workspace {
+        grid-template-columns: 1fr;
+    }
+}
+

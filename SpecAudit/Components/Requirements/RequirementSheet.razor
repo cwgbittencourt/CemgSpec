@@ -1,0 +1,302 @@
+@using SpecAudit.Application
+@using SpecAudit.Domain
+
+<section class="sheet-card" aria-label="Ficha documental do requisito">
+    <header class="sheet-header">
+        <div>
+            <p class="eyebrow">REQUISITOS / @Sheet.FeatureTitle / @Sheet.Requirement.Key.LocalId</p>
+            <h2>@Sheet.Requirement.Key.LocalId · @ShortTitle(Sheet.Requirement.Description)</h2>
+        </div>
+        <div class="sheet-badges">
+            <span class="@CoveragePillClass()">@CoveragePillLabel()</span>
+            @if (Sheet.Requirement.HasDuplicateDefinition)
+            {
+                <span class="state-pill danger-pill">ID duplicado na funcionalidade</span>
+            }
+        </div>
+    </header>
+
+    <div role="tablist" aria-label="Seções da ficha" class="sheet-tabs">
+        <button type="button" role="tab" aria-selected="@(tab == SheetTab.Summary ? "true" : "false")"
+                class="@(tab == SheetTab.Summary ? "sheet-tab active" : "sheet-tab")"
+                @onclick="() => tab = SheetTab.Summary">Resumo</button>
+        <button type="button" role="tab" aria-selected="@(tab == SheetTab.Links ? "true" : "false")"
+                class="@(tab == SheetTab.Links ? "sheet-tab active" : "sheet-tab")"
+                @onclick="() => tab = SheetTab.Links">Vínculos (@Sheet.Links.Count)</button>
+        <button type="button" role="tab" aria-selected="@(tab == SheetTab.Verifications ? "true" : "false")"
+                class="@(tab == SheetTab.Verifications ? "sheet-tab active" : "sheet-tab")"
+                @onclick="() => tab = SheetTab.Verifications">Verificações (@Sheet.RecordedDeclarations.Count)</button>
+        <button type="button" role="tab" aria-selected="@(tab == SheetTab.Suggestions ? "true" : "false")"
+                class="@(tab == SheetTab.Suggestions ? "sheet-tab active" : "sheet-tab")"
+                @onclick="() => tab = SheetTab.Suggestions">Sugestões (@Sheet.Findings.Count)</button>
+    </div>
+
+    @if (tab == SheetTab.Summary)
+    {
+        <div class="sheet-grid">
+            <div class="sheet-col-main">
+                <article class="inner-card">
+                    <h3>Descrição documental</h3>
+                    <blockquote class="req-quote">@Sheet.Requirement.Description</blockquote>
+                    <p class="mono small muted">
+                        Fonte: @Sheet.Requirement.SourceLocation.RelativePath:@Sheet.Requirement.SourceLocation.LineNumber
+                        · Funcionalidade: @Sheet.FeatureTitle
+                        @if (Sheet.Requirement.StoryRefs.Count > 0)
+                        {
+                            <span> · Histórias: @string.Join(", ", Sheet.Requirement.StoryRefs)</span>
+                        }
+                    </p>
+                    <a class="inline-link" href="/documentos">Abrir documentos do projeto</a>
+                </article>
+
+                <article class="inner-card">
+                    <h3>Vínculos documentais (@Sheet.Links.Count)</h3>
+                    @if (Sheet.Links.Count == 0)
+                    {
+                        <p class="muted small">Evidência documental insuficiente: nenhum vínculo a plano ou tarefas foi encontrado nos documentos autorizados.</p>
+                    }
+                    else
+                    {
+                        <ul class="item-list">
+                            @foreach (var link in Sheet.Links)
+                            {
+                                <li class="list-row">
+                                    <div class="row-head">
+                                        <span class="@(link.Provenance == LinkProvenance.Explicit ? "prov-pill explicit" : "prov-pill inferred")">
+                                            @(link.Provenance == LinkProvenance.Explicit ? "Explícito" : "Inferido")
+                                        </span>
+                                        <span class="row-relation">@link.Relation</span>
+                                        <span class="@ResolutionClass(link.Resolution)">@ResolutionLabel(link.Resolution)</span>
+                                    </div>
+                                    <div class="row-body">@link.TargetText</div>
+                                    @if (!string.IsNullOrWhiteSpace(link.Explanation))
+                                    {
+                                        <p class="muted small">@link.Explanation</p>
+                                    }
+                                    <div class="mono small muted">Origem: @link.SourceLocation.RelativePath:@link.SourceLocation.LineNumber</div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </article>
+
+                <article class="inner-card">
+                    <h3>Critérios e lacunas documentais</h3>
+                    <ul class="item-list">
+                        @foreach (var criterion in Sheet.Requirement.Criteria)
+                        {
+                            <li class="list-row">
+                                <div class="row-head">
+                                    <strong>@criterion.Key.LocalId</strong>
+                                    <span class="@CriterionClass(criterion.CoverageState)">@CriterionLabel(criterion.CoverageState)</span>
+                                </div>
+                                <div class="row-body">@criterion.Text</div>
+                                @if (criterion.CoverageState == CoverageState.MissingLink)
+                                {
+                                    <p class="muted small">Evidência documental insuficiente: nenhuma tarefa vinculada em tasks.md. Ausência de registro não indica que o requisito está ausente no código.</p>
+                                }
+                                else if (criterion.CoverageState == CoverageState.Ambiguous)
+                                {
+                                    <p class="muted small">Vínculo ambíguo ou identificador duplicado na mesma funcionalidade; requer esclarecimento documental.</p>
+                                }
+                                else
+                                {
+                                    <p class="muted small">Tarefas vinculadas explicitamente: @string.Join(", ", criterion.TaskLinks)</p>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </article>
+            </div>
+
+            <aside class="sheet-col-side">
+                <article class="inner-card">
+                    <h3>Declarações registradas (registro de terceiros)</h3>
+                    @if (Sheet.RecordedDeclarations.Count == 0)
+                    {
+                        <p class="muted small">Nenhuma declaração de validação ou gate registrada para esta funcionalidade. Declarações futuras aparecerão como registro de terceiros; o SpecAudit não aprova requisito, teste, PR ou história.</p>
+                    }
+                    else
+                    {
+                        <ul class="item-list">
+                            @foreach (var decl in Sheet.RecordedDeclarations)
+                            {
+                                <li class="list-row">
+                                    <div class="row-head">
+                                        <strong>@decl.Kind</strong>
+                                        <span class="state-pill muted-pill">@decl.DeclaredState</span>
+                                    </div>
+                                    <div class="mono small">@decl.SourceRelativePath</div>
+                                    @if (!string.IsNullOrWhiteSpace(decl.VersionOrRevision))
+                                    {
+                                        <div class="mono small muted">Revisão: @ShortRevision(decl.VersionOrRevision)</div>
+                                    }
+                                    <p class="muted small">@decl.ThirdPartyNotice</p>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </article>
+
+                <article class="inner-card">
+                    <h3>Verificação sob demanda</h3>
+                    <p class="muted small">A seleção de <code>speckit-analyze</code> e <code>check_gate</code> será habilitada após as provas de proteção das próximas etapas.</p>
+                    <button type="button" disabled>Executar verificação</button>
+                </article>
+
+                <article class="inner-card">
+                    <h3>Limites documentais da V1</h3>
+                    <ul class="limits-list">
+                        @foreach (var limit in Sheet.Limitations)
+                        {
+                            <li class="muted small">@limit</li>
+                        }
+                    </ul>
+                </article>
+            </aside>
+        </div>
+    }
+    else if (tab == SheetTab.Links)
+    {
+        <article class="inner-card">
+            <h3>Todos os vínculos documentais (@Sheet.Links.Count)</h3>
+            @if (Sheet.Links.Count == 0)
+            {
+                <p class="muted small">Evidência documental insuficiente: nenhum vínculo encontrado.</p>
+            }
+            else
+            {
+                <ul class="item-list">
+                    @foreach (var link in Sheet.Links)
+                    {
+                        <li class="list-row">
+                            <div class="row-head">
+                                <span class="@(link.Provenance == LinkProvenance.Explicit ? "prov-pill explicit" : "prov-pill inferred")">
+                                    @(link.Provenance == LinkProvenance.Explicit ? "Explícito" : "Inferido")
+                                </span>
+                                <span class="row-relation">@link.Relation</span>
+                                <span class="@ResolutionClass(link.Resolution)">@ResolutionLabel(link.Resolution)</span>
+                            </div>
+                            <div class="row-body">@link.TargetText</div>
+                            <div class="mono small muted">@link.SourceLocation.RelativePath:@link.SourceLocation.LineNumber</div>
+                        </li>
+                    }
+                </ul>
+            }
+        </article>
+    }
+    else if (tab == SheetTab.Verifications)
+    {
+        <article class="inner-card">
+            <h3>Declarações registradas e verificações</h3>
+            <p class="muted small">Declarações abaixo são exibidas como registro de terceiros; o SpecAudit não aprova requisito, teste, PR ou história. Execução de <code>speckit-analyze</code> e <code>check_gate</code> ainda indisponível nesta etapa.</p>
+            @foreach (var decl in Sheet.RecordedDeclarations)
+            {
+                <div class="list-row">
+                    <strong>@decl.Kind — @decl.DeclaredState</strong>
+                    <div class="mono small">@decl.SourceRelativePath</div>
+                    <p class="muted small">@decl.ThirdPartyNotice</p>
+                </div>
+            }
+        </article>
+    }
+    else
+    {
+        <article class="inner-card">
+            <h3>Ocorrências e sugestões documentais (@Sheet.Findings.Count)</h3>
+            @if (Sheet.Findings.Count == 0)
+            {
+                <p class="muted small">Nenhuma ocorrência documental registrada para este requisito.</p>
+            }
+            else
+            {
+                <ul class="item-list">
+                    @foreach (var finding in Sheet.Findings)
+                    {
+                        <li class="list-row">
+                            <div class="row-head">
+                                <strong>@finding.Category</strong>
+                                <span class="state-pill muted-pill">@finding.Severity</span>
+                            </div>
+                            <p class="small">@finding.Explanation</p>
+                            @if (!string.IsNullOrWhiteSpace(finding.Suggestion))
+                            {
+                                <p class="muted small">Sugestão: @finding.Suggestion</p>
+                            }
+                        </li>
+                    }
+                </ul>
+            }
+        </article>
+    }
+</section>
+
+@code {
+    private enum SheetTab { Summary, Links, Verifications, Suggestions }
+
+    [Parameter, EditorRequired] public RequirementSheetProjection Sheet { get; set; } = null!;
+
+    private SheetTab tab = SheetTab.Summary;
+    private RequirementKey? lastKey;
+
+    protected override void OnParametersSet()
+    {
+        if (lastKey != Sheet.Requirement.Key)
+        {
+            lastKey = Sheet.Requirement.Key;
+            tab = SheetTab.Summary;
+        }
+    }
+
+    private string CoveragePillClass()
+    {
+        if (Sheet.Requirement.HasDuplicateDefinition || Sheet.Requirement.Criteria.Any(c => c.CoverageState == CoverageState.Ambiguous))
+            return "state-pill warn";
+        if (Sheet.Requirement.Criteria.All(c => c.CoverageState == CoverageState.Linked))
+            return "state-pill ok";
+        return "state-pill muted-pill";
+    }
+
+    private string CoveragePillLabel()
+    {
+        if (Sheet.Requirement.HasDuplicateDefinition || Sheet.Requirement.Criteria.Any(c => c.CoverageState == CoverageState.Ambiguous))
+            return "Ambíguo";
+        if (Sheet.Requirement.Criteria.All(c => c.CoverageState == CoverageState.Linked))
+            return "Vinculado";
+        return "Evidência documental insuficiente";
+    }
+
+    private static string CriterionClass(CoverageState state) => state switch
+    {
+        CoverageState.Linked => "state-pill ok",
+        CoverageState.Ambiguous => "state-pill warn",
+        _ => "state-pill muted-pill"
+    };
+
+    private static string CriterionLabel(CoverageState state) => state switch
+    {
+        CoverageState.Linked => "Vinculado",
+        CoverageState.Ambiguous => "Ambíguo",
+        _ => "Sem vínculo"
+    };
+
+    private static string ResolutionClass(LinkResolution resolution) => resolution switch
+    {
+        LinkResolution.Authorized => "state-pill ok",
+        LinkResolution.Ambiguous => "state-pill warn",
+        LinkResolution.OutOfScope => "state-pill info-pill",
+        _ => "state-pill danger-pill"
+    };
+
+    private static string ResolutionLabel(LinkResolution resolution) => resolution switch
+    {
+        LinkResolution.Authorized => "Autorizado",
+        LinkResolution.Ambiguous => "Ambíguo",
+        LinkResolution.OutOfScope => "Não verificada (fora do catálogo)",
+        _ => "Ausente"
+    };
+
+    private static string ShortTitle(string text) => text.Length <= 72 ? text : text[..69] + "…";
+    private static string ShortRevision(string rev) => rev.Length <= 24 ? rev : rev[..24] + "…";
+}
+

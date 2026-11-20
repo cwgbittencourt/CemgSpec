@@ -1,0 +1,196 @@
+@page "/requisitos"
+@implements IDisposable
+@using SpecAudit.Application
+@using SpecAudit.Components.Documents
+@using SpecAudit.Components.Requirements
+@using SpecAudit.Domain
+@inject ProjectService ProjectStore
+@inject RequirementTraceService TraceService
+
+<PageTitle>Requisitos — SpecAudit</PageTitle>
+
+<section class="req-page">
+    <header class="req-header">
+        <div>
+            <p class="eyebrow">SPECAUDIT · RASTREABILIDADE DOCUMENTAL</p>
+            <h1>Requisitos</h1>
+            <p class="muted">Consulte descrição, critérios e vínculos documentais de cada requisito sem analisar código-fonte.</p>
+        </div>
+    </header>
+
+    @if (ProjectStore.Active is not { } active)
+    {
+        <section class="project-empty">
+            <div class="folder-mark" aria-hidden="true">☰</div>
+            <h2>Nenhum projeto carregado</h2>
+            <p>Abra um projeto em <a href="/projetos">Projetos</a> para consultar as fichas documentais dos requisitos.</p>
+            <p class="muted">A ficha é uma visão em memória e não cria arquivos na origem.</p>
+        </section>
+    }
+    else
+    {
+        <div class="req-context-bar">
+            <strong>@active.Session.DisplayName</strong>
+            <span class="readonly-badge">◇ Somente leitura</span>
+            <label class="feature-inline">
+                Funcionalidade
+                <select aria-label="Funcionalidade" value="@(selectedFeatureId?.ToString() ?? "")" @onchange="OnFeatureChanged">
+                    @foreach (var feature in active.Session.Features)
+                    {
+                        <option value="@feature.FeatureId">@feature.Title</option>
+                    }
+                </select>
+            </label>
+            <span class="req-output-meta" title="@active.OutputDisplayPath">Destino externo: <code>@active.OutputDisplayPath</code></span>
+        </div>
+
+        @if (active.Catalog.HasPendingChanges)
+        {
+            <div role="status" class="notice">
+                Os documentos foram alterados externamente. Atualize a leitura documental para refletir a versão atual.
+                <button type="button" class="secondary" @onclick="Refresh">Atualizar documentos</button>
+            </div>
+        }
+
+        @if (errorMessage is not null)
+        {
+            <div role="alert" class="notice error-notice">@errorMessage</div>
+        }
+
+        <div class="req-workspace">
+            <aside class="req-list-panel" aria-label="Lista de requisitos">
+                <div class="panel-title">Requisitos (@sheets.Count)</div>
+                @if (sheets.Count == 0)
+                {
+                    <p class="muted small">Nenhum requisito reconhecido nesta funcionalidade.</p>
+                }
+                else
+                {
+                    <ul class="req-list">
+                        @for (var i = 0; i < sheets.Count; i++)
+                        {
+                            var idx = i;
+                            var item = sheets[idx];
+                            var activeItem = idx == selectedIndex;
+                            <li @key="@($"{item.Requirement.Key.FeatureId}:{item.Requirement.Key.LocalId}:{idx}")">
+                                <button type="button" class="@(activeItem ? "req-item active" : "req-item")"
+                                        @onclick="() => selectedIndex = idx">
+                                    <strong>@item.Requirement.Key.LocalId</strong>
+                                    <span class="req-item-desc">@item.Requirement.Description</span>
+                                </button>
+                            </li>
+                        }
+                    </ul>
+                }
+            </aside>
+
+            <div class="req-sheet-area">
+                @if (selectedIndex >= 0 && selectedIndex < sheets.Count)
+                {
+                    <RequirementSheet Sheet="sheets[selectedIndex]" />
+                }
+                else
+                {
+                    <section class="project-empty">
+                        <h2>Nenhum requisito selecionado</h2>
+                        <p class="muted">Selecione um requisito na lista à esquerda para abrir sua ficha documental.</p>
+                    </section>
+                }
+            </div>
+        </div>
+    }
+</section>
+
+@code {
+    private Guid? activeProjectId;
+    private Guid? selectedFeatureId;
+    private IReadOnlyList<RequirementSheetProjection> sheets = [];
+    private int selectedIndex = -1;
+    private string? errorMessage;
+
+    protected override void OnInitialized()
+    {
+        ProjectStore.Changed += OnProjectsChanged;
+        SyncAndRebuild();
+    }
+
+    private void OnProjectsChanged() => _ = InvokeAsync(() =>
+    {
+        SyncAndRebuild();
+        StateHasChanged();
+    });
+
+    private void SyncAndRebuild()
+    {
+        var active = ProjectStore.Active;
+        if (active is null)
+        {
+            activeProjectId = null;
+            selectedFeatureId = null;
+            sheets = [];
+            selectedIndex = -1;
+            errorMessage = null;
+            return;
+        }
+
+        if (activeProjectId != active.Session.ProjectId)
+        {
+            activeProjectId = active.Session.ProjectId;
+            selectedFeatureId = active.Session.ActiveFeatureId ?? active.Session.Features.FirstOrDefault()?.FeatureId;
+            selectedIndex = 0;
+        }
+        else if (selectedFeatureId is { } id && active.Session.Features.All(f => f.FeatureId != id))
+        {
+            selectedFeatureId = active.Session.ActiveFeatureId ?? active.Session.Features.FirstOrDefault()?.FeatureId;
+            selectedIndex = 0;
+        }
+
+        Rebuild();
+    }
+
+    private void Rebuild()
+    {
+        if (ProjectStore.Active is not { } active) return;
+        errorMessage = null;
+        if (active.Catalog.HasPendingChanges && sheets.Count > 0)
+        {
+            sheets = sheets.Select(sheet => sheet with { Freshness = Freshness.Stale }).ToArray();
+            return;
+        }
+        try
+        {
+            var built = TraceService.ListSheets(active, selectedFeatureId);
+            sheets = built;
+            selectedIndex = sheets.Count == 0 ? -1 : Math.Clamp(selectedIndex < 0 ? 0 : selectedIndex, 0, sheets.Count - 1);
+        }
+        catch (Exception failure) when (DocumentMessages.IsReadFailure(failure))
+        {
+            errorMessage = DocumentMessages.For(failure);
+        }
+    }
+
+    private void OnFeatureChanged(ChangeEventArgs args)
+    {
+        selectedFeatureId = Guid.TryParse(args.Value?.ToString(), out var id) ? id : null;
+        selectedIndex = 0;
+        Rebuild();
+    }
+
+    private void Refresh()
+    {
+        if (ProjectStore.Active is not { } active) return;
+        errorMessage = null;
+        try
+        {
+            ProjectStore.Refresh(active.Session.ProjectId);
+            SyncAndRebuild();
+        }
+        catch (Exception failure) when (DocumentMessages.IsReadFailure(failure))
+        {
+            errorMessage = DocumentMessages.For(failure);
+        }
+    }
+
+    public void Dispose() => ProjectStore.Changed -= OnProjectsChanged;
+}
+

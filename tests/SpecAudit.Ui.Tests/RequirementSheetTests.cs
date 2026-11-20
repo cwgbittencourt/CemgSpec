@@ -24,12 +24,14 @@ public sealed class RequirementSheetTests(LocalHostFixture host) : IClassFixture
         await Expect(sheet).Not.ToContainTextAsync("Evidências da implementação");
         await Expect(sheet).Not.ToContainTextAsync("npm test");
         await Expect(sheet).Not.ToContainTextAsync("Cópia isolada");
+        await CaptureIfRequestedAsync(page, "requirements-fr001.png");
 
         // Switch feature to 002-other: FR-001 must show its own independent description, never merged with 001-demo.
         await page.GetByRole(AriaRole.Combobox, new() { Name = "Funcionalidade" })
             .SelectOptionAsync(new SelectOptionValue { Label = "002-other" });
         await Expect(sheet).ToContainTextAsync("Independent identity");
         await Expect(sheet).Not.ToContainTextAsync("Documentary requirement 1");
+        await CaptureIfRequestedAsync(page, "requirements-other-fr001.png");
     });
 
     [Fact]
@@ -100,6 +102,14 @@ public sealed class RequirementSheetTests(LocalHostFixture host) : IClassFixture
             await context.CloseAsync();
             Directory.Delete(fixture.Root, recursive: true);
         }
+    }
+
+    private static async Task CaptureIfRequestedAsync(IPage page, string fileName)
+    {
+        var directory = Environment.GetEnvironmentVariable("SPECAUDIT_CAPTURE_DIR");
+        if (string.IsNullOrWhiteSpace(directory)) return;
+        Directory.CreateDirectory(directory);
+        await page.ScreenshotAsync(new() { Path = Path.Combine(directory, fileName), FullPage = true });
     }
 
     private async Task PickAsync(IPage page, string button, string title, string folder, string pathTestId)
