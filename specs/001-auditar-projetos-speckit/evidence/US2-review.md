@@ -1,4 +1,8 @@
-# Code review — US2 (T026)
+# Code review — US2 (T026–T027)
+
+**Estado vigente — T027, 2026-11-19: autorrevisão técnica CONCLUÍDA, `REV-US2-01` e `REV-US2-02` RESOLVIDOS.** Zero impeditivos técnicos conhecidos abertos no escopo da US2 (tema claro pendente da US8/T044). O registro T026 abaixo permanece histórico. Roteiro do DEV (T028), fechamento PR-B e aceite humano continuam pendentes.
+
+## Registro histórico T026
 
 Estado do review: **BLOQUEADA para aprovação normal — ALTERAÇÕES SOLICITADAS** (1 achado P2 aberto para T027; 1 achado P3 registrado).
 Execução da task T026: **CONCLUÍDA**; executar a revisão e aprovar a implementação são estados distintos.
@@ -56,4 +60,15 @@ PR previsto: PR-B (base do incremento US2 em `ddf8f31` / `73e06b9`; sem PR abert
 ## Conclusão e passagem
 
 Passagem de revisão **T026** concluída com 1 achado **P2** (`REV-US2-01`) e 1 achado **P3** (`REV-US2-02`) abertos. O fechamento normal da US2 (T028) fica bloqueado até a resolução e revalidação na **T027**. Nenhum código de produção ou teste foi alterado nesta task.
+
+## Rodada T027 — resolução e autorrevisão renovada
+
+Estado da rodada: **CONCLUÍDA** no escopo técnico dos dois achados; nenhum impeditivo conhecido aberto nesse escopo. Modalidade: **AUTORREVISAO**, Antigravity (Gemini 4 Neon). Data/hora: 2026-11-19 22:41 America/Sao_Paulo. Base do incremento de correção: `372def9`. Esta autorrevisão não substitui revisão independente/humana do PR-B nem aceite do DEV.
+
+| Achado | Correção inspecionada | Revalidação executada | Estado |
+|---|---|---|---|
+| `REV-US2-01` (P2) | `MarkdownPreview.razor.js:3-62`: `WeakMap<Element, AbortController>` aborta listeners anteriores em `mount()` antes de registrar `click`/`keydown`; reaplica `authorizedImages` validados por `rasterDataUri` sem nova requisição. `MarkdownPreview.razor:26-44,104`: limpa cache quando `Session` muda e retém `dataUri` autorizados na `Session` corrente. | Regressão completa **75/75** ([logs/T027/regression.txt](logs/T027/regression.txt)), incluindo `S02` com alternâncias repetidas `Preview` → `Fonte` → `Lado a lado` → `Fonte` → `Lado a lado` + clique em `Âncora local` (`:target == Detalhes`). | RESOLVIDO |
+| `REV-US2-02` (P3) | `MainLayout.razor:1-34`: `NavigationManager` marca o link `Projetos` com `.active` e `aria-current="page"` tanto em `/` quanto em `/projetos`, atualizando em `LocationChanged` com `Dispose`. | Asserção `aria-current="page"` na rota raiz `/` em `MarkdownPreviewTests.WithCorpusAsync` (executada nos 5 testes de `MarkdownPreviewTests`, todos aprovados em `75/75`). | RESOLVIDO |
+
+Passagem de autorrevisão do diff T027: conferidos somente os quatro arquivos alterados (`MarkdownPreview.razor`, `MarkdownPreview.razor.js`, `MainLayout.razor`, `MarkdownPreviewTests.cs`). Nenhuma nova dependência, nenhuma flexibilização de sanitização ou de `RemotePreviewImages`, nenhum acesso fora do catálogo e nenhuma escrita na origem. Estado técnico apto a seguir para **T028** (`validation/US2-dev.md` e `acceptance/US2.md`), mantendo aprovação de PR e aceite humano pendentes.
 

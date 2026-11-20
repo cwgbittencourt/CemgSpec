@@ -38,6 +38,12 @@ Ambiente, versões e dados: Windows x64, host local `SpecAudit` em loopback (`ht
 ## Rodadas após correções
 
 - Durante a T024 foram corrigidos três achados observados em execução real: (1) sincronização do zoom em `S03` aguardando o controle `Aumentar zoom` antes de medir a largura do iframe; (2) remontagem do `MarkdownPreview` ao retornar de `Hidden=true` para preservar o iframe Mermaid no modo `Lado a lado`; (3) adição de `@key` nos nós da árvore (`DocumentTreeNode.razor` e `Documents.razor`) para evitar reuso de nó DOM pelo Blazor durante filtragem por busca. Todas as rodadas RUN-01–RUN-03 acima ocorreram após essas correções, sobre o commit `14865b7fb8aba1e95792ddca52d4286ef30edd38`.
+- **Rodada T027 (2026-11-19 22:41 America/Sao_Paulo, sobre base `372def9`)**: após resolver `REV-US2-01` (`AbortController` por `container` em `MarkdownPreview.razor.js` + cache em memória de `authorizedImages` por `Session` em `MarkdownPreview.razor`) e `REV-US2-02` (estado ativo de `Projetos` em `/` e `/projetos` em `MainLayout.razor`), a suíte completa foi reexecutada (`$filtro = 'FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'; dotnet test SpecAudit.slnx --no-restore --filter $filtro --logger "console;verbosity=normal"`): **75/75 aprovados** (11 `SpecAudit.Tests`, 16 `SpecAudit.Windows.Tests`, 48 `SpecAudit.Ui.Tests`, exit code 0), incluindo as novas asserções de regressão em `MarkdownPreviewTests.cs` (`aria-current="page"` na rota raiz `/` e navegação de âncora após alternâncias repetidas `Fonte` → `Lado a lado`). Log: [logs/T027/regression.txt](logs/T027/regression.txt).
+  - SHA-256 dos arquivos alterados na T027:
+    - `SpecAudit/Components/Documents/MarkdownPreview.razor` — `26d9c2b2896788a7dc7e3a4dcb3a6ed402d6d20ff9e4add4dd31230629b60f38`
+    - `SpecAudit/Components/Documents/MarkdownPreview.razor.js` — `d8358852a66829b4aa064101afdbaea6692d5de47f0b1b983cba6a50e8a49ad9`
+    - `SpecAudit/Components/Layout/MainLayout.razor` — `b312da017eac6f5b93b0e0c2ea8953cb481ca810fe974b4b5d5cbfd6405325ba`
+    - `tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs` — `93dc2c368bee9a08fd908ab73ab8ad108ecc19172f65bee21767690d3f52bec8`
 
 ## Identificação do incremento e histórico
 

@@ -1,8 +1,15 @@
 import { enhancePreview } from "../../lib/preview/preview.js";
 
+const controllers = new WeakMap();
+const rasterDataUri = /^data:image\/(png|jpeg|webp);base64,/;
+
 // The HTML comes from MarkdownRenderer's allowlist. References are inert spans with an index;
 // every activation is resolved by the server against the current catalog snapshot.
-export function mount(container, html, references, dotnet, mountId, elementId) {
+export function mount(container, html, references, authorizedImages, dotnet, mountId, elementId) {
+    controllers.get(container)?.abort();
+    const controller = new AbortController();
+    controllers.set(container, controller);
+
     container.innerHTML = html;
     const kinds = new Map(references.map(reference => [reference.index, reference.kind]));
 
@@ -18,7 +25,15 @@ export function mount(container, html, references, dotnet, mountId, elementId) {
                 span.title = "Abre em outra aba somente após o clique";
             }
         } else if (kind === "RemoteImage") {
-            remoteImage(span, index, dotnet, mountId);
+            const cached = authorizedImages?.[String(index)];
+            if (typeof cached === "string" && rasterDataUri.test(cached)) {
+                const image = document.createElement("img");
+                image.alt = span.textContent;
+                image.src = cached;
+                span.replaceWith(image);
+            } else {
+                remoteImage(span, index, dotnet, mountId);
+            }
         } else {
             span.classList.add("preview-inert");
             span.title = kind === "LocalImage" ? "Imagem local fora do catálogo ou indisponível" : "Referência bloqueada pelo leitor";
@@ -37,8 +52,8 @@ export function mount(container, html, references, dotnet, mountId, elementId) {
             goTo(container, result.elementId);
         }
     }
-    container.addEventListener("click", activate);
-    container.addEventListener("keydown", activate);
+    container.addEventListener("click", activate, { signal: controller.signal });
+    container.addEventListener("keydown", activate, { signal: controller.signal });
 
     if (elementId) goTo(container, elementId);
     enhancePreview(container)
@@ -60,7 +75,7 @@ function remoteImage(span, index, dotnet, mountId) {
     button.addEventListener("click", async () => {
         button.disabled = true;
         const uri = await dotnet.invokeMethodAsync("LoadRemoteImage", mountId, index);
-        if (typeof uri === "string" && /^data:image\/(png|jpeg|webp);base64,/.test(uri) && span.isConnected) {
+        if (typeof uri === "string" && rasterDataUri.test(uri) && span.isConnected) {
             const image = document.createElement("img");
             image.alt = label;
             image.src = uri;

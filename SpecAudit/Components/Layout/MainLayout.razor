@@ -1,10 +1,12 @@
 @inherits LayoutComponentBase
+@implements IDisposable
+@inject NavigationManager Navigation
 <div class="app-shell">
     <aside class="app-sidebar">
         <a class="app-brand" href="/projetos"><span class="brand-icon">S</span> SpecAudit</a>
         <p class="sidebar-caption">ESPAÇO DE TRABALHO</p>
         <nav class="sidebar-nav" aria-label="Navegação principal">
-            <NavLink href="/projetos" class="sidebar-link" Match="NavLinkMatch.All"><span aria-hidden="true">▱</span> Projetos</NavLink>
+            <a href="/projetos" class="@(IsProjectsRoute ? "sidebar-link active" : "sidebar-link")" aria-current="@(IsProjectsRoute ? "page" : null)"><span aria-hidden="true">▱</span> Projetos</a>
             <NavLink href="/documentos" class="sidebar-link"><span aria-hidden="true">▤</span> Documentos</NavLink>
         </nav>
         <p class="sidebar-footnote">Documentos SpecKit<br />Origem somente leitura</p>
@@ -12,3 +14,21 @@
     <main class="app-main">@Body</main>
 </div>
 <div id="blazor-error-ui" data-nosnippet>Não foi possível manter a sessão. <a href=".">Recarregar</a><span class="dismiss">×</span></div>
+
+@code {
+    private bool IsProjectsRoute
+    {
+        get
+        {
+            var path = Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].Trim('/');
+            return path.Length == 0 || path.Equals("projetos", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    protected override void OnInitialized() => Navigation.LocationChanged += OnLocationChanged;
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs args) =>
+        _ = InvokeAsync(StateHasChanged);
+
+    public void Dispose() => Navigation.LocationChanged -= OnLocationChanged;
+}

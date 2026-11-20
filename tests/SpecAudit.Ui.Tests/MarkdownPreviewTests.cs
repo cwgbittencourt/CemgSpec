@@ -138,6 +138,12 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
             "At the desktop viewport, both visible panes must be side by side.");
         await Expect(preview.GetByRole(AriaRole.Region, new() { Name = "Diagrama Mermaid" }).FrameLocator("iframe").Locator("svg")).ToBeVisibleAsync();
         await CaptureIfRequestedAsync(page, "documents-split.png");
+
+        // Regression for REV-US2-01: repeated Fonte -> Lado a lado toggles must keep links responsive without duplicate listeners.
+        await Mode(page, "Fonte").ClickAsync();
+        await Mode(page, "Lado a lado").ClickAsync();
+        await preview.GetByRole(AriaRole.Link, new() { Name = "Âncora local" }).ClickAsync();
+        await Expect(preview.Locator(":target")).ToHaveTextAsync("Detalhes");
     });
 
     [Fact]
@@ -262,6 +268,7 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
             fixture.CaptureBaseline();
 
             await host.OpenProjectPanelAsync(page);
+            await Expect(page.GetByRole(AriaRole.Link, new() { Name = "Projetos", Exact = true })).ToHaveAttributeAsync("aria-current", "page");
             await PickAsync(page, "Escolher projeto", "Selecionar PROJETO (origem somente leitura)", fixture.Origin, "selected-origin");
             await PickAsync(page, "Escolher destino", "Selecionar RELATORIOS (destino externo)", fixture.Output, "selected-output");
             await page.GetByRole(AriaRole.Button, new() { Name = "Confirmar carregamento" }).ClickAsync();

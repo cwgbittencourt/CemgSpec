@@ -26,12 +26,15 @@
     private DocumentPreviewSession? mounted;
     private bool wasHidden;
     private int mount;
+    private readonly Dictionary<string, string> authorizedImages = new(StringComparer.Ordinal);
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        var sessionChanged = !ReferenceEquals(mounted, Session);
+        if (sessionChanged) authorizedImages.Clear();
         var becameVisible = wasHidden && !Hidden;
         wasHidden = Hidden;
-        if (Hidden || (ReferenceEquals(mounted, Session) && !becameVisible)) return;
+        if (Hidden || (!sessionChanged && !becameVisible)) return;
         mounted = Session;
         var id = ++mount;
         self ??= DotNetObjectReference.Create(this);
@@ -39,7 +42,7 @@
         {
             module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Documents/MarkdownPreview.razor.js");
             var references = Session.Preview.References.Select(reference => new { index = reference.Index, kind = reference.Kind.ToString() });
-            await module.InvokeVoidAsync("mount", container, Session.Preview.Html, references, self, id, InitialElementId);
+            await module.InvokeVoidAsync("mount", container, Session.Preview.Html, references, authorizedImages, self, id, InitialElementId);
         }
         catch (JSDisconnectedException)
         {
@@ -98,6 +101,7 @@
         try
         {
             var image = await Session.AuthorizeRemoteImageAsync(index);
+            authorizedImages[index.ToString(System.Globalization.CultureInfo.InvariantCulture)] = image.DataUri;
             await Status.InvokeAsync("Imagem remota carregada somente para esta visualização, sem cookies ou credenciais.");
             return image.DataUri;
         }
