@@ -14,7 +14,7 @@
             <NavLink href="/requisitos" class="sidebar-link"><span aria-hidden="true">☰</span> Requisitos</NavLink>
             <NavLink href="/documentos" class="sidebar-link"><span aria-hidden="true">▤</span> Documentos</NavLink>
             <NavLink href="/verificacoes" class="sidebar-link"><span aria-hidden="true">▷</span> Verificações</NavLink>
-            <a href="/sugestoes" class="@(IsRoute("sugestoes") ? "sidebar-link active" : "sidebar-link")" aria-current="@(IsRoute("sugestoes") ? "page" : null)"><span aria-hidden="true">◈</span> Sugestões</a>
+            <NavLink href="/sugestoes" class="sidebar-link"><span aria-hidden="true">◈</span> Sugestões</NavLink>
         </nav>
 
         <div class="sidebar-footer">
@@ -34,30 +34,7 @@
         </div>
     </aside>
     <main class="app-main">
-        @if (IsRoute("sugestoes"))
-        {
-            <section class="placeholder-page">
-                <p class="eyebrow">SPECAUDIT · SUGESTÕES E HISTÓRICO</p>
-                <h1>Sugestões</h1>
-                <p class="muted">A revisão de sugestões, decisões humanas e exportação externa permanecem indisponíveis até a validação de <code>ExternalWriter</code> na etapa final.</p>
-                @if (ProjectStore.Active is { } current)
-                {
-                    <div class="placeholder-context">
-                        <strong>@current.Session.DisplayName</strong>
-                        <span class="readonly-badge">◇ Somente leitura</span>
-                        <span class="muted">Destino externo: <code>@current.OutputDisplayPath</code></span>
-                    </div>
-                }
-                <div class="future-actions">
-                    <button type="button" class="primary" disabled>Salvar resultados</button>
-                    <span class="muted">Nenhum relatório é gravado antes da ação explícita Salvar.</span>
-                </div>
-            </section>
-        }
-        else
-        {
-            @Body
-        }
+        @Body
     </main>
 </div>
 <div id="blazor-error-ui" data-nosnippet>Não foi possível manter a sessão. <a href=".">Recarregar</a><span class="dismiss">×</span></div>

@@ -35,7 +35,7 @@ public sealed class NavigationThemeTests(LocalHostFixture host) : IClassFixture<
 
         await nav.GetByRole(AriaRole.Link, new() { Name = "Sugestões", Exact = true }).ClickAsync();
         await Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Sugestões", Exact = true })).ToBeVisibleAsync();
-        await Expect(page.GetByRole(AriaRole.Button, new() { Name = "Salvar resultados" })).ToBeDisabledAsync();
+        await Expect(page.GetByRole(AriaRole.Button, new() { Name = "Salvar resultados" })).ToBeEnabledAsync();
     });
 
     [Fact]

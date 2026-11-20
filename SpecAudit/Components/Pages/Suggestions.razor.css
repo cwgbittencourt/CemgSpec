@@ -1,0 +1,199 @@
+.suggestions-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.context-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: var(--surface-panel, #131a26);
+    border: 1px solid var(--border-subtle, #253047);
+}
+
+.save-badge {
+    margin-left: auto;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.save-badge.unsaved {
+    background: rgba(148, 163, 184, 0.16);
+    color: var(--text-muted, #cbd5e1);
+}
+
+.save-badge.saved {
+    background: rgba(34, 197, 94, 0.16);
+    color: #4ade80;
+}
+
+.feedback-alert {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.45);
+    color: #fca5a5;
+}
+
+.feedback-ok {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: rgba(34, 197, 94, 0.14);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #86efac;
+}
+
+.findings-section,
+.history-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    background: var(--surface-panel, #131a26);
+    border: 1px solid var(--border-subtle, #253047);
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.section-head h2 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.finding-list,
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.finding-card,
+.history-card {
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    background: var(--surface-elevated, #1a2333);
+    border: 1px solid var(--border-subtle, #253047);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.finding-top,
+.history-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.decision-pill {
+    margin-left: auto;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(59, 130, 246, 0.16);
+    color: #93c5fd;
+}
+
+.sev-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+.sev-high { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+.sev-medium { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+.sev-low { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+.sev-info { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; }
+
+.decision-form {
+    display: grid;
+    grid-template-columns: 180px 1fr 180px auto;
+    gap: 0.65rem;
+    align-items: end;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.82rem;
+}
+
+.field select,
+.field input {
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle, #253047);
+    background: var(--surface-panel, #131a26);
+    color: inherit;
+}
+
+.history-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.danger {
+    background: rgba(239, 68, 68, 0.18);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    padding: 0.45rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.diff-panel {
+    margin-top: 0.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    background: var(--surface-elevated, #1a2333);
+    border: 1px solid var(--border-subtle, #253047);
+}
+
+.diff-list {
+    margin: 0.5rem 0 0;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.diff-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    margin-right: 0.35rem;
+}
+
+.small {
+    font-size: 0.84rem;
+}

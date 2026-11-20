@@ -53,16 +53,20 @@ public sealed class SaveHistoryTests(LocalHostFixture host) : IClassFixture<Loca
         await Expect(page.GetByRole(AriaRole.Main)).ToContainTextAsync("Falso positivo");
 
         // Save twice to create two distinct records, then delete only one.
+        var history = page.GetByRole(AriaRole.Region, new() { Name = "Histórico salvo" });
         for (var i = 0; i < 2; i++)
         {
             await page.GetByRole(AriaRole.Button, new() { Name = "Salvar resultados" }).ClickAsync();
             var dialog = page.GetByRole(AriaRole.Dialog, new() { Name = "Confirmar salvamento externo" });
+            await Expect(dialog).ToBeVisibleAsync();
             await dialog.GetByRole(AriaRole.Button, new() { Name = "Confirmar e salvar" }).ClickAsync();
+            await Expect(dialog).ToBeHiddenAsync();
+            await Expect(history).ToContainTextAsync($"Histórico salvo ({i + 1})");
         }
 
         Assert.Equal(2, Directory.GetDirectories(fixture.Output, "SpecAudit-*").Length);
-        var history = page.GetByRole(AriaRole.Region, new() { Name = "Histórico salvo" });
         await history.GetByRole(AriaRole.Button, new() { Name = "Excluir registro" }).First.ClickAsync();
+        await Expect(history).ToContainTextAsync("Histórico salvo (1)");
         Assert.Single(Directory.GetDirectories(fixture.Output, "SpecAudit-*"));
         Assert.True(fixture.IsUnchanged());
     });
@@ -93,7 +97,19 @@ public sealed class SaveHistoryTests(LocalHostFixture host) : IClassFixture<Loca
         finally
         {
             await context.CloseAsync();
-            Directory.Delete(fixture.Root, recursive: true);
+            for (var attempt = 0; attempt < 5; attempt++)
+            {
+                try
+                {
+                    if (Directory.Exists(fixture.Root))
+                        Directory.Delete(fixture.Root, recursive: true);
+                    break;
+                }
+                catch (IOException) when (attempt < 4)
+                {
+                    await Task.Delay(200);
+                }
+            }
         }
     }
 
