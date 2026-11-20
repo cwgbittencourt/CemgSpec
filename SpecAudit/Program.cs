@@ -40,11 +40,13 @@ builder.Services.AddSingleton<SpecAudit.Infrastructure.Gates.GateExecutor>();
 builder.Services.AddSingleton(agentDiscovery);
 builder.Services.AddSingleton(codexAdapter);
 builder.Services.AddSingleton(antigravityAdapter);
+builder.Services.AddSingleton<SpecAudit.Infrastructure.Reports.ExternalReportWriter>();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<DocumentaryDashboardService>();
 builder.Services.AddScoped<RequirementTraceService>();
 builder.Services.AddScoped<VerificationService>();
 builder.Services.AddScoped<AgentCompatibilityService>();
+builder.Services.AddScoped<FindingDecisionService>();
 builder.Services.AddAntiforgery(options=>
 {
     options.Cookie.SameSite=SameSiteMode.Strict;
