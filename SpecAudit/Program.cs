@@ -33,6 +33,7 @@ builder.Services.AddSingleton(capabilityRegistry);
 builder.Services.AddSingleton(gatePackage);
 builder.Services.AddSingleton<SpecAudit.Infrastructure.Gates.GateExecutor>();
 builder.Services.AddSingleton<SpecAudit.Infrastructure.Agents.AgentDiscovery>();
+builder.Services.AddSingleton<SpecAudit.Infrastructure.Agents.CodexAnalyzeAdapter>();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<DocumentaryDashboardService>();
 builder.Services.AddScoped<RequirementTraceService>();
