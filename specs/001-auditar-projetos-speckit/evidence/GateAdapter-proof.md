@@ -11,8 +11,8 @@
 |---|---|---|
 | Core CEMG `3.0.0` | [check_gate.py](../../../SpecAudit/Infrastructure/Gates/Core/check_gate.py) | `7daf04483abbd52fa720e6afa0fbcde435120c96121b40008bff642ff93a42e0` |
 | Política CEMG `3.0.0` | [gate-requirements.json](../../../SpecAudit/Infrastructure/Gates/Core/policies/gate-requirements.json) | `93eae48e3424949a889562eca47e8a1b93e398e5978374fbb75c8aa5f525c5a9` |
-| Runner confiável | [runner.py](../../../SpecAudit/Infrastructure/Gates/runner.py) | `724e9ad9d9f2f99d85040e4d2bf849a2e7bc1c2e92da54c1ca9171709049021a` |
-| `Path` de capacidade | [catalog_path.py](../../../SpecAudit/Infrastructure/Gates/catalog_path.py) | `4c5a3d584b3afd7cc79a3c001417286055eba213731592f2779435cf5d40b898` |
+| Runner confiável | [runner.py](../../../SpecAudit/Infrastructure/Gates/runner.py) | `c529d4e5d0c651520f40f1fd33fd6580e658c111818996c03328e94aee5c19d1` |
+| `Path` de capacidade | [catalog_path.py](../../../SpecAudit/Infrastructure/Gates/catalog_path.py) | `e51d61f586fe2cb92021870946880437a3283ec5cc55b860167418c34bc0361a` |
 
 Log completo de hashes: [hashes.txt](logs/T057/hashes.txt).
 

@@ -25,6 +25,12 @@ public sealed class GatePackageTests
         var presetPolicy = Path.Combine(repoRoot, ".specify", "presets", "cemg-speckit", "policies", "gate-requirements.json");
         Assert.Equal(File.ReadAllBytes(presetCore), File.ReadAllBytes(status.CorePath!));
         Assert.Equal(File.ReadAllBytes(presetPolicy), File.ReadAllBytes(status.PolicyPath!));
+
+        var registry = new SpecAudit.Application.CapabilityRegistry();
+        Assert.True(package.TryRegisterVerifiedSeal(registry));
+        Assert.Equal(
+            SpecAudit.Domain.CapabilityAvailability.Available,
+            registry.Availability(SpecAudit.Application.ProtectedCapability.GateAdapter, GatePackage.CoreVersion, GatePackage.PlatformFingerprint, GatePackage.PolicyVersion));
     }
 
     [Fact]
