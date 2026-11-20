@@ -4,7 +4,7 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021 concluída no escopo de testes, com cinco falhas esperadas e 57 testes de regressão selecionados aprovados. T022 concluiu a renderização local com corpus e regressão selecionada aprovados. T023 concluiu a prova de segurança e navegação do preview. T024 integrou árvore, busca, âncoras e Preview/Fonte/Lado a lado em Documents.razor e MarkdownPreview.razor (commit `14865b7`). T025 executou US2-S01–S04 no host/Edge real e regressão completa (4/4 domínio, 15/15 US2 E2E/assets, 75/75 regressão) em [evidence/US2-validation.md](evidence/US2-validation.md) (commit `656cb19`). T026 concluiu a autorrevisão da US2 em [evidence/US2-review.md](evidence/US2-review.md) (commit `372def9`). T027 resolveu `REV-US2-01` e `REV-US2-02` e revalidou a suíte completa (75/75 aprovados). Próxima T028. Ver [evidência da T023](evidence/preview-safety.md). Ver [evidência da T021](evidence/T021-preview-tests.md) e [evidência da T022](evidence/T022-local-preview.md). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
+**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente: testes/renderizador/segurança (`9e4ffbd`, `3803ffb`), integração UI (`14865b7`), validação US2 (`656cb19`), autorrevisão (`372def9`), resolução de `REV-US2-01`/`REV-US2-02` com 75/75 aprovados (`62c6e3c`), roteiro em [validation/US2-dev.md](validation/US2-dev.md) e estado técnico em [acceptance/US2.md](acceptance/US2.md). Próxima T029 (Fase 5 — US3 Dashboard). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
 ## Checkpoint histórico — constituição 4.0.0
 
@@ -82,7 +82,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T025 [US2] Executar os cenários US2-S01–S04 / US2-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US2-validation.md.
 - [x] T026 [US2] Revisar diff, critérios, contratos, segurança e resultados da versão de US2 em evidence/US2-review.md, declarando autorrevisão.
 - [x] T027 [US2] Resolver achados de US2 e repetir checks afetados em evidence/US2-validation.md e evidence/US2-review.md; se nenhum, registrar referência à revisão real.
-- [ ] T028 [US2] Consolidar e conferir roteiro reproduzível em validation/US2-dev.md e registrar estado técnico em acceptance/US2.md, mantendo decisão do DEV pendente.
+- [x] T028 [US2] Consolidar e conferir roteiro reproduzível em validation/US2-dev.md e registrar estado técnico em acceptance/US2.md, mantendo decisão do DEV pendente.
 
 ## Fase 5 — US3: Dashboard documental (P1)
 
