@@ -174,10 +174,10 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T082 [US6] Executar prova ExternalWriter real em evidence/ExternalWriter-proof.md antes de habilitar Save, observando conteúdo/caminhos no disco e alterações concorrentes.
 - [x] T083 [US6] Implementar listagem/validação/comparação e exclusão explícita de histórico em SpecAudit/Infrastructure/Reports/SavedHistoryReader.cs e SpecAudit/Application/SavedHistoryService.cs, usando IDs e destino externo resolvido.
 - [x] T084 [US6] Habilitar Save/formatos/histórico e decisões em SpecAudit/Components/Pages/Suggestions.razor e SpecAudit/Components/Reports/SaveDialog.razor somente com ExternalWriter Passed. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
-- [ ] T085 [US6] Executar os cenários US6-S01–S04 / US6-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US6-validation.md.
-- [ ] T086 [US6] Revisar diff, critérios, contratos, segurança e resultados da versão de US6 em evidence/US6-review.md, declarando autorrevisão.
-- [ ] T087 [US6] Resolver achados de US6 e repetir checks afetados em evidence/US6-validation.md e evidence/US6-review.md; se nenhum, registrar referência à revisão real.
-- [ ] T088 [US6] Consolidar e conferir roteiro reproduzível em validation/US6-dev.md e registrar estado técnico em acceptance/US6.md, mantendo decisão do DEV pendente.
+- [x] T085 [US6] Executar os cenários US6-S01–S04 / US6-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US6-validation.md.
+- [x] T086 [US6] Revisar diff, critérios, contratos, segurança e resultados da versão de US6 em evidence/US6-review.md, declarando autorrevisão.
+- [x] T087 [US6] Resolver achados de US6 e repetir checks afetados em evidence/US6-validation.md e evidence/US6-review.md; se nenhum, registrar referência à revisão real.
+- [x] T088 [US6] Consolidar e conferir roteiro reproduzível em validation/US6-dev.md e registrar estado técnico em acceptance/US6.md, mantendo decisão do DEV pendente.
 
 ## Fase 10 — Regressão e fechamento integrado
 
@@ -185,12 +185,12 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: Todas as histórias técnicas prontas; US7 permanece fora da V1.
 **Teste independente**: Todos os 29 cenários, selos individuais, gate offline e ausência de código/escrita na origem.
 
-- [ ] T089 Executar regressão integrada dos 29 cenários e auditoria final das dependências do próprio SpecAudit em evidence/feature-validation.md e revisar quickstart.md para refletir caminho real entregue. Comparar todas as telas com design/mockups/README.md nos dois temas, preservando aparência e comprovando substituições de comportamento da V1.
-- [ ] T090 Executar a verificação do incremento PR-E e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-E-validation.md.
-- [ ] T091 Revisar o incremento completo PR-E em evidence/PR-E-review.md com diff incremental, limites e achados por arquivo/linha.
-- [ ] T092 Resolver e revalidar achados do PR-E em evidence/PR-E-validation.md e evidence/PR-E-review.md; registrar nenhum achado somente com review real.
-- [ ] T093 Preparar verification/prs/PR-E.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
-- [ ] T094 Consolidar roteiro integrado e estado técnico em validation/feature-dev.md, acceptance/feature.md e verification/implementation-stage.json; deixar reprodução/aceite humano pendentes até fonte real.
+- [x] T089 Executar regressão integrada dos 29 cenários e auditoria final das dependências do próprio SpecAudit em evidence/feature-validation.md e revisar quickstart.md para refletir caminho real entregue. Comparar todas as telas com design/mockups/README.md nos dois temas, preservando aparência e comprovando substituições de comportamento da V1.
+- [x] T090 Executar a verificação do incremento PR-E e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-E-validation.md.
+- [x] T091 Revisar o incremento completo PR-E em evidence/PR-E-review.md com diff incremental, limites e achados por arquivo/linha.
+- [x] T092 Resolver e revalidar achados do PR-E em evidence/PR-E-validation.md e evidence/PR-E-review.md; registrar nenhum achado somente com review real.
+- [x] T093 Preparar verification/prs/PR-E.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
+- [x] T094 Consolidar roteiro integrado e estado técnico em validation/feature-dev.md, acceptance/feature.md e verification/implementation-stage.json; deixar reprodução/aceite humano pendentes até fonte real.
 
 ## Contrato de cada task
 
