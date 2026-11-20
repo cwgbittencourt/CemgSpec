@@ -4,7 +4,7 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente (`d2a34bc`). T029–T035 (US3 — Dashboard documental) concluídas tecnicamente (`32170ad`). T036–T042 (US4 — Ficha documental) concluídas tecnicamente (`4136dbf`). T043 (`42f0063`) e T044 concluídas (`MainLayout.razor` e `app.css` com as 5 áreas, tema escuro/claro na sessão e placeholders indisponíveis de Verificações/Sugestões, **95/95 testes aprovados** e capturas nos dois temas). Próxima T045 (`evidence/US8-validation.md`). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
+**Estado de execução**: migração e T001–T020 (PR-A) concluídas tecnicamente. T021–T052 (PR-B: US2 Documentos, US3 Dashboard, US4 Ficha documental, US8 Navegação/Temas) concluídas tecnicamente em `ac53fd2` (**95/95 testes aprovados**, zero impeditivos técnicos abertos); descrição em [verification/prs/PR-B.md](verification/prs/PR-B.md). Próxima T053 (Fase 8 — US5 Verificações permitidas / PR-C: combo fechada e `check_gate` offline). Aprovação/integração de PRs e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
 ## Checkpoint histórico — constituição 4.0.0
 
@@ -124,10 +124,10 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T046 [US8] Revisar diff, critérios, contratos, segurança e resultados da versão de US8 em evidence/US8-review.md, declarando autorrevisão.
 - [x] T047 [US8] Resolver achados de US8 e repetir checks afetados em evidence/US8-validation.md e evidence/US8-review.md; se nenhum, registrar referência à revisão real.
 - [x] T048 [US8] Consolidar e conferir roteiro reproduzível em validation/US8-dev.md e registrar estado técnico em acceptance/US8.md, mantendo decisão do DEV pendente.
-- [ ] T049 [US8] Executar a verificação do incremento PR-B e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-B-validation.md.
-- [ ] T050 [US8] Revisar o incremento completo PR-B em evidence/PR-B-review.md com diff incremental, limites e achados por arquivo/linha.
-- [ ] T051 [US8] Resolver e revalidar achados do PR-B em evidence/PR-B-validation.md e evidence/PR-B-review.md; registrar nenhum achado somente com review real.
-- [ ] T052 [US8] Preparar verification/prs/PR-B.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
+- [x] T049 [US8] Executar a verificação do incremento PR-B e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-B-validation.md.
+- [x] T050 [US8] Revisar o incremento completo PR-B em evidence/PR-B-review.md com diff incremental, limites e achados por arquivo/linha.
+- [x] T051 [US8] Resolver e revalidar achados do PR-B em evidence/PR-B-validation.md e evidence/PR-B-review.md; registrar nenhum achado somente com review real.
+- [x] T052 [US8] Preparar verification/prs/PR-B.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
 
 ## Fase 8 — US5: Verificações permitidas (P1)
 
