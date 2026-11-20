@@ -1,62 +1,179 @@
-using System.Reflection;
+using Microsoft.AspNetCore.Http;
 using SpecAudit.Application;
 using SpecAudit.Domain;
+using SpecAudit.Infrastructure.Agents;
+using SpecAudit.Infrastructure.Gates;
 using SpecAudit.Windows.Tests.Fixtures;
 
 namespace SpecAudit.Windows.Tests;
 
 public sealed class AgentDiscoveryTests
 {
-    private static readonly Assembly ProductAssembly = typeof(ProjectSession).Assembly;
+    private sealed class UnusedPicker : IFolderPicker
+    {
+        public Task<string?> PickAsync(string title) => Task.FromResult<string?>(null);
+    }
 
     [Fact]
     public void S01DiscoversProvidersSeparatesDiscoveryFromCompatibilityAndRestrictsManualFallback()
     {
-        var providerType = RequireType("SpecAudit.Domain.AgentProvider");
-        var discoveryMethodType = RequireType("SpecAudit.Domain.AgentDiscoveryMethod");
-        var compatibilityStateType = RequireType("SpecAudit.Domain.AgentCompatibilityState");
-        var installationType = RequireType("SpecAudit.Domain.AgentInstallation");
-        var discoveryServiceType = RequireType("SpecAudit.Infrastructure.Agents.AgentDiscovery");
-
-        Assert.NotNull(installationType);
-        Assert.NotNull(discoveryServiceType);
-
-        var providers = Enum.GetNames(providerType);
-        Assert.Equal(new[] { "Codex", "Antigravity", "ClaudeCode", "Kiro" }, providers);
-
-        var methods = Enum.GetNames(discoveryMethodType);
-        Assert.Contains("Automatic", methods);
-        Assert.Contains("ManualFallback", methods);
-
-        var states = Enum.GetNames(compatibilityStateType);
-        Assert.Contains("Discovered", states);
-        Assert.Contains("NotVerified", states);
-        Assert.Contains("Compatible", states);
-        Assert.Contains("Incompatible", states);
-        Assert.Contains("Unsupported", states);
-        Assert.Contains("Stale", states);
-    }
-
-    [Fact]
-    public void S01ProjectSelectionAndCheckGateRemainIndependentFromAgentAvailability()
-    {
         var fixture = DocumentaryFixture.Create();
+        var fakeBinsDir = Path.Combine(Path.GetTempPath(), "SpecAudit-FakeAgents-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(fakeBinsDir);
         try
         {
-            _ = RequireType("SpecAudit.Infrastructure.Agents.AgentDiscovery");
+            // 1. Test real discovery on this workstation: must discover 4 providers, keep ClaudeCode/Kiro Unsupported,
+            // and never mark any discovered provider as Compatible automatically.
+            var realDiscovery = new AgentDiscovery();
+            var realInstallations = realDiscovery.DiscoverAll(fixture.Origin);
+            Assert.Equal(4, realInstallations.Count);
+            Assert.All(realInstallations, inst =>
+            {
+                Assert.NotEqual(AgentCompatibilityState.Compatible, inst.CompatibilityState);
+                Assert.NotEmpty(inst.ExternalStateLocations);
+                if (inst.Provider is AgentProvider.ClaudeCode or AgentProvider.Kiro)
+                    Assert.Equal(AgentCompatibilityState.Unsupported, inst.CompatibilityState);
+            });
+
+            // Verify real Codex and Antigravity installations present on this machine are discovered with version and hash.
+            var realCodex = realInstallations.Single(i => i.Provider == AgentProvider.Codex);
+            var realAntigravity = realInstallations.Single(i => i.Provider == AgentProvider.Antigravity);
+            Assert.True(realCodex.IsFound, realCodex.StatusReason);
+            Assert.Equal(AgentCompatibilityState.Discovered, realCodex.CompatibilityState);
+            Assert.False(string.IsNullOrWhiteSpace(realCodex.Version));
+            Assert.True(realDiscovery.VerifyUnchanged(realCodex, fixture.Origin));
+
+            Assert.True(realAntigravity.IsFound, realAntigravity.StatusReason);
+            Assert.Equal(AgentCompatibilityState.Discovered, realAntigravity.CompatibilityState);
+            Assert.False(string.IsNullOrWhiteSpace(realAntigravity.Version));
+            Assert.True(realDiscovery.VerifyUnchanged(realAntigravity, fixture.Origin));
+
+            // Manual fallback on an already automatically discovered provider MUST be rejected.
+            var dummyExe = Path.Combine(fakeBinsDir, "manual-codex.exe");
+            File.WriteAllText(dummyExe, "MZ-synthetic-binary");
+            Assert.Throws<InvalidOperationException>(() =>
+                realDiscovery.LocateManually(AgentProvider.Codex, dummyExe, fixture.Origin));
+
+            // 2. Test controlled fixture where Codex is found and Antigravity is absent:
+            var foundCodexExe = Path.Combine(fakeBinsDir, "codex.exe");
+            var manualAntigravityExe = Path.Combine(fakeBinsDir, "Antigravity.exe");
+            var originMaliciousExe = Path.Combine(fixture.Origin, "evil-agent.exe");
+            File.WriteAllText(foundCodexExe, "MZ-found-codex");
+            File.WriteAllText(manualAntigravityExe, "MZ-manual-antigravity");
+            File.WriteAllText(originMaliciousExe, "MZ-inside-origin");
+            fixture.CaptureBaseline();
+
+            var controlledPaths = new Dictionary<AgentProvider, AgentCandidatePaths>
+            {
+                [AgentProvider.Codex] = new([foundCodexExe], [], [Path.Combine(fakeBinsDir, ".codex")]),
+                [AgentProvider.Antigravity] = new([Path.Combine(fakeBinsDir, "missing-antigravity.exe")], [], [Path.Combine(fakeBinsDir, ".antigravity")]),
+                [AgentProvider.ClaudeCode] = new([], [], [Path.Combine(fakeBinsDir, ".claude")]),
+                [AgentProvider.Kiro] = new([], [], [Path.Combine(fakeBinsDir, ".kiro")])
+            };
+
+            var controlled = new AgentDiscovery(controlledPaths);
+            var list = controlled.DiscoverAll(fixture.Origin);
+            var codex = list.Single(i => i.Provider == AgentProvider.Codex);
+            var agy = list.Single(i => i.Provider == AgentProvider.Antigravity);
+
+            Assert.True(codex.IsFound);
+            Assert.False(codex.CanManualLocate);
+            Assert.False(agy.IsFound);
+            Assert.True(agy.CanManualLocate);
+            Assert.Equal(AgentCompatibilityState.NotVerified, agy.CompatibilityState);
+
+            // Manual location inside audited origin MUST be rejected.
+            Assert.Throws<InvalidOperationException>(() =>
+                controlled.LocateManually(AgentProvider.Antigravity, originMaliciousExe, fixture.Origin));
+
+            // Manual location outside origin succeeds for absent provider, stays Discovered (not Compatible!).
+            var locatedAgy = controlled.LocateManually(AgentProvider.Antigravity, manualAntigravityExe, fixture.Origin);
+            Assert.True(locatedAgy.IsFound);
+            Assert.Equal(AgentDiscoveryMethod.ManualFallback, locatedAgy.DiscoveryMethod);
+            Assert.Equal(AgentCompatibilityState.Discovered, locatedAgy.CompatibilityState);
+
+            // Tampering with executable invalidates installation to Stale.
+            File.AppendAllText(manualAntigravityExe, "-tampered");
+            Assert.False(controlled.VerifyUnchanged(locatedAgy, fixture.Origin));
+            Assert.Equal(AgentCompatibilityState.Stale, locatedAgy.CompatibilityState);
+
             Assert.True(fixture.IsUnchanged());
             Assert.Empty(Directory.EnumerateFileSystemEntries(fixture.Output));
         }
         finally
         {
+            Directory.Delete(fakeBinsDir, recursive: true);
             Directory.Delete(fixture.Root, recursive: true);
         }
     }
 
-    private static Type RequireType(string fullName)
+    [Fact]
+    public async Task S01ProjectSelectionAndCheckGateRemainIndependentFromAgentAvailability()
     {
-        var type = ProductAssembly.GetType(fullName, throwOnError: false);
-        Assert.True(type is not null, $"Expected contract type '{fullName}' to be implemented in T064.");
-        return type!;
+        var fixture1 = DocumentaryFixture.Create();
+        var fixture2 = DocumentaryFixture.Create();
+        try
+        {
+            using var projects = CreateProjectService();
+            var ctx1 = projects.OpenSelected(fixture1.Origin, fixture1.Output);
+            var ctx2 = projects.OpenSelected(fixture2.Origin, fixture2.Output);
+
+            var agentA = Guid.NewGuid();
+            ctx1.Session.SelectAgent(agentA);
+            Assert.Equal(agentA, ctx1.Session.SelectedAgentId);
+            Assert.Null(ctx2.Session.SelectedAgentId);
+
+            // Even with zero agents discovered / all agents missing, check_gate and documentary reader work offline!
+            projects.SelectProject(ctx1.Session.ProjectId);
+            var registry = new CapabilityRegistry();
+            var gatePkg = new GatePackage();
+            Assert.True(gatePkg.TryRegisterVerifiedSeal(registry));
+
+            var verifications = new VerificationService(projects, registry);
+            var feature = ctx1.Session.Features.First(f => f.SpecKitRelativeDirectory.Contains("001-demo"));
+            var record = ctx1.Catalog.Entries.First(e => e.RelativePath.EndsWith("ready.json", StringComparison.OrdinalIgnoreCase));
+            var specHash = DocumentaryFixture.Hash(Path.Combine(fixture1.Feature, "spec.md"));
+            var candidate = new GateCandidate(
+                ctx1.Session.ProjectId,
+                feature.FeatureId,
+                GateStage.Spec,
+                record.DocumentId,
+                "sha256:" + specHash,
+                RevisionSource.ArtifactSha256,
+                [],
+                ctx1.Catalog.Generation);
+
+            var availability = verifications.EvaluateAvailability(
+                VerificationType.CheckGate,
+                ProtectedCapability.GateAdapter,
+                GatePackage.CoreVersion,
+                GatePackage.PlatformFingerprint,
+                GatePackage.PolicyVersion);
+            Assert.Equal(CapabilityAvailability.Available, availability.Availability);
+
+            var prepared = verifications.PrepareGateRun(ctx1.Session.ProjectId, candidate, availability);
+            Assert.True(prepared.Created);
+            var executor = new GateExecutor(gatePkg);
+            await executor.ExecuteAsync(ctx1, candidate, prepared.Run!);
+            Assert.Equal(RunState.Completed, prepared.Run!.State);
+            Assert.Equal(GateSemanticResult.Ready, prepared.Run.SemanticResult!.GateResult);
+
+            Assert.True(fixture1.IsUnchanged());
+            Assert.True(fixture2.IsUnchanged());
+        }
+        finally
+        {
+            Directory.Delete(fixture1.Root, recursive: true);
+            Directory.Delete(fixture2.Root, recursive: true);
+        }
+    }
+
+    private static ProjectService CreateProjectService()
+    {
+        var registry = new LocalSessionRegistry();
+        var issued = registry.Issue();
+        var accessor = new HttpContextAccessor { HttpContext = new DefaultHttpContext() };
+        accessor.HttpContext.Items[typeof(LocalSessionService)] = issued.Id;
+        return new ProjectService(new LocalSessionService(accessor, registry), new UnusedPicker());
     }
 }

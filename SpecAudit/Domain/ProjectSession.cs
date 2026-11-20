@@ -51,6 +51,11 @@ public sealed class ProjectSession
     {
         if(!Enum.IsDefined(value))throw new ArgumentOutOfRangeException(nameof(value));SelectedVerification=value;
     }
+    public void SelectAgent(Guid? agentId)
+    {
+        if(agentId==Guid.Empty)throw new ArgumentException("AgentId cannot be empty Guid.",nameof(agentId));
+        SelectedAgentId=agentId;
+    }
     public void ChangeOutputIdentity(string identity){ArgumentException.ThrowIfNullOrWhiteSpace(identity);if(identity==OriginHandleIdentity)throw new ArgumentException("Output cannot coincide with origin.");OutputDirectoryIdentity=identity;}
     public long Invalidate()=>Generation=checked(Generation+1);
 }
