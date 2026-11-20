@@ -16,7 +16,7 @@ public sealed partial class DocumentaryDashboardService
     public DashboardProjection Build(OpenProjectContext project, DashboardFilter? filter = null)
     {
         filter ??= new DashboardFilter();
-        var key = $"{project.Session.ProjectId:N}|{project.Catalog.Generation}|{(project.Catalog.HasPendingChanges ? 1 : 0)}|{filter.FeatureId?.ToString("N") ?? "*"}|{filter.Phase ?? "*"}|{filter.Story ?? "*"}|{filter.Severity?.ToString() ?? "*"}|{filter.Status ?? "*"}";
+        var key = $"{project.Session.ProjectId:N}|{project.Catalog.Generation}|{(project.Catalog.HasPendingChanges ? 1 : 0)}|{filter}";
         if (cache.TryGetValue(key, out var cached))
             return cached;
 
