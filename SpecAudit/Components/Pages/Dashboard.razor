@@ -329,7 +329,9 @@
             or DocumentaryOccurrenceCategory.InvalidReference
             or DocumentaryOccurrenceCategory.MissingArtifact).ToArray(),
         "code" => all.Where(o => o.Category == DocumentaryOccurrenceCategory.UnverifiedCodeReference).ToArray(),
-        _ => all
+        _ => string.Equals(selectedSituation, "Não verificada", StringComparison.OrdinalIgnoreCase)
+            ? all
+            : all.Where(o => o.Category != DocumentaryOccurrenceCategory.UnverifiedCodeReference).ToArray()
     };
 
     protected override void OnInitialized()
