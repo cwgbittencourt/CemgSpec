@@ -1,0 +1,234 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\ExplicitSelectionFlowTests.cs(25,112): warning CS8602: Desreferência de uma referência possivelmente nula. [D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj]
+  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.07]   Discovering: SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.11]   Discovered:  SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.13]   Starting:    SpecAudit.Ui.Tests
+[xUnit.net 00:00:08.48]       Microsoft.Playwright.PlaywrightException : Locator expected to be visible
+Error: element(s) not found 
+Call log:
+  - Expect "ToBeVisibleAsync" GetByRole(AriaRole.Navigation, new() { Name = "Navegação principal" }).GetByRole(AriaRole.Link, new() { Name = "Verificações", Exact = true }) with timeout 5000ms
+  - waiting for GetByRole(AriaRole.Navigation, new() { Name = "Navegação principal" }).GetByRole(AriaRole.Link, new() { Name = "Verificações", Exact = true })
+Aria snapshot:
+- complementary:
+  - link "S SpecAudit":
+    - /url: /projetos
+  - paragraph: ESPAÇO DE TRABALHO
+  - navigation "Navegação principal":
+    - link "Projetos":
+      - /url: /projetos
+    - link "Dashboard":
+      - /url: /dashboard
+    - link "Requisitos":
+      - /url: /requisitos
+    - link "Documentos":
+      - /url: /documentos
+  - paragraph: Documentos SpecKit Origem somente leitura
+- main:
+  - paragraph: SPECAUDIT · AUDITORIA DOCUMENTAL
+  - heading "Projetos" [level=1]
+  - paragraph: Consulte seus documentos SpecKit. A solução permanece somente leitura.
+  - button "Carregar projeto"
+  - paragraph: Para alternar projetos já abertos, use a lista Projeto. Um novo carregamento só acontece após conferir e confirmar as duas pastas.
+  - text: Projeto
+  - combobox "Projeto":
+    - option "origin" [selected]
+  - text: ◇ Somente leitura
+  - paragraph: ORIGEM
+  - heading "origin" [level=2]
+  - paragraph: C:\Users\cwagn\AppData\Local\Temp\SpecAudit-V1-43bcde1430b74cd6bcd9c5dfe89a1a95\origin
+  - paragraph: Documentos autorizados, sem alterações na solução.
+  - paragraph: DESTINO EXTERNO
+  - heading "Relatórios" [level=2]
+  - paragraph: C:\Users\cwagn\AppData\Local\Temp\SpecAudit-V1-43bcde1430b74cd6bcd9c5dfe89a1a95\reports
+  - button "Alterar destino"
+  - paragraph: A troca não move ou exclui relatórios anteriores.
+  - heading "Funcionalidades" [level=2]
+  - text: 2 encontradas Funcionalidade
+  - combobox "Funcionalidade":
+    - option "001-demo" [selected]
+    - option "002-other"
+  - table:
+    - rowgroup:
+      - row "Artefato Estado documental":
+        - columnheader "Artefato"
+        - columnheader "Estado documental"
+    - rowgroup:
+      - row "spec.md Presente":
+        - cell "spec.md"
+        - cell "Presente"
+      - row "plan.md Presente":
+        - cell "plan.md"
+        - cell "Presente"
+      - row "tasks.md Presente":
+        - cell "tasks.md"
+        - cell "Presente"
+  - button "Executar verificação" [disabled]
+  - button "Salvar resultados" [disabled]
+  - text: Verificações e salvamento ainda indisponíveis nesta etapa.
+[xUnit.net 00:00:08.48]       Stack Trace:
+[xUnit.net 00:00:08.48]         /_/src/Playwright/Core/AssertionsBase.cs(95,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title)
+[xUnit.net 00:00:08.48]         /_/src/Playwright/Core/AssertionsBase.cs(69,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options)
+[xUnit.net 00:00:08.48]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(17,0): at SpecAudit.Ui.Tests.NavigationThemeTests.<>c.<<S01FiveAreasKeepProjectContextReadOnlyBadgeAndUnavailablePlaceholders>b__2_0>d.MoveNext()
+[xUnit.net 00:00:08.48]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:08.48]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(103,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:08.48]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(111,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:08.48]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(111,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:08.48]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(111,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:08.48]         --- End of stack trace from previous location ---
+  Com falha SpecAudit.Ui.Tests.NavigationThemeTests.S01FiveAreasKeepProjectContextReadOnlyBadgeAndUnavailablePlaceholders [7 s]
+  Mensagem de erro:
+   Microsoft.Playwright.PlaywrightException : Locator expected to be visible
+Error: element(s) not found 
+Call log:
+  - Expect "ToBeVisibleAsync" GetByRole(AriaRole.Navigation, new() { Name = "Navegação principal" }).GetByRole(AriaRole.Link, new() { Name = "Verificações", Exact = true }) with timeout 5000ms
+  - waiting for GetByRole(AriaRole.Navigation, new() { Name = "Navegação principal" }).GetByRole(AriaRole.Link, new() { Name = "Verificações", Exact = true })
+Aria snapshot:
+- complementary:
+  - link "S SpecAudit":
+    - /url: /projetos
+  - paragraph: ESPAÇO DE TRABALHO
+  - navigation "Navegação principal":
+    - link "Projetos":
+      - /url: /projetos
+    - link "Dashboard":
+      - /url: /dashboard
+    - link "Requisitos":
+      - /url: /requisitos
+    - link "Documentos":
+      - /url: /documentos
+  - paragraph: Documentos SpecKit Origem somente leitura
+- main:
+  - paragraph: SPECAUDIT · AUDITORIA DOCUMENTAL
+  - heading "Projetos" [level=1]
+  - paragraph: Consulte seus documentos SpecKit. A solução permanece somente leitura.
+  - button "Carregar projeto"
+  - paragraph: Para alternar projetos já abertos, use a lista Projeto. Um novo carregamento só acontece após conferir e confirmar as duas pastas.
+  - text: Projeto
+  - combobox "Projeto":
+    - option "origin" [selected]
+  - text: ◇ Somente leitura
+  - paragraph: ORIGEM
+  - heading "origin" [level=2]
+  - paragraph: C:\Users\cwagn\AppData\Local\Temp\SpecAudit-V1-43bcde1430b74cd6bcd9c5dfe89a1a95\origin
+  - paragraph: Documentos autorizados, sem alterações na solução.
+  - paragraph: DESTINO EXTERNO
+  - heading "Relatórios" [level=2]
+  - paragraph: C:\Users\cwagn\AppData\Local\Temp\SpecAudit-V1-43bcde1430b74cd6bcd9c5dfe89a1a95\reports
+  - button "Alterar destino"
+  - paragraph: A troca não move ou exclui relatórios anteriores.
+  - heading "Funcionalidades" [level=2]
+  - text: 2 encontradas Funcionalidade
+  - combobox "Funcionalidade":
+    - option "001-demo" [selected]
+    - option "002-other"
+  - table:
+    - rowgroup:
+      - row "Artefato Estado documental":
+        - columnheader "Artefato"
+        - columnheader "Estado documental"
+    - rowgroup:
+      - row "spec.md Presente":
+        - cell "spec.md"
+        - cell "Presente"
+      - row "plan.md Presente":
+        - cell "plan.md"
+        - cell "Presente"
+      - row "tasks.md Presente":
+        - cell "tasks.md"
+        - cell "Presente"
+  - button "Executar verificação" [disabled]
+  - button "Salvar resultados" [disabled]
+  - text: Verificações e salvamento ainda indisponíveis nesta etapa.
+  Rastreamento de pilha:
+     at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title) in /_/src/Playwright/Core/AssertionsBase.cs:line 95
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 69
+   at SpecAudit.Ui.Tests.NavigationThemeTests.<>c.<<S01FiveAreasKeepProjectContextReadOnlyBadgeAndUnavailablePlaceholders>b__2_0>d.MoveNext() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 17
+--- End of stack trace from previous location ---
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 103
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 111
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 111
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 111
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:16.27]       Microsoft.Playwright.PlaywrightException : Locator expected to have attribute 'data-theme' 'dark'
+But was: 'null' 
+Call log:
+  - Expect "ToHaveAttributeAsync" Locator(".app-shell") with timeout 5000ms
+  - waiting for Locator(".app-shell")
+    14 × locator resolved to <div b-93kbfm2od6="" class="app-shell">…</div>
+       - unexpected value "null"
+Aria snapshot:
+- complementary:
+  - link "S SpecAudit":
+    - /url: /projetos
+  - paragraph: ESPAÇO DE TRABALHO
+  - navigation "Navegação principal"
+  - paragraph: Documentos SpecKit Origem somente leitura
+- main:
+  - paragraph: SPECAUDIT · RASTREABILIDADE DOCUMENTAL
+  - heading "Requisitos" [level=1]
+  - paragraph: Consulte descrição, critérios e vínculos documentais de cada requisito sem analisar código-fonte.
+  - strong: origin
+  - text: "◇ Somente leitura Atual · Geração #0 Funcionalidade"
+  - combobox "Funcionalidade"
+  - text: "Destino externo:"
+  - code: C:\Users\cwagn\AppData\Local\Temp\SpecAudit-V1-a1b82d73c1c04bcfaa93ee664a3e73f0\reports
+  - complementary "Lista de requisitos"
+  - region "Ficha documental do requisito"
+[xUnit.net 00:00:16.27]       Stack Trace:
+[xUnit.net 00:00:16.27]         /_/src/Playwright/Core/AssertionsBase.cs(97,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title)
+[xUnit.net 00:00:16.27]         /_/src/Playwright/Core/AssertionsBase.cs(69,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options)
+[xUnit.net 00:00:16.27]         /_/src/Playwright/Core/AssertionsBase.cs(61,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue textValue, Object expected, String message, String title, FrameExpectOptions options)
+[xUnit.net 00:00:16.27]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(53,0): at SpecAudit.Ui.Tests.NavigationThemeTests.<>c.<<S02ThemeToggleSwitchesDarkAndLightPreservingSelectionAndStates>b__3_0>d.MoveNext()
+[xUnit.net 00:00:16.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:16.27]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(103,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:16.27]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(111,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:16.27]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(111,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:16.27]         D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs(111,0): at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify)
+[xUnit.net 00:00:16.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:16.29]   Finished:    SpecAudit.Ui.Tests
+  Com falha SpecAudit.Ui.Tests.NavigationThemeTests.S02ThemeToggleSwitchesDarkAndLightPreservingSelectionAndStates [7 s]
+  Mensagem de erro:
+   Microsoft.Playwright.PlaywrightException : Locator expected to have attribute 'data-theme' 'dark'
+But was: 'null' 
+Call log:
+  - Expect "ToHaveAttributeAsync" Locator(".app-shell") with timeout 5000ms
+  - waiting for Locator(".app-shell")
+    14 × locator resolved to <div b-93kbfm2od6="" class="app-shell">…</div>
+       - unexpected value "null"
+Aria snapshot:
+- complementary:
+  - link "S SpecAudit":
+    - /url: /projetos
+  - paragraph: ESPAÇO DE TRABALHO
+  - navigation "Navegação principal"
+  - paragraph: Documentos SpecKit Origem somente leitura
+- main:
+  - paragraph: SPECAUDIT · RASTREABILIDADE DOCUMENTAL
+  - heading "Requisitos" [level=1]
+  - paragraph: Consulte descrição, critérios e vínculos documentais de cada requisito sem analisar código-fonte.
+  - strong: origin
+  - text: "◇ Somente leitura Atual · Geração #0 Funcionalidade"
+  - combobox "Funcionalidade"
+  - text: "Destino externo:"
+  - code: C:\Users\cwagn\AppData\Local\Temp\SpecAudit-V1-a1b82d73c1c04bcfaa93ee664a3e73f0\reports
+  - complementary "Lista de requisitos"
+  - region "Ficha documental do requisito"
+  Rastreamento de pilha:
+     at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title) in /_/src/Playwright/Core/AssertionsBase.cs:line 97
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 69
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue textValue, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 61
+   at SpecAudit.Ui.Tests.NavigationThemeTests.<>c.<<S02ThemeToggleSwitchesDarkAndLightPreservingSelectionAndStates>b__3_0>d.MoveNext() in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 53
+--- End of stack trace from previous location ---
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 103
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 111
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 111
+   at SpecAudit.Ui.Tests.NavigationThemeTests.WithLoadedProjectAsync(Func`2 verify) in D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\NavigationThemeTests.cs:line 111
+--- End of stack trace from previous location ---
+
+Total de testes: 2
+     Com falha: 2
+Tempo total: 16,7602 Segundos
