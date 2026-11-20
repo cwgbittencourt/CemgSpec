@@ -89,6 +89,19 @@ else
                 }
             </div>
 
+            @if (isRunning)
+            {
+                <div class="v-running-banner" role="status" aria-live="polite">
+                    <div class="v-running-head">
+                        <span class="v-spinner" aria-hidden="true"></span>
+                        <strong>@runningStatusText</strong>
+                        <span class="v-elapsed">@ElapsedDisplay</span>
+                    </div>
+                    <div class="v-progress-track" aria-hidden="true"><div class="v-progress-bar"></div></div>
+                    <p class="muted small">Processo ativo aguardando resposta do agente documental. Você pode interromper a qualquer momento em <strong>Cancelar</strong>.</p>
+                </div>
+            }
+
             @if (Compact && latestCompactRun is not null)
             {
                 <div class="v-compact-result" role="region" aria-label="Resultado da verificação">
@@ -190,6 +203,19 @@ else
                 }
             </div>
 
+            @if (isRunning)
+            {
+                <div class="v-running-banner" role="status" aria-live="polite">
+                    <div class="v-running-head">
+                        <span class="v-spinner" aria-hidden="true"></span>
+                        <strong>@runningStatusText</strong>
+                        <span class="v-elapsed">@ElapsedDisplay</span>
+                    </div>
+                    <div class="v-progress-track" aria-hidden="true"><div class="v-progress-bar"></div></div>
+                    <p class="muted small">Processo ativo aguardando resposta do agente documental. Você pode interromper a qualquer momento em <strong>Cancelar</strong>.</p>
+                </div>
+            }
+
             @if (Compact && latestCompactRun is not null)
             {
                 <div class="v-compact-result" role="region" aria-label="Resultado da verificação">
@@ -229,8 +255,49 @@ else
     private string revisionSourceLabel = "Derivada do artefato autorizado (não copiada do registro)";
     private bool revisionEditedByUser;
     private bool isRunning;
+    private string runningStatusText = "Executando verificação...";
+    private DateTimeOffset? runStartedUtc;
+    private CancellationTokenSource? timerCts;
     private CancellationTokenSource? runCts;
     private VerificationRun? latestCompactRun;
+
+    private string ElapsedDisplay
+    {
+        get
+        {
+            if (runStartedUtc is not { } started) return "00:00";
+            var elapsed = DateTimeOffset.UtcNow - started;
+            if (elapsed < TimeSpan.Zero) elapsed = TimeSpan.Zero;
+            return $"{(int)elapsed.TotalMinutes:00}:{elapsed.Seconds:00}";
+        }
+    }
+
+    private void StartLiveTimer(string statusText)
+    {
+        StopLiveTimer();
+        runningStatusText = statusText;
+        runStartedUtc = DateTimeOffset.UtcNow;
+        var cts = new CancellationTokenSource();
+        timerCts = cts;
+        _ = Task.Run(async () =>
+        {
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            try
+            {
+                while (await timer.WaitForNextTickAsync(cts.Token))
+                    await InvokeAsync(StateHasChanged);
+            }
+            catch (OperationCanceledException) { }
+        });
+    }
+
+    private void StopLiveTimer()
+    {
+        timerCts?.Cancel();
+        timerCts?.Dispose();
+        timerCts = null;
+        runStartedUtc = null;
+    }
 
     protected override void OnInitialized()
     {
@@ -407,6 +474,7 @@ else
 
         isRunning = true;
         runCts = new CancellationTokenSource();
+        StartLiveTimer($"Executando speckit-analyze ({selectedAgent.DisplayName})...");
         StateHasChanged();
 
         try
@@ -421,6 +489,7 @@ else
         finally
         {
             isRunning = false;
+            StopLiveTimer();
             runCts.Dispose();
             runCts = null;
             latestCompactRun = run;
@@ -527,6 +596,7 @@ else
 
         isRunning = true;
         runCts = new CancellationTokenSource();
+        StartLiveTimer($"Executando check_gate ({selectedStage})...");
         StateHasChanged();
 
         try
@@ -536,6 +606,7 @@ else
         finally
         {
             isRunning = false;
+            StopLiveTimer();
             runCts.Dispose();
             runCts = null;
             latestCompactRun = run;
@@ -568,6 +639,7 @@ else
         ProjectStore.Changed -= OnProjectChanged;
         VerificationStore.Changed -= OnVerificationChanged;
         AgentStore.Changed -= OnVerificationChanged;
+        StopLiveTimer();
         runCts?.Cancel();
         runCts?.Dispose();
     }

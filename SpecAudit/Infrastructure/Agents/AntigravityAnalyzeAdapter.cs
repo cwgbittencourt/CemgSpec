@@ -160,9 +160,22 @@ public sealed class AntigravityAnalyzeAdapter
             if (!result.RootTerminationConfirmed || result.TimedOut || result.LimitExceeded || result.ExitCode != 0 ||
                 AuthenticationRequired(result.Error))
             {
-                var reason = AuthenticationRequired(result.Error) || AuthenticationRequired(result.Output)
-                    ? "Autenticação Antigravity ausente ou inválida no perfil isolado."
-                    : "Execução Antigravity falhou, excedeu os limites ou não concluiu.";
+                string reason;
+                if (AuthenticationRequired(result.Error) || AuthenticationRequired(result.Output))
+                    reason = "Autenticação Antigravity ausente ou inválida.";
+                else if (result.TimedOut)
+                    reason = "Tempo limite excedido (timeout) aguardando resposta do Antigravity. Tente novamente ou reduza o escopo.";
+                else if (result.LimitExceeded)
+                    reason = "A saída do Antigravity excedeu o limite operacional de tamanho permitido.";
+                else if (!result.RootTerminationConfirmed)
+                    reason = "Não foi possível confirmar o encerramento do processo Antigravity.";
+                else
+                {
+                    var detail = SummarizeError(result.Error);
+                    reason = string.IsNullOrWhiteSpace(detail)
+                        ? $"Antigravity encerrou com código de saída {result.ExitCode}."
+                        : $"Antigravity encerrou com código {result.ExitCode}: {detail}";
+                }
                 run.MarkFailed(reason, result.ExitCode, terminationConfirmed: result.RootTerminationConfirmed);
                 return null;
             }
@@ -216,6 +229,15 @@ public sealed class AntigravityAnalyzeAdapter
         text.Contains("not authenticated", StringComparison.OrdinalIgnoreCase) ||
         text.Contains("login required", StringComparison.OrdinalIgnoreCase) ||
         text.Contains("401 Unauthorized", StringComparison.OrdinalIgnoreCase);
+
+    private static string SummarizeError(string? stderr)
+    {
+        if (string.IsNullOrWhiteSpace(stderr)) return string.Empty;
+        var firstLine = stderr
+            .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .FirstOrDefault() ?? string.Empty;
+        return firstLine.Length > 220 ? firstLine[..220] + "…" : firstLine;
+    }
 
     private static string ExtractDocumentaryResult(string output)
     {
