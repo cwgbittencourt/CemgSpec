@@ -1,0 +1,30 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.07]   Discovering: SpecAudit.Tests
+[xUnit.net 00:00:00.11]   Discovered:  SpecAudit.Tests
+[xUnit.net 00:00:00.12]   Starting:    SpecAudit.Tests
+  Aprovado SpecAudit.Tests.RuntimeBaselineTests.DevelopmentUsesSupportedStableRuntime [6 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.SessionAndFeatureIdsCannotCrossProjects [7 ms]
+  Aprovado SpecAudit.Tests.LocalSessionServiceTests.RefusesServiceWithoutHostIssuedSession [13 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.AssessmentRequiresActualChecksAndMatchingVersionPolicyEnvironment [5 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.SnapshotsOwnTheirBytesAndHashReadContent [3 ms]
+  Aprovado SpecAudit.Tests.LocalSessionServiceTests.RejectsUnissuedTokenAndForeignSessionOwnership [6 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.SelectionDoesNotCreateRunAndRejectsUnknownVerification [3 ms]
+  Aprovado SpecAudit.Tests.DocumentaryProgressTests.S02ProjectionExposesRecordedGateStatesWithProvenanceWithoutImplementationScore [71 ms]
+  Aprovado SpecAudit.Tests.DocumentaryProgressTests.S04ProjectionMarksStaleOnCatalogChangeAndUpdatesWithoutExecutingAgentsOrGates [43 ms]
+  Aprovado SpecAudit.Tests.DocumentaryProgressTests.S03ProjectionReportsMissingLinksDuplicatesBlockersAndUnverifiedCodeReferences [37 ms]
+  Aprovado SpecAudit.Tests.DocumentaryProgressTests.V1DomainForbidsCodeAnalysisAndImplementationScoreEntities [2 ms]
+  Aprovado SpecAudit.Tests.DocumentNavigationTests.S01PreviewReferencesOnlyAuthorizeCataloguedDestinations [158 ms]
+  Aprovado SpecAudit.Tests.MarkdownRendererTests.RendersDocumentStructureAndPreservesMarkdownSource [160 ms]
+[xUnit.net 00:00:00.34]   Finished:    SpecAudit.Tests
+  Aprovado SpecAudit.Tests.DocumentaryProgressTests.S01ProjectionComputesDeclaredProgressDocumentaryCoverageAndEmptyNoItems [34 ms]
+  Aprovado SpecAudit.Tests.MarkdownRendererTests.DropsActiveMarkupAndKeepsDestinationsInert [30 ms]
+  Aprovado SpecAudit.Tests.MarkdownRendererTests.ReportsInvalidUtf8 [< 1 ms]
+
+Execução de Teste Bem-sucedida.
+Total de testes: 16
+     Aprovados: 16
+Tempo total: 0,7618 Segundos
