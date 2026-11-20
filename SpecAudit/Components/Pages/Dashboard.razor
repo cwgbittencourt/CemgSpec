@@ -160,9 +160,6 @@
                 <button type="button" class="chip warn @(activeChipFilter == "gaps" ? "chip-active" : "")" @onclick='() => ToggleChipFilter("gaps")'>
                     ◆ @projection.Occurrences.Count(o => o.Category is DocumentaryOccurrenceCategory.RequirementWithoutTask or DocumentaryOccurrenceCategory.TaskWithoutRequirement or DocumentaryOccurrenceCategory.DuplicateRequirementId or DocumentaryOccurrenceCategory.DuplicateTaskId or DocumentaryOccurrenceCategory.InvalidReference or DocumentaryOccurrenceCategory.MissingArtifact) lacunas e inconsistências
                 </button>
-                <button type="button" class="chip info @(activeChipFilter == "code" ? "chip-active" : "")" @onclick='() => ToggleChipFilter("code")'>
-                    ◇ @projection.Occurrences.Count(o => o.Category == DocumentaryOccurrenceCategory.UnverifiedCodeReference) referências a código não verificadas
-                </button>
             </div>
 
             <div class="dash-columns">
