@@ -14,6 +14,16 @@ public sealed partial class DocumentaryDashboardService
     private static bool IsArchivedPath(string relativePath) =>
         relativePath.Contains("\\archive\\", StringComparison.OrdinalIgnoreCase) ||
         relativePath.Contains("/archive/", StringComparison.OrdinalIgnoreCase);
+
+    private static bool IsSetupOrFoundationPhase(string? phase) =>
+        !string.IsNullOrWhiteSpace(phase) && (
+            phase.Contains("Preparação", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Setup", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Fundação", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Foundational", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Regressão", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Fechamento", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Polish", StringComparison.OrdinalIgnoreCase));
     private readonly Dictionary<string, DashboardProjection> cache = new(StringComparer.Ordinal);
 
     public DashboardProjection Build(OpenProjectContext project, DashboardFilter? filter = null)
@@ -106,14 +116,16 @@ public sealed partial class DocumentaryDashboardService
             var tasksByReq = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
             foreach (var task in featureTasks)
             {
-                if (task.ExplicitRequirementRefs.Count == 0)
+                if (task.ExplicitRequirementRefs.Count == 0 &&
+                    string.IsNullOrWhiteSpace(task.StoryRef) &&
+                    !IsSetupOrFoundationPhase(task.Phase))
                 {
                     allOccurrences.Add(new(
                         Guid.NewGuid(), feature.FeatureId, feature.Title,
                         DocumentaryOccurrenceCategory.TaskWithoutRequirement,
                         DocumentaryOccurrenceSeverity.Low,
-                        $"Tarefa sem vínculo explícito a requisito: {task.Key.LocalId}",
-                        $"A tarefa {task.Key.LocalId} em {task.SourceLocation.RelativePath}:{task.SourceLocation.LineNumber} não cita nenhum requisito explícito.",
+                        $"Tarefa sem vínculo explícito a requisito ou história: {task.Key.LocalId}",
+                        $"A tarefa {task.Key.LocalId} em {task.SourceLocation.RelativePath}:{task.SourceLocation.LineNumber} não cita requisito (FR-xxx) nem história ([USx]).",
                         task.SourceLocation, task.Phase, task.StoryRef, "Sem vínculo"));
                 }
                 foreach (var reqId in task.ExplicitRequirementRefs)
