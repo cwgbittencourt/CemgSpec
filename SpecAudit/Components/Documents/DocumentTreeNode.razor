@@ -1,0 +1,45 @@
+@* One folder level of the document tree. Files open only by catalog DocumentId. *@
+<li role="treeitem" aria-label="@Folder.Name" aria-level="@Level" aria-expanded="@(Expanded ? "true" : "false")" class="tree-folder">
+    <div class="tree-row tree-folder-row" @onclick="() => OnToggle.InvokeAsync(Folder.Key)">
+        <span class="tree-caret" aria-hidden="true">@(Expanded ? "▾" : "▸")</span><span class="tree-folder-icon" aria-hidden="true"></span><span class="tree-label">@Folder.Name</span>
+    </div>
+    @if (Expanded)
+    {
+        <ul role="group">
+            @foreach (var file in Folder.Files)
+            {
+                var selected = file.Entry.DocumentId == SelectedId;
+                <li @key="file.Entry.DocumentId" role="treeitem" aria-level="@(Level + 1)" aria-selected="@(selected ? "true" : "false")" tabindex="0"
+                    class="@(selected ? "tree-row tree-file selected" : "tree-row tree-file")" title="@file.DisplayPath"
+                    @onclick="() => OnOpen.InvokeAsync(file.Entry.DocumentId)" @onkeydown="args => KeyOpen(args, file.Entry.DocumentId)">
+                    <span class="tree-file-icon" aria-hidden="true"></span><span class="tree-label">@file.Name</span>
+                    @if (file.ByContent)
+                    {
+                        <span class="tree-match">conteúdo</span>
+                    }
+                </li>
+            }
+            @foreach (var child in Folder.Folders)
+            {
+                <DocumentTreeNode @key="child.Key" Folder="child" Level="Level + 1" SelectedId="SelectedId" Collapsed="Collapsed"
+                                  Searching="Searching" OnToggle="OnToggle" OnOpen="OnOpen" />
+            }
+        </ul>
+    }
+</li>
+
+@code {
+    [Parameter, EditorRequired] public DocumentTreeFolder Folder { get; set; } = null!;
+    [Parameter] public int Level { get; set; } = 1;
+    [Parameter] public Guid? SelectedId { get; set; }
+    [Parameter, EditorRequired] public IReadOnlySet<string> Collapsed { get; set; } = null!;
+    [Parameter] public bool Searching { get; set; }
+    [Parameter] public EventCallback<string> OnToggle { get; set; }
+    [Parameter] public EventCallback<Guid> OnOpen { get; set; }
+
+    private bool Expanded => Searching || !Collapsed.Contains(Folder.Key);
+
+    private Task KeyOpen(KeyboardEventArgs args, Guid id) =>
+        args.Key is "Enter" or " " ? OnOpen.InvokeAsync(id) : Task.CompletedTask;
+}
+

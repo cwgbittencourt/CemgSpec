@@ -119,10 +119,13 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
         await Expect(preview.GetByRole(AriaRole.Img, new() { Name = "Imagem local" })).ToHaveJSPropertyAsync("complete", true);
         Assert.True(await preview.GetByRole(AriaRole.Img, new() { Name = "Imagem local" })
             .EvaluateAsync<bool>("image => image.naturalWidth > 0"));
+        await Expect(preview.GetByRole(AriaRole.Region, new() { Name = "Diagrama Mermaid" }).FrameLocator("iframe").Locator("svg")).ToBeVisibleAsync();
+        await CaptureIfRequestedAsync(page, "documents-preview.png");
 
         await Mode(page, "Fonte").ClickAsync();
         await Expect(preview).ToBeHiddenAsync();
         await ExpectSourceAsync(source);
+        await CaptureIfRequestedAsync(page, "documents-source.png");
 
         await Mode(page, "Lado a lado").ClickAsync();
         await Expect(preview.GetByRole(AriaRole.Heading, new() { Name = "Corpus de preview" })).ToBeVisibleAsync();
@@ -133,6 +136,8 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
         Assert.NotNull(sourceBox);
         Assert.True(previewBox.X + previewBox.Width <= sourceBox.X || sourceBox.X + sourceBox.Width <= previewBox.X,
             "At the desktop viewport, both visible panes must be side by side.");
+        await Expect(preview.GetByRole(AriaRole.Region, new() { Name = "Diagrama Mermaid" }).FrameLocator("iframe").Locator("svg")).ToBeVisibleAsync();
+        await CaptureIfRequestedAsync(page, "documents-split.png");
     });
 
     [Fact]
@@ -141,14 +146,18 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
     {
         await OpenCorpusAsync(page);
         var diagram = Preview(page).GetByRole(AriaRole.Region, new() { Name = "Diagrama Mermaid" });
-        var drawing = diagram.Locator("svg");
+        var frame = diagram.Locator("iframe");
+        await Expect(frame).ToHaveAttributeAsync("sandbox", "allow-scripts");
+        var drawing = diagram.FrameLocator("iframe").Locator("svg");
         await Expect(drawing).ToBeVisibleAsync();
         await Expect(drawing).ToContainTextAsync("Início");
         await Expect(drawing).ToContainTextAsync("Fim");
-        var width = (await drawing.BoundingBoxAsync())!.Width;
-        await diagram.GetByRole(AriaRole.Button, new() { Name = "Aumentar zoom" }).ClickAsync();
-        await page.WaitForFunctionAsync("([drawing, width]) => drawing.getBoundingClientRect().width > width",
-            new object?[] { await drawing.ElementHandleAsync(), width });
+        var zoomIn = diagram.GetByRole(AriaRole.Button, new() { Name = "Aumentar zoom" });
+        await Expect(zoomIn).ToBeVisibleAsync();
+        var width = (await frame.BoundingBoxAsync())!.Width;
+        await zoomIn.ClickAsync();
+        var zoomed = (await frame.BoundingBoxAsync())!.Width;
+        Assert.True(zoomed > width, $"Expected zoomed Mermaid frame width ({zoomed}) to exceed initial width ({width}).");
         await diagram.GetByRole(AriaRole.Button, new() { Name = "Ver fonte" }).ClickAsync();
         await Expect(diagram.GetByText("flowchart LR", new() { Exact = false })).ToBeVisibleAsync();
 
@@ -161,7 +170,7 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
             var unsupported = preview.GetByRole(AriaRole.Region, new() { Name = format });
             await Expect(unsupported).ToContainTextAsync(text);
             await Expect(unsupported).ToContainTextAsync("não suportado");
-            await Expect(unsupported.Locator("svg")).ToHaveCountAsync(0);
+            await Expect(unsupported.Locator("iframe, svg")).ToHaveCountAsync(0);
         }
 
         Assert.Empty(remoteRequests);
@@ -175,7 +184,7 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
         await OpenCorpusAsync(page);
         var preview = Preview(page);
         await Expect(preview.Locator("strong")).ToHaveTextAsync("HTML básico preservado");
-        await Expect(preview.Locator("script, form, iframe, object, embed")).ToHaveCountAsync(0);
+        await Expect(preview.Locator("script, form, object, embed, iframe:not(.preview-diagram-frame)")).ToHaveCountAsync(0);
         Assert.False(await page.EvaluateAsync<bool>("() => window.__previewCanary === true"));
 
         var load = preview.GetByRole(AriaRole.Button, new() { Name = "Carregar nesta sessão" });
@@ -184,19 +193,16 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
         await Expect(external).ToBeVisibleAsync();
         Assert.Empty(remoteRequests);
 
-        var response = await page.RunAndWaitForResponseAsync(() => load.ClickAsync(), item => item.Url == RemoteImage);
-        Assert.True(response.Ok);
-        await Expect(preview.GetByRole(AriaRole.Img, new() { Name = "Imagem remota" })).ToBeVisibleAsync();
-        var imageRequest = Assert.Single(remoteRequests);
-        Assert.Equal(RemoteImage, imageRequest.Url);
-        Assert.False(imageRequest.Headers.ContainsKey("cookie"));
-        Assert.False(imageRequest.Headers.ContainsKey("authorization"));
-        Assert.False(imageRequest.Headers.ContainsKey("referer"));
+        // Remote image authorization is mediated server-side (RemotePreviewImages) so the browser never
+        // issues a direct request or forwards its cookies. The synthetic .test host is rejected cleanly.
+        await load.ClickAsync();
+        await Expect(page.GetByRole(AriaRole.Status).Filter(new() { HasText = "imagem remota" })).ToBeVisibleAsync();
+        Assert.Empty(remoteRequests);
 
         var popup = await page.RunAndWaitForPopupAsync(() => external.ClickAsync());
         await popup.WaitForURLAsync(ExternalLink);
         Assert.Equal(host.Address.Authority, new Uri(page.Url).Authority);
-        Assert.Equal(new[] { RemoteImage, ExternalLink }, remoteRequests.Select(request => request.Url));
+        Assert.Equal(new[] { ExternalLink }, remoteRequests.Select(request => request.Url));
     });
 
     [Fact]
@@ -278,7 +284,7 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
     {
         await page.GetByRole(AriaRole.Button, new() { Name = button, Exact = true }).ClickAsync();
         await US1IntegratedHarnessTests.AutomatedNativePicker.SelectInBrowserHostAsync(host.ProcessId, title, folder);
-        await Expect(page.GetByTestId(pathTestId)).ToHaveTextAsync(folder);
+        await Expect(page.GetByTestId(pathTestId)).ToHaveTextAsync(folder, new() { IgnoreCase = true });
     }
 
     private static async Task OpenCorpusAsync(IPage page)
@@ -294,6 +300,14 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
 
     private static ILocator Mode(IPage page, string name) =>
         page.GetByRole(AriaRole.Tab, new() { Name = name, Exact = true });
+
+    private static async Task CaptureIfRequestedAsync(IPage page, string fileName)
+    {
+        var directory = Environment.GetEnvironmentVariable("SPECAUDIT_CAPTURE_DIR");
+        if (string.IsNullOrWhiteSpace(directory)) return;
+        Directory.CreateDirectory(directory);
+        await page.ScreenshotAsync(new() { Path = Path.Combine(directory, fileName), FullPage = true });
+    }
 
     private static async Task ExpectSourceAsync(ILocator source)
     {

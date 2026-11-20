@@ -1,0 +1,117 @@
+  SpecAudit -> D:\Codex_Workspace\Projetos\SpecAudit\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
+  SpecAudit.CommandFixture -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.CommandFixture\bin\Debug\net10.0\SpecAudit.CommandFixture.dll
+  SpecAudit.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Tests\bin\Debug\net10.0\SpecAudit.Tests.dll (.NETCoreApp,Version=v10.0)
+  SpecAudit.Windows.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+1 arquivos de teste no total corresponderam ao padrão especificado.
+D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\ExplicitSelectionFlowTests.cs(25,112): warning CS8602: Desreferência de uma referência possivelmente nula. [D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj]
+  SpecAudit.Ui.Tests -> D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll
+Execução de teste para D:\Codex_Workspace\Projetos\SpecAudit\tests\SpecAudit.Ui.Tests\bin\Debug\net10.0\SpecAudit.Ui.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.15)
+[xUnit.net 00:00:00.07]   Discovering: SpecAudit.Tests
+[xUnit.net 00:00:00.08]   Discovering: SpecAudit.Windows.Tests
+[xUnit.net 00:00:00.11]   Discovered:  SpecAudit.Tests
+[xUnit.net 00:00:00.13]   Starting:    SpecAudit.Tests
+[xUnit.net 00:00:00.13]   Discovered:  SpecAudit.Windows.Tests
+[xUnit.net 00:00:00.16]   Starting:    SpecAudit.Windows.Tests
+[xUnit.net 00:00:00.41]   Discovering: SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.49]   Discovered:  SpecAudit.Ui.Tests
+[xUnit.net 00:00:00.51]   Starting:    SpecAudit.Ui.Tests
+  Aprovado SpecAudit.Tests.RuntimeBaselineTests.DevelopmentUsesSupportedStableRuntime [6 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.SessionAndFeatureIdsCannotCrossProjects [8 ms]
+  Aprovado SpecAudit.Tests.LocalSessionServiceTests.RefusesServiceWithoutHostIssuedSession [15 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.AssessmentRequiresActualChecksAndMatchingVersionPolicyEnvironment [5 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.SnapshotsOwnTheirBytesAndHashReadContent [3 ms]
+  Aprovado SpecAudit.Tests.LocalSessionServiceTests.RejectsUnissuedTokenAndForeignSessionOwnership [6 ms]
+  Aprovado SpecAudit.Tests.SessionContractTests.SelectionDoesNotCreateRunAndRejectsUnknownVerification [3 ms]
+  Aprovado SpecAudit.Tests.MarkdownRendererTests.RendersDocumentStructureAndPreservesMarkdownSource [205 ms]
+[xUnit.net 00:00:00.43]   Finished:    SpecAudit.Tests
+  Aprovado SpecAudit.Tests.MarkdownRendererTests.DropsActiveMarkupAndKeepsDestinationsInert [31 ms]
+  Aprovado SpecAudit.Tests.MarkdownRendererTests.ReportsInvalidUtf8 [< 1 ms]
+  Aprovado SpecAudit.Tests.DocumentNavigationTests.S01PreviewReferencesOnlyAuthorizeCataloguedDestinations [270 ms]
+
+Execução de Teste Bem-sucedida.
+Total de testes: 11
+     Aprovados: 11
+Tempo total: 2,3204 Segundos
+  Aprovado SpecAudit.Windows.Tests.PlatformBaselineTests.WindowsBoundarySuiteRunsOnWindowsX64 [6 ms]
+  Aprovado SpecAudit.Windows.Tests.CapabilityContractTests.MissingOrIncompleteProofCannotEnableCapability [26 ms]
+  Aprovado SpecAudit.Windows.Tests.ExecutionContractTests.ChannelRejectsForeignRunTokenAndGenerationAndRevokesOnDispose [52 ms]
+  Aprovado SpecAudit.Windows.Tests.CapabilityContractTests.CalibratedBoundariesRejectExcessWithoutPartialSuccess [151 ms]
+  Aprovado SpecAudit.Windows.Tests.DocumentaryFixtureTests.JunctionSwapCanBeReproducedAtAnExplicitRaceBarrier [289 ms]
+  Aprovado SpecAudit.Windows.Tests.ReaderBoundaryTests.ApplicationBrokerRemainsReadOnlyWhenOriginHasBroadApplicationAcl [314 ms]
+  Aprovado SpecAudit.Windows.Tests.PrACorrectionTests.ConstitutionIsCataloguedHasHashAndDetectsMetadataPreservingEdit(withSpecs: True) [318 ms]
+  Aprovado SpecAudit.Windows.Tests.ReaderBoundaryTests.ReplacedFileAndChangedGenerationDoNotReturnSnapshot [1 s]
+  Aprovado SpecAudit.Windows.Tests.PrACorrectionTests.ConstitutionIsCataloguedHasHashAndDetectsMetadataPreservingEdit(withSpecs: False) [1 s]
+  Aprovado SpecAudit.Windows.Tests.DocumentaryFixtureTests.CreatesIndependentProjectsWithKnownCountsAndNegativeGateRecords [1 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.PendingFolderFlowRejectsSecondOpeningAndResetsAfterCancel [1 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.DisposingServiceCancelsPendingWorkWithoutSaving [1 s]
+  Aprovado SpecAudit.Ui.Tests.ExplicitSelectionFlowTests.RejectedDestinationRetainsActualSelectionsAndRetryLoadsSeparateContexts [1 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.SwitchingProjectCancelsOnlyItsOwnWorkWithoutSaving [351 ms]
+  Aprovado SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: "plan.md") [2 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectOpeningRegressionTests.ReopeningSameOriginSelectsExistingContextWithoutDuplicateAndKeepsOtherProject [601 ms]
+  Aprovado SpecAudit.Ui.Tests.HostBaselineTests.BrowserAutomationRuntimeCanInitialize [2 s]
+  Aprovado SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: "tasks.md") [610 ms]
+  Aprovado SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutAntiforgery [16 ms]
+  Aprovado SpecAudit.Ui.Tests.PrAArtifactPresenceTests.RenderedArtifactStatusUsesFeatureRootAndWindowsCaseRules(name: "spec.md") [347 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "::ffff:127.0.0.1", expected: False) [5 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "192.0.2.1", expected: False) [< 1 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "2001:db8::1", expected: False) [< 1 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "fe80::1", expected: False) [< 1 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "2606:4700::1111", expected: True) [< 1 ms]
+  Aprovado SpecAudit.Windows.Tests.ReaderBoundaryTests.ExternalEditDuringReadRejectsMixedSnapshotAndPreservesEdit [170 ms]
+  Aprovado SpecAudit.Windows.Tests.TrustedCommandRunnerTests.SendsSelectedInputAndCapturesActualOutputWithoutOriginChanges [2 s]
+  Aprovado SpecAudit.Windows.Tests.ReaderBoundaryTests.RejectsJunctionAtActualOpenBeforeReadingAnyBytes [268 ms]
+  Aprovado SpecAudit.Windows.Tests.ReaderBoundaryTests.CatalogReadsOnlyRecognizedDocumentsAndRejectsForeignIds [265 ms]
+  Aprovado SpecAudit.Windows.Tests.TrustedCommandRunnerTests.ExcessOutputIsExplicitFailureAndTimeoutTerminatesOwnProcessTree [2 s]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "127.0.0.1", expected: False) [< 1 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "10.0.0.1", expected: False) [< 1 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "169.254.169.254", expected: False) [< 1 ms]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RemoteTransportOnlyDialsPublicAddresses(address: "8.8.8.8", expected: True) [< 1 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.UncataloguedMarkdownAndCodeDoNotInvalidateDocuments [2 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.SelectedFoldersLoadTwoFeaturesAndCancelDoesNotCreateProject [116 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.ContextAndExistingHistoryStaySeparatedWhenChangingOutput [171 ms]
+[xUnit.net 00:00:06.02]   Finished:    SpecAudit.Windows.Tests
+  Aprovado SpecAudit.Windows.Tests.TrustedCommandRunnerTests.ArgumentsAreDataAndUnknownOperationOrUntrustedLocationsAreRejected [1 s]
+
+Execução de Teste Bem-sucedida.
+Total de testes: 16
+     Aprovados: 16
+Tempo total: 7,9136 Segundos
+  Aprovado SpecAudit.Ui.Tests.ProjectCorrectionTests.RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry(dimension: "document-bytes") [5 s]
+  Aprovado SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsMutationWithoutOrigin [2 s]
+  Aprovado SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsUnissuedSessionOnMutation [1 s]
+  Aprovado SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignOrigin [7 ms]
+  Aprovado SpecAudit.Ui.Tests.LocalSessionHttpTests.RejectsForeignHost [5 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.RefreshSynchronizesAddedFeaturesAndPreservesExistingIdentities [2 s]
+  Aprovado SpecAudit.Ui.Tests.LocalSessionHttpTests.IssuesSeparateHttpOnlyStrictSessionCookies [14 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.RenamingRecognizedDocumentOutOfCatalogInvalidatesVersion [132 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.DocumentaryDirectoriesCreatedAfterOpeningAreObserved [1 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.RemovingDocumentDirectoryWithDotInNameInvalidatesCatalog [1 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectCorrectionTests.RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry(dimension: "evidence-graph") [4 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.ExternalDocumentEditInvalidatesSnapshotAndRefreshPreservesDocumentIdentity [1 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.CapturedVersionIsCancelledByEditAndCannotBeReusedAfterRefresh [4 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectSelectionTests.InternalAndJunctionDestinationsAreRejectedWithoutWritingOrigin [859 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectCorrectionTests.OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection(dimension: "document-bytes") [6 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectPageBrowserTests.BrowserShowsExplicitSelectionStagesAndCancelsWithoutLoading [14 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectCorrectionTests.OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection(dimension: "evidence-graph") [1 s]
+  Aprovado SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: ".specify/memory") [584 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: "specs/001-demo/evidence/round.1") [530 ms]
+  Aprovado SpecAudit.Ui.Tests.ProjectCorrectionTests.DirectoryMetadataKeepsUnchangedDocumentsAndWorkCurrent(relativeDirectory: "specs/001-demo") [465 ms]
+  Aprovado SpecAudit.Ui.Tests.MarkdownPreviewTests.BrowserCanPrepareCorpusWithNativeDialogs [17 s]
+  Aprovado SpecAudit.Ui.Tests.PreviewAssetsTests.RendersOnlyMermaidWithLocalAssetsAndKeepsFallbackSource [17 s]
+  Aprovado SpecAudit.Ui.Tests.MarkdownPreviewTests.S02PreviewSourceAndSplitUseTheSameReadOnlyDocument [7 s]
+  Aprovado SpecAudit.Ui.Tests.MarkdownPreviewTests.S04ActiveContentIsInertAndExternalRequestsRequireAnAction [25 s]
+  Aprovado SpecAudit.Ui.Tests.MarkdownPreviewTests.S01SearchTreeAndFollowOnlyAuthorisedDocumentLinks [3 s]
+[xUnit.net 00:01:07.04]   Finished:    SpecAudit.Ui.Tests
+  Aprovado SpecAudit.Ui.Tests.MarkdownPreviewTests.S03MermaidRendersOfflineAndOtherDiagramsShowSourceAndExplanation [9 s]
+
+Execução de Teste Bem-sucedida.
+Total de testes: 48
+     Aprovados: 48
+Tempo total: 1,1356 Minutos
