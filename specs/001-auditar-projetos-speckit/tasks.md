@@ -120,10 +120,10 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 
 - [x] T043 [US8] Escrever testes US8-S01/S02 em tests/SpecAudit.Ui.Tests/NavigationThemeTests.cs com estados indisponíveis de verificações e Salvar. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
 - [x] T044 [US8] Implementar navegação/tema em SpecAudit/Components/Layout/MainLayout.razor e SpecAudit/wwwroot/app.css; azul/lilás/branco/cinza, escuro inicial e claro opcional, preferência só na sessão. Criar apenas placeholders indisponíveis das áreas Verificações/Sugestões nesses arquivos para que a navegação não dependa de PR-C/E futuros. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
-- [ ] T045 [US8] Executar os cenários US8-S01/S02 / US8-AC01/02 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US8-validation.md.
-- [ ] T046 [US8] Revisar diff, critérios, contratos, segurança e resultados da versão de US8 em evidence/US8-review.md, declarando autorrevisão.
-- [ ] T047 [US8] Resolver achados de US8 e repetir checks afetados em evidence/US8-validation.md e evidence/US8-review.md; se nenhum, registrar referência à revisão real.
-- [ ] T048 [US8] Consolidar e conferir roteiro reproduzível em validation/US8-dev.md e registrar estado técnico em acceptance/US8.md, mantendo decisão do DEV pendente.
+- [x] T045 [US8] Executar os cenários US8-S01/S02 / US8-AC01/02 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US8-validation.md.
+- [x] T046 [US8] Revisar diff, critérios, contratos, segurança e resultados da versão de US8 em evidence/US8-review.md, declarando autorrevisão.
+- [x] T047 [US8] Resolver achados de US8 e repetir checks afetados em evidence/US8-validation.md e evidence/US8-review.md; se nenhum, registrar referência à revisão real.
+- [x] T048 [US8] Consolidar e conferir roteiro reproduzível em validation/US8-dev.md e registrar estado técnico em acceptance/US8.md, mantendo decisão do DEV pendente.
 - [ ] T049 [US8] Executar a verificação do incremento PR-B e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-B-validation.md.
 - [ ] T050 [US8] Revisar o incremento completo PR-B em evidence/PR-B-review.md com diff incremental, limites e achados por arquivo/linha.
 - [ ] T051 [US8] Resolver e revalidar achados do PR-B em evidence/PR-B-validation.md e evidence/PR-B-review.md; registrar nenhum achado somente com review real.
