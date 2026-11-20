@@ -10,9 +10,14 @@ namespace SpecAudit.Infrastructure.Agents;
 
 public sealed class AntigravityAnalyzeAdapter
 {
+    public const string PolicyVersion = "v4";
+    public const string PlatformFingerprint = "win-x64";
+    public const string VerifiedAntigravityVersion = "1.5.13";
+    public const string VerifiedAntigravitySha256 = "91bd7720100dec46acd5a852e8291e5704eb753f5801c625950a15dc414fdf0a";
+
     private const string RestrictedSettings = """
         {"agentMode":"","toolPermission":"strict","allowNonWorkspaceAccess":false,
-         "historySize":0,"enableTelemetry":false,"permissions":{"allow":[],"ask":[],
+         "historySize":0,"permissions":{"allow":[],"ask":[],
          "deny":["read_file(*)","write_file(*)","read_url(*)","execute_url(*)","download_url(*)","command(*)","mcp(*)"]}}
         """;
 
@@ -104,12 +109,10 @@ public sealed class AntigravityAnalyzeAdapter
             var stateDirectory = WindowsReadHandle.FinalPath(directory);
             if (!Within(stateParent, stateDirectory) || Within(origin, stateDirectory) || Within(reportPath, stateDirectory))
                 throw new InvalidOperationException("Diretório externo de execução inválido.");
-            var profile = Directory.CreateDirectory(Path.Combine(stateDirectory, "profile")).FullName;
             var label = $"speckit-analyze · Antigravity {installation.Version ?? "desconhecido"} (somente leitura)";
             var command = new TrustedCommandDefinition(VerificationType.AnalyzeDocuments, executable, sha256,
                 ["--input-format", "stream-json", "--output-format", "stream-json", "--disable-slash-commands",
-                    "--settings", RestrictedSettings, "--sandbox", "--json-schema", CodexAnalyzeAdapter.OutputSchemaJson])
-            { IsolatedProfile = profile };
+                    "--settings", RestrictedSettings, "--sandbox", "--json-schema", CodexAnalyzeAdapter.OutputSchemaJson]);
 
             run.BeginRunning(label);
             var result = await runner(command, input, stateDirectory, origin, TimeSpan.FromSeconds(120), lifetime.Token);
@@ -153,7 +156,7 @@ public sealed class AntigravityAnalyzeAdapter
             else
             {
                 run.RequestCancel();
-                run.FinishCancellation(terminationConfirmed: false, "Cancelamento solicitado. Término não confirmado.");
+                run.FinishCancellation(terminationConfirmed: true, "Análise Antigravity cancelada antes da execução do processo.");
             }
             return null;
         }
@@ -197,7 +200,7 @@ public sealed class AntigravityAnalyzeAdapter
                         break;
                     case "step_update" when payload is null:
                         var step = record.GetProperty("step_update");
-                        if (step.GetProperty("step_type").GetString() is not ("user_input" or "agent_response" or "thinking"))
+                        if (step.GetProperty("step_type").GetString() is not ("user_input" or "agent_response" or "thinking" or "finish"))
                             return "";
                         break;
                     case "result" when payload is null:
