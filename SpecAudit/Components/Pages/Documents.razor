@@ -6,6 +6,7 @@
 @using SpecAudit.Domain
 @using SpecAudit.Infrastructure.Documents
 @inject ProjectService ProjectStore
+@inject Microsoft.JSInterop.IJSRuntime JS
 
 <PageTitle>Documentos — SpecAudit</PageTitle>
 
@@ -105,7 +106,18 @@
                                          Hidden="@(mode == ViewMode.Source)" InitialElementId="@pendingElementId"
                                          Navigate="OnPreviewNavigate" Status="OnPreviewStatus" />
                         <section class="source-pane" aria-label="Fonte Markdown" hidden="@(mode == ViewMode.Preview)">
-                            <pre class="source-code">@session.Preview.Source</pre>
+                            <div class="source-code">
+                                @{
+                                    var sourceLines = session.Preview.Source.Replace("\r\n", "\n").Split('\n');
+                                }
+                                @for (var i = 0; i < sourceLines.Length; i++)
+                                {
+                                    var lineNum = i + 1;
+                                    <div id="source-line-@lineNum" class="source-line @(highlightedLine == lineNum ? "highlighted-line" : "")">
+                                        <span class="line-no">@lineNum</span><span class="line-text">@sourceLines[i]</span>
+                                    </div>
+                                }
+                            </div>
                         </section>
                     </div>
                 }
@@ -170,7 +182,14 @@
 
     private static readonly UTF8Encoding Utf8 = new(false, throwOnInvalidBytes: true);
 
+    [SupplyParameterFromQuery(Name = "doc")] public Guid? TargetDocumentId { get; set; }
+    [SupplyParameterFromQuery(Name = "line")] public int? TargetLine { get; set; }
+
     private ViewMode mode = ViewMode.Preview;
+    private int? highlightedLine;
+    private int? pendingScrollLine;
+    private Guid? lastAppliedTargetDoc;
+    private int? lastAppliedTargetLine;
     private string searchQuery = "";
     private Guid? activeProjectId;
     private long activeGeneration = -1;
@@ -189,6 +208,43 @@
     {
         ProjectStore.Changed += OnProjectsChanged;
         SyncProject();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (TargetDocumentId is { } targetId &&
+            (lastAppliedTargetDoc != targetId || lastAppliedTargetLine != TargetLine) &&
+            ProjectStore.Active is { } active &&
+            active.Catalog.Entries.Any(e => e.DocumentId == targetId))
+        {
+            lastAppliedTargetDoc = targetId;
+            lastAppliedTargetLine = TargetLine;
+            LoadDocument(targetId, null);
+            if (TargetLine is > 0)
+            {
+                mode = ViewMode.Source;
+                highlightedLine = TargetLine;
+                pendingScrollLine = TargetLine;
+            }
+            else
+            {
+                highlightedLine = null;
+                pendingScrollLine = null;
+            }
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (pendingScrollLine is { } line)
+        {
+            pendingScrollLine = null;
+            try
+            {
+                await JS.InvokeVoidAsync("eval", $"document.getElementById('source-line-{line}')?.scrollIntoView({{behavior:'smooth',block:'center'}})");
+            }
+            catch { }
+        }
     }
 
     private void OnProjectsChanged() => _ = InvokeAsync(() =>

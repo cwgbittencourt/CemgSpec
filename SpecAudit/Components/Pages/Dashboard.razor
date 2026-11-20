@@ -245,7 +245,7 @@
                                         <p class="muted small">@occ.Explanation</p>
                                         <div class="occ-footer">
                                             <span class="mono small muted">Fonte: @occ.SourceLocation.RelativePath@(occ.SourceLocation.LineNumber > 0 ? $":{occ.SourceLocation.LineNumber}" : "")</span>
-                                            <a class="inline-link" href="/documentos">Abrir em Documentos</a>
+                                            <a class="inline-link" href="@($"/documentos?doc={occ.SourceLocation.DocumentId:D}&line={occ.SourceLocation.LineNumber}")">Abrir em Documentos</a>
                                         </div>
                                     </li>
                                 }
