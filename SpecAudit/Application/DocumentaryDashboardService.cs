@@ -296,13 +296,18 @@ public sealed partial class DocumentaryDashboardService
         if (text is null) return results;
 
         string? currentPhase = null;
+        string? currentPhaseStory = null;
         var lines = text.ReplaceLineEndings("\n").Split('\n');
         for (var i = 0; i < lines.Length; i++)
         {
             var line = lines[i];
             var lineNumber = i + 1;
             if (line.StartsWith("## ", StringComparison.Ordinal))
+            {
                 currentPhase = line[3..].Trim();
+                var phaseStoryMatch = StoryHeadingRegex().Match(line);
+                currentPhaseStory = phaseStoryMatch.Success ? phaseStoryMatch.Groups[1].Value.ToUpperInvariant() : null;
+            }
 
             var match = TaskLineRegex().Match(line);
             if (match.Success)
@@ -311,7 +316,7 @@ public sealed partial class DocumentaryDashboardService
                 var taskId = match.Groups[2].Value.ToUpperInvariant();
                 var body = match.Groups[3].Value.Trim();
                 var storyMatch = StoryTagRegex().Match(body);
-                var story = storyMatch.Success ? storyMatch.Groups[1].Value.ToUpperInvariant() : null;
+                var story = storyMatch.Success ? storyMatch.Groups[1].Value.ToUpperInvariant() : currentPhaseStory;
                 var reqRefs = RequirementRefRegex().Matches(body)
                     .Select(m => m.Value.ToUpperInvariant())
                     .Distinct(StringComparer.OrdinalIgnoreCase)
