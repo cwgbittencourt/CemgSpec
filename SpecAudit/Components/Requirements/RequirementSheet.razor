@@ -238,12 +238,14 @@
 
     private SheetTab tab = SheetTab.Summary;
     private RequirementKey? lastKey;
+    private DocumentSourceLocation? lastLocation;
 
     protected override void OnParametersSet()
     {
-        if (lastKey != Sheet.Requirement.Key)
+        if (lastKey != Sheet.Requirement.Key || lastLocation != Sheet.Requirement.SourceLocation)
         {
             lastKey = Sheet.Requirement.Key;
+            lastLocation = Sheet.Requirement.SourceLocation;
             tab = SheetTab.Summary;
         }
     }

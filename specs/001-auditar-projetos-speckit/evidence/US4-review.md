@@ -1,4 +1,8 @@
-# Code review — US4 (T040)
+# Code review — US4 (T040–T041)
+
+**Estado vigente — T041, 2026-11-20: autorrevisão técnica CONCLUÍDA, `REV-US4-01` e `REV-US4-02` RESOLVIDOS.** Zero impeditivos técnicos conhecidos abertos no escopo da US4 (tema claro pendente da US8/T044). O registro T040 abaixo permanece histórico. Roteiro do DEV (T042), fechamento PR-B e aceite humano continuam pendentes.
+
+## Registro histórico T040
 
 Estado do review: **BLOQUEADA para aprovação normal — ALTERAÇÕES SOLICITADAS** (1 achado P2 aberto para T041; 1 achado P3 registrado).
 Execução da task T040: **CONCLUÍDA**; executar a revisão e aprovar a implementação são estados distintos.
@@ -49,4 +53,15 @@ PR previsto: PR-B (base do incremento US4 em `32170ad`; sem PR aberto ou integra
 ## Conclusão e passagem
 
 Passagem de revisão **T040** concluída com 1 achado **P2** (`REV-US4-01`) e 1 achado **P3** (`REV-US4-02`) abertos. O fechamento normal da US4 (T042) fica bloqueado até a resolução e revalidação na **T041**. Nenhum código de produção ou teste foi alterado nesta task.
+
+## Rodada T041 — resolução e autorrevisão renovada
+
+Estado da rodada: **CONCLUÍDA** no escopo técnico dos dois achados; nenhum impeditivo conhecido aberto nesse escopo. Modalidade: **AUTORREVISAO**, Antigravity (Gemini 4 Neon). Data/hora: 2026-11-20 08:31 America/Sao_Paulo. Base do incremento de correção: `edaa2ef`.
+
+| Achado | Correção inspecionada | Revalidação executada | Estado |
+|---|---|---|---|
+| `REV-US4-01` (P2) | `Requirements.razor:32-37,108-190` e `Requirements.razor.css:13-29`: selo `Atual`/`Desatualizado` exibido na faixa de contexto; `Rebuild()` preserva `sheets` com `Freshness.Stale` tanto quando `HasPendingChanges == true` quanto quando o broker detecta mudança antes do watcher na mesma geração. | Regressão completa **93/93** ([logs/T041/regression.txt](logs/T041/regression.txt)). | RESOLVIDO |
+| `REV-US4-02` (P3) | `RequirementSheet.razor:239-250`: `OnParametersSet` compara `RequirementKey` e `SourceLocation` para redefinir `tab = Summary` também ao alternar entre definições duplicadas do mesmo ID. | Regressão completa **93/93**. | RESOLVIDO |
+
+Estado técnico apto a seguir para **T042** (`validation/US4-dev.md` e `acceptance/US4.md`), mantendo aprovação de PR e aceite humano pendentes.
 

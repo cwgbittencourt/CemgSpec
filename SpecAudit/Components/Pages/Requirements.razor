@@ -32,6 +32,9 @@
         <div class="req-context-bar">
             <strong>@active.Session.DisplayName</strong>
             <span class="readonly-badge">◇ Somente leitura</span>
+            <span class="@(isStale ? "freshness-badge stale" : "freshness-badge")">
+                @(isStale ? "Desatualizado" : "Atual") · Geração #@active.Catalog.Generation
+            </span>
             <label class="feature-inline">
                 Funcionalidade
                 <select aria-label="Funcionalidade" value="@(selectedFeatureId?.ToString() ?? "")" @onchange="OnFeatureChanged">
@@ -104,6 +107,8 @@
 @code {
     private Guid? activeProjectId;
     private Guid? selectedFeatureId;
+    private long lastGeneration = -1;
+    private bool isStale;
     private IReadOnlyList<RequirementSheetProjection> sheets = [];
     private int selectedIndex = -1;
     private string? errorMessage;
@@ -137,6 +142,9 @@
         {
             activeProjectId = active.Session.ProjectId;
             selectedFeatureId = active.Session.ActiveFeatureId ?? active.Session.Features.FirstOrDefault()?.FeatureId;
+            lastGeneration = -1;
+            isStale = false;
+            sheets = [];
             selectedIndex = 0;
         }
         else if (selectedFeatureId is { } id && active.Session.Features.All(f => f.FeatureId != id))
@@ -152,15 +160,25 @@
     {
         if (ProjectStore.Active is not { } active) return;
         errorMessage = null;
-        if (active.Catalog.HasPendingChanges && sheets.Count > 0)
+        if (active.Catalog.HasPendingChanges && sheets.Count > 0 && lastGeneration == active.Catalog.Generation)
         {
+            isStale = true;
             sheets = sheets.Select(sheet => sheet with { Freshness = Freshness.Stale }).ToArray();
             return;
         }
         try
         {
             var built = TraceService.ListSheets(active, selectedFeatureId);
+            if (sheets.Count > 0 && lastGeneration == active.Catalog.Generation &&
+                (built.Any(s => s.Freshness == Freshness.Stale) || (built.Count == 0 && active.Catalog.HasPendingChanges)))
+            {
+                isStale = true;
+                sheets = sheets.Select(sheet => sheet with { Freshness = Freshness.Stale }).ToArray();
+                return;
+            }
             sheets = built;
+            lastGeneration = active.Catalog.Generation;
+            isStale = active.Catalog.HasPendingChanges || built.Any(s => s.Freshness == Freshness.Stale);
             selectedIndex = sheets.Count == 0 ? -1 : Math.Clamp(selectedIndex < 0 ? 0 : selectedIndex, 0, sheets.Count - 1);
         }
         catch (Exception failure) when (DocumentMessages.IsReadFailure(failure))
@@ -173,6 +191,8 @@
     {
         selectedFeatureId = Guid.TryParse(args.Value?.ToString(), out var id) ? id : null;
         selectedIndex = 0;
+        sheets = [];
+        lastGeneration = -1;
         Rebuild();
     }
 

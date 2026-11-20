@@ -31,6 +31,14 @@ Ambiente, versões e dados: Windows x64, host local `SpecAudit` em loopback (`ht
   - Cinco testes históricos da US1 excluídos do filtro de regressão porque gravam em caminhos históricos deste checkout.
 - **Regressão executada**: 93/93 aprovados em RUN-03 (0 falhas).
 
+## Rodadas após correções
+
+- **Rodada T041 (2026-11-20 08:31 America/Sao_Paulo, sobre base `edaa2ef`)**: após resolver `REV-US4-01` (selo `Atual`/`Desatualizado` na faixa de contexto e preservação das fichas como `Freshness.Stale` também na corrida broker-antes-do-watcher em `Requirements.razor`) e `REV-US4-02` (reset da aba por `SourceLocation` em `RequirementSheet.razor`), a suíte completa foi reexecutada e aprovou **93/93 testes** (20 `SpecAudit.Tests`, 16 `SpecAudit.Windows.Tests`, 57 `SpecAudit.Ui.Tests`, exit code 0). Log: [logs/T041/regression.txt](logs/T041/regression.txt).
+  - SHA-256 dos arquivos alterados na T041:
+    - `SpecAudit/Components/Pages/Requirements.razor` — `e51913a9f676845bfd1c562aa38b6e29e5a15793330029211a21ad138d2a0162`
+    - `SpecAudit/Components/Pages/Requirements.razor.css` — `7b5e2ffc392ba420b7f0b9624a578eb43c061d44e9b0fb6438408f8264564cac`
+    - `SpecAudit/Components/Requirements/RequirementSheet.razor` — `dd65500d4f8ddfaea76b1f7050a8c033c354d8e0de04295adaa711216f155fe1`
+
 ## Identificação do incremento e histórico
 
 - PR previsto: PR-B (local, ainda não aberto/integrado).

@@ -21,6 +21,21 @@
     padding: 10px 14px;
 }
 
+.freshness-badge {
+    background: #1d352e;
+    border: 1px solid #306352;
+    border-radius: 20px;
+    color: #9bd7b6;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.freshness-badge.stale {
+    background: #3d2e1b;
+    border-color: #7c5c2d;
+    color: #f0c987;
+}
+
 .feature-inline {
     align-items: center;
     color: var(--muted);
