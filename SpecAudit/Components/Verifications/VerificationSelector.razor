@@ -1,12 +1,16 @@
 @implements IDisposable
 @using SpecAudit.Application
 @using SpecAudit.Domain
+@using SpecAudit.Infrastructure.Agents
 @using SpecAudit.Infrastructure.Documents
 @using SpecAudit.Infrastructure.Gates
 @inject ProjectService ProjectStore
 @inject VerificationService VerificationStore
+@inject AgentCompatibilityService AgentStore
+@inject RequirementTraceService TraceService
 @inject GatePackage GatePkg
 @inject GateExecutor Executor
+@inject CodexAnalyzeAdapter CodexAdapter
 
 @if (ProjectStore.Active is not { } active)
 {
@@ -26,14 +30,77 @@ else
 
         @if (selectedType == VerificationType.AnalyzeDocuments)
         {
-            <div class="v-info-box muted-box" role="status">
-                <strong>speckit-analyze indisponível nesta etapa</strong>
-                <p class="muted small">A análise documental assistida por agente permanece bloqueada até a conclusão das provas individuais <code>AnalyzeCodex</code> e <code>AnalyzeAntigravity</code>. Nenhuma permissão é ampliada para contornar a ausência de prova.</p>
-            </div>
+            var agentAvailability = AgentStore.EvaluateSelectedAgentAvailability(active.Session.ProjectId);
+            var selectedAgent = AgentStore.GetSelectedAgent(active.Session.ProjectId);
+            var missingPrereqs = GetMissingAnalyzePrerequisites(active);
+
+            <AgentSelector Disabled="@isRunning" OnSelectionChanged="StateHasChanged" />
+
+            @if (!Compact)
+            {
+                <div class="v-grid">
+                    <div class="v-field">
+                        <label for="@featureId">Funcionalidade</label>
+                        <select id="@featureId" aria-label="Funcionalidade da análise" value="@(selectedFeatureId?.ToString() ?? "")" @onchange="OnFeatureChanged" disabled="@isRunning">
+                            @foreach (var f in active.Session.Features)
+                            {
+                                <option value="@f.FeatureId">@f.Title</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="v-field">
+                        <label for="@focusReqId">Foco opcional de requisito</label>
+                        <select id="@focusReqId" aria-label="Foco opcional de requisito" value="@selectedFocusLocalId" @onchange="OnFocusRequirementChanged" disabled="@isRunning">
+                            <option value="">Todos os requisitos da funcionalidade</option>
+                            @foreach (var reqLocalId in GetFeatureRequirementIds(active))
+                            {
+                                <option value="@reqLocalId">@reqLocalId</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+            else if (FocusRequirement is not null)
+            {
+                <div class="v-scope-note" role="note">
+                    Análise da funcionalidade com foco documental em <strong>@FocusRequirement.LocalId</strong> (destaca achados pertinentes sem executar código).
+                </div>
+            }
+
+            @if (missingPrereqs.Count > 0)
+            {
+                <div class="v-info-box warn-box" role="alert">
+                    <strong>Pré-requisitos documentais ausentes (@string.Join(", ", missingPrereqs))</strong>
+                    <p class="small">O SpecAudit é somente leitura e nunca cria arquivos de pré-requisito ausentes na origem.</p>
+                </div>
+            }
 
             <div class="v-actions">
-                <button type="button" class="v-btn-primary" disabled>Executar verificação</button>
+                <button type="button" class="v-btn-primary"
+                        disabled="@(!CanExecuteAnalyze(agentAvailability, selectedAgent))"
+                        @onclick="ExecuteAnalyzeAsync">
+                    @(isRunning ? "Executando speckit-analyze..." : "Executar verificação")
+                </button>
+                @if (isRunning)
+                {
+                    <button type="button" class="v-btn-secondary" @onclick="CancelCurrentRun">Cancelar</button>
+                }
             </div>
+
+            @if (Compact && latestCompactRun is not null)
+            {
+                <div class="v-compact-result" role="region" aria-label="Resultado da verificação">
+                    <strong>@FormatRunSummary(latestCompactRun)</strong>
+                    <span class="@(latestCompactRun.Freshness == Freshness.Stale ? "fresh-pill stale" : "fresh-pill")">
+                        @(latestCompactRun.Freshness == Freshness.Stale ? "Desatualizado" : "Atual")
+                    </span>
+                    @if (!string.IsNullOrWhiteSpace(latestCompactRun.Reason))
+                    {
+                        <p class="muted small">@latestCompactRun.Reason</p>
+                    }
+                </div>
+            }
         }
         else
         {
@@ -146,12 +213,14 @@ else
 
     private readonly string comboId = "v-type-" + Guid.NewGuid().ToString("N")[..8];
     private readonly string featureId = "v-feat-" + Guid.NewGuid().ToString("N")[..8];
+    private readonly string focusReqId = "v-freq-" + Guid.NewGuid().ToString("N")[..8];
     private readonly string stageId = "v-stage-" + Guid.NewGuid().ToString("N")[..8];
     private readonly string recordId = "v-rec-" + Guid.NewGuid().ToString("N")[..8];
     private readonly string revisionId = "v-rev-" + Guid.NewGuid().ToString("N")[..8];
 
     private Guid? lastProjectId;
     private Guid? selectedFeatureId;
+    private string selectedFocusLocalId = string.Empty;
     private GateStage selectedStage = GateStage.Spec;
     private Guid? selectedRecordId;
     private string expectedRevision = string.Empty;
@@ -166,6 +235,7 @@ else
     {
         ProjectStore.Changed += OnProjectChanged;
         VerificationStore.Changed += OnVerificationChanged;
+        AgentStore.Changed += OnVerificationChanged;
         SyncSelection();
     }
 
@@ -206,6 +276,7 @@ else
         {
             lastProjectId = active.Session.ProjectId;
             revisionEditedByUser = false;
+            selectedFocusLocalId = string.Empty;
             latestCompactRun = VerificationStore.GetLatestRun(active.Session.ProjectId);
         }
 
@@ -235,11 +306,17 @@ else
         if (Guid.TryParse(e.Value?.ToString(), out var id))
         {
             selectedFeatureId = id;
+            selectedFocusLocalId = string.Empty;
             active.Session.SelectFeature(id);
             selectedRecordId = GetGateRecords(active).FirstOrDefault()?.DocumentId;
             revisionEditedByUser = false;
             DeriveRevisionFromArtifact(active);
         }
+    }
+
+    private void OnFocusRequirementChanged(ChangeEventArgs e)
+    {
+        selectedFocusLocalId = e.Value?.ToString() ?? string.Empty;
     }
 
     private void OnStageChanged(ChangeEventArgs e)
@@ -265,6 +342,89 @@ else
         revisionEditedByUser = true;
         revisionSource = RevisionSource.UserConfirmedExternal;
         revisionSourceLabel = "Revisão externa informada explicitamente pelo usuário (não autenticada)";
+    }
+
+    private IReadOnlyList<string> GetFeatureRequirementIds(OpenProjectContext active)
+    {
+        if (selectedFeatureId is not { } fid) return [];
+        try
+        {
+            return TraceService.ListSheets(active, fid)
+                .Select(s => s.Requirement.Key.LocalId)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+        }
+        catch
+        {
+            return [];
+        }
+    }
+
+    private IReadOnlyList<string> GetMissingAnalyzePrerequisites(OpenProjectContext active)
+    {
+        if (selectedFeatureId is not { } fid) return ["funcionalidade"];
+        var missing = new List<string>();
+        if (!active.Catalog.Entries.Any(e => e.Kind == CatalogKind.Constitution)) missing.Add("constitution.md");
+        if (!active.Catalog.Entries.Any(e => e.FeatureId == fid && e.Kind == CatalogKind.Spec)) missing.Add("spec.md");
+        if (!active.Catalog.Entries.Any(e => e.FeatureId == fid && e.Kind == CatalogKind.Plan)) missing.Add("plan.md");
+        if (!active.Catalog.Entries.Any(e => e.FeatureId == fid && e.Kind == CatalogKind.Tasks)) missing.Add("tasks.md");
+        return missing;
+    }
+
+    private bool CanExecuteAnalyze(AvailabilityDecision availability, AgentInstallation? selectedAgent) =>
+        !isRunning &&
+        selectedFeatureId is not null &&
+        selectedAgent is not null &&
+        selectedAgent.CompatibilityState == AgentCompatibilityState.Compatible &&
+        availability.Availability == CapabilityAvailability.Available;
+
+    private async Task ExecuteAnalyzeAsync()
+    {
+        if (ProjectStore.Active is not { } active || selectedFeatureId is not { } fid)
+            return;
+
+        var selectedAgent = AgentStore.GetSelectedAgent(active.Session.ProjectId);
+        if (selectedAgent is null) return;
+
+        var availability = AgentStore.EvaluateSelectedAgentAvailability(active.Session.ProjectId);
+        var effectiveFocus = FocusRequirement ??
+            (!string.IsNullOrWhiteSpace(selectedFocusLocalId)
+                ? new RequirementKey(active.Session.ProjectId, fid, selectedFocusLocalId)
+                : null);
+
+        var prepared = VerificationStore.PrepareAnalyzeRun(active.Session.ProjectId, fid, selectedAgent, availability, effectiveFocus);
+        if (!prepared.Created || prepared.Run is null)
+            return;
+
+        var run = prepared.Run;
+        latestCompactRun = run;
+        if (OnRunUpdated.HasDelegate)
+            await OnRunUpdated.InvokeAsync(run);
+
+        if (run.State == RunState.Blocked)
+            return;
+
+        isRunning = true;
+        runCts = new CancellationTokenSource();
+        StateHasChanged();
+
+        try
+        {
+            if (selectedAgent.Provider == AgentProvider.Codex)
+                await CodexAdapter.ExecuteAsync(active, fid, selectedAgent, run, runCts.Token);
+            else
+                run.MarkFailed($"Adaptador para {selectedAgent.DisplayName} ainda não habilitado nesta etapa.");
+        }
+        finally
+        {
+            isRunning = false;
+            runCts.Dispose();
+            runCts = null;
+            latestCompactRun = run;
+            if (OnRunUpdated.HasDelegate)
+                await OnRunUpdated.InvokeAsync(run);
+            StateHasChanged();
+        }
     }
 
     private IReadOnlyList<CatalogEntry> GetGateRecords(OpenProjectContext active)
@@ -389,7 +549,10 @@ else
 
     private static string FormatRunSummary(VerificationRun run) => run.State switch
     {
-        RunState.Completed => $"Concluída: {run.SemanticResult?.GateResult switch { GateSemanticResult.Ready => "READY", GateSemanticResult.DevImpossibilityRecorded => "DEV_IMPOSSIBILITY_RECORDED", _ => "BLOCKED" }}",
+        RunState.Completed when run.SemanticResult?.GateResult is { } gr =>
+            $"Concluída: {gr switch { GateSemanticResult.Ready => "READY", GateSemanticResult.DevImpossibilityRecorded => "DEV_IMPOSSIBILITY_RECORDED", _ => "BLOCKED" }}",
+        RunState.Completed when run.SemanticResult?.AnalyzeResult is { } ar =>
+            $"Concluída: {ar switch { AnalyzeSemanticResult.Findings => $"FINDINGS ({run.Findings.Count})", AnalyzeSemanticResult.NoFindings => "NO_FINDINGS", _ => "INCONCLUSIVE" }}",
         RunState.Blocked => "Bloqueada no preflight/escopo",
         RunState.Cancelled => "Cancelada",
         RunState.Failed => "Falha na execução",
@@ -401,8 +564,8 @@ else
     {
         ProjectStore.Changed -= OnProjectChanged;
         VerificationStore.Changed -= OnVerificationChanged;
+        AgentStore.Changed -= OnVerificationChanged;
         runCts?.Cancel();
         runCts?.Dispose();
     }
 }
-

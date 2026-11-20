@@ -77,6 +77,10 @@
                         {
                             <span class="@SemanticBadgeClass(gateSemantic)">@SemanticLabel(gateSemantic)</span>
                         }
+                        @if (latestRun.SemanticResult?.AnalyzeResult is { } analyzeSemantic)
+                        {
+                            <span class="@AnalyzeBadgeClass(analyzeSemantic)">@AnalyzeLabel(analyzeSemantic)</span>
+                        }
                         @if (latestRun.ExitCode is { } exitCode)
                         {
                             <span class="state-pill muted-pill">Exit @exitCode</span>
@@ -241,6 +245,20 @@
     {
         GateSemanticResult.Ready => "state-pill ok-pill",
         GateSemanticResult.DevImpossibilityRecorded => "state-pill warn-pill",
+        _ => "state-pill danger-pill"
+    };
+
+    private static string AnalyzeLabel(AnalyzeSemanticResult result) => result switch
+    {
+        AnalyzeSemanticResult.Findings => "FINDINGS",
+        AnalyzeSemanticResult.NoFindings => "NO_FINDINGS",
+        _ => "INCONCLUSIVE"
+    };
+
+    private static string AnalyzeBadgeClass(AnalyzeSemanticResult result) => result switch
+    {
+        AnalyzeSemanticResult.NoFindings => "state-pill ok-pill",
+        AnalyzeSemanticResult.Findings => "state-pill warn-pill",
         _ => "state-pill danger-pill"
     };
 

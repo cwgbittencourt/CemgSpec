@@ -63,6 +63,31 @@ public sealed class VerificationSelectionTests(LocalHostFixture host) : IClassFi
         var executeButton = page.GetByRole(AriaRole.Button, new() { Name = "Executar verificação" });
         await Expect(executeButton).ToBeDisabledAsync();
 
+        // Agent selector lists the 4 providers; Unsupported (Claude Code / Kiro) and unverified (Antigravity before T070) keep Execute disabled.
+        var agentCombo = page.GetByRole(AriaRole.Combobox, new() { Name = "Agente para speckit-analyze" });
+        await Expect(agentCombo).ToBeVisibleAsync();
+        var agentOptions = await agentCombo.Locator("option").AllInnerTextsAsync();
+        Assert.Contains(agentOptions, o => o.Contains("Codex", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(agentOptions, o => o.Contains("Antigravity", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(agentOptions, o => o.Contains("Claude Code", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(agentOptions, o => o.Contains("Kiro", StringComparison.OrdinalIgnoreCase));
+
+        var claudeLabel = agentOptions.First(o => o.Contains("Claude Code", StringComparison.OrdinalIgnoreCase)).Trim();
+        await agentCombo.SelectOptionAsync(new SelectOptionValue { Label = claudeLabel });
+        var agentRegion = page.GetByRole(AriaRole.Region, new() { Name = "Detalhes do agente selecionado" });
+        await Expect(agentRegion).ToContainTextAsync("Claude Code");
+        await Expect(agentRegion).ToContainTextAsync("Não suportado na V1");
+        await Expect(executeButton).ToBeDisabledAsync();
+
+        // Selecting Codex (with verified AnalyzeCodex seal) enables Execute and shows external state + read-only disclosure.
+        var codexLabel = agentOptions.First(o => o.Contains("Codex", StringComparison.OrdinalIgnoreCase)).Trim();
+        await agentCombo.SelectOptionAsync(new SelectOptionValue { Label = codexLabel });
+        await Expect(agentRegion).ToContainTextAsync("Compatível");
+        await Expect(agentRegion).ToContainTextAsync(".codex");
+        await Expect(agentRegion).ToContainTextAsync("Adaptação somente leitura de speckit-analyze");
+        await Expect(executeButton).ToBeEnabledAsync();
+        await CaptureIfRequestedAsync(page, "verifications-codex-selected-dark.png");
+
         // Switch to check_gate: must work locally without AI agent or network.
         await combo.SelectOptionAsync(new SelectOptionValue { Label = "check_gate — Validar gates" });
         await page.GetByRole(AriaRole.Combobox, new() { Name = "Etapa do gate" })

@@ -168,6 +168,63 @@ public sealed class AgentDiscoveryTests
         }
     }
 
+    [Fact]
+    public void S02AgentCompatibilityEnablesCodexOnlyWithValidSealAndInvalidationDoesNotAffectCheckGate()
+    {
+        var fixture = DocumentaryFixture.Create();
+        try
+        {
+            using var projects = CreateProjectService();
+            var ctx = projects.OpenSelected(fixture.Origin, fixture.Output);
+            var discovery = new AgentDiscovery();
+            var codexAdapter = new CodexAnalyzeAdapter(discovery);
+            var gatePkg = new GatePackage();
+            var registry = new CapabilityRegistry();
+            var verifications = new VerificationService(projects, registry);
+            var compatibility = new AgentCompatibilityService(projects, registry, discovery, verifications);
+
+            // 1. Without AnalyzeCodex seal registered, Codex is NotVerified and unavailable.
+            var initialInstallations = compatibility.GetInstallations(ctx.Session.ProjectId);
+            var codex = initialInstallations.Single(i => i.Provider == AgentProvider.Codex);
+            compatibility.SelectAgent(ctx.Session.ProjectId, codex.AgentId);
+            Assert.Equal(AgentCompatibilityState.NotVerified, codex.CompatibilityState);
+            Assert.Equal(CapabilityAvailability.PendingValidation, compatibility.EvaluateSelectedAgentAvailability(ctx.Session.ProjectId).Availability);
+
+            // 2. Registering verified seal enables Codex (Compatible -> Available), while Antigravity/ClaudeCode/Kiro stay disabled.
+            Assert.True(gatePkg.TryRegisterVerifiedSeal(registry));
+            Assert.True(codexAdapter.TryRegisterVerifiedSeal(registry, fixture.Origin));
+
+            var refreshed = compatibility.GetInstallations(ctx.Session.ProjectId);
+            codex = refreshed.Single(i => i.Provider == AgentProvider.Codex);
+            var agy = refreshed.Single(i => i.Provider == AgentProvider.Antigravity);
+            var claude = refreshed.Single(i => i.Provider == AgentProvider.ClaudeCode);
+            var kiro = refreshed.Single(i => i.Provider == AgentProvider.Kiro);
+
+            Assert.Equal(AgentCompatibilityState.Compatible, codex.CompatibilityState);
+            Assert.Equal(CapabilityAvailability.Available, compatibility.EvaluateSelectedAgentAvailability(ctx.Session.ProjectId).Availability);
+            Assert.NotEqual(AgentCompatibilityState.Compatible, agy.CompatibilityState);
+            Assert.Equal(AgentCompatibilityState.Unsupported, claude.CompatibilityState);
+            Assert.Equal(AgentCompatibilityState.Unsupported, kiro.CompatibilityState);
+
+            // 3. Invalidating AnalyzeCodex seal transitions Codex to Stale/PendingValidation without affecting GateAdapter.
+            compatibility.InvalidateProviderSeal(AgentProvider.Codex);
+            Assert.Equal(AgentCompatibilityState.Stale, codex.CompatibilityState);
+            Assert.Equal(CapabilityAvailability.PendingValidation, compatibility.EvaluateSelectedAgentAvailability(ctx.Session.ProjectId).Availability);
+
+            var gateAvail = verifications.EvaluateAvailability(
+                VerificationType.CheckGate,
+                ProtectedCapability.GateAdapter,
+                GatePackage.CoreVersion,
+                GatePackage.PlatformFingerprint,
+                GatePackage.PolicyVersion);
+            Assert.Equal(CapabilityAvailability.Available, gateAvail.Availability);
+        }
+        finally
+        {
+            Directory.Delete(fixture.Root, recursive: true);
+        }
+    }
+
     private static ProjectService CreateProjectService()
     {
         var registry = new LocalSessionRegistry();

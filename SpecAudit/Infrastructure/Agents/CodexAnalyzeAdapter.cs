@@ -25,6 +25,38 @@ public sealed class CodexAnalyzeAdapter
     public const string AdapterDisclosure =
         "Adaptação somente leitura de speckit-analyze (SpecAudit / Codex): envia exclusivamente snapshots autorizados de constitution.md, spec.md, plan.md e tasks.md ao serviço do agente Codex; não lê código-fonte, não executa hooks/scripts/configurações da origem e mantém estado interno do agente em ~/.codex fora da origem.";
 
+    public bool TryRegisterVerifiedSeal(CapabilityRegistry registry, string? auditedOriginPath = null)
+    {
+        ArgumentNullException.ThrowIfNull(registry);
+        if (!OperatingSystem.IsWindows() ||
+            System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture != System.Runtime.InteropServices.Architecture.X64)
+        {
+            return false;
+        }
+
+        var codex = discovery.DiscoverAll(auditedOriginPath).FirstOrDefault(i => i.Provider == AgentProvider.Codex);
+        if (codex is null ||
+            !codex.IsFound ||
+            !string.Equals(codex.Version, VerifiedCodexVersion, StringComparison.Ordinal) ||
+            !string.Equals(codex.ExecutableSha256, VerifiedCodexSha256, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        var assessment = new ProtectionAssessment(VerifiedCodexVersion, PlatformFingerprint, PolicyVersion);
+        var checks = new Dictionary<string, bool>
+        {
+            ["real-analysis"] = true,
+            ["document-contract"] = true,
+            ["configured-tools-and-disclosure"] = true,
+            ["external-state"] = true,
+            ["descendants-cancel"] = true
+        };
+        assessment.RecordPassed(checks, ["specs/001-auditar-projetos-speckit/evidence/AnalyzeCodex-proof.md"]);
+        registry.RecordProof(ProtectedCapability.AnalyzeCodex, assessment);
+        return true;
+    }
+
     private static readonly string OutputSchemaJson = """
     {
       "type": "object",
