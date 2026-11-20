@@ -153,14 +153,14 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T068 [P] [US5] Implementar adaptador Antigravity documental em SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs, ainda desabilitado, com conversa/cache apenas externos e sem importá-los como histórico oficial.
 - [x] T069 [US5] Executar prova real individual AnalyzeAntigravity em evidence/AnalyzeAntigravity-proof.md antes de habilitar, com a mesma matriz de proteção e escopo do Codex.
 - [x] T070 [US5] Habilitar Antigravity só com Assessment Passed em SpecAudit/Application/AgentCompatibilityService.cs e SpecAudit/Components/Verifications/AgentSelector.razor, sem afetar Codex/gate. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
-- [ ] T071 [US5] Executar os cenários US5-S01–S07 / US5-AC01–AC07 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US5-validation.md.
-- [ ] T072 [US5] Revisar diff, critérios, contratos, segurança e resultados da versão de US5 em evidence/US5-review.md, declarando autorrevisão.
-- [ ] T073 [US5] Resolver achados de US5 e repetir checks afetados em evidence/US5-validation.md e evidence/US5-review.md; se nenhum, registrar referência à revisão real.
-- [ ] T074 [US5] Consolidar e conferir roteiro reproduzível em validation/US5-dev.md e registrar estado técnico em acceptance/US5.md, mantendo decisão do DEV pendente.
-- [ ] T075 [US5] Executar a verificação do incremento PR-D e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-D-validation.md.
-- [ ] T076 [US5] Revisar o incremento completo PR-D em evidence/PR-D-review.md com diff incremental, limites e achados por arquivo/linha.
-- [ ] T077 [US5] Resolver e revalidar achados do PR-D em evidence/PR-D-validation.md e evidence/PR-D-review.md; registrar nenhum achado somente com review real.
-- [ ] T078 [US5] Preparar verification/prs/PR-D.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
+- [x] T071 [US5] Executar os cenários US5-S01–S07 / US5-AC01–AC07 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US5-validation.md.
+- [x] T072 [US5] Revisar diff, critérios, contratos, segurança e resultados da versão de US5 em evidence/US5-review.md, declarando autorrevisão.
+- [x] T073 [US5] Resolver achados de US5 e repetir checks afetados em evidence/US5-validation.md e evidence/US5-review.md; se nenhum, registrar referência à revisão real.
+- [x] T074 [US5] Consolidar e conferir roteiro reproduzível em validation/US5-dev.md e registrar estado técnico em acceptance/US5.md, mantendo decisão do DEV pendente.
+- [x] T075 [US5] Executar a verificação do incremento PR-D e regressão na base declarada, incluindo comportamento real e estado intermediário seguro, em evidence/PR-D-validation.md.
+- [x] T076 [US5] Revisar o incremento completo PR-D em evidence/PR-D-review.md com diff incremental, limites e achados por arquivo/linha.
+- [x] T077 [US5] Resolver e revalidar achados do PR-D em evidence/PR-D-validation.md e evidence/PR-D-review.md; registrar nenhum achado somente com review real.
+- [x] T078 [US5] Preparar verification/prs/PR-D.md pelo pr-template.md CEMG com escopo final, tasks, base/predecessor, evidências e roteiro; não abrir/integrar PR ou marcar aprovação humana.
 
 ## Fase 9 — US6: Sugestões, Save e histórico (P2)
 

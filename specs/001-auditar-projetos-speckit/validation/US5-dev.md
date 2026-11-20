@@ -1,11 +1,11 @@
 # Plano de teste manual — US5: Selecionar e executar as duas verificações permitidas — Prioridade P1
 
-**Estado: ESCRITO / RASCUNHO. Roteiro não conferido no produto e não executado pelo DEV.**
-**Estado da implementação:** migração para constituição 4.0.0 validada; trabalho parado após T011 por solicitação do usuário. A história completa ainda depende das tarefas restantes; não usar este roteiro como evidência de execução/aceite.
+**Estado: CONFERIDO PELA IA (T074) — NÃO EXECUTADO PELO DEV.**
+**Estado da implementação:** `T053–T074` concluídas tecnicamente na revisão `e399c67` (`main`), com provas `GateAdapter` (`7/7`), `AnalyzeCodex` (`2/2`) e `AnalyzeAntigravity` (`9/9`) registradas. Decisão e execução independente pelo DEV permanecem **PENDENTES**.
 
 ## Versão e escopo
 
-Base de desenvolvimento: `197548db2e3efa20c23e1f66b6a0ffb86c0f328d` + alterações locais de implementação iniciadas em 2026-11-16. Consultar `evidence/implementation-code-manifest.json` para os hashes deste checkpoint. O checkpoint técnico até T011 está identificado; a revisão funcional final da história ainda depende das tarefas restantes. Registrar o commit/manifesto realmente testado ao executar.
+Revisão conferida pela IA: `e399c67` (`main`, 2026-11-20 America/Sao_Paulo). Evidências vinculadas: [US5-validation.md](../evidence/US5-validation.md), [US5-review.md](../evidence/US5-review.md), [GateAdapter-proof.md](../evidence/GateAdapter-proof.md), [AnalyzeCodex-proof.md](../evidence/AnalyzeCodex-proof.md), [AnalyzeAntigravity-proof.md](../evidence/AnalyzeAntigravity-proof.md). Registrar o commit realmente testado ao executar pelo DEV.
 
 Cobertura planejada: todos os cenários ativos de US5. Não equivale a aceite, produto pronto ou teste aprovado.
 
