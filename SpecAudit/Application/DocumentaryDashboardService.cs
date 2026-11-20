@@ -21,6 +21,8 @@ public sealed partial class DocumentaryDashboardService
             phase.Contains("Setup", StringComparison.OrdinalIgnoreCase) ||
             phase.Contains("Fundação", StringComparison.OrdinalIgnoreCase) ||
             phase.Contains("Foundational", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Migração", StringComparison.OrdinalIgnoreCase) ||
+            phase.Contains("Migration", StringComparison.OrdinalIgnoreCase) ||
             phase.Contains("Regressão", StringComparison.OrdinalIgnoreCase) ||
             phase.Contains("Fechamento", StringComparison.OrdinalIgnoreCase) ||
             phase.Contains("Polish", StringComparison.OrdinalIgnoreCase));
