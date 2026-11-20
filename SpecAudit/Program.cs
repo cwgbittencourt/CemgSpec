@@ -29,14 +29,17 @@ builder.Services.AddScoped<IFolderPicker,SpecAudit.Infrastructure.Documents.Nati
 var gatePackage = new SpecAudit.Infrastructure.Gates.GatePackage();
 var agentDiscovery = new SpecAudit.Infrastructure.Agents.AgentDiscovery();
 var codexAdapter = new SpecAudit.Infrastructure.Agents.CodexAnalyzeAdapter(agentDiscovery);
+var antigravityAdapter = new SpecAudit.Infrastructure.Agents.AntigravityAnalyzeAdapter();
 var capabilityRegistry = new CapabilityRegistry();
 gatePackage.TryRegisterVerifiedSeal(capabilityRegistry);
 codexAdapter.TryRegisterVerifiedSeal(capabilityRegistry);
+antigravityAdapter.TryRegisterVerifiedSeal(capabilityRegistry);
 builder.Services.AddSingleton(capabilityRegistry);
 builder.Services.AddSingleton(gatePackage);
 builder.Services.AddSingleton<SpecAudit.Infrastructure.Gates.GateExecutor>();
 builder.Services.AddSingleton(agentDiscovery);
 builder.Services.AddSingleton(codexAdapter);
+builder.Services.AddSingleton(antigravityAdapter);
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<DocumentaryDashboardService>();
 builder.Services.AddScoped<RequirementTraceService>();

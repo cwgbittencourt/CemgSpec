@@ -11,6 +11,7 @@
 @inject GatePackage GatePkg
 @inject GateExecutor Executor
 @inject CodexAnalyzeAdapter CodexAdapter
+@inject AntigravityAnalyzeAdapter AntigravityAdapter
 
 @if (ProjectStore.Active is not { } active)
 {
@@ -412,8 +413,10 @@ else
         {
             if (selectedAgent.Provider == AgentProvider.Codex)
                 await CodexAdapter.ExecuteAsync(active, fid, selectedAgent, run, runCts.Token);
+            else if (selectedAgent.Provider == AgentProvider.Antigravity)
+                await AntigravityAdapter.ExecuteAsync(active, fid, selectedAgent, run, runCts.Token);
             else
-                run.MarkFailed($"Adaptador para {selectedAgent.DisplayName} ainda não habilitado nesta etapa.");
+                run.MarkFailed($"Adaptador para {selectedAgent.DisplayName} não suportado na V1.");
         }
         finally
         {

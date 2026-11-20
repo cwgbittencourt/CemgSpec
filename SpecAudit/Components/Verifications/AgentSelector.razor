@@ -57,6 +57,12 @@
                         @CodexAnalyzeAdapter.AdapterDisclosure
                     </div>
                 }
+                else if (selected.Provider == AgentProvider.Antigravity)
+                {
+                    <div class="agent-disclosure small">
+                        @AntigravityAnalyzeAdapter.AdapterDisclosure
+                    </div>
+                }
 
                 @if (selected.CanManualLocate)
                 {

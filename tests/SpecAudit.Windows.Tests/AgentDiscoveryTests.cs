@@ -206,10 +206,20 @@ public sealed class AgentDiscoveryTests
             Assert.Equal(AgentCompatibilityState.Unsupported, claude.CompatibilityState);
             Assert.Equal(AgentCompatibilityState.Unsupported, kiro.CompatibilityState);
 
-            // 3. Invalidating AnalyzeCodex seal transitions Codex to Stale/PendingValidation without affecting GateAdapter.
+            // 3. Registering AnalyzeAntigravity seal enables Antigravity independently; invalidating Codex leaves Antigravity & GateAdapter Available.
+            var agyAdapter = new AntigravityAnalyzeAdapter();
+            Assert.True(agyAdapter.TryRegisterVerifiedSeal(registry, fixture.Origin));
+            refreshed = compatibility.GetInstallations(ctx.Session.ProjectId);
+            agy = refreshed.Single(i => i.Provider == AgentProvider.Antigravity);
+            Assert.Equal(AgentCompatibilityState.Compatible, agy.CompatibilityState);
+
             compatibility.InvalidateProviderSeal(AgentProvider.Codex);
             Assert.Equal(AgentCompatibilityState.Stale, codex.CompatibilityState);
             Assert.Equal(CapabilityAvailability.PendingValidation, compatibility.EvaluateSelectedAgentAvailability(ctx.Session.ProjectId).Availability);
+
+            compatibility.SelectAgent(ctx.Session.ProjectId, agy.AgentId);
+            Assert.Equal(AgentCompatibilityState.Compatible, agy.CompatibilityState);
+            Assert.Equal(CapabilityAvailability.Available, compatibility.EvaluateSelectedAgentAvailability(ctx.Session.ProjectId).Availability);
 
             var gateAvail = verifications.EvaluateAvailability(
                 VerificationType.CheckGate,

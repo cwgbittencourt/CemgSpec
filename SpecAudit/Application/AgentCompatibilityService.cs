@@ -199,19 +199,33 @@ public sealed class AgentCompatibilityService(
         }
         else if (inst.Provider == AgentProvider.Antigravity)
         {
+            if (!string.Equals(inst.ExecutableSha256, AntigravityAnalyzeAdapter.VerifiedAntigravitySha256, StringComparison.Ordinal))
+            {
+                inst.BeginVerification($"Binário do Antigravity ({inst.Version}) diverge da versão provada ({AntigravityAnalyzeAdapter.VerifiedAntigravityVersion}).");
+                return;
+            }
+
             var avail = verificationService.EvaluateAvailability(
                 VerificationType.AnalyzeDocuments,
                 ProtectedCapability.AnalyzeAntigravity,
                 inst.Version ?? "",
-                CodexAnalyzeAdapter.PlatformFingerprint,
-                CodexAnalyzeAdapter.PolicyVersion);
+                AntigravityAnalyzeAdapter.PlatformFingerprint,
+                AntigravityAnalyzeAdapter.PolicyVersion);
 
-            if (avail.Availability != CapabilityAvailability.Available)
+            if (avail.Availability == CapabilityAvailability.Available)
+            {
+                if (inst.CompatibilityState is AgentCompatibilityState.Discovered or AgentCompatibilityState.NotVerified)
+                {
+                    inst.BeginVerification();
+                    inst.MarkCompatible($"Compatibilidade comprovada pelo selo AnalyzeAntigravity (Antigravity {inst.Version}, somente leitura documental).");
+                }
+            }
+            else
             {
                 if (inst.CompatibilityState == AgentCompatibilityState.Compatible)
                     inst.MarkStale(avail.Reason);
                 else
-                    inst.BeginVerification("Antigravity descoberto; aguarda prova real individual AnalyzeAntigravity antes de habilitar.");
+                    inst.BeginVerification(avail.Reason);
             }
         }
     }

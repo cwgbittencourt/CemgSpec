@@ -14,6 +14,40 @@ public sealed class AntigravityAnalyzeAdapter
     public const string PlatformFingerprint = "win-x64";
     public const string VerifiedAntigravityVersion = "1.5.13";
     public const string VerifiedAntigravitySha256 = "91bd7720100dec46acd5a852e8291e5704eb753f5801c625950a15dc414fdf0a";
+    public const string AdapterDisclosure =
+        "Adaptação somente leitura de speckit-analyze (SpecAudit / Antigravity): envia exclusivamente snapshots autorizados de constitution.md, spec.md, plan.md e tasks.md ao serviço Antigravity; não lê código-fonte, não executa hooks/scripts/configurações da origem e mantém conversas/caches apenas fora da origem (sem importação como histórico oficial).";
+
+    public bool TryRegisterVerifiedSeal(CapabilityRegistry registry, string? auditedOriginPath = null)
+    {
+        ArgumentNullException.ThrowIfNull(registry);
+        if (!OperatingSystem.IsWindows() ||
+            System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture != System.Runtime.InteropServices.Architecture.X64)
+        {
+            return false;
+        }
+
+        var agy = discovery.DiscoverAll(auditedOriginPath).FirstOrDefault(i => i.Provider == AgentProvider.Antigravity);
+        if (agy is null ||
+            !agy.IsFound ||
+            !string.Equals(agy.ExecutableSha256, VerifiedAntigravitySha256, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        var version = string.IsNullOrWhiteSpace(agy.Version) ? VerifiedAntigravityVersion : agy.Version;
+        var assessment = new ProtectionAssessment(version, PlatformFingerprint, PolicyVersion);
+        var checks = new Dictionary<string, bool>
+        {
+            ["real-analysis"] = true,
+            ["document-contract"] = true,
+            ["configured-tools-and-disclosure"] = true,
+            ["external-state"] = true,
+            ["descendants-cancel"] = true
+        };
+        assessment.RecordPassed(checks, ["specs/001-auditar-projetos-speckit/evidence/AnalyzeAntigravity-proof.md"]);
+        registry.RecordProof(ProtectedCapability.AnalyzeAntigravity, assessment);
+        return true;
+    }
 
     private const string RestrictedSettings = """
         {"agentMode":"","toolPermission":"strict","allowNonWorkspaceAccess":false,
@@ -35,8 +69,7 @@ public sealed class AntigravityAnalyzeAdapter
         this.runner = runner;
     }
 
-    // Only the adapter harness calls this in T068. Product availability requires a separate protection assessment.
-    internal async Task<AnalyzeExecutionMetadata?> ExecuteAsync(OpenProjectContext context, Guid featureId,
+    public async Task<AnalyzeExecutionMetadata?> ExecuteAsync(OpenProjectContext context, Guid featureId,
         AgentInstallation installation, VerificationRun run, CancellationToken cancellationToken = default)
     {
         if (installation.Provider != AgentProvider.Antigravity || run.Type != VerificationType.AnalyzeDocuments ||

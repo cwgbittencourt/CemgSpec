@@ -88,6 +88,15 @@ public sealed class VerificationSelectionTests(LocalHostFixture host) : IClassFi
         await Expect(executeButton).ToBeEnabledAsync();
         await CaptureIfRequestedAsync(page, "verifications-codex-selected-dark.png");
 
+        // Selecting Antigravity (with verified AnalyzeAntigravity seal) also enables Execute independently.
+        var agyLabel = agentOptions.First(o => o.Contains("Antigravity", StringComparison.OrdinalIgnoreCase)).Trim();
+        await agentCombo.SelectOptionAsync(new SelectOptionValue { Label = agyLabel });
+        await Expect(agentRegion).ToContainTextAsync("Antigravity");
+        await Expect(agentRegion).ToContainTextAsync("Compatível");
+        await Expect(agentRegion).ToContainTextAsync(".gemini");
+        await Expect(executeButton).ToBeEnabledAsync();
+        await CaptureIfRequestedAsync(page, "verifications-antigravity-selected-dark.png");
+
         // Switch to check_gate: must work locally without AI agent or network.
         await combo.SelectOptionAsync(new SelectOptionValue { Label = "check_gate — Validar gates" });
         await page.GetByRole(AriaRole.Combobox, new() { Name = "Etapa do gate" })
