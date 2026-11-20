@@ -168,7 +168,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: PR-A/B/C/D; ExternalWriter deve passar antes de habilitar Save.
 **Teste independente**: US6-S01–S04: fechar sem salvar, exportar três formatos, revisar decisões e comparar/excluir só registro escolhido.
 
-- [ ] T079 [US6] Escrever contratos US6-S01–S04 em tests/SpecAudit.Windows.Tests/ExternalWriterTests.cs, tests/SpecAudit.Tests/FindingDecisionTests.cs e tests/SpecAudit.Ui.Tests/SaveHistoryTests.cs antes de gravar relatórios. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
+- [x] T079 [US6] Escrever contratos US6-S01–S04 em tests/SpecAudit.Windows.Tests/ExternalWriterTests.cs, tests/SpecAudit.Tests/FindingDecisionTests.cs e tests/SpecAudit.Ui.Tests/SaveHistoryTests.cs antes de gravar relatórios. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
 - [ ] T080 [US6] Definir HumanDecision/SavedRecord e classificação em SpecAudit/Domain/HumanDecision.cs, SpecAudit/Domain/SavedRecord.cs e SpecAudit/Application/FindingDecisionService.cs com constraints literais abaixo.
 - [ ] T081 [US6] Implementar writer e serialização em SpecAudit/Infrastructure/Reports/ExternalReportWriter.cs e SpecAudit/Infrastructure/Reports/ReportSerializer.cs, ainda sem botão Save habilitado.
 - [ ] T082 [US6] Executar prova ExternalWriter real em evidence/ExternalWriter-proof.md antes de habilitar Save, observando conteúdo/caminhos no disco e alterações concorrentes.
