@@ -4,7 +4,7 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente (`d2a34bc`). T029 (`fa9aaef`), T030 (`ce157fa`), T031 (`517aea5`) e T032 (`4fe3dde`) concluídas. T033 concluiu a autorrevisão da US3 em [evidence/US3-review.md](evidence/US3-review.md) com 2 achados P2 (`REV-US3-02`, `REV-US3-03`) e 1 P3 (`REV-US3-01`) abertos para T034. Próxima T034. Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
+**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente (`d2a34bc`). T029 (`fa9aaef`), T030 (`ce157fa`), T031 (`517aea5`), T032 (`4fe3dde`) e T033 (`fdd5150`) concluídas. T034 resolveu `REV-US3-01`, `REV-US3-02` e `REV-US3-03` e revalidou a suíte completa (84/84 aprovados). Próxima T035 (`validation/US3-dev.md` e `acceptance/US3.md`). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
 ## Checkpoint histórico — constituição 4.0.0
 
@@ -95,7 +95,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 - [x] T031 [US3] Implementar indicadores/ocorrências/filtros e fonte/atualidade em SpecAudit/Components/Pages/Dashboard.razor, preservando procedência documental. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
 - [x] T032 [US3] Executar os cenários US3-S01–S04 / US3-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US3-validation.md.
 - [x] T033 [US3] Revisar diff, critérios, contratos, segurança e resultados da versão de US3 em evidence/US3-review.md, declarando autorrevisão.
-- [ ] T034 [US3] Resolver achados de US3 e repetir checks afetados em evidence/US3-validation.md e evidence/US3-review.md; se nenhum, registrar referência à revisão real.
+- [x] T034 [US3] Resolver achados de US3 e repetir checks afetados em evidence/US3-validation.md e evidence/US3-review.md; se nenhum, registrar referência à revisão real.
 - [ ] T035 [US3] Consolidar e conferir roteiro reproduzível em validation/US3-dev.md e registrar estado técnico em acceptance/US3.md, mantendo decisão do DEV pendente.
 
 ## Fase 6 — US4: Ficha documental (P1)

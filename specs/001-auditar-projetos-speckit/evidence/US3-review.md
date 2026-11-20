@@ -1,4 +1,8 @@
-# Code review — US3 (T033)
+# Code review — US3 (T033–T034)
+
+**Estado vigente — T034, 2026-11-19: autorrevisão técnica CONCLUÍDA, `REV-US3-01`, `REV-US3-02` e `REV-US3-03` RESOLVIDOS.** Zero impeditivos técnicos conhecidos abertos no escopo da US3 (tema claro pendente da US8/T044). O registro T033 abaixo permanece histórico. Roteiro do DEV (T035), fechamento PR-B e aceite humano continuam pendentes.
+
+## Registro histórico T033
 
 Estado do review: **BLOQUEADA para aprovação normal — ALTERAÇÕES SOLICITADAS** (2 achados P2 abertos para T034; 1 achado P3 registrado).
 Execução da task T033: **CONCLUÍDA**; executar a revisão e aprovar a implementação são estados distintos.
@@ -58,4 +62,16 @@ PR previsto: PR-B (base do incremento US3 em `d2a34bc`; sem PR aberto ou integra
 ## Conclusão e passagem
 
 Passagem de revisão **T033** concluída com 2 achados **P2** (`REV-US3-02`, `REV-US3-03`) e 1 achado **P3** (`REV-US3-01`) abertos. O fechamento normal da US3 (T035) fica bloqueado até a resolução e revalidação na **T034**. Nenhum código de produção ou teste foi alterado nesta task.
+
+## Rodada T034 — resolução e autorrevisão renovada
+
+Estado da rodada: **CONCLUÍDA** no escopo técnico dos três achados; nenhum impeditivo conhecido aberto nesse escopo. Modalidade: **AUTORREVISAO**, Antigravity (Gemini 4 Neon). Data/hora: 2026-11-19 23:25 America/Sao_Paulo. Base do incremento de correção: `fdd5150`.
+
+| Achado | Correção inspecionada | Revalidação executada | Estado |
+|---|---|---|---|
+| `REV-US3-03` (P2) | `Dashboard.razor:335-366`: `Rebuild()` preserva a última projeção válida com `MarkStale` tanto quando `HasPendingChanges == true` quanto quando o broker detecta edição antes do evento do watcher na mesma geração; `Refresh()` recalcula normalmente com `Freshness.Current`. | `DashboardTests.S04` comprovou `Desatualizado` + `30 / 40` preservados antes de `Atualizar documentos` e atualização para `31 / 40` após o clique; regressão **84/84** ([logs/T034/regression.txt](logs/T034/regression.txt)). | RESOLVIDO |
+| `REV-US3-02` (P2) | `Dashboard.razor:368-374`: `OnFeatureChanged` limpa `selectedPhase` e `selectedStory` ao alternar funcionalidade. | `DashboardTests.S01` e `S04` (filtro `Gravidade` + alternância para `003-empty`), todos aprovados em `84/84`. | RESOLVIDO |
+| `REV-US3-01` (P3) | `Dashboard.razor:183`: removido `.Take(25)` para exibir todos os requisitos do escopo sem truncamento silencioso. | `DashboardTests.S01–S04` e regressão **84/84**. | RESOLVIDO |
+
+Estado técnico apto a seguir para **T035** (`validation/US3-dev.md` e `acceptance/US3.md`), mantendo aprovação de PR e aceite humano pendentes.
 

@@ -180,7 +180,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var req in projection.Requirements.Take(25))
+                                    @foreach (var req in projection.Requirements)
                                     {
                                         <tr>
                                             <td>
@@ -336,10 +336,24 @@
     {
         if (ProjectStore.Active is not { } active) return;
         errorMessage = null;
+        if (active.Catalog.HasPendingChanges && projection is not null && projection.ProjectId == active.Session.ProjectId)
+        {
+            projection = MarkStale(projection);
+            return;
+        }
         try
         {
-            projection = DashboardService.Build(active, new DashboardFilter(
+            var built = DashboardService.Build(active, new DashboardFilter(
                 selectedFeatureId, selectedStory, selectedPhase, selectedSeverity, selectedSituation));
+            if (built.Freshness == Freshness.Stale && projection is not null &&
+                projection.ProjectId == active.Session.ProjectId && projection.CatalogGeneration == built.CatalogGeneration)
+            {
+                projection = MarkStale(projection);
+            }
+            else
+            {
+                projection = built;
+            }
         }
         catch (Exception failure) when (DocumentMessages.IsReadFailure(failure))
         {
@@ -347,9 +361,19 @@
         }
     }
 
+    private static DashboardProjection MarkStale(DashboardProjection current) => current with
+    {
+        Freshness = Freshness.Stale,
+        RecordedGateStates = current.RecordedGateStates
+            .Select(gate => gate with { Freshness = Freshness.Stale })
+            .ToArray()
+    };
+
     private void OnFeatureChanged(ChangeEventArgs args)
     {
         selectedFeatureId = Guid.TryParse(args.Value?.ToString(), out var id) ? id : null;
+        selectedPhase = null;
+        selectedStory = null;
         Rebuild();
     }
 

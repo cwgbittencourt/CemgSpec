@@ -68,8 +68,14 @@ public sealed class DashboardTests(LocalHostFixture host) : IClassFixture<LocalH
     {
         var severityFilter = page.GetByRole(AriaRole.Combobox, new() { Name = "Gravidade" });
         await Expect(severityFilter).ToBeVisibleAsync();
+        await severityFilter.SelectOptionAsync(new SelectOptionValue { Label = "Alta" });
+        var findings = page.GetByRole(AriaRole.Region, new() { Name = "Ocorrências documentais" });
+        await Expect(findings).ToContainTextAsync("Synthetic blocker");
+        await Expect(findings).Not.ToContainTextAsync("T013");
+        await severityFilter.SelectOptionAsync(new SelectOptionValue { Label = "Todas" });
 
-        // External edit marks a 31st task complete; dashboard must detect change and update counts on explicit refresh without running agents/gates.
+        // External edit marks a 31st task complete; dashboard must keep previous counts visible as Stale
+        // until explicit refresh, then update counts without running agents/gates.
         var tasksPath = Path.Combine(fixture.Feature, "tasks.md");
         var original = File.ReadAllText(tasksPath);
         var updated = original.Replace("- [ ] T031 ", "- [x] T031 ", StringComparison.Ordinal);
@@ -79,6 +85,8 @@ public sealed class DashboardTests(LocalHostFixture host) : IClassFixture<LocalH
         {
             var refreshButton = page.GetByRole(AriaRole.Button, new() { Name = "Atualizar documentos" });
             await Expect(refreshButton).ToBeVisibleAsync();
+            await Expect(page.GetByRole(AriaRole.Main)).ToContainTextAsync("Desatualizado");
+            await Expect(page.GetByRole(AriaRole.Main)).ToContainTextAsync("30 / 40");
             await refreshButton.ClickAsync();
             await Expect(page.GetByRole(AriaRole.Main)).ToContainTextAsync("31 / 40");
             Assert.Equal(updated, File.ReadAllText(tasksPath));

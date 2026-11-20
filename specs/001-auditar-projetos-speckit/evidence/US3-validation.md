@@ -33,6 +33,13 @@ Ambiente, versões e dados: Windows x64, host local `SpecAudit` em loopback (`ht
   - Cinco testes históricos da US1 excluídos do filtro de regressão porque gravam em caminhos históricos de evidências deste checkout (mesmo filtro de T021–T027).
 - **Regressão executada**: 84/84 aprovados em RUN-03 (0 falhas).
 
+## Rodadas após correções
+
+- **Rodada T034 (2026-11-19 23:25 America/Sao_Paulo, sobre base `fdd5150`)**: após resolver `REV-US3-03` (preservação da última projeção válida marcada como `Freshness.Stale` tanto quando `HasPendingChanges == true` quanto quando o broker detecta edição antes do evento do watcher), `REV-US3-02` (reset de `selectedPhase`/`selectedStory` em `OnFeatureChanged`) e `REV-US3-01` (remoção do truncamento silencioso `.Take(25)` na tabela de requisitos), a primeira execução revelou a corrida broker-antes-do-watcher em `S04`; após tratá-la em `Dashboard.razor`, a reexecução completa aprovou **84/84 testes** (16 `SpecAudit.Tests`, 16 `SpecAudit.Windows.Tests`, 52 `SpecAudit.Ui.Tests`, exit code 0), incluindo filtro por `Gravidade` e preservação de `30 / 40` + `Desatualizado` antes do clique em `Atualizar documentos`. Log: [logs/T034/regression.txt](logs/T034/regression.txt).
+  - SHA-256 dos arquivos alterados na T034:
+    - `SpecAudit/Components/Pages/Dashboard.razor` — `f87f6f60c8e089558be645cb206d3c4101428171a87684e01608bb0e54e23695`
+    - `tests/SpecAudit.Ui.Tests/DashboardTests.cs` — `d1259fabc35e6870b8ec8095a7bbe6fd89c94bbc91ac3408f6e45a8b30662441`
+
 ## Identificação do incremento e histórico
 
 - PR previsto ou URL real: PR-B (local, ainda não aberto/integrado).
