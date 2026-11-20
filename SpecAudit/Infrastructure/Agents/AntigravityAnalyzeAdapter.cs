@@ -148,7 +148,7 @@ public sealed class AntigravityAnalyzeAdapter
                     "--settings", RestrictedSettings, "--sandbox", "--json-schema", CodexAnalyzeAdapter.OutputSchemaJson]);
 
             run.BeginRunning(label);
-            var result = await runner(command, input, stateDirectory, origin, TimeSpan.FromSeconds(120), lifetime.Token);
+            var result = await runner(command, input, stateDirectory, origin, TimeSpan.FromSeconds(300), lifetime.Token);
             if (workToken.IsCancellationRequested || context.Catalog.HasPendingChanges || context.Catalog.Generation != run.CatalogGeneration)
                 run.MarkStale();
             if (result.Cancelled || lifetime.IsCancellationRequested)
@@ -164,7 +164,7 @@ public sealed class AntigravityAnalyzeAdapter
                 if (AuthenticationRequired(result.Error) || AuthenticationRequired(result.Output))
                     reason = "Autenticação Antigravity ausente ou inválida.";
                 else if (result.TimedOut)
-                    reason = "Tempo limite excedido (timeout) aguardando resposta do Antigravity. Tente novamente ou reduza o escopo.";
+                    reason = "Tempo limite excedido (5 min) aguardando resposta do Antigravity. Tente novamente ou reduza o escopo.";
                 else if (result.LimitExceeded)
                     reason = "A saída do Antigravity excedeu o limite operacional de tamanho permitido.";
                 else if (!result.RootTerminationConfirmed)
