@@ -4,7 +4,7 @@
 **Preset**: cemg-speckit 3.0.0 | **Template**: tasks-template | **Composição**: replace.
 **Fonte**: .specify/presets/cemg-speckit/templates/tasks-template.md; resolvido por setup-tasks.ps1.
 **Entradas**: spec.md, plan.md, research.md (R18 vigente), data-model.md, contracts/application.md, contracts/verification.md, contracts/persistence.md e quickstart.md; constituição 4.0.0.
-**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente: testes/renderizador/segurança (`9e4ffbd`, `3803ffb`), integração UI (`14865b7`), validação US2 (`656cb19`), autorrevisão (`372def9`), resolução de `REV-US2-01`/`REV-US2-02` com 75/75 aprovados (`62c6e3c`), roteiro em [validation/US2-dev.md](validation/US2-dev.md) e estado técnico em [acceptance/US2.md](acceptance/US2.md). Próxima T029 (Fase 5 — US3 Dashboard). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
+**Estado de execução**: migração e T001–T020 concluídas tecnicamente. PR-A descrito em verification/prs/PR-A.md; validação57/57, manutenção6/6 e probes2/2 da mesma fonte conferidos; zero impeditivos técnicos conhecidos abertos. T021–T028 (US2 — Documentos) concluídas tecnicamente (`d2a34bc`). T029 concluiu a preparação de testes da US3 em `DocumentaryProgressTests.cs` e `DashboardTests.cs` (8 falhas esperadas, 1 invariante V1 aprovada e 75/75 regressão aprovados) em [evidence/T029-dashboard-tests.md](evidence/T029-dashboard-tests.md). Próxima T030 (domínio e serviço do Dashboard documental). Aprovação/integração de PR e execução/aceite humanos pendentes; nenhuma User Story aceita.
 
 ## Checkpoint histórico — constituição 4.0.0
 
@@ -90,7 +90,7 @@ Consultar [guia dos mockups aprovados](design/mockups/README.md) antes de implem
 **Dependências**: PR-A; pode desenvolver domínio em paralelo ao renderer quando arquivos/deps independentes.
 **Teste independente**: US3-S01–S04: 75% declarado, 60% cobertura documental e Sem itens.
 
-- [ ] T029 [P] [US3] Escrever testes US3-S01–S04 em tests/SpecAudit.Tests/DocumentaryProgressTests.cs e tests/SpecAudit.Ui.Tests/DashboardTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
+- [x] T029 [P] [US3] Escrever testes US3-S01–S04 em tests/SpecAudit.Tests/DocumentaryProgressTests.cs e tests/SpecAudit.Ui.Tests/DashboardTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.
 - [ ] T030 [US3] Definir TaskDeclaration/DashboardProjection e projeções em SpecAudit/Domain/TaskDeclaration.cs, SpecAudit/Domain/DashboardProjection.cs e SpecAudit/Application/DocumentaryDashboardService.cs; observar constraints literais abaixo.
 - [ ] T031 [US3] Implementar indicadores/ocorrências/filtros e fonte/atualidade em SpecAudit/Components/Pages/Dashboard.razor, preservando procedência documental. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.
 - [ ] T032 [US3] Executar os cenários US3-S01–S04 / US3-AC01–AC04 no host/harness real e regressão relacionada, comparando resultado e efeitos; registrar versão, comandos e saídas em evidence/US3-validation.md.
