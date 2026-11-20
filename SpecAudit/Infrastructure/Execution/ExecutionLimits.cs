@@ -8,7 +8,7 @@ public sealed record ExecutionLimits
 {
     public const string PolicyVersion="specaudit-limits-v1";
     public long MaxDocumentBytes { get; init; }=4*1024*1024;
-    public int MaxGraphNodes { get; init; }=256;
+    public int MaxGraphNodes { get; init; }=3000;
     public int MaxGraphDepth { get; init; }=32;
     public int MaxOutputCharacters { get; init; }=65536;
     public TimeSpan MaxDuration { get; init; }=TimeSpan.FromSeconds(30);

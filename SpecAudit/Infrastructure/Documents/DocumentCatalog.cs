@@ -10,6 +10,7 @@ public sealed class DocumentCatalog : IDisposable
     internal readonly object SyncRoot=new();
     private Dictionary<string,Guid> documentIds=new(StringComparer.OrdinalIgnoreCase);
     private Dictionary<string,Guid> featureIds=new(StringComparer.OrdinalIgnoreCase);
+    private readonly List<string> omittedDocuments=[];
     private int pending;
     private long changeRevision;
     public long ChangeRevision=>Interlocked.Read(ref changeRevision);
@@ -20,6 +21,8 @@ public sealed class DocumentCatalog : IDisposable
     public string FinalOriginPath { get; }
     public long Generation { get; private set; }
     public IReadOnlyList<CatalogEntry> Entries {get{lock(SyncRoot)return Index.Values.ToArray();}}
+    public IReadOnlyList<string> OmittedDocuments {get{lock(SyncRoot)return omittedDocuments.ToArray();}}
+    public bool IsTruncated {get{lock(SyncRoot)return omittedDocuments.Count>0;}}
     internal ExecutionLimits Limits { get; }=new();
     public DocumentCatalog(Guid projectId,string origin)
     {
@@ -30,16 +33,28 @@ public sealed class DocumentCatalog : IDisposable
     }
     private void Build()
     {
+        omittedDocuments.Clear();
         Add(".specify/memory/constitution.md",CatalogKind.Constitution,null);
         var specs=Path.Combine(FinalOriginPath,"specs");
-        foreach(var feature in IsPlainDirectory(specs)?Directory.EnumerateDirectories(specs):Array.Empty<string>())
+        var features=(IsPlainDirectory(specs)?Directory.EnumerateDirectories(specs):Array.Empty<string>())
+            .Where(f=>IsPlainDirectory(f) && System.Text.RegularExpressions.Regex.IsMatch(Path.GetFileName(f),@"^\d{3}-[A-Za-z0-9_-]+$"))
+            .OrderBy(f=>f,StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        // 1. Load essential core documents for every feature first.
+        foreach(var feature in features)
         {
-            if(!IsPlainDirectory(feature) || !System.Text.RegularExpressions.Regex.IsMatch(Path.GetFileName(feature),@"^\d{3}-[A-Za-z0-9_-]+$"))continue;
             var relative=Path.GetRelativePath(FinalOriginPath,feature);
             if(!featureIds.TryGetValue(relative,out var id)){id=Guid.NewGuid();featureIds[relative]=id;}
             foreach(var (name,kind) in new[]{("spec.md",CatalogKind.Spec),("plan.md",CatalogKind.Plan),("tasks.md",CatalogKind.Tasks),("research.md",CatalogKind.Research),("data-model.md",CatalogKind.Design),("quickstart.md",CatalogKind.Design)})Add(Path.Combine(relative,name),kind,id);
-            foreach(var folder in new[]{"checklists","contracts","design","evidence","verification","validation","acceptance"})
-                Walk(Path.Combine(feature,folder),folder,id,0);
+        }
+        // 2. Load governance & secondary folders in priority order (verification/contracts/checklists before bulky evidence).
+        foreach(var folder in new[]{"verification","contracts","checklists","validation","acceptance","design","evidence"})
+        {
+            foreach(var feature in features)
+            {
+                var relative=Path.GetRelativePath(FinalOriginPath,feature);
+                Walk(Path.Combine(feature,folder),folder,featureIds[relative],0);
+            }
         }
         var broker=new DocumentBroker(this);
         foreach(var entry in Index.Values.ToArray())
@@ -51,7 +66,7 @@ public sealed class DocumentCatalog : IDisposable
     private static bool IsPlainDirectory(string path)=>Directory.Exists(path) && !File.GetAttributes(path).HasFlag(FileAttributes.ReparsePoint);
     private void Walk(string directory,string context,Guid feature,int depth)
     {
-        if(!IsPlainDirectory(directory))return;Limits.CheckGraph(Index.Count,depth);
+        if(!IsPlainDirectory(directory))return;Limits.CheckGraph(0,depth);
         foreach(var file in Directory.EnumerateFiles(directory))
         {
             var extension=Path.GetExtension(file).ToLowerInvariant();
@@ -75,7 +90,12 @@ public sealed class DocumentCatalog : IDisposable
         {if(!IsPlainDirectory(ancestor))return;ancestor=Path.GetDirectoryName(ancestor);}
         using var handle=WindowsReadHandle.Open(path,false);var info=WindowsReadHandle.Info(handle);
         if(info.Links!=1 || !string.Equals(WindowsReadHandle.FinalPath(handle),path,StringComparison.OrdinalIgnoreCase))return;
-        Limits.CheckDocument(info.Length);Limits.CheckGraph(Index.Count+1,0);
+        Limits.CheckDocument(info.Length);
+        if(Index.Count>=Limits.MaxGraphNodes)
+        {
+            omittedDocuments.Add(relative);
+            return;
+        }
         if(!documentIds.TryGetValue(relative,out var id)){id=Guid.NewGuid();documentIds[relative]=id;}Index[id]=new(id,ProjectId,feature,relative,kind,info.Identity,"",info.Length,DateTimeOffset.FromFileTime(info.WriteStamp),Generation);
     }
     internal void ConfirmOrigin()

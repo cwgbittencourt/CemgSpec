@@ -77,6 +77,21 @@
             <section class="path-card"><p class="eyebrow">DESTINO EXTERNO</p><h2>Relatórios</h2><p class="path-value">@active.OutputDisplayPath</p><button class="secondary" @onclick="ChangeOutput" disabled="@busy">Alterar destino</button><p class="muted">A troca não move ou exclui relatórios anteriores.</p></section>
         </div>
         @if(active.Catalog.HasPendingChanges){<div role="status" class="notice">Os documentos foram alterados externamente. Atualize a leitura antes de continuar. <button class="secondary" @onclick="Refresh">Atualizar documentos</button></div>}
+        @if(active.Catalog.IsTruncated)
+        {
+            <div role="status" class="notice">
+                <strong>Limite de @active.Catalog.Limits.MaxGraphNodes documentos atingido:</strong> os @active.Catalog.Entries.Count artefatos mais essenciais foram carregados e <strong>@active.Catalog.OmittedDocuments.Count</strong> arquivo(s) foram deixados de fora.
+                <details style="margin-top:8px">
+                    <summary>Ver arquivos deixados de fora (@active.Catalog.OmittedDocuments.Count)</summary>
+                    <ul class="topic-scroll" style="margin:8px 0 0;padding-left:18px">
+                        @foreach (var omitted in active.Catalog.OmittedDocuments)
+                        {
+                            <li class="path-value">@omitted</li>
+                        }
+                    </ul>
+                </details>
+            </div>
+        }
         <section class="feature-section"><div class="section-heading"><h2>Funcionalidades</h2><span class="muted">@active.Session.Features.Count encontradas</span></div>
         @if(active.Session.Features.Count==0){<p>Nenhuma funcionalidade SpecKit reconhecida na origem.</p>}
         else
