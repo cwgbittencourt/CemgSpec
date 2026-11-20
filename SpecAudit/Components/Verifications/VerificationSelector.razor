@@ -19,13 +19,12 @@
 }
 else
 {
-    var selectedType = VerificationStore.GetSelectedVerification(active.Session.ProjectId);
+    var selectedType = VerificationType.CheckGate;
     <div class="@(Compact ? "v-selector compact" : "v-selector")">
         <div class="v-field">
             <label for="@comboId">Tipo de verificação</label>
-            <select id="@comboId" aria-label="Tipo de verificação" value="@selectedType.ToString()" @onchange="OnVerificationTypeChanged" disabled="@isRunning">
-                <option value="@VerificationType.AnalyzeDocuments">speckit-analyze — Consistência documental</option>
-                <option value="@VerificationType.CheckGate">check_gate — Validar gates</option>
+            <select id="@comboId" aria-label="Tipo de verificação" value="@VerificationType.CheckGate.ToString()" disabled="@isRunning">
+                <option value="@VerificationType.CheckGate">check_gate — Validar gates (offline, sem IA)</option>
             </select>
         </div>
 

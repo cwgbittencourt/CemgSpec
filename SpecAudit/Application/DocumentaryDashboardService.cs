@@ -11,9 +11,20 @@ public sealed partial class DocumentaryDashboardService
     private static readonly UTF8Encoding Utf8 = new(false, throwOnInvalidBytes: true);
     private static readonly string[] CodeExtensions =
         [".cs", ".razor", ".ts", ".tsx", ".js", ".jsx", ".py", ".csproj", ".sln", ".slnx"];
+    private readonly Dictionary<string, DashboardProjection> cache = new(StringComparer.Ordinal);
 
-    public DashboardProjection Build(OpenProjectContext project, DashboardFilter? filter = null) =>
-        Build(project.Catalog, new DocumentBroker(project.Catalog), project.Session.Features, filter);
+    public DashboardProjection Build(OpenProjectContext project, DashboardFilter? filter = null)
+    {
+        filter ??= new DashboardFilter();
+        var key = $"{project.Session.ProjectId:N}|{project.Catalog.Generation}|{(project.Catalog.HasPendingChanges ? 1 : 0)}|{filter.FeatureId?.ToString("N") ?? "*"}|{filter.Phase ?? "*"}|{filter.Story ?? "*"}|{filter.Severity?.ToString() ?? "*"}|{filter.Status ?? "*"}";
+        if (cache.TryGetValue(key, out var cached))
+            return cached;
+
+        var built = Build(project.Catalog, new DocumentBroker(project.Catalog), project.Session.Features, filter);
+        if (cache.Count > 64) cache.Clear();
+        cache[key] = built;
+        return built;
+    }
 
     internal DashboardProjection Build(
         DocumentCatalog catalog,
