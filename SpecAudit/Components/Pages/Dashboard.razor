@@ -5,6 +5,7 @@
 @using SpecAudit.Domain
 @inject ProjectService ProjectStore
 @inject DocumentaryDashboardService DashboardService
+@inject Microsoft.JSInterop.IJSRuntime JS
 
 <PageTitle>Dashboard — SpecAudit</PageTitle>
 
@@ -153,9 +154,15 @@
             </div>
 
             <div class="summary-chips">
-                <span class="chip danger">▲ @projection.Occurrences.Count(o => o.Category == DocumentaryOccurrenceCategory.RecordedBlocker) impedimentos</span>
-                <span class="chip warn">◆ @projection.Occurrences.Count(o => o.Category is DocumentaryOccurrenceCategory.RequirementWithoutTask or DocumentaryOccurrenceCategory.TaskWithoutRequirement or DocumentaryOccurrenceCategory.DuplicateRequirementId or DocumentaryOccurrenceCategory.DuplicateTaskId or DocumentaryOccurrenceCategory.InvalidReference or DocumentaryOccurrenceCategory.MissingArtifact) lacunas e inconsistências</span>
-                <span class="chip info">◇ @projection.Occurrences.Count(o => o.Category == DocumentaryOccurrenceCategory.UnverifiedCodeReference) referências a código não verificadas</span>
+                <button type="button" class="chip danger @(activeChipFilter == "blockers" ? "chip-active" : "")" @onclick='() => ToggleChipFilter("blockers")'>
+                    ▲ @projection.Occurrences.Count(o => o.Category == DocumentaryOccurrenceCategory.RecordedBlocker) impedimentos
+                </button>
+                <button type="button" class="chip warn @(activeChipFilter == "gaps" ? "chip-active" : "")" @onclick='() => ToggleChipFilter("gaps")'>
+                    ◆ @projection.Occurrences.Count(o => o.Category is DocumentaryOccurrenceCategory.RequirementWithoutTask or DocumentaryOccurrenceCategory.TaskWithoutRequirement or DocumentaryOccurrenceCategory.DuplicateRequirementId or DocumentaryOccurrenceCategory.DuplicateTaskId or DocumentaryOccurrenceCategory.InvalidReference or DocumentaryOccurrenceCategory.MissingArtifact) lacunas e inconsistências
+                </button>
+                <button type="button" class="chip info @(activeChipFilter == "code" ? "chip-active" : "")" @onclick='() => ToggleChipFilter("code")'>
+                    ◇ @projection.Occurrences.Count(o => o.Category == DocumentaryOccurrenceCategory.UnverifiedCodeReference) referências a código não verificadas
+                </button>
             </div>
 
             <div class="dash-columns">
@@ -209,18 +216,25 @@
                         }
                     </section>
 
-                    <section class="dash-card" aria-label="Ocorrências documentais">
+                    @{
+                        var visibleOccurrences = FilterByChip(projection.Occurrences);
+                    }
+                    <section id="ocorrencias-documentais" class="dash-card" aria-label="Ocorrências documentais">
                         <div class="card-heading">
-                            <h2>Ocorrências documentais (@projection.Occurrences.Count)</h2>
+                            <h2>Ocorrências documentais (@visibleOccurrences.Count)</h2>
+                            @if (activeChipFilter is not null)
+                            {
+                                <button type="button" class="secondary" @onclick="() => activeChipFilter = null">Mostrar todas (@projection.Occurrences.Count)</button>
+                            }
                         </div>
-                        @if (projection.Occurrences.Count == 0)
+                        @if (visibleOccurrences.Count == 0)
                         {
                             <p class="muted small">Nenhuma ocorrência documental encontrada para os filtros atuais.</p>
                         }
                         else
                         {
                             <ul class="occurrence-list">
-                                @foreach (var occ in projection.Occurrences)
+                                @foreach (var occ in visibleOccurrences)
                                 {
                                     <li class="occurrence-item">
                                         <div class="occ-head">
@@ -229,7 +243,10 @@
                                             <span class="occ-situation">@occ.Situation</span>
                                         </div>
                                         <p class="muted small">@occ.Explanation</p>
-                                        <div class="mono small muted">Fonte: @occ.SourceLocation.RelativePath@(occ.SourceLocation.LineNumber > 0 ? $":{occ.SourceLocation.LineNumber}" : "")</div>
+                                        <div class="occ-footer">
+                                            <span class="mono small muted">Fonte: @occ.SourceLocation.RelativePath@(occ.SourceLocation.LineNumber > 0 ? $":{occ.SourceLocation.LineNumber}" : "")</span>
+                                            <a class="inline-link" href="/documentos">Abrir em Documentos</a>
+                                        </div>
                                     </li>
                                 }
                             </ul>
@@ -288,8 +305,32 @@
     private string? selectedStory;
     private DocumentaryOccurrenceSeverity? selectedSeverity;
     private string? selectedSituation;
+    private string? activeChipFilter;
     private DashboardProjection? projection;
     private string? errorMessage;
+
+    private async Task ToggleChipFilter(string chip)
+    {
+        activeChipFilter = activeChipFilter == chip ? null : chip;
+        try
+        {
+            await JS.InvokeVoidAsync("eval", "document.getElementById('ocorrencias-documentais')?.scrollIntoView({behavior:'smooth',block:'start'})");
+        }
+        catch { }
+    }
+
+    private IReadOnlyList<DocumentaryOccurrence> FilterByChip(IReadOnlyList<DocumentaryOccurrence> all) => activeChipFilter switch
+    {
+        "blockers" => all.Where(o => o.Category == DocumentaryOccurrenceCategory.RecordedBlocker).ToArray(),
+        "gaps" => all.Where(o => o.Category is DocumentaryOccurrenceCategory.RequirementWithoutTask
+            or DocumentaryOccurrenceCategory.TaskWithoutRequirement
+            or DocumentaryOccurrenceCategory.DuplicateRequirementId
+            or DocumentaryOccurrenceCategory.DuplicateTaskId
+            or DocumentaryOccurrenceCategory.InvalidReference
+            or DocumentaryOccurrenceCategory.MissingArtifact).ToArray(),
+        "code" => all.Where(o => o.Category == DocumentaryOccurrenceCategory.UnverifiedCodeReference).ToArray(),
+        _ => all
+    };
 
     protected override void OnInitialized()
     {
