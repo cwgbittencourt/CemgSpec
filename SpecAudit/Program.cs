@@ -44,6 +44,7 @@ builder.Services.AddSingleton(codexAdapter);
 builder.Services.AddSingleton(antigravityAdapter);
 builder.Services.AddSingleton(externalReportWriter);
 builder.Services.AddSingleton<SpecAudit.Infrastructure.Reports.SavedHistoryReader>();
+builder.Services.AddSingleton<SpecAudit.Infrastructure.Projects.RecentProjectStore>();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<DocumentaryDashboardService>();
 builder.Services.AddScoped<RequirementTraceService>();

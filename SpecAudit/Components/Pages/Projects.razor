@@ -9,7 +9,7 @@
         <div><p class="eyebrow">SPECAUDIT · AUDITORIA DOCUMENTAL</p><h1>Projetos</h1><p class="muted">Consulte seus documentos SpecKit. A solução permanece somente leitura.</p></div>
         <button class="primary" @onclick="Open" disabled="@busy">@(busy ? "Selecionando pastas…" : "Carregar projeto")</button>
     </header>
-    <p class="muted">Para alternar projetos já abertos, use a lista Projeto. Um novo carregamento só acontece após conferir e confirmar as duas pastas.</p>
+    <p class="muted">Para alternar projetos já abertos, use a lista Projeto ou o grid de Projetos recentes abaixo. Um novo carregamento só acontece após conferir e confirmar as duas pastas.</p>
     @if(opening)
     {
         <section class="selection-panel" aria-label="Novo projeto">
@@ -24,6 +24,47 @@
         </section>
     }
     @if(error is not null){<div role="alert" class="notice error-notice">@error</div>}
+
+    @if(ProjectStore.RecentProjects.Count > 0)
+    {
+        <section class="feature-section recent-projects-section" aria-label="Projetos recentes">
+            <div class="section-heading">
+                <h2>Projetos recentes</h2>
+                <span class="muted">@ProjectStore.RecentProjects.Count salvo(s)</span>
+            </div>
+            <div class="topic-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Projeto</th>
+                            <th>Origem (somente leitura)</th>
+                            <th>Destino externo</th>
+                            <th>Último acesso</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ProjectStore.RecentProjects)
+                        {
+                            var isActive = ProjectStore.Active is { } curr &&
+                                string.Equals(curr.Catalog.FinalOriginPath.TrimEnd(Path.DirectorySeparatorChar), item.OriginPath, StringComparison.OrdinalIgnoreCase);
+                            <tr class="@(isActive ? "recent-active-row" : "")">
+                                <td><strong>@item.DisplayName</strong>@(isActive ? " (ativo)" : "")</td>
+                                <td class="path-value">@item.OriginPath</td>
+                                <td class="path-value">@item.OutputPath</td>
+                                <td class="muted">@item.LastOpenedUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="recent-actions">
+                                    <button type="button" class="secondary" disabled="@busy" @onclick="() => ReopenRecent(item.Id)">Abrir</button>
+                                    <button type="button" class="secondary" disabled="@busy" @onclick="() => RemoveRecent(item.Id)">Remover</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    }
+
     @if(ProjectStore.Active is not { } active)
     {
         <section class="project-empty"><div class="folder-mark" aria-hidden="true">▱</div><h2>Escolha um projeto para começar</h2><p>Selecione a pasta da solução e uma pasta externa para os relatórios.</p><p class="muted">Carregar e consultar documentos não salva relatórios nem altera a origem.</p></section>
@@ -41,16 +82,17 @@
         else
         {
             <label class="feature-selector">Funcionalidade <select aria-label="Funcionalidade" value="@active.Session.ActiveFeatureId" @onchange="SelectFeature">@foreach(var feature in active.Session.Features){<option value="@feature.FeatureId">@feature.Title</option>}</select></label>
-            <table><thead><tr><th>Artefato</th><th>Estado documental</th></tr></thead><tbody>
-            @foreach(var name in new[]{"spec.md","plan.md","tasks.md"})
-            {
-                var exists=active.Catalog.Entries.Any(e=>e.FeatureId==active.Session.ActiveFeatureId && string.Equals(e.RelativePath,System.IO.Path.Combine(active.Session.RequireFeature(active.Session.ActiveFeatureId!.Value).SpecKitRelativeDirectory,name),StringComparison.OrdinalIgnoreCase));
-                <tr><td>@name</td><td><span class="@(exists ? "present-state" : "missing-state")">@(exists ? "Presente" : "Ausente")</span></td></tr>
-            }
-            </tbody></table>
+            <div class="topic-scroll">
+                <table><thead><tr><th>Artefato</th><th>Estado documental</th></tr></thead><tbody>
+                @foreach(var name in new[]{"spec.md","plan.md","tasks.md"})
+                {
+                    var exists=active.Catalog.Entries.Any(e=>e.FeatureId==active.Session.ActiveFeatureId && string.Equals(e.RelativePath,System.IO.Path.Combine(active.Session.RequireFeature(active.Session.ActiveFeatureId!.Value).SpecKitRelativeDirectory,name),StringComparison.OrdinalIgnoreCase));
+                    <tr><td>@name</td><td><span class="@(exists ? "present-state" : "missing-state")">@(exists ? "Presente" : "Ausente")</span></td></tr>
+                }
+                </tbody></table>
+            </div>
         }
         </section>
-        <div class="future-actions"><button disabled>Executar verificação</button><button disabled>Salvar resultados</button><span class="muted">Verificações e salvamento ainda indisponíveis nesta etapa.</span></div>
     }
 </section>
 
@@ -84,6 +126,17 @@
         return Task.CompletedTask;
     }
     private void CancelOpen(){if(busy)return;opening=false;pendingOrigin=null;pendingOutput=null;error=null;}
+    private void ReopenRecent(Guid recentId)
+    {
+        if(busy)return;busy=true;error=null;
+        try{ProjectStore.ReopenRecent(recentId);opening=false;}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+    }
+    private void RemoveRecent(Guid recentId)
+    {
+        if(busy)return;error=null;
+        ProjectStore.RemoveRecent(recentId);
+    }
     private static bool IsSelectionError(Exception failure)=>failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or SpecAudit.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException or System.ComponentModel.Win32Exception;
     private async Task ChangeOutput(){if(busy)return;if(ProjectStore.Active is not {} active)return;busy=true;error=null;try{await ProjectStore.ChangeOutputDirectoryAsync(active.Session.ProjectId);}catch(Exception failure) when(failure is SpecAudit.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}finally{busy=false;}}
     private void SelectProject(ChangeEventArgs args){if(Guid.TryParse(args.Value?.ToString(),out var id)){try{ProjectStore.SelectProject(id);error=null;}catch(KeyNotFoundException){error="Projeto indisponível nesta sessão.";}}}

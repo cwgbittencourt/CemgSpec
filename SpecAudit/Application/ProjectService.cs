@@ -1,5 +1,6 @@
 using SpecAudit.Domain;
 using SpecAudit.Infrastructure.Documents;
+using SpecAudit.Infrastructure.Projects;
 namespace SpecAudit.Application;
 public sealed class DocumentVersion
 {
@@ -39,12 +40,13 @@ public sealed class OpenProjectContext : IDisposable
         try{old.Cancel();}finally{old.Dispose();Catalog.Dispose();}
     }
 }
-public sealed class ProjectService(LocalSessionService localSession,IFolderPicker picker) : IDisposable
+public sealed class ProjectService(LocalSessionService localSession,IFolderPicker picker,RecentProjectStore? recentStore=null) : IDisposable
 {
     private readonly Dictionary<Guid,OpenProjectContext> projects=[];
     private int folderSelectionActive;
     public OpenProjectContext? Active {get;private set;}
     public IReadOnlyList<OpenProjectContext> Projects=>projects.Values.ToArray();
+    public IReadOnlyList<RecentProjectEntry> RecentProjects=>recentStore?.List() ?? [];
     public event Action? Changed;
     public async Task<string?> PickProjectOriginAsync()=>await PickDirectoryAsync("Selecionar PROJETO (origem somente leitura)");
     public async Task<string?> PickReportDestinationAsync()=>await PickDirectoryAsync("Selecionar RELATORIOS (destino externo)");
@@ -79,6 +81,7 @@ public sealed class ProjectService(LocalSessionService localSession,IFolderPicke
         if(existing is not null)
         {
             existing.Session.ChangeOutputIdentity(destination.Identity);existing.OutputDisplayPath=destination.Path;
+            recentStore?.Upsert(existing.Session.DisplayName,originPath,destination.Path);
             SelectProject(existing.Session.ProjectId);return existing;
         }
         var session=new ProjectSession(localSession.SessionId,Path.GetFileName(originPath.TrimEnd(Path.DirectorySeparatorChar)),WindowsReadHandle.Info(originHandle).Identity,originPath,destination.Identity);
@@ -86,7 +89,20 @@ public sealed class ProjectService(LocalSessionService localSession,IFolderPicke
         try{context=new(session,catalog,destination.Path);}catch{catalog.Dispose();throw;}
         foreach(var feature in catalog.Features)session.AddFeature(feature.Value,Path.GetFileName(feature.Value),feature.Key);
         context.Monitor.Changed+=()=>Changed?.Invoke();
-        Active?.CancelWork();projects.Add(session.ProjectId,context);Active=context;Changed?.Invoke();return context;
+        Active?.CancelWork();projects.Add(session.ProjectId,context);Active=context;
+        recentStore?.Upsert(session.DisplayName,originPath,destination.Path);
+        Changed?.Invoke();return context;
+    }
+    public OpenProjectContext ReopenRecent(Guid recentId)
+    {
+        var entry=recentStore?.GetById(recentId) ?? throw new InvalidOperationException("RecentProjectNotFound");
+        return OpenSelected(entry.OriginPath,entry.OutputPath);
+    }
+    public bool RemoveRecent(Guid recentId)
+    {
+        var removed=recentStore?.Remove(recentId) ?? false;
+        if(removed)Changed?.Invoke();
+        return removed;
     }
     public OpenProjectContext RequireProject(Guid id)=>projects.TryGetValue(id,out var project)&&project.Session.IsOwnedBy(localSession.SessionId)?project:throw new KeyNotFoundException("Project does not belong to the local session.");
     public void SelectProject(Guid id){var next=RequireProject(id);if(Active!=next)Active?.CancelWork();Active=next;Changed?.Invoke();}
@@ -97,7 +113,12 @@ public sealed class ProjectService(LocalSessionService localSession,IFolderPicke
         finally{Volatile.Write(ref folderSelectionActive,0);}
     }
     internal void ChangeOutputSelected(Guid id,string output)
-    {var context=RequireProject(id);var destination=ValidateOutput(context.Catalog.FinalOriginPath,output);context.Session.ChangeOutputIdentity(destination.Identity);context.OutputDisplayPath=destination.Path;Changed?.Invoke();}
+    {
+        var context=RequireProject(id);var destination=ValidateOutput(context.Catalog.FinalOriginPath,output);
+        context.Session.ChangeOutputIdentity(destination.Identity);context.OutputDisplayPath=destination.Path;
+        recentStore?.Upsert(context.Session.DisplayName,context.Catalog.FinalOriginPath,destination.Path);
+        Changed?.Invoke();
+    }
     // A prepared operation must retain this version and validate it at each boundary.
     // Actual Prepare/Execute/Save workflows belong to subsequent tasks.
     public DocumentVersion CaptureDocumentVersion(Guid projectId)
