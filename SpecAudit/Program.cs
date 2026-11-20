@@ -28,6 +28,7 @@ builder.Services.AddScoped<LocalSessionService>();
 builder.Services.AddScoped<IFolderPicker,SpecAudit.Infrastructure.Documents.NativeFolderPicker>();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<DocumentaryDashboardService>();
+builder.Services.AddScoped<RequirementTraceService>();
 builder.Services.AddAntiforgery(options=>
 {
     options.Cookie.SameSite=SameSiteMode.Strict;
