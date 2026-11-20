@@ -25,6 +25,7 @@ public sealed class DashboardTests(LocalHostFixture host) : IClassFixture<LocalH
         // Mandatory V1 substitutions from design/mockups/README.md: never claim evidenced implementation or approved validation.
         await Expect(main).Not.ToContainTextAsync("Implementação evidenciada");
         await Expect(main).Not.ToContainTextAsync("Validação aprovada");
+        await CaptureIfRequestedAsync(page, "dashboard-demo.png");
 
         // Empty feature scope (003-empty) must show "Sem itens" and never a percentage.
         var featureFilter = page.GetByRole(AriaRole.Combobox, new() { Name = "Funcionalidade" });
@@ -32,6 +33,7 @@ public sealed class DashboardTests(LocalHostFixture host) : IClassFixture<LocalH
         await Expect(main).ToContainTextAsync("Sem itens");
         await Expect(main).Not.ToContainTextAsync("0%");
         await Expect(main).Not.ToContainTextAsync("NaN%");
+        await CaptureIfRequestedAsync(page, "dashboard-empty.png");
     });
 
     [Fact]
@@ -128,6 +130,14 @@ public sealed class DashboardTests(LocalHostFixture host) : IClassFixture<LocalH
             await context.CloseAsync();
             Directory.Delete(fixture.Root, recursive: true);
         }
+    }
+
+    private static async Task CaptureIfRequestedAsync(IPage page, string fileName)
+    {
+        var directory = Environment.GetEnvironmentVariable("SPECAUDIT_CAPTURE_DIR");
+        if (string.IsNullOrWhiteSpace(directory)) return;
+        Directory.CreateDirectory(directory);
+        await page.ScreenshotAsync(new() { Path = Path.Combine(directory, fileName), FullPage = true });
     }
 
     private async Task PickAsync(IPage page, string button, string title, string folder, string pathTestId)

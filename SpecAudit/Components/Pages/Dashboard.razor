@@ -1,0 +1,408 @@
+@page "/dashboard"
+@implements IDisposable
+@using SpecAudit.Application
+@using SpecAudit.Components.Documents
+@using SpecAudit.Domain
+@inject ProjectService ProjectStore
+@inject DocumentaryDashboardService DashboardService
+
+<PageTitle>Dashboard — SpecAudit</PageTitle>
+
+<section class="dash-page">
+    <header class="dash-header">
+        <div>
+            <p class="eyebrow">SPECAUDIT · VISÃO DOCUMENTAL</p>
+            <h1>Dashboard</h1>
+            <p class="muted">Indicadores explicáveis dos registros SpecKit. A leitura não analisa código nem executa verificações.</p>
+        </div>
+    </header>
+
+    @if (ProjectStore.Active is not { } active)
+    {
+        <section class="project-empty">
+            <div class="folder-mark" aria-hidden="true">⌂</div>
+            <h2>Nenhum projeto carregado</h2>
+            <p>Abra um projeto em <a href="/projetos">Projetos</a> para consultar progresso declarado, cobertura documental e ocorrências.</p>
+            <p class="muted">Nenhuma verificação ou gravação de relatório ocorre automaticamente.</p>
+        </section>
+    }
+    else
+    {
+        <div class="dash-context-bar">
+            <strong>@active.Session.DisplayName</strong>
+            <span class="readonly-badge">◇ Somente leitura</span>
+            <span class="@(projection?.Freshness == Freshness.Stale ? "freshness-badge stale" : "freshness-badge")">
+                @(projection?.Freshness == Freshness.Stale ? "Desatualizado" : "Atual") · Geração #@active.Catalog.Generation
+            </span>
+            <span class="dash-output-meta" title="@active.OutputDisplayPath">Destino externo: <code>@active.OutputDisplayPath</code></span>
+        </div>
+
+        @if (active.Catalog.HasPendingChanges)
+        {
+            <div role="status" class="notice">
+                Os documentos foram alterados externamente. Resultados de verificações anteriores ficam desatualizados; atualizar recalcula apenas contagens documentais, sem executar agente ou gate.
+                <button type="button" class="secondary" @onclick="Refresh">Atualizar documentos</button>
+            </div>
+        }
+
+        @if (errorMessage is not null)
+        {
+            <div role="alert" class="notice error-notice">@errorMessage</div>
+        }
+
+        @if (projection is not null)
+        {
+            <section class="dash-filters" aria-label="Filtros do dashboard">
+                <label>
+                    Funcionalidade
+                    <select aria-label="Funcionalidade" value="@(selectedFeatureId?.ToString() ?? "")" @onchange="OnFeatureChanged">
+                        <option value="">Todas as funcionalidades</option>
+                        @foreach (var feature in active.Session.Features)
+                        {
+                            <option value="@feature.FeatureId">@feature.Title</option>
+                        }
+                    </select>
+                </label>
+                <label>
+                    Fase
+                    <select aria-label="Fase" value="@(selectedPhase ?? "")" @onchange="OnPhaseChanged">
+                        <option value="">Todas</option>
+                        @foreach (var phase in projection.AvailablePhases)
+                        {
+                            <option value="@phase">@phase</option>
+                        }
+                    </select>
+                </label>
+                <label>
+                    História
+                    <select aria-label="História" value="@(selectedStory ?? "")" @onchange="OnStoryChanged">
+                        <option value="">Todas</option>
+                        @foreach (var story in projection.AvailableStories)
+                        {
+                            <option value="@story">@story</option>
+                        }
+                    </select>
+                </label>
+                <label>
+                    Gravidade
+                    <select aria-label="Gravidade" value="@(selectedSeverity?.ToString() ?? "")" @onchange="OnSeverityChanged">
+                        <option value="">Todas</option>
+                        <option value="@DocumentaryOccurrenceSeverity.High">Alta</option>
+                        <option value="@DocumentaryOccurrenceSeverity.Medium">Média</option>
+                        <option value="@DocumentaryOccurrenceSeverity.Low">Baixa</option>
+                        <option value="@DocumentaryOccurrenceSeverity.Info">Informativa</option>
+                    </select>
+                </label>
+                <label>
+                    Situação
+                    <select aria-label="Situação" value="@(selectedSituation ?? "")" @onchange="OnSituationChanged">
+                        <option value="">Todas</option>
+                        <option value="Impedimento">Impedimento</option>
+                        <option value="Sem vínculo">Sem vínculo</option>
+                        <option value="Ambíguo">Ambíguo</option>
+                        <option value="Não verificada">Não verificada</option>
+                        <option value="Inválida">Inválida</option>
+                        <option value="Ausente">Ausente</option>
+                    </select>
+                </label>
+            </section>
+
+            <div class="kpi-grid">
+                <article class="kpi-card">
+                    <div class="kpi-head">
+                        <span class="kpi-label">Progresso declarado (tarefas)</span>
+                        <span class="kpi-ratio">@projection.DeclaredTaskProgress.DisplayRatio</span>
+                    </div>
+                    <div class="kpi-value">@projection.DeclaredTaskProgress.DisplayPercentage</div>
+                    @if (projection.DeclaredTaskProgress.State == MetricState.Measured)
+                    {
+                        <div class="kpi-bar" aria-hidden="true">
+                            <div class="kpi-fill blue" style="width:@($"{projection.DeclaredTaskProgress.Percentage:0.#}%")"></div>
+                        </div>
+                    }
+                    <p class="kpi-rule">@projection.DeclaredTaskProgress.RuleDescription Escopo: @projection.ScopeLabel.</p>
+                </article>
+
+                <article class="kpi-card">
+                    <div class="kpi-head">
+                        <span class="kpi-label">Cobertura documental</span>
+                        <span class="kpi-ratio">@projection.DocumentaryCoverage.DisplayRatio</span>
+                    </div>
+                    <div class="kpi-value">@projection.DocumentaryCoverage.DisplayPercentage</div>
+                    @if (projection.DocumentaryCoverage.State == MetricState.Measured)
+                    {
+                        <div class="kpi-bar" aria-hidden="true">
+                            <div class="kpi-fill lilac" style="width:@($"{projection.DocumentaryCoverage.Percentage:0.#}%")"></div>
+                        </div>
+                    }
+                    <p class="kpi-rule">@projection.DocumentaryCoverage.RuleDescription</p>
+                </article>
+
+                <article class="kpi-card">
+                    <div class="kpi-head">
+                        <span class="kpi-label">Registros de gate</span>
+                        <span class="kpi-ratio">@projection.RecordedGateStates.Count arquivos</span>
+                    </div>
+                    <div class="kpi-value">
+                        @(projection.RecordedGateStates.Count == 0
+                            ? "Sem itens"
+                            : $"{projection.RecordedGateStates.Count(g => g.RecordedState.Equals("READY", StringComparison.OrdinalIgnoreCase))} READY · {projection.RecordedGateStates.Count(g => g.RecordedState.Equals("BLOCKED", StringComparison.OrdinalIgnoreCase))} BLOCKED")
+                    </div>
+                    <p class="kpi-rule">Estados registrados nos documentos; READY e hashes não comprovam funcionamento ou aceite humano autenticado.</p>
+                </article>
+            </div>
+
+            <div class="summary-chips">
+                <span class="chip danger">▲ @projection.Occurrences.Count(o => o.Category == DocumentaryOccurrenceCategory.RecordedBlocker) impedimentos</span>
+                <span class="chip warn">◆ @projection.Occurrences.Count(o => o.Category is DocumentaryOccurrenceCategory.RequirementWithoutTask or DocumentaryOccurrenceCategory.TaskWithoutRequirement or DocumentaryOccurrenceCategory.DuplicateRequirementId or DocumentaryOccurrenceCategory.DuplicateTaskId or DocumentaryOccurrenceCategory.InvalidReference or DocumentaryOccurrenceCategory.MissingArtifact) lacunas e inconsistências</span>
+                <span class="chip info">◇ @projection.Occurrences.Count(o => o.Category == DocumentaryOccurrenceCategory.UnverifiedCodeReference) referências a código não verificadas</span>
+            </div>
+
+            <div class="dash-columns">
+                <div class="dash-main-col">
+                    <section class="dash-card" aria-label="Requisitos do escopo">
+                        <div class="card-heading">
+                            <h2>Requisitos no escopo (@projection.Requirements.Count)</h2>
+                            <a class="inline-link" href="/documentos">Abrir em Documentos</a>
+                        </div>
+                        @if (projection.Requirements.Count == 0)
+                        {
+                            <p class="muted small">Sem itens de requisito reconhecidos neste escopo.</p>
+                        }
+                        else
+                        {
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Requisito</th>
+                                        <th>Vínculo documental</th>
+                                        <th>Fonte</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var req in projection.Requirements.Take(25))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@req.LocalId</strong>
+                                                <div class="muted small">@req.Description</div>
+                                            </td>
+                                            <td>
+                                                @if (req.HasDuplicateDefinition)
+                                                {
+                                                    <span class="state-pill warn">Ambíguo (duplicado)</span>
+                                                }
+                                                else if (req.ExplicitTaskIds.Count > 0)
+                                                {
+                                                    <span class="state-pill ok">Vinculado (@req.ExplicitTaskIds.Count)</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="state-pill muted-pill">Sem tarefa vinculada</span>
+                                                }
+                                            </td>
+                                            <td class="mono small">@req.SourceLocation.RelativePath:@req.SourceLocation.LineNumber</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </section>
+
+                    <section class="dash-card" aria-label="Ocorrências documentais">
+                        <div class="card-heading">
+                            <h2>Ocorrências documentais (@projection.Occurrences.Count)</h2>
+                        </div>
+                        @if (projection.Occurrences.Count == 0)
+                        {
+                            <p class="muted small">Nenhuma ocorrência documental encontrada para os filtros atuais.</p>
+                        }
+                        else
+                        {
+                            <ul class="occurrence-list">
+                                @foreach (var occ in projection.Occurrences)
+                                {
+                                    <li class="occurrence-item">
+                                        <div class="occ-head">
+                                            <span class="sev-pill @occ.Severity.ToString().ToLowerInvariant()">@SeverityLabel(occ.Severity)</span>
+                                            <strong>@occ.Title</strong>
+                                            <span class="occ-situation">@occ.Situation</span>
+                                        </div>
+                                        <p class="muted small">@occ.Explanation</p>
+                                        <div class="mono small muted">Fonte: @occ.SourceLocation.RelativePath@(occ.SourceLocation.LineNumber > 0 ? $":{occ.SourceLocation.LineNumber}" : "")</div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </section>
+                </div>
+
+                <aside class="dash-side-col">
+                    <section class="dash-card" aria-label="Estados documentais e gates registrados">
+                        <h2>Estados documentais e gates registrados</h2>
+                        @if (projection.RecordedGateStates.Count == 0)
+                        {
+                            <p class="muted small">Nenhum arquivo de gate registrado neste escopo.</p>
+                        }
+                        else
+                        {
+                            <ul class="gate-list">
+                                @foreach (var gate in projection.RecordedGateStates)
+                                {
+                                    <li class="gate-item">
+                                        <div class="gate-head">
+                                            <span class="gate-stage">@gate.Stage</span>
+                                            <span class="@(gate.RecordedState.Equals("READY", StringComparison.OrdinalIgnoreCase) ? "state-pill ok" : gate.RecordedState.Equals("BLOCKED", StringComparison.OrdinalIgnoreCase) ? "state-pill danger-pill" : "state-pill muted-pill")">@gate.RecordedState</span>
+                                        </div>
+                                        <div class="mono small">@gate.SourceRelativePath</div>
+                                        @if (!string.IsNullOrWhiteSpace(gate.Revision))
+                                        {
+                                            <div class="mono small muted">Revisão: @ShortRevision(gate.Revision)</div>
+                                        }
+                                        <p class="muted small">@gate.ProvenanceNote</p>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </section>
+
+                    <section class="dash-card" aria-label="Limites documentais da V1">
+                        <h2>Limites documentais da V1</h2>
+                        <ul class="limits-list">
+                            @foreach (var limit in projection.Limitations)
+                            {
+                                <li class="muted small">@limit</li>
+                            }
+                        </ul>
+                    </section>
+                </aside>
+            </div>
+        }
+    }
+</section>
+
+@code {
+    private Guid? activeProjectId;
+    private Guid? selectedFeatureId;
+    private string? selectedPhase;
+    private string? selectedStory;
+    private DocumentaryOccurrenceSeverity? selectedSeverity;
+    private string? selectedSituation;
+    private DashboardProjection? projection;
+    private string? errorMessage;
+
+    protected override void OnInitialized()
+    {
+        ProjectStore.Changed += OnProjectsChanged;
+        SyncAndRebuild();
+    }
+
+    private void OnProjectsChanged() => _ = InvokeAsync(() =>
+    {
+        SyncAndRebuild();
+        StateHasChanged();
+    });
+
+    private void SyncAndRebuild()
+    {
+        var active = ProjectStore.Active;
+        if (active is null)
+        {
+            activeProjectId = null;
+            selectedFeatureId = null;
+            projection = null;
+            errorMessage = null;
+            return;
+        }
+
+        if (activeProjectId != active.Session.ProjectId)
+        {
+            activeProjectId = active.Session.ProjectId;
+            selectedFeatureId = active.Session.ActiveFeatureId;
+            selectedPhase = null;
+            selectedStory = null;
+            selectedSeverity = null;
+            selectedSituation = null;
+        }
+        else if (selectedFeatureId is { } id && active.Session.Features.All(feature => feature.FeatureId != id))
+        {
+            selectedFeatureId = active.Session.ActiveFeatureId;
+        }
+
+        Rebuild();
+    }
+
+    private void Rebuild()
+    {
+        if (ProjectStore.Active is not { } active) return;
+        errorMessage = null;
+        try
+        {
+            projection = DashboardService.Build(active, new DashboardFilter(
+                selectedFeatureId, selectedStory, selectedPhase, selectedSeverity, selectedSituation));
+        }
+        catch (Exception failure) when (DocumentMessages.IsReadFailure(failure))
+        {
+            errorMessage = DocumentMessages.For(failure);
+        }
+    }
+
+    private void OnFeatureChanged(ChangeEventArgs args)
+    {
+        selectedFeatureId = Guid.TryParse(args.Value?.ToString(), out var id) ? id : null;
+        Rebuild();
+    }
+
+    private void OnPhaseChanged(ChangeEventArgs args)
+    {
+        selectedPhase = string.IsNullOrWhiteSpace(args.Value?.ToString()) ? null : args.Value!.ToString();
+        Rebuild();
+    }
+
+    private void OnStoryChanged(ChangeEventArgs args)
+    {
+        selectedStory = string.IsNullOrWhiteSpace(args.Value?.ToString()) ? null : args.Value!.ToString();
+        Rebuild();
+    }
+
+    private void OnSeverityChanged(ChangeEventArgs args)
+    {
+        selectedSeverity = Enum.TryParse<DocumentaryOccurrenceSeverity>(args.Value?.ToString(), out var sev) ? sev : null;
+        Rebuild();
+    }
+
+    private void OnSituationChanged(ChangeEventArgs args)
+    {
+        selectedSituation = string.IsNullOrWhiteSpace(args.Value?.ToString()) ? null : args.Value!.ToString();
+        Rebuild();
+    }
+
+    private void Refresh()
+    {
+        if (ProjectStore.Active is not { } active) return;
+        errorMessage = null;
+        try
+        {
+            ProjectStore.Refresh(active.Session.ProjectId);
+            SyncAndRebuild();
+        }
+        catch (Exception failure) when (DocumentMessages.IsReadFailure(failure))
+        {
+            errorMessage = DocumentMessages.For(failure);
+        }
+    }
+
+    private static string SeverityLabel(DocumentaryOccurrenceSeverity severity) => severity switch
+    {
+        DocumentaryOccurrenceSeverity.High => "Alta",
+        DocumentaryOccurrenceSeverity.Medium => "Média",
+        DocumentaryOccurrenceSeverity.Low => "Baixa",
+        _ => "Info"
+    };
+
+    private static string ShortRevision(string revision) =>
+        revision.Length <= 24 ? revision : revision[..24] + "…";
+
+    public void Dispose() => ProjectStore.Changed -= OnProjectsChanged;
+}
+
