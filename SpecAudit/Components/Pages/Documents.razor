@@ -17,7 +17,11 @@
             <h1>Documentos</h1>
             <p class="muted">Leitura dos artefatos do projeto. A origem permanece somente leitura.</p>
         </div>
-        <div class="docs-search-wrap">
+        <div class="docs-search-wrap" style="display:flex;gap:10px;align-items:center;flex:0 1 auto">
+            @if (string.Equals(ReturnFrom, "ba", StringComparison.OrdinalIgnoreCase))
+            {
+                <a class="secondary" style="text-decoration:none;white-space:nowrap;padding:8px 12px;border-radius:8px;border:1px solid var(--border)" href="/dashboard?view=ba">← Voltar para Visão de Negócio (BA)</a>
+            }
             <input type="search" class="docs-search" aria-label="Buscar documentos" placeholder="Buscar nos documentos"
                    value="@searchQuery" @oninput="OnSearchInput" disabled="@(ProjectStore.Active is null)" />
         </div>
@@ -184,6 +188,7 @@
 
     [SupplyParameterFromQuery(Name = "doc")] public Guid? TargetDocumentId { get; set; }
     [SupplyParameterFromQuery(Name = "line")] public int? TargetLine { get; set; }
+    [SupplyParameterFromQuery(Name = "from")] public string? ReturnFrom { get; set; }
 
     private ViewMode mode = ViewMode.Preview;
     private int? highlightedLine;

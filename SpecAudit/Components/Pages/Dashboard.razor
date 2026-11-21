@@ -310,8 +310,20 @@
 <GlossaryDialog IsOpen="@isGlossaryOpen" OnClose="() => isGlossaryOpen = false" />
 
 @code {
+    [SupplyParameterFromQuery(Name = "view")] public string? InitialView { get; set; }
     private bool isBusinessView;
     private bool isGlossaryOpen;
+    private string? lastAppliedView;
+
+    protected override void OnParametersSet()
+    {
+        if (!string.Equals(lastAppliedView, InitialView, StringComparison.OrdinalIgnoreCase))
+        {
+            lastAppliedView = InitialView;
+            if (string.Equals(InitialView, "ba", StringComparison.OrdinalIgnoreCase))
+                isBusinessView = true;
+        }
+    }
     private Guid? activeProjectId;
     private Guid? selectedFeatureId;
     private string? selectedPhase;

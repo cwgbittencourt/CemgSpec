@@ -91,7 +91,7 @@
                                         <td>
                                             @if (row.ValidationDocId is { } devId)
                                             {
-                                                <a class="state-pill @(row.DevValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={devId:D}")">@row.DevValidationState</a>
+                                                <a class="state-pill @(row.DevValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={devId:D}&from=ba")">@row.DevValidationState</a>
                                             }
                                             else
                                             {
@@ -101,7 +101,7 @@
                                         <td>
                                             @if (row.UserValidationDocId is { } userId)
                                             {
-                                                <a class="state-pill @(row.UserValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={userId:D}")">@row.UserValidationState</a>
+                                                <a class="state-pill @(row.UserValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={userId:D}&from=ba")">@row.UserValidationState</a>
                                             }
                                             else if (row.IsDeferred)
                                             {
@@ -109,13 +109,13 @@
                                             }
                                             else
                                             {
-                                                <a class="state-pill warn" href="/documentos" title="Abrir Documentos para consultar a pasta validation/">@row.UserValidationState</a>
+                                                <a class="state-pill warn" href="/documentos?from=ba" title="Abrir Documentos para consultar a pasta validation/">@row.UserValidationState</a>
                                             }
                                         </td>
                                         <td>
                                             @if (row.AcceptanceDocId is { } poId)
                                             {
-                                                <a class="state-pill @(row.PoAcceptanceState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={poId:D}")">@row.PoAcceptanceState</a>
+                                                <a class="state-pill @(row.PoAcceptanceState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={poId:D}&from=ba")">@row.PoAcceptanceState</a>
                                             }
                                             else
                                             {
