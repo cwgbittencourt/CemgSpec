@@ -7,7 +7,7 @@
 
 ## Fase 1 — Preparação e Contratos
 
-- [ ] T001 Criar contratos de teste unitário em `tests/SpecAudit.Tests/BusinessDashboardServiceTests.cs` e de UI em `tests/SpecAudit.Ui.Tests/BusinessDashboardTests.cs` cobrindo `FR-001` a `FR-006`.
+- [x] T001 Criar contratos de teste unitário em `tests/SpecAudit.Tests/BusinessDashboardServiceTests.cs` e de UI em `tests/SpecAudit.Ui.Tests/BusinessDashboardTests.cs` cobrindo `FR-001` a `FR-006`.
 
 ---
 
