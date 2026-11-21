@@ -7,8 +7,10 @@ public sealed record UserStoryStatusRow(
     int CompletedTasks,
     int TotalTasks,
     string DevValidationState,
+    string UserValidationState,
     string PoAcceptanceState,
     Guid? ValidationDocId,
+    Guid? UserValidationDocId,
     Guid? AcceptanceDocId)
 {
     public double ProgressPercentage => TotalTasks > 0 ? Math.Round(100.0 * CompletedTasks / TotalTasks, 1) : 0;
@@ -31,6 +33,7 @@ public sealed record BusinessDashboardProjection(
     int ReadyStories,
     int ActiveStories,
     int PendingDevCount,
+    int PendingUserCount,
     int PendingPoCount,
     int ActiveBlockersCount,
     int OpenGapsCount,

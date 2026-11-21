@@ -29,11 +29,11 @@ public sealed class ExecutiveSummarySerializer
         sb.AppendLine("</div>");
         sb.AppendLine($"<p><strong>Saúde documental:</strong> {projection.ActiveBlockersCount} impedimento(s) ativo(s) · {projection.OpenGapsCount} lacuna(s) aberta(s) · {projection.ReadyGatesCount} gate(s) READY.</p>");
         sb.AppendLine("<h2>Entregas por História de Usuário</h2>");
-        sb.AppendLine("<table><thead><tr><th>US</th><th>História</th><th>Tasks</th><th>Validação DEV</th><th>Aceite PO</th></tr></thead><tbody>");
+        sb.AppendLine("<table><thead><tr><th>US</th><th>História</th><th>Tasks</th><th>Validação DEV</th><th>Validação Usuário</th><th>Aceite PO</th></tr></thead><tbody>");
         foreach (var row in projection.Stories)
         {
             var tasksText = row.IsDeferred ? "Adiada" : $"{row.CompletedTasks}/{row.TotalTasks} ({row.ProgressPercentage:0.#}%)";
-            sb.AppendLine($"<tr><td><strong>{WebUtility.HtmlEncode(row.StoryId)}</strong></td><td>{WebUtility.HtmlEncode(row.Title)}</td><td>{WebUtility.HtmlEncode(tasksText)}</td><td>{WebUtility.HtmlEncode(row.DevValidationState)}</td><td>{WebUtility.HtmlEncode(row.PoAcceptanceState)}</td></tr>");
+            sb.AppendLine($"<tr><td><strong>{WebUtility.HtmlEncode(row.StoryId)}</strong></td><td>{WebUtility.HtmlEncode(row.Title)}</td><td>{WebUtility.HtmlEncode(tasksText)}</td><td>{WebUtility.HtmlEncode(row.DevValidationState)}</td><td>{WebUtility.HtmlEncode(row.UserValidationState)}</td><td>{WebUtility.HtmlEncode(row.PoAcceptanceState)}</td></tr>");
         }
         sb.AppendLine("</tbody></table>");
         sb.AppendLine("<p class=\"muted\" style=\"margin-top:24px\">Aviso: indicadores documentais não substituem testes funcionais nem autenticação humana de aprovação.</p>");

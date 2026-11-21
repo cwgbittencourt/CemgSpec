@@ -68,6 +68,7 @@
                                     <th>História</th>
                                     <th>Tasks</th>
                                     <th>Validação DEV</th>
+                                    <th>Validação Usuário</th>
                                     <th>Aceite PO</th>
                                 </tr>
                             </thead>
@@ -95,6 +96,16 @@
                                             else
                                             {
                                                 <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")">@row.DevValidationState</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (row.UserValidationDocId is { } userId)
+                                            {
+                                                <a class="state-pill @(row.UserValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={userId:D}")">@row.UserValidationState</a>
+                                            }
+                                            else
+                                            {
+                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")">@row.UserValidationState</span>
                                             }
                                         </td>
                                         <td>
