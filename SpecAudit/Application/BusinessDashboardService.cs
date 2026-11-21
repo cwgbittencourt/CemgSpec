@@ -47,12 +47,14 @@ public sealed partial class BusinessDashboardService(
                     e.RelativePath.EndsWith($"{Path.DirectorySeparatorChar}validation{Path.DirectorySeparatorChar}{storyId}-dev.md", StringComparison.OrdinalIgnoreCase) ||
                     e.RelativePath.EndsWith($"/validation/{storyId}-dev.md", StringComparison.OrdinalIgnoreCase));
                 var userDoc = entries.FirstOrDefault(e =>
-                    e.RelativePath.EndsWith($"{Path.DirectorySeparatorChar}validation{Path.DirectorySeparatorChar}{storyId}-user.md", StringComparison.OrdinalIgnoreCase) ||
-                    e.RelativePath.EndsWith($"/validation/{storyId}-user.md", StringComparison.OrdinalIgnoreCase) ||
-                    e.RelativePath.EndsWith($"{Path.DirectorySeparatorChar}validation{Path.DirectorySeparatorChar}{storyId}-usuario.md", StringComparison.OrdinalIgnoreCase) ||
-                    e.RelativePath.EndsWith($"/validation/{storyId}-usuario.md", StringComparison.OrdinalIgnoreCase) ||
-                    e.RelativePath.EndsWith($"{Path.DirectorySeparatorChar}validation{Path.DirectorySeparatorChar}{storyId}-homologacao.md", StringComparison.OrdinalIgnoreCase) ||
-                    e.RelativePath.EndsWith($"/validation/{storyId}-homologacao.md", StringComparison.OrdinalIgnoreCase));
+                    (e.RelativePath.Contains($"{Path.DirectorySeparatorChar}validation{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase) ||
+                     e.RelativePath.Contains("/validation/", StringComparison.OrdinalIgnoreCase)) &&
+                    e.RelativePath.EndsWith(".md", StringComparison.OrdinalIgnoreCase) &&
+                    !e.RelativePath.EndsWith("-dev.md", StringComparison.OrdinalIgnoreCase) &&
+                    (e.RelativePath.Contains(storyId, StringComparison.OrdinalIgnoreCase) ||
+                     e.RelativePath.Contains("user", StringComparison.OrdinalIgnoreCase) ||
+                     e.RelativePath.Contains("usuario", StringComparison.OrdinalIgnoreCase) ||
+                     e.RelativePath.Contains("homolog", StringComparison.OrdinalIgnoreCase)));
                 var poDoc = entries.FirstOrDefault(e =>
                     e.RelativePath.EndsWith($"{Path.DirectorySeparatorChar}acceptance{Path.DirectorySeparatorChar}{storyId}.md", StringComparison.OrdinalIgnoreCase) ||
                     e.RelativePath.EndsWith($"/acceptance/{storyId}.md", StringComparison.OrdinalIgnoreCase));

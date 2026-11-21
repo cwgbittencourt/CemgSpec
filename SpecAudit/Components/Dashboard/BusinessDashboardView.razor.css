@@ -1,0 +1,142 @@
+.kpi-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.kpi-card,
+.dash-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+}
+
+.dash-card {
+    max-height: clamp(280px, 46vh, 520px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.kpi-head {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.kpi-label {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.kpi-ratio {
+    color: var(--muted);
+    font-family: Consolas, monospace;
+    font-size: 13px;
+}
+
+.kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 10px 0 8px;
+}
+
+.kpi-bar {
+    background: #11151f;
+    border-radius: 999px;
+    height: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.kpi-fill {
+    border-radius: 999px;
+    height: 100%;
+}
+
+.kpi-fill.blue {
+    background: var(--blue);
+}
+
+.kpi-rule {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.dash-columns {
+    align-items: start;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: minmax(0, 1.65fr) minmax(280px, 1fr);
+}
+
+.dash-main-col,
+.dash-side-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.card-heading {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.dash-card h2 {
+    font-size: 17px;
+    margin: 0 0 10px;
+}
+
+.card-heading h2 {
+    margin: 0;
+}
+
+.state-pill {
+    border-radius: 14px;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.state-pill.ok {
+    background: #1d352e;
+    color: #9bd7b6;
+}
+
+.state-pill.warn {
+    background: #3d2e1b;
+    color: #f0c987;
+}
+
+.state-pill.muted-pill {
+    background: #252e40;
+    color: #c9d3e6;
+}
+
+.limits-list {
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+}
+
+@media (max-width: 960px) {
+    .kpi-grid,
+    .dash-columns {
+        grid-template-columns: 1fr;
+    }
+}

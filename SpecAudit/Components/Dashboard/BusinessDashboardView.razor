@@ -103,9 +103,13 @@
                                             {
                                                 <a class="state-pill @(row.UserValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={userId:D}")">@row.UserValidationState</a>
                                             }
+                                            else if (row.IsDeferred)
+                                            {
+                                                <span class="state-pill muted-pill">@row.UserValidationState</span>
+                                            }
                                             else
                                             {
-                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")">@row.UserValidationState</span>
+                                                <a class="state-pill warn" href="/documentos" title="Abrir Documentos para consultar a pasta validation/">@row.UserValidationState</a>
                                             }
                                         </td>
                                         <td>
