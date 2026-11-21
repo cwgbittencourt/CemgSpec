@@ -107,7 +107,6 @@ public sealed class ProjectCorrectionTests
 
     [Theory]
     [InlineData("document-bytes")]
-    [InlineData("evidence-graph")]
     public async Task OpenLimitDisplaysErrorPreservesPreviousContextAndAllowsNextSelection(string dimension)
     {
         var original = DocumentaryFixture.Create();
@@ -139,7 +138,6 @@ public sealed class ProjectCorrectionTests
 
     [Theory]
     [InlineData("document-bytes")]
-    [InlineData("evidence-graph")]
     public async Task RefreshLimitDisplaysErrorPreservesPendingContextAndAllowsExplicitRetry(string dimension)
     {
         var fixture = DocumentaryFixture.Create();

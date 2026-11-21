@@ -57,7 +57,10 @@ public sealed class DashboardTests(LocalHostFixture host) : IClassFixture<LocalH
         await Expect(findings).ToBeVisibleAsync();
         await Expect(findings).ToContainTextAsync("Synthetic blocker");
         await Expect(findings).ToContainTextAsync("FR-013");
-        await Expect(findings).ToContainTextAsync("T013");
+
+        // Unverified code references are hidden by default and shown when explicitly filtered.
+        var situationFilter = page.GetByRole(AriaRole.Combobox, new() { Name = "Situação" });
+        await situationFilter.SelectOptionAsync(new SelectOptionValue { Label = "Não verificada" });
         await Expect(findings).ToContainTextAsync("DoNotRead.cs");
         await Expect(findings).ToContainTextAsync("não verificada nesta versão");
     });

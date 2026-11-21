@@ -319,7 +319,8 @@ public sealed class MarkdownPreviewTests(LocalHostFixture host) : IClassFixture<
     private static async Task ExpectSourceAsync(ILocator source)
     {
         await Expect(source).ToBeVisibleAsync();
-        Assert.Equal(Corpus.ReplaceLineEndings("\n"), (await source.Locator("pre").TextContentAsync())?.ReplaceLineEndings("\n"));
+        var lines = await source.Locator(".line-text").AllTextContentsAsync();
+        Assert.Equal(Corpus.ReplaceLineEndings("\n"), string.Join("\n", lines));
         await Expect(source.Locator("textarea, input, [contenteditable='true']")).ToHaveCountAsync(0);
     }
 }

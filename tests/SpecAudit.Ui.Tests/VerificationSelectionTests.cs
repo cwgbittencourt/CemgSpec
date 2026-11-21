@@ -22,8 +22,7 @@ public sealed class VerificationSelectionTests(LocalHostFixture host) : IClassFi
         Assert.Equal(
             new[]
             {
-                "speckit-analyze — Consistência documental",
-                "check_gate — Validar gates"
+                "check_gate — Validar gates (offline, sem IA)"
             },
             options.Select(o => o.Trim()).ToArray());
 
@@ -34,14 +33,13 @@ public sealed class VerificationSelectionTests(LocalHostFixture host) : IClassFi
         await Expect(main).Not.ToContainTextAsync("Cópia isolada");
         await Expect(main).Not.ToContainTextAsync("Validação aprovada");
 
-        // Selecting check_gate does NOT execute automatically; it prepares candidate selection.
-        await combo.SelectOptionAsync(new SelectOptionValue { Label = "check_gate — Validar gates" });
+        // check_gate is selected by default without auto-running.
         await Expect(page.GetByRole(AriaRole.Combobox, new() { Name = "Etapa do gate" })).ToBeVisibleAsync();
         await Expect(page.GetByRole(AriaRole.Combobox, new() { Name = "Registro do gate" })).ToBeVisibleAsync();
         await Expect(main).Not.ToContainTextAsync("Execução concluída");
         await CaptureIfRequestedAsync(page, "verifications-check-gate-dark.png");
 
-        // Navigating to Requisitos must preserve the exact same project selection in the requirement sheet.
+        // Navigating to Requisitos must preserve the exact same offline check_gate selection in the requirement sheet.
         await nav.GetByRole(AriaRole.Link, new() { Name = "Requisitos", Exact = true }).ClickAsync();
         var sheet = page.GetByRole(AriaRole.Region, new() { Name = "Ficha documental do requisito" });
         await Expect(sheet).ToBeVisibleAsync();
@@ -58,47 +56,7 @@ public sealed class VerificationSelectionTests(LocalHostFixture host) : IClassFi
         var nav = page.GetByRole(AriaRole.Navigation, new() { Name = "Navegação principal" });
         await nav.GetByRole(AriaRole.Link, new() { Name = "Verificações", Exact = true }).ClickAsync();
 
-        var combo = page.GetByRole(AriaRole.Combobox, new() { Name = "Tipo de verificação" });
-        await combo.SelectOptionAsync(new SelectOptionValue { Label = "speckit-analyze — Consistência documental" });
         var executeButton = page.GetByRole(AriaRole.Button, new() { Name = "Executar verificação" });
-        await Expect(executeButton).ToBeDisabledAsync();
-
-        // Agent selector lists the 4 providers; Unsupported (Claude Code / Kiro) and unverified (Antigravity before T070) keep Execute disabled.
-        var agentCombo = page.GetByRole(AriaRole.Combobox, new() { Name = "Agente para speckit-analyze" });
-        await Expect(agentCombo).ToBeVisibleAsync();
-        var agentOptions = await agentCombo.Locator("option").AllInnerTextsAsync();
-        Assert.Contains(agentOptions, o => o.Contains("Codex", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(agentOptions, o => o.Contains("Antigravity", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(agentOptions, o => o.Contains("Claude Code", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(agentOptions, o => o.Contains("Kiro", StringComparison.OrdinalIgnoreCase));
-
-        var claudeLabel = agentOptions.First(o => o.Contains("Claude Code", StringComparison.OrdinalIgnoreCase)).Trim();
-        await agentCombo.SelectOptionAsync(new SelectOptionValue { Label = claudeLabel });
-        var agentRegion = page.GetByRole(AriaRole.Region, new() { Name = "Detalhes do agente selecionado" });
-        await Expect(agentRegion).ToContainTextAsync("Claude Code");
-        await Expect(agentRegion).ToContainTextAsync("Não suportado na V1");
-        await Expect(executeButton).ToBeDisabledAsync();
-
-        // Selecting Codex (with verified AnalyzeCodex seal) enables Execute and shows external state + read-only disclosure.
-        var codexLabel = agentOptions.First(o => o.Contains("Codex", StringComparison.OrdinalIgnoreCase)).Trim();
-        await agentCombo.SelectOptionAsync(new SelectOptionValue { Label = codexLabel });
-        await Expect(agentRegion).ToContainTextAsync("Compatível");
-        await Expect(agentRegion).ToContainTextAsync(".codex");
-        await Expect(agentRegion).ToContainTextAsync("Adaptação somente leitura de speckit-analyze");
-        await Expect(executeButton).ToBeEnabledAsync();
-        await CaptureIfRequestedAsync(page, "verifications-codex-selected-dark.png");
-
-        // Selecting Antigravity (with verified AnalyzeAntigravity seal) also enables Execute independently.
-        var agyLabel = agentOptions.First(o => o.Contains("Antigravity", StringComparison.OrdinalIgnoreCase)).Trim();
-        await agentCombo.SelectOptionAsync(new SelectOptionValue { Label = agyLabel });
-        await Expect(agentRegion).ToContainTextAsync("Antigravity");
-        await Expect(agentRegion).ToContainTextAsync("Compatível");
-        await Expect(agentRegion).ToContainTextAsync(".gemini");
-        await Expect(executeButton).ToBeEnabledAsync();
-        await CaptureIfRequestedAsync(page, "verifications-antigravity-selected-dark.png");
-
-        // Switch to check_gate: must work locally without AI agent or network.
-        await combo.SelectOptionAsync(new SelectOptionValue { Label = "check_gate — Validar gates" });
         await page.GetByRole(AriaRole.Combobox, new() { Name = "Etapa do gate" })
             .SelectOptionAsync(new SelectOptionValue { Value = "Spec" });
         await page.GetByRole(AriaRole.Combobox, new() { Name = "Registro do gate" })
@@ -120,8 +78,6 @@ public sealed class VerificationSelectionTests(LocalHostFixture host) : IClassFi
         var nav = page.GetByRole(AriaRole.Navigation, new() { Name = "Navegação principal" });
         await nav.GetByRole(AriaRole.Link, new() { Name = "Verificações", Exact = true }).ClickAsync();
 
-        var combo = page.GetByRole(AriaRole.Combobox, new() { Name = "Tipo de verificação" });
-        await combo.SelectOptionAsync(new SelectOptionValue { Label = "check_gate — Validar gates" });
         await page.GetByRole(AriaRole.Combobox, new() { Name = "Etapa do gate" })
             .SelectOptionAsync(new SelectOptionValue { Value = "Spec" });
 
