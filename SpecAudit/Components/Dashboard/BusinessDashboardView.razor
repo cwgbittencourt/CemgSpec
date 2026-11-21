@@ -1,0 +1,172 @@
+@using SpecAudit.Application
+@using SpecAudit.Domain
+@using SpecAudit.Infrastructure.Reports
+@inject BusinessDashboardService BusinessService
+@inject ExecutiveSummarySerializer ExecutiveSerializer
+
+@if (Project is not null && projection is not null)
+{
+    <div class="kpi-grid">
+        <article class="kpi-card">
+            <div class="kpi-head">
+                <span class="kpi-label">Histórias prontas</span>
+                <span class="kpi-ratio">@projection.ReadyStories / @projection.ActiveStories</span>
+            </div>
+            <div class="kpi-value">
+                @(projection.ActiveStories > 0 ? $"{Math.Round(100.0 * projection.ReadyStories / projection.ActiveStories, 0):0}%" : "Sem itens")
+            </div>
+            @if (projection.ActiveStories > 0)
+            {
+                <div class="kpi-bar" aria-hidden="true">
+                    <div class="kpi-fill blue" style="width:@($"{100.0 * projection.ReadyStories / projection.ActiveStories:0.#}%")"></div>
+                </div>
+            }
+            <p class="kpi-rule">Histórias ativas da V1 com 100% das tarefas concluídas em tasks.md.</p>
+        </article>
+
+        <article class="kpi-card">
+            <div class="kpi-head">
+                <span class="kpi-label">Aguardando validação DEV</span>
+                <span class="kpi-ratio">@projection.PendingDevCount história(s)</span>
+            </div>
+            <div class="kpi-value" style="color:#f0c987">@projection.PendingDevCount</div>
+            <p class="kpi-rule">Roteiros humanos em <code>validation/*-dev.md</code> ainda pendentes de execução DEV.</p>
+        </article>
+
+        <article class="kpi-card">
+            <div class="kpi-head">
+                <span class="kpi-label">Aguardando aceite PO</span>
+                <span class="kpi-ratio">@projection.PendingPoCount história(s)</span>
+            </div>
+            <div class="kpi-value" style="color:var(--lilac)">@projection.PendingPoCount</div>
+            <p class="kpi-rule">Registros de aceite humano em <code>acceptance/*.md</code> ainda pendentes.</p>
+        </article>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(exportMessage))
+    {
+        <div role="status" class="notice @(exportSuccess ? "" : "error-notice")">@exportMessage</div>
+    }
+
+    <div class="dash-columns">
+        <div class="dash-main-col">
+            <section class="dash-card" aria-label="Entregas por História de Usuário">
+                <div class="card-heading">
+                    <h2>Entregas por História de Usuário (@projection.Stories.Count)</h2>
+                </div>
+                @if (projection.Stories.Count == 0)
+                {
+                    <p class="muted small">Nenhuma história de usuário (<code>### USx</code>) encontrada em spec.md.</p>
+                }
+                else
+                {
+                    <div class="topic-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>US</th>
+                                    <th>História</th>
+                                    <th>Tasks</th>
+                                    <th>Validação DEV</th>
+                                    <th>Aceite PO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var row in projection.Stories)
+                                {
+                                    <tr>
+                                        <td><strong>@row.StoryId</strong></td>
+                                        <td>@row.Title</td>
+                                        <td>
+                                            @if (row.IsDeferred)
+                                            {
+                                                <span class="state-pill muted-pill">Adiada</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@row.CompletedTasks/@row.TotalTasks (@($"{row.ProgressPercentage:0.#}%"))</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (row.ValidationDocId is { } devId)
+                                            {
+                                                <a class="state-pill @(row.DevValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={devId:D}")">@row.DevValidationState</a>
+                                            }
+                                            else
+                                            {
+                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")">@row.DevValidationState</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (row.AcceptanceDocId is { } poId)
+                                            {
+                                                <a class="state-pill @(row.PoAcceptanceState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={poId:D}")">@row.PoAcceptanceState</a>
+                                            }
+                                            else
+                                            {
+                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")">@row.PoAcceptanceState</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </section>
+        </div>
+
+        <aside class="dash-side-col">
+            <section class="dash-card" aria-label="Evolução Antes e Agora">
+                <h2>Evolução (Antes × Agora)</h2>
+                @if (projection.Evolution is { } evo)
+                {
+                    <p class="muted small">Referência: <code>@evo.BaselineLabel</code> (@evo.BaselineUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm"))</p>
+                    <ul class="limits-list">
+                        <li>Progresso: <strong>@($"{evo.PreviousProgressPct:0.#}%") → @($"{evo.CurrentProgressPct:0.#}%")</strong></li>
+                        <li>Impedimentos ativos: <strong>@evo.PreviousBlockers → @evo.CurrentBlockers</strong></li>
+                        <li>Gates READY: <strong>@evo.PreviousReadyGates → @evo.CurrentReadyGates</strong></li>
+                    </ul>
+                }
+                else
+                {
+                    <p class="muted small">Salve um pacote em <a href="/sugestoes">Sugestões</a> para habilitar o comparativo histórico Antes × Agora.</p>
+                }
+            </section>
+
+            <section class="dash-card" aria-label="Resumo Executivo">
+                <h2>Resumo Executivo</h2>
+                <ul class="limits-list">
+                    <li><strong>@projection.ActiveBlockersCount</strong> impedimento(s) ativo(s) · <strong>@projection.OpenGapsCount</strong> lacuna(s) aberta(s)</li>
+                    <li><strong>@projection.ReadyGatesCount</strong> gate(s) formalmente <code>READY</code></li>
+                    <li>Próxima ação: validação DEV e registro de aceite PO</li>
+                </ul>
+                <div style="margin-top:14px">
+                    <button type="button" class="primary" @onclick="ExportExecutiveSummary">Exportar Resumo Executivo</button>
+                </div>
+            </section>
+        </aside>
+    </div>
+}
+
+@code {
+    [Parameter] public OpenProjectContext? Project { get; set; }
+    [Parameter] public Guid? FeatureId { get; set; }
+
+    private BusinessDashboardProjection? projection;
+    private string? exportMessage;
+    private bool exportSuccess;
+
+    protected override void OnParametersSet()
+    {
+        projection = Project is not null ? BusinessService.Build(Project, FeatureId) : null;
+    }
+
+    private void ExportExecutiveSummary()
+    {
+        if (Project is null || projection is null) return;
+        var result = ExecutiveSerializer.ExportToExternalDirectory(Project, projection);
+        exportSuccess = result.Success;
+        exportMessage = result.Message;
+    }
+}

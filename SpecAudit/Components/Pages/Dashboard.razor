@@ -1,6 +1,7 @@
 @page "/dashboard"
 @implements IDisposable
 @using SpecAudit.Application
+@using SpecAudit.Components.Dashboard
 @using SpecAudit.Components.Documents
 @using SpecAudit.Domain
 @inject ProjectService ProjectStore
@@ -10,11 +11,18 @@
 <PageTitle>Dashboard — SpecAudit</PageTitle>
 
 <section class="dash-page">
-    <header class="dash-header">
+    <header class="dash-header dash-header-row">
         <div>
-            <p class="eyebrow">SPECAUDIT · VISÃO DOCUMENTAL</p>
+            <p class="eyebrow">SPECAUDIT · @(isBusinessView ? "VISÃO DE NEGÓCIO (BA)" : "VISÃO DOCUMENTAL")</p>
             <h1>Dashboard</h1>
             <p class="muted">Indicadores explicáveis dos registros SpecKit. A leitura não analisa código nem executa verificações.</p>
+        </div>
+        <div class="dash-mode-controls">
+            <div class="mode-switcher" role="group" aria-label="Modo do Dashboard">
+                <button type="button" class="@(!isBusinessView ? "mode-btn active" : "mode-btn")" @onclick="() => isBusinessView = false">Visão Técnica</button>
+                <button type="button" class="@(isBusinessView ? "mode-btn active" : "mode-btn")" @onclick="() => isBusinessView = true">Visão de Negócio (BA)</button>
+            </div>
+            <button type="button" class="secondary" @onclick="() => isGlossaryOpen = true">? Glossário</button>
         </div>
     </header>
 
@@ -51,7 +59,11 @@
             <div role="alert" class="notice error-notice">@errorMessage</div>
         }
 
-        @if (projection is not null)
+        @if (isBusinessView)
+        {
+            <BusinessDashboardView Project="active" FeatureId="selectedFeatureId" />
+        }
+        else if (projection is not null)
         {
             <section class="dash-filters" aria-label="Filtros do dashboard">
                 <label>
@@ -295,7 +307,11 @@
     }
 </section>
 
+<GlossaryDialog IsOpen="@isGlossaryOpen" OnClose="() => isGlossaryOpen = false" />
+
 @code {
+    private bool isBusinessView;
+    private bool isGlossaryOpen;
     private Guid? activeProjectId;
     private Guid? selectedFeatureId;
     private string? selectedPhase;

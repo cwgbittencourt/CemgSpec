@@ -1,0 +1,38 @@
+@if (IsOpen)
+{
+    <div class="glossary-backdrop" role="presentation">
+        <section class="glossary-dialog" role="dialog" aria-modal="true" aria-label="Glossário de Indicadores">
+            <header class="glossary-head">
+                <div>
+                    <p class="eyebrow">AJUDA CONTEXTUAL · ANALISTA DE NEGÓCIO</p>
+                    <h2>Glossário de Indicadores</h2>
+                </div>
+                <button type="button" class="secondary" @onclick="OnClose">Fechar</button>
+            </header>
+            <dl class="glossary-list">
+                <dt>Progresso declarado (tarefas)</dt>
+                <dd>Percentual de caixas marcadas <code>[x]</code> sobre o total de tarefas em <code>tasks.md</code>. Reflete declaração documental e não substitui testes em código.</dd>
+
+                <dt>Cobertura documental</dt>
+                <dd>Percentual de requisitos (<code>FR-xxx</code>) de <code>spec.md</code> citados explicitamente na linha de pelo menos uma tarefa em <code>tasks.md</code>.</dd>
+
+                <dt>Registros de gate (READY / BLOCKED)</dt>
+                <dd>Estados formais gravados em <code>verification/*.json</code>. <strong>READY</strong> indica etapa íntegra; <strong>BLOCKED</strong> indica pendência bloqueante.</dd>
+
+                <dt>Validação DEV</dt>
+                <dd>Execução humana do roteiro reproduzível em <code>validation/USx-dev.md</code>. O SpecAudit nunca marca essa aprovação automaticamente.</dd>
+
+                <dt>Aceite PO</dt>
+                <dd>Aprovação formal humana registrada em <code>acceptance/USx.md</code>. Permanece <strong>Pendente</strong> até preenchimento humano.</dd>
+
+                <dt>Geração #N / Atual</dt>
+                <dd>Versão da leitura documental em memória. Se um arquivo da origem mudar fora do app, muda para <strong>Desatualizado</strong> até clicar em <em>Atualizar documentos</em>.</dd>
+            </dl>
+        </section>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+}
