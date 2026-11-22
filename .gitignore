@@ -17,3 +17,6 @@
 *.pem
 **/secrets.json
 /tmp/docs-executivo
+
+installer/dist/
+docs/prints/
