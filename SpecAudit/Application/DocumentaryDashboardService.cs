@@ -497,7 +497,7 @@ public sealed partial class DocumentaryDashboardService
     [GeneratedRegex(@"\b(US\d+)\b", RegexOptions.IgnoreCase)]
     private static partial Regex PhaseStoryRegex();
 
-    [GeneratedRegex(@"^\s*-\s*\*{0,2}((?:FR|NFR|REQ)-\d{3,})\*{0,2}\s*[:\-–—]\s*(.+)$", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"^\s*-\s*\*{0,2}((?:FR|NFR|RF|RNF|REQ)-\d{3,})\*{0,2}\s*[:\-–—]\s*(.+)$", RegexOptions.IgnoreCase)]
     private static partial Regex RequirementLineRegex();
 
     [GeneratedRegex(@"^\s*-\s*\[([ xX])\]\s*(T\d{3,})\b(.*)$")]
@@ -506,7 +506,7 @@ public sealed partial class DocumentaryDashboardService
     [GeneratedRegex(@"\[(US\d+)\]", RegexOptions.IgnoreCase)]
     private static partial Regex StoryTagRegex();
 
-    [GeneratedRegex(@"\b(?:FR|NFR|REQ)-\d{3,}\b", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"\b(?:FR|NFR|RF|RNF|REQ)-\d{3,}\b", RegexOptions.IgnoreCase)]
     private static partial Regex RequirementRefRegex();
 
     [GeneratedRegex(@"(?:[A-Za-z0-9_.\-/\\]+)\.(?:cs|razor|ts|tsx|js|jsx|py|csproj|sln|slnx)\b", RegexOptions.IgnoreCase)]
