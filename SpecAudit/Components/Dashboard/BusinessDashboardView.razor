@@ -35,6 +35,15 @@
 
         <article class="kpi-card">
             <div class="kpi-head">
+                <span class="kpi-label">Aguardando validação Usuário</span>
+                <span class="kpi-ratio">@projection.PendingUserCount história(s)</span>
+            </div>
+            <div class="kpi-value" style="color:#7dd3fc">@projection.PendingUserCount</div>
+            <p class="kpi-rule">Roteiros de homologação em <code>validation/*-uat.md</code> ainda pendentes de validação pelo usuário.</p>
+        </article>
+
+        <article class="kpi-card">
+            <div class="kpi-head">
                 <span class="kpi-label">Aguardando aceite PO</span>
                 <span class="kpi-ratio">@projection.PendingPoCount história(s)</span>
             </div>

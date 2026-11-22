@@ -18,13 +18,14 @@ public sealed class ExecutiveSummarySerializer
         sb.AppendLine("<!DOCTYPE html>");
         sb.AppendLine("<html lang=\"pt-BR\">");
         sb.AppendLine("<head><meta charset=\"utf-8\"><title>Resumo Executivo — SpecAudit</title>");
-        sb.AppendLine("<style>body{font-family:Segoe UI,Arial,sans-serif;max-width:960px;margin:28px auto;color:#182030;line-height:1.5}h1{margin-bottom:4px}.muted{color:#526078;font-size:13px}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}.kpi{border:1px solid #cfd8e6;border-radius:8px;padding:14px}.kpi strong{font-size:26px;display:block}table{border-collapse:collapse;width:100%;margin-top:16px}th,td{border-bottom:1px solid #cfd8e6;padding:10px;text-align:left;font-size:14px}th{background:#f3f6fb}</style>");
+        sb.AppendLine("<style>body{font-family:Segoe UI,Arial,sans-serif;max-width:960px;margin:28px auto;color:#182030;line-height:1.5}h1{margin-bottom:4px}.muted{color:#526078;font-size:13px}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.kpi{border:1px solid #cfd8e6;border-radius:8px;padding:14px}.kpi strong{font-size:26px;display:block}table{border-collapse:collapse;width:100%;margin-top:16px}th,td{border-bottom:1px solid #cfd8e6;padding:10px;text-align:left;font-size:14px}th{background:#f3f6fb}</style>");
         sb.AppendLine("</head><body>");
         sb.AppendLine($"<h1>Resumo Executivo — {WebUtility.HtmlEncode(projection.ProjectDisplayName)}</h1>");
         sb.AppendLine($"<p class=\"muted\">Escopo: {WebUtility.HtmlEncode(projection.ScopeLabel)} · Gerado em {generatedUtc.ToLocalTime():dd/MM/yyyy HH:mm} · Auditoria exclusivamente documental (origem somente leitura).</p>");
         sb.AppendLine("<div class=\"kpis\">");
         sb.AppendLine($"<div class=\"kpi\"><span class=\"muted\">Histórias prontas</span><strong>{projection.ReadyStories} / {projection.ActiveStories}</strong></div>");
         sb.AppendLine($"<div class=\"kpi\"><span class=\"muted\">Aguardando validação DEV</span><strong>{projection.PendingDevCount}</strong></div>");
+        sb.AppendLine($"<div class=\"kpi\"><span class=\"muted\">Aguardando validação Usuário</span><strong>{projection.PendingUserCount}</strong></div>");
         sb.AppendLine($"<div class=\"kpi\"><span class=\"muted\">Aguardando aceite PO</span><strong>{projection.PendingPoCount}</strong></div>");
         sb.AppendLine("</div>");
         sb.AppendLine($"<p><strong>Saúde documental:</strong> {projection.ActiveBlockersCount} impedimento(s) ativo(s) · {projection.OpenGapsCount} lacuna(s) aberta(s) · {projection.ReadyGatesCount} gate(s) READY.</p>");
