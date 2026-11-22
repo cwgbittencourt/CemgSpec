@@ -269,6 +269,9 @@ public sealed partial class DocumentaryDashboardService
         {
             var line = lines[i];
             var lineNumber = i + 1;
+            if (line.StartsWith("## ", StringComparison.Ordinal))
+                currentStory = null;
+
             var storyMatch = StoryHeadingRegex().Match(line);
             if (storyMatch.Success)
                 currentStory = storyMatch.Groups[1].Value.ToUpperInvariant();
@@ -278,7 +281,9 @@ public sealed partial class DocumentaryDashboardService
             {
                 var id = reqMatch.Groups[1].Value.ToUpperInvariant();
                 var desc = reqMatch.Groups[2].Value.Trim();
-                results.Add((id, desc, new(entry.DocumentId, entry.RelativePath, lineNumber), currentStory));
+                var inlineStory = PhaseStoryRegex().Match(desc);
+                var effectiveStory = inlineStory.Success ? inlineStory.Groups[1].Value.ToUpperInvariant() : currentStory;
+                results.Add((id, desc, new(entry.DocumentId, entry.RelativePath, lineNumber), effectiveStory));
             }
 
             DetectCodeReferences(feature, entry, line, lineNumber, null, currentStory, occurrences);

@@ -243,6 +243,8 @@ public sealed partial class RequirementTraceService
         for (var i = 0; i < lines.Length; i++)
         {
             var line = lines[i];
+            if (line.StartsWith("## ", StringComparison.Ordinal))
+                currentStory = null;
             var lineNumber = i + 1;
             var storyMatch = StoryHeadingRegex().Match(line);
             if (storyMatch.Success)
