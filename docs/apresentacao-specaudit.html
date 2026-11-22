@@ -24,7 +24,7 @@
   .step p { margin: 8px 0 14px; color: #334155; font-size: 14.5px; }
   .highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
   .tag { background: #eef4ff; color: #1d4ed8; border: 1px solid #c7dbff; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 600; }
-  .shot { width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; display: block; }
+  .shot { width: 100%; border-radius: 8px; border: 1px solid #94a3b8; display: block; image-rendering: -webkit-optimize-contrast; filter: url(#crisp-sharpen) contrast(1.08) brightness(1.03); }
   .footer { text-align: center; color: #64748b; font-size: 12.5px; padding: 18px 0 32px; }
   @media print {
     body { background: #fff; }
@@ -36,6 +36,13 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="crisp-sharpen">
+      <feConvolveMatrix order="3" kernelMatrix="0 -0.45 0 -0.45 2.8 -0.45 0 -0.45 0" preserveAlpha="true"/>
+    </filter>
+  </defs>
+</svg>
   <header class="cover">
     <p class="eyebrow">SPECAUDIT · AUDITORIA DOCUMENTAL SPECKIT</p>
     <h1>Como funciona o SpecAudit</h1>
