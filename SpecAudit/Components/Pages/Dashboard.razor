@@ -92,7 +92,8 @@
                         <option value="">Todas</option>
                         @foreach (var story in projection.AvailableStories)
                         {
-                            <option value="@story">@story</option>
+                            var allowed = IsStoryAllowedForPhase(story);
+                            <option value="@story" disabled="@(!allowed)">@story</option>
                         }
                     </select>
                 </label>
@@ -451,7 +452,19 @@
     private void OnPhaseChanged(ChangeEventArgs args)
     {
         selectedPhase = string.IsNullOrWhiteSpace(args.Value?.ToString()) ? null : args.Value!.ToString();
+        if (selectedStory is not null && !IsStoryAllowedForPhase(selectedStory))
+            selectedStory = null;
         Rebuild();
+    }
+
+    private bool IsStoryAllowedForPhase(string story)
+    {
+        if (string.IsNullOrWhiteSpace(selectedPhase)) return true;
+        var phaseStories = System.Text.RegularExpressions.Regex
+            .Matches(selectedPhase, @"\bUS\d+\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase)
+            .Select(m => m.Value)
+            .ToArray();
+        return phaseStories.Length > 0 && phaseStories.Any(s => string.Equals(s, story, StringComparison.OrdinalIgnoreCase));
     }
 
     private void OnStoryChanged(ChangeEventArgs args)
