@@ -237,9 +237,9 @@ public sealed partial class BusinessDashboardService(
     [GeneratedRegex(@"^\s*-\s*\[([ xX])\]\s*T\d{3,}\b(.*)$")]
     private static partial Regex TaskLineRegex();
 
-    [GeneratedRegex(@"(?:Decis[ãa]o|Resultado)\s*(?::|\|)\s*\*{0,2}\s*(?:ACEIT[OA]|APROVAD[OA]|VALIDAD[OA]|CONCLU[ÍI]D[OA]|PASS|OK)\b", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?:Decis[ãa]o|Resultado|Status|Situa[çc][ãa]o|Estado|Parecer)\*{0,2}\s*(?::|\|)\s*\*{0,2}\s*(?:ACEIT[OA]|APROVAD[OA]|VALIDAD[OA]|HOMOLOGAD[OA]|CONCLU[ÍI]D[OA]|PASS|OK|SIM)\b", RegexOptions.IgnoreCase)]
     private static partial Regex ExplicitAcceptedRegex();
 
-    [GeneratedRegex(@"(?:Decis[ãa]o|Resultado)\s*(?::|\|)\s*\*{0,2}\s*(?:REJEITAD[OA]|REPROVAD[OA]|BLOQUEAD[OA]|FAIL)\b", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?:Decis[ãa]o|Resultado|Status|Situa[çc][ãa]o|Estado|Parecer)\*{0,2}\s*(?::|\|)\s*\*{0,2}\s*(?:REJEITAD[OA]|REPROVAD[OA]|BLOQUEAD[OA]|FAIL)\b", RegexOptions.IgnoreCase)]
     private static partial Regex ExplicitRejectedRegex();
 }
