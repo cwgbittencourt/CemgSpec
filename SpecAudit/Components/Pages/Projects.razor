@@ -22,14 +22,14 @@
                     {
                         @if (containerProjects.Count > 0)
                         {
-                            <select aria-label="Projetos disponíveis em /projetos" value="@pendingOrigin" @onchange="OnContainerProjectSelected" style="margin-bottom:8px;margin-left:0;width:100%">
+                            <select aria-label="Projetos disponíveis" value="@pendingOrigin" @onchange="OnContainerProjectSelected" style="margin-bottom:8px;margin-left:0;width:100%">
                                 @foreach (var folder in containerProjects)
                                 {
-                                    <option value="@folder">@folder</option>
+                                    <option value="@folder">@FormatContainerDisplayPath(folder)</option>
                                 }
                             </select>
                         }
-                        <input type="text" class="docs-search" placeholder="/projetos/meu-projeto" @bind="pendingOrigin" @bind:event="oninput" style="margin-bottom:8px;width:100%" />
+                        <input type="text" class="docs-search" placeholder="Ex.: C:\Users\...\MeuProjeto ou /projetos/MeuProjeto" value="@pendingOrigin" @oninput="OnContainerOriginTyped" style="margin-bottom:8px;width:100%" />
                     }
                     else
                     {
@@ -181,6 +181,24 @@
             pendingOutput = SuggestContainerOutput(val);
         }
     }
+    private void OnContainerOriginTyped(ChangeEventArgs e)
+    {
+        pendingOrigin = e.Value?.ToString();
+        if (!string.IsNullOrWhiteSpace(pendingOrigin))
+        {
+            pendingOutput = SuggestContainerOutput(pendingOrigin);
+        }
+    }
+    private static string FormatContainerDisplayPath(string containerPath)
+    {
+        if (containerPath.StartsWith("/host/", StringComparison.OrdinalIgnoreCase) && containerPath.Length >= 7)
+        {
+            var drive = char.ToUpperInvariant(containerPath[6]);
+            var rest = containerPath.Length > 7 ? containerPath[8..].Replace('/', '\\') : "";
+            return $"{drive}:\\{rest} ({containerPath})";
+        }
+        return containerPath;
+    }
     private static List<string> DiscoverContainerProjects()
     {
         var list = new List<string>();
@@ -194,11 +212,40 @@
                     if (!string.IsNullOrWhiteSpace(name) && !name.StartsWith('.'))
                         list.Add(dir.Replace('\\', '/'));
                 }
-                list.Add("/projetos");
             }
+            if (Directory.Exists("/host"))
+            {
+                foreach (var driveDir in Directory.GetDirectories("/host").OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
+                {
+                    var usersDir = Path.Combine(driveDir, "Users");
+                    if (Directory.Exists(usersDir))
+                    {
+                        foreach (var userDir in Directory.GetDirectories(usersDir))
+                        {
+                            var reposDir = Path.Combine(userDir, "source", "repos");
+                            if (Directory.Exists(reposDir))
+                            {
+                                foreach (var repo in Directory.GetDirectories(reposDir).OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
+                                {
+                                    list.Add(repo.Replace('\\', '/'));
+                                }
+                            }
+                        }
+                    }
+                    var codexDir = Path.Combine(driveDir, "Codex_Workspace", "Projetos");
+                    if (Directory.Exists(codexDir))
+                    {
+                        foreach (var repo in Directory.GetDirectories(codexDir).OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
+                        {
+                            list.Add(repo.Replace('\\', '/'));
+                        }
+                    }
+                }
+            }
+            if (Directory.Exists("/projetos")) list.Add("/projetos");
         }
         catch { }
-        return list;
+        return list.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
     private static string SuggestContainerOutput(string originPath)
     {
@@ -225,9 +272,14 @@
         busy=true;error=null;
         try
         {
-            if (IsContainerMode && pendingOutput.StartsWith("/relatorios", StringComparison.Ordinal) && !Directory.Exists(pendingOutput))
+            if (IsContainerMode)
             {
-                Directory.CreateDirectory(pendingOutput);
+                var resolvedOutput = SpecAudit.Infrastructure.Documents.WindowsReadHandle.TranslateContainerPath(pendingOutput);
+                if (resolvedOutput.StartsWith("/relatorios", StringComparison.Ordinal) && !Directory.Exists(resolvedOutput))
+                {
+                    Directory.CreateDirectory(resolvedOutput);
+                }
+                pendingOutput = resolvedOutput;
             }
             ProjectStore.OpenSelected(pendingOrigin,pendingOutput);opening=false;pendingOrigin=null;pendingOutput=null;
         }

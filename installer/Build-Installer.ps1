@@ -865,12 +865,11 @@ namespace SpecAuditDockerSetup
             header.Controls.Add(lblSub);
             Controls.Add(header);
 
-            string defaultProjects = Directory.Exists(@"D:\Codex_Workspace\Projetos")
-                ? @"D:\Codex_Workspace\Projetos"
-                : @"C:\Projetos";
-            string defaultReports = Directory.Exists(@"D:\Codex_Workspace")
-                ? @"D:\Codex_Workspace\Relatorios-SpecAudit"
-                : @"C:\Projetos\Relatorios-SpecAudit";
+            string userRepos = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "source", "repos");
+            string defaultProjects = Directory.Exists(userRepos)
+                ? userRepos
+                : (Directory.Exists(@"D:\Codex_Workspace\Projetos") ? @"D:\Codex_Workspace\Projetos" : @"C:\Projetos");
+            string defaultReports = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SpecAudit-Relatorios");
 
             var lblProj = new Label
             {
@@ -1091,6 +1090,20 @@ namespace SpecAuditDockerSetup
 
                     string projNormalized = projDir.Replace("\\", "/");
                     string repNormalized = repDir.Replace("\\", "/");
+                    var driveVolumes = new StringBuilder();
+                    try
+                    {
+                        foreach (var drv in DriveInfo.GetDrives())
+                        {
+                            if (drv.IsReady && drv.DriveType == DriveType.Fixed)
+                            {
+                                char letter = char.ToUpperInvariant(drv.Name[0]);
+                                char lower = char.ToLowerInvariant(letter);
+                                driveVolumes.Append("      - \"").Append(letter).Append(":/:/host/").Append(lower).Append(":ro\"\n");
+                            }
+                        }
+                    }
+                    catch { }
                     string composeYaml =
 "services:\n" +
 "  specaudit:\n" +
@@ -1103,9 +1116,12 @@ namespace SpecAuditDockerSetup
 "    environment:\n" +
 "      - DOTNET_RUNNING_IN_CONTAINER=true\n" +
 "      - ASPNETCORE_URLS=http://0.0.0.0:5187\n" +
+"      - \"SPECAUDIT_HOST_PROJETOS_DIR=" + projNormalized + "\"\n" +
+"      - \"SPECAUDIT_HOST_RELATORIOS_DIR=" + repNormalized + "\"\n" +
 "    volumes:\n" +
 "      - \"" + projNormalized + ":/projetos:ro\"\n" +
 "      - \"" + repNormalized + ":/relatorios:rw\"\n" +
+driveVolumes.ToString() +
 "      - specaudit_appdata:/root/.local/share/SpecAudit\n" +
 "    restart: unless-stopped\n\n" +
 "volumes:\n" +

@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Win32.SafeHandles;
 namespace SpecAudit.Infrastructure.Documents;
 internal static class WindowsReadHandle
@@ -40,20 +41,77 @@ internal static class WindowsReadHandle
     }
     public static bool Contains(string root,string path)=>path.StartsWith(root.TrimEnd(Path.DirectorySeparatorChar)+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase);
 
+    public static string TranslateContainerPath(string rawPath)
+    {
+        if (string.IsNullOrWhiteSpace(rawPath)) return rawPath;
+        var s = rawPath.Trim().Replace('\\', '/');
+
+        // Strip accidental current working directory prefix (e.g. "/app/C:/Users/...") added by Path.GetFullPath on Linux.
+        var embeddedDrive = Regex.Match(s, @"^/.+?/([a-zA-Z]:/.*)$");
+        if (embeddedDrive.Success)
+            s = embeddedDrive.Groups[1].Value;
+
+        var driveMatch = Regex.Match(s, @"^([a-zA-Z]):(?:/(.*))?$");
+        if (driveMatch.Success)
+        {
+            var hostProj = Environment.GetEnvironmentVariable("SPECAUDIT_HOST_PROJETOS_DIR")?.Trim().Replace('\\', '/').TrimEnd('/');
+            if (!string.IsNullOrEmpty(hostProj) && s.StartsWith(hostProj, StringComparison.OrdinalIgnoreCase))
+            {
+                var rel = s[hostProj.Length..].TrimStart('/');
+                var candidateProj = string.IsNullOrEmpty(rel) ? "/projetos" : $"/projetos/{rel}";
+                if (Directory.Exists(candidateProj) || File.Exists(candidateProj))
+                    return candidateProj;
+            }
+
+            var hostRep = Environment.GetEnvironmentVariable("SPECAUDIT_HOST_RELATORIOS_DIR")?.Trim().Replace('\\', '/').TrimEnd('/');
+            if (!string.IsNullOrEmpty(hostRep) && s.StartsWith(hostRep, StringComparison.OrdinalIgnoreCase))
+            {
+                var rel = s[hostRep.Length..].TrimStart('/');
+                var candidateRep = string.IsNullOrEmpty(rel) ? "/relatorios" : $"/relatorios/{rel}";
+                return candidateRep;
+            }
+
+            var driveLetter = char.ToLowerInvariant(driveMatch.Groups[1].Value[0]);
+            var rest = driveMatch.Groups[2].Value.TrimStart('/');
+            var hostMount = string.IsNullOrEmpty(rest) ? $"/host/{driveLetter}" : $"/host/{driveLetter}/{rest}";
+            if (Directory.Exists(hostMount) || File.Exists(hostMount))
+                return hostMount;
+
+            // Fallback: check if the leaf project folder exists inside /projetos
+            var leaf = Path.GetFileName(rest.TrimEnd('/'));
+            if (!string.IsNullOrEmpty(leaf) && Directory.Exists($"/projetos/{leaf}"))
+                return $"/projetos/{leaf}";
+
+            return hostMount;
+        }
+
+        return s;
+    }
+
     private static SafeFileHandle OpenPosix(string path,bool directory)
     {
-        var full=Path.GetFullPath(path);
+        var translated = TranslateContainerPath(path);
+        var full = Path.GetFullPath(translated);
+        SafeFileHandle handle;
         if(directory)
         {
             var di=new DirectoryInfo(full);
             if(!di.Exists || di.LinkTarget is not null)throw new DocumentAccessException("Unreadable");
+            handle=new SafeFileHandle(new IntPtr(1),ownsHandle:false);
         }
         else
         {
             var fi=new FileInfo(full);
             if(!fi.Exists || fi.LinkTarget is not null)throw new DocumentAccessException("Unreadable");
+            try
+            {
+                handle=File.OpenHandle(full,FileMode.Open,FileAccess.Read,FileShare.ReadWrite|FileShare.Delete);
+            }
+            catch(Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                throw new DocumentAccessException("Unreadable");
+            }
         }
-        var handle=new SafeFileHandle(new IntPtr(1),ownsHandle:false);
         PosixPaths.AddOrUpdate(handle,full);
         return handle;
     }
