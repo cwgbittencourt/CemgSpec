@@ -1,0 +1,19 @@
+services:
+  specaudit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: specaudit
+    ports:
+      - "127.0.0.1:5187:5187"
+    environment:
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - urls=http://127.0.0.1:5187
+    volumes:
+      - ${SPECAUDIT_PROJETOS_DIR:-C:/Projetos}:/projetos:ro
+      - ${SPECAUDIT_RELATORIOS_DIR:-C:/Projetos/Relatorios}:/relatorios:rw
+      - specaudit_appdata:/root/.local/share/SpecAudit
+    restart: unless-stopped
+
+volumes:
+  specaudit_appdata:

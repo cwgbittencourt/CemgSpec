@@ -15,8 +15,30 @@
         <section class="selection-panel" aria-label="Novo projeto">
             <h2>Conferir pastas do projeto</h2>
             <div class="path-grid">
-                <section class="path-card"><h3>1. Pasta do projeto</h3><p class="path-value" data-testid="selected-origin">@(pendingOrigin ?? "Nenhuma pasta selecionada")</p><button class="secondary" @onclick="ChooseOrigin" disabled="@busy">Escolher projeto</button></section>
-                <section class="path-card"><h3>2. Pasta dos relatórios</h3><p class="path-value" data-testid="selected-output">@(pendingOutput ?? "Nenhuma pasta selecionada")</p><button class="secondary" @onclick="ChooseOutput" disabled="@(busy || pendingOrigin is null)">Escolher destino</button></section>
+                <section class="path-card">
+                    <h3>1. Pasta do projeto</h3>
+                    <p class="path-value" data-testid="selected-origin">@(pendingOrigin ?? "Nenhuma pasta selecionada")</p>
+                    @if (IsContainerMode)
+                    {
+                        <input type="text" class="docs-search" placeholder="/projetos/meu-projeto" @bind="pendingOrigin" @bind:event="oninput" style="margin-bottom:8px;width:100%" />
+                    }
+                    else
+                    {
+                        <button class="secondary" @onclick="ChooseOrigin" disabled="@busy">Escolher projeto</button>
+                    }
+                </section>
+                <section class="path-card">
+                    <h3>2. Pasta dos relatórios</h3>
+                    <p class="path-value" data-testid="selected-output">@(pendingOutput ?? "Nenhuma pasta selecionada")</p>
+                    @if (IsContainerMode)
+                    {
+                        <input type="text" class="docs-search" placeholder="/relatorios/meu-projeto" @bind="pendingOutput" @bind:event="oninput" style="margin-bottom:8px;width:100%" />
+                    }
+                    else
+                    {
+                        <button class="secondary" @onclick="ChooseOutput" disabled="@(busy || pendingOrigin is null)">Escolher destino</button>
+                    }
+                </section>
             </div>
             <p class="muted">O destino deve ficar fora da pasta do projeto. As seleções acima são os caminhos retornados pelo seletor, resolvidos pelo aplicativo.</p>
             <button class="primary" @onclick="ConfirmOpen" disabled="@(busy || pendingOrigin is null || pendingOutput is null)">Confirmar carregamento</button>
@@ -117,9 +139,10 @@
     private string? pendingOrigin;
     private string? pendingOutput;
     private string? error;
+    private static bool IsContainerMode => !OperatingSystem.IsWindows() || string.Equals(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), "true", StringComparison.OrdinalIgnoreCase);
     protected override void OnInitialized()=>ProjectStore.Changed+=OnProjectsChanged;
     private void OnProjectsChanged()=>_ = InvokeAsync(StateHasChanged);
-    private Task Open(){if(!busy){opening=true;pendingOrigin=null;pendingOutput=null;error=null;}return Task.CompletedTask;}
+    private Task Open(){if(!busy){opening=true;pendingOrigin=IsContainerMode?"/projetos":null;pendingOutput=IsContainerMode?"/relatorios":null;error=null;}return Task.CompletedTask;}
     private async Task ChooseOrigin()
     {
         if(busy)return;busy=true;error=null;

@@ -17,7 +17,8 @@ foreach(var value in configuredUrls)
         throw new InvalidOperationException("SpecAudit only supports explicit local loopback listeners.");
     origins.Add(uri.GetLeftPart(UriPartial.Authority));
 }
-builder.WebHost.UseUrls(configuredUrls);
+var isContainer = string.Equals(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), "true", StringComparison.OrdinalIgnoreCase);
+builder.WebHost.UseUrls(isContainer ? ["http://0.0.0.0:5187"] : configuredUrls);
 // Do not allow secondary Kestrel configuration to expose the host on the LAN.
 if(builder.Configuration.GetSection("Kestrel:Endpoints").GetChildren().Any())
     throw new InvalidOperationException("Configure only explicit loopback URLs; Kestrel endpoint overrides are unsupported.");
@@ -65,7 +66,7 @@ var app=builder.Build();
 app.Use(async(context,next)=>
 {
     var authority=$"{context.Request.Scheme}://{context.Request.Host}";
-    if(context.Connection.RemoteIpAddress is not { } remote || !IPAddress.IsLoopback(remote) || !origins.Contains(authority))
+    if(context.Connection.RemoteIpAddress is not { } remote || (!IPAddress.IsLoopback(remote) && !isContainer) || !origins.Contains(authority))
     {context.Response.StatusCode=StatusCodes.Status421MisdirectedRequest;return;}
     var origin=context.Request.Headers.Origin;
     var safe=HttpMethods.IsGet(context.Request.Method) || HttpMethods.IsHead(context.Request.Method) || HttpMethods.IsOptions(context.Request.Method);
