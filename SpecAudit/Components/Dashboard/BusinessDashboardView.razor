@@ -100,17 +100,17 @@
                                         <td>
                                             @if (row.ValidationDocId is { } devId)
                                             {
-                                                <a class="state-pill @(row.DevValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={devId:D}&from=ba")">@row.DevValidationState</a>
+                                                <a class="state-pill @(row.DevValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={devId:D}&from=ba")" title="@row.ValidationDocPath">@row.DevValidationState</a>
                                             }
                                             else
                                             {
-                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")">@row.DevValidationState</span>
+                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")" title="@row.ValidationDocPath">@row.DevValidationState</span>
                                             }
                                         </td>
                                         <td>
                                             @if (row.UserValidationDocId is { } userId)
                                             {
-                                                <a class="state-pill @(row.UserValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={userId:D}&from=ba")">@row.UserValidationState</a>
+                                                <a class="state-pill @(row.UserValidationState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={userId:D}&from=ba")" title="@row.UserValidationDocPath">@row.UserValidationState</a>
                                             }
                                             else if (row.IsDeferred)
                                             {
@@ -118,17 +118,17 @@
                                             }
                                             else
                                             {
-                                                <a class="state-pill warn" href="/documentos?from=ba" title="Abrir Documentos para consultar a pasta validation/">@row.UserValidationState</a>
+                                                <a class="state-pill warn" href="/documentos?from=ba" title="@row.UserValidationDocPath">@row.UserValidationState</a>
                                             }
                                         </td>
                                         <td>
                                             @if (row.AcceptanceDocId is { } poId)
                                             {
-                                                <a class="state-pill @(row.PoAcceptanceState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={poId:D}&from=ba")">@row.PoAcceptanceState</a>
+                                                <a class="state-pill @(row.PoAcceptanceState == "Pendente" ? "warn" : "ok")" href="@($"/documentos?doc={poId:D}&from=ba")" title="@row.AcceptanceDocPath">@row.PoAcceptanceState</a>
                                             }
                                             else
                                             {
-                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")">@row.PoAcceptanceState</span>
+                                                <span class="state-pill @(row.IsDeferred ? "muted-pill" : "warn")" title="@row.AcceptanceDocPath">@row.PoAcceptanceState</span>
                                             }
                                         </td>
                                     </tr>

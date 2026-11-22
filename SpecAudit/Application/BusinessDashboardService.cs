@@ -83,7 +83,10 @@ public sealed partial class BusinessDashboardService(
                     poState,
                     devDoc?.DocumentId,
                     userDoc?.DocumentId,
-                    poDoc?.DocumentId));
+                    poDoc?.DocumentId,
+                    devDoc?.RelativePath ?? $"{feature.SpecKitRelativeDirectory}\\validation\\{storyId}-dev.md (ainda não criado)",
+                    userDoc?.RelativePath ?? $"{feature.SpecKitRelativeDirectory}\\validation\\{storyId}-uat.md (ainda não criado)",
+                    poDoc?.RelativePath ?? $"{feature.SpecKitRelativeDirectory}\\acceptance\\{storyId}.md (ainda não criado)"));
             }
         }
 
