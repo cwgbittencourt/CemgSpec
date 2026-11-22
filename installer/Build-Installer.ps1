@@ -47,7 +47,7 @@ $sc1 = $wsh.CreateShortcut($desktopLnk)
 $sc1.TargetPath = $exePath
 $sc1.Arguments = "--open-browser"
 $sc1.WorkingDirectory = $targetDir
-$sc1.Description = "SpecAudit — Auditoria Documental SpecKit"
+$sc1.Description = "SpecAudit - Auditoria Documental SpecKit"
 $sc1.Save()
 
 $startMenuDir = Join-Path ([Environment]::GetFolderPath("Programs")) "SpecAudit"
@@ -57,7 +57,7 @@ $sc2 = $wsh.CreateShortcut($startLnk)
 $sc2.TargetPath = $exePath
 $sc2.Arguments = "--open-browser"
 $sc2.WorkingDirectory = $targetDir
-$sc2.Description = "SpecAudit — Auditoria Documental SpecKit"
+$sc2.Description = "SpecAudit - Auditoria Documental SpecKit"
 $sc2.Save()
 
 Write-Host ""
@@ -66,7 +66,7 @@ Write-Host "- Pasta instalada: $targetDir"
 Write-Host "- Atalho criado na Area de Trabalho: $desktopLnk"
 Write-Host "- Atalho criado no Menu Iniciar: $startLnk"
 '@
-[System.IO.File]::WriteAllText((Join-Path $publishDir "Install-SpecAudit.ps1"), $installPs1, (New-Object System.Text.UTF8Encoding($false)))
+[System.IO.File]::WriteAllText((Join-Path $publishDir "Install-SpecAudit.ps1"), $installPs1, (New-Object System.Text.UTF8Encoding($true)))
 
 $installCmd = "@echo off`r`npowershell -NoProfile -ExecutionPolicy Bypass -File `"%~dp0Install-SpecAudit.ps1`"`r`npause`r`n"
 [System.IO.File]::WriteAllText((Join-Path $publishDir "Instalar-SpecAudit.cmd"), $installCmd, (New-Object System.Text.UTF8Encoding($false)))
