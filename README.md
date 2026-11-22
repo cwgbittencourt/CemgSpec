@@ -2,7 +2,7 @@
 
 **Autor:** Carlos Wagner G. Bittencourt  
 **Plataforma:** Windows 10 / 11 (x64) · .NET 10 (Self-Contained)  
-**Classificação:** Repositório Privado · Uso Autorizado ("No Estado em que se Encontra" / *As Is*)
+**Licença:** [MIT License](LICENSE) — `Copyright (c) 2026 Carlos Wagner G. Bittencourt` (Repositório Privado)
 
 ---
 
@@ -116,10 +116,10 @@ Acesse **Dashboard** no menu lateral e alterne entre as duas visões no topo da 
 
 ---
 
-## Permissão de Utilização, Confidencialidade e Isenção de Responsabilidade (*Disclaimer*)
+## Licença, Direitos Autorais e Isenção de Responsabilidade ([MIT License](LICENSE))
 
-> **AVISO DE REPOSITÓRIO PRIVADO E TERMOS DE USO ("NO ESTADO EM QUE SE ENCONTRA" / *AS IS*)**
+> **Licença MIT — Copyright (c) 2026 Carlos Wagner G. Bittencourt**
 >
-> 1. **Caráter Privado:** Este software e sua documentação associada são de titularidade de **Carlos Wagner G. Bittencourt** e mantidos em caráter **privado**. A redistribuição pública, comercialização ou sublicenciamento a terceiros não autorizados é vedada sem consentimento prévio do autor.
-> 2. **Permissão de Uso ("Como Está"):** É concedida permissão aos usuários autorizados para instalar e executar o **SpecAudit** para fins de auditoria documental e governança de projetos, sendo o software disponibilizado **"COMO ESTÁ" (*"AS IS"*)** e **"CONFORME DISPONÍVEL" (*"AS AVAILABLE"*)**, sem garantias expressas ou implícitas de qualquer natureza, incluindo, mas não se limitando a, garantias de comercialização, adequação a uma finalidade específica ou ausência de falhas.
-> 3. **Isenção Total de Responsabilidade:** Em nenhuma hipótese o autor ou os detentores dos direitos autorais serão responsáveis por quaisquer danos diretos, indiretos, incidentais, especiais, exemplares ou consequenciais (incluindo, sem limitação, perda de dados, falhas de hardware ou software, interrupção de negócios ou quaisquer outros danos ao computador ou ao ambiente operacional) decorrentes da instalação, uso ou incapacidade de uso deste programa, mesmo que tenham sido avisados da possibilidade de tais danos. O risco integral quanto à execução e ao desempenho do programa cabe exclusivamente ao usuário.
+> 1. **Preservação Obrigatória dos Direitos Autorais:** Todos os direitos autorais e de autoria original deste software pertencem a **Carlos Wagner G. Bittencourt**. Sob os termos da [Licença MIT](LICENSE), é **condição obrigatória** que o aviso de direitos autorais (`Copyright (c) 2026 Carlos Wagner G. Bittencourt`) e o aviso de permissão sejam mantidos em todas as cópias ou partes substanciais do software.
+> 2. **Permissão de Uso ("Como Está" / *As Is*):** O software é fornecido **"COMO ESTÁ" (*"AS IS"*)**, sem garantia de qualquer tipo, expressa ou implícita, incluindo, mas não se limitando às garantias de comercialização, adequação a uma finalidade específica e não violação.
+> 3. **Isenção Total de Responsabilidade:** Em nenhuma hipótese o autor ou detentor dos direitos autorais será responsável por qualquer reivindicação, danos diretos, indiretos, incidentais ou qualquer outra responsabilidade (incluindo, sem limitação, danos ao computador, perda de dados, falhas de hardware/software ou interrupção operacional) decorrentes da instalação, uso ou incapacidade de uso deste programa. O risco integral quanto à utilização do software cabe exclusivamente ao usuário.
