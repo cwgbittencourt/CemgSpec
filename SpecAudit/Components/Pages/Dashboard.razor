@@ -97,28 +97,6 @@
                         }
                     </select>
                 </label>
-                <label>
-                    Gravidade
-                    <select aria-label="Gravidade" value="@(selectedSeverity?.ToString() ?? "")" @onchange="OnSeverityChanged">
-                        <option value="">Todas</option>
-                        <option value="@DocumentaryOccurrenceSeverity.High">Alta</option>
-                        <option value="@DocumentaryOccurrenceSeverity.Medium">Média</option>
-                        <option value="@DocumentaryOccurrenceSeverity.Low">Baixa</option>
-                        <option value="@DocumentaryOccurrenceSeverity.Info">Informativa</option>
-                    </select>
-                </label>
-                <label>
-                    Situação
-                    <select aria-label="Situação" value="@(selectedSituation ?? "")" @onchange="OnSituationChanged">
-                        <option value="">Todas</option>
-                        <option value="Impedimento">Impedimento</option>
-                        <option value="Sem vínculo">Sem vínculo</option>
-                        <option value="Ambíguo">Ambíguo</option>
-                        <option value="Não verificada">Não verificada</option>
-                        <option value="Inválida">Inválida</option>
-                        <option value="Ausente">Ausente</option>
-                    </select>
-                </label>
             </section>
 
             <div class="kpi-grid">
@@ -233,12 +211,30 @@
                         var visibleOccurrences = FilterByChip(projection.Occurrences);
                     }
                     <section id="ocorrencias-documentais" class="dash-card" aria-label="Ocorrências documentais">
-                        <div class="card-heading">
+                        <div class="card-heading" style="flex-wrap:wrap;gap:10px">
                             <h2>Ocorrências documentais (@visibleOccurrences.Count)</h2>
-                            @if (activeChipFilter is not null)
-                            {
-                                <button type="button" class="secondary" @onclick="() => activeChipFilter = null">Limpar filtro (@defaultOccurrencesCount)</button>
-                            }
+                            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                                <select aria-label="Gravidade" value="@(selectedSeverity?.ToString() ?? "")" @onchange="OnSeverityChanged" disabled="@(defaultOccurrencesCount == 0 && selectedSeverity is null && selectedSituation is null)">
+                                    <option value="">Gravidade: Todas</option>
+                                    <option value="@DocumentaryOccurrenceSeverity.High">Alta</option>
+                                    <option value="@DocumentaryOccurrenceSeverity.Medium">Média</option>
+                                    <option value="@DocumentaryOccurrenceSeverity.Low">Baixa</option>
+                                    <option value="@DocumentaryOccurrenceSeverity.Info">Informativa</option>
+                                </select>
+                                <select aria-label="Situação" value="@(selectedSituation ?? "")" @onchange="OnSituationChanged" disabled="@(defaultOccurrencesCount == 0 && selectedSeverity is null && selectedSituation is null)">
+                                    <option value="">Situação: Todas</option>
+                                    <option value="Impedimento">Impedimento</option>
+                                    <option value="Sem vínculo">Sem vínculo</option>
+                                    <option value="Ambíguo">Ambíguo</option>
+                                    <option value="Não verificada">Não verificada</option>
+                                    <option value="Inválida">Inválida</option>
+                                    <option value="Ausente">Ausente</option>
+                                </select>
+                                @if (activeChipFilter is not null)
+                                {
+                                    <button type="button" class="secondary" @onclick="() => activeChipFilter = null">Limpar filtro (@defaultOccurrencesCount)</button>
+                                }
+                            </div>
                         </div>
                         @if (visibleOccurrences.Count == 0)
                         {
