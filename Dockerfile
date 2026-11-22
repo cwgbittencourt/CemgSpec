@@ -11,6 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 && rm -
 WORKDIR /app
 COPY --from=build /app/publish .
 ENV DOTNET_RUNNING_IN_CONTAINER=true
-ENV urls=http://127.0.0.1:5187
+ENV ASPNETCORE_URLS=http://0.0.0.0:5187
 EXPOSE 5187
 ENTRYPOINT ["dotnet", "SpecAudit.dll"]

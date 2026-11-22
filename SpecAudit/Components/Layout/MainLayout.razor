@@ -6,7 +6,13 @@
 
 <div class="app-shell" data-theme="@(isLightTheme ? "light" : "dark")">
     <aside class="app-sidebar">
-        <a class="app-brand" href="/projetos"><span class="brand-icon">SA</span> SpecAudit</a>
+        <a class="app-brand" href="/projetos">
+            <span class="brand-icon" aria-hidden="true">
+                <span class="brand-monogram">SA</span>
+                <span class="brand-check">✓</span>
+            </span>
+            <span>SpecAudit</span>
+        </a>
         <p class="sidebar-caption">ESPAÇO DE TRABALHO</p>
         <nav class="sidebar-nav" aria-label="Navegação principal">
             <a href="/projetos" class="@(IsRoute("", "projetos") ? "sidebar-link active" : "sidebar-link")" aria-current="@(IsRoute("", "projetos") ? "page" : null)"><span aria-hidden="true">▱</span> Projetos</a>
