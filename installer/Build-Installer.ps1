@@ -86,15 +86,27 @@ namespace SpecAuditSetup
             header.Paint += (s, e) =>
             {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                var r = new Rectangle(22, 18, 54, 54);
-                using (var br = new LinearGradientBrush(r, Color.FromArgb(79, 140, 255), Color.FromArgb(170, 140, 245), 45f))
+                var r = new Rectangle(20, 16, 58, 58);
+                using (var br = new LinearGradientBrush(r, Color.FromArgb(30, 64, 175), Color.FromArgb(124, 58, 237), 45f))
+                using (var pen = new Pen(Color.FromArgb(147, 197, 253), 2f))
                 {
                     e.Graphics.FillEllipse(br, r);
+                    e.Graphics.DrawEllipse(pen, r);
                 }
-                using (var f = new Font("Segoe UI", 24f, FontStyle.Bold))
+                using (var f = new Font("Segoe UI", 19f, FontStyle.Bold))
                 {
                     var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-                    e.Graphics.DrawString("S", f, Brushes.White, r, sf);
+                    e.Graphics.DrawString("SA", f, Brushes.White, r, sf);
+                }
+                var badge = new Rectangle(58, 54, 22, 22);
+                using (var bBr = new SolidBrush(Color.FromArgb(16, 185, 129)))
+                using (var bPen = new Pen(Color.FromArgb(17, 21, 31), 2.5f))
+                using (var bf = new Font("Segoe UI Symbol", 10f, FontStyle.Bold))
+                {
+                    e.Graphics.FillEllipse(bBr, badge);
+                    e.Graphics.DrawEllipse(bPen, badge);
+                    var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+                    e.Graphics.DrawString("✓", bf, Brushes.White, badge, sf);
                 }
             };
 
