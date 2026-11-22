@@ -8,6 +8,11 @@
     <NuGetAuditMode>all</NuGetAuditMode>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+    <ApplicationIcon>wwwroot\specaudit.ico</ApplicationIcon>
+    <Company>Carlos Wagner G. Bittencourt</Company>
+    <Product>SpecAudit</Product>
+    <Description>SpecAudit - Auditoria Documental SpecKit</Description>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
