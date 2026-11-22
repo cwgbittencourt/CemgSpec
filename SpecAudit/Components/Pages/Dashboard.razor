@@ -226,6 +226,9 @@
                     </section>
 
                     @{
+                        var defaultOccurrencesCount = projection.Occurrences.Count(o =>
+                            string.Equals(selectedSituation, "Não verificada", StringComparison.OrdinalIgnoreCase) ||
+                            o.Category != DocumentaryOccurrenceCategory.UnverifiedCodeReference);
                         var visibleOccurrences = FilterByChip(projection.Occurrences);
                     }
                     <section id="ocorrencias-documentais" class="dash-card" aria-label="Ocorrências documentais">
@@ -233,7 +236,7 @@
                             <h2>Ocorrências documentais (@visibleOccurrences.Count)</h2>
                             @if (activeChipFilter is not null)
                             {
-                                <button type="button" class="secondary" @onclick="() => activeChipFilter = null">Mostrar todas (@projection.Occurrences.Count)</button>
+                                <button type="button" class="secondary" @onclick="() => activeChipFilter = null">Limpar filtro (@defaultOccurrencesCount)</button>
                             }
                         </div>
                         @if (visibleOccurrences.Count == 0)
