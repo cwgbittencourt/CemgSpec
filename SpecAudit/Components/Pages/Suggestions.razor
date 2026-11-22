@@ -280,7 +280,7 @@
         var sheets = TraceService.ListSheets(active);
         foreach (var sheet in sheets)
         {
-            foreach (var f in sheet.Findings)
+            foreach (var f in sheet.Findings.Where(x => !string.Equals(x.Category, "UnverifiedCodeReference", StringComparison.OrdinalIgnoreCase)))
             {
                 var stableId = DeterministicGuid($"{active.Session.ProjectId:N}|{f.Category}|{f.ContextFingerprint}");
                 findings.Add(f with { FindingId = stableId });

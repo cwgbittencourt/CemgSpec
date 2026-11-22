@@ -28,7 +28,7 @@
                 @onclick="() => tab = SheetTab.Verifications">Verificações (@Sheet.RecordedDeclarations.Count)</button>
         <button type="button" role="tab" aria-selected="@(tab == SheetTab.Suggestions ? "true" : "false")"
                 class="@(tab == SheetTab.Suggestions ? "sheet-tab active" : "sheet-tab")"
-                @onclick="() => tab = SheetTab.Suggestions">Sugestões (@Sheet.Findings.Count)</button>
+                @onclick="() => tab = SheetTab.Suggestions">Sugestões (@VisibleFindings.Count)</button>
     </div>
 
     @if (tab == SheetTab.Summary)
@@ -197,15 +197,15 @@
     else
     {
         <article class="inner-card">
-            <h3>Ocorrências e sugestões documentais (@Sheet.Findings.Count)</h3>
-            @if (Sheet.Findings.Count == 0)
+            <h3>Ocorrências e sugestões documentais (@VisibleFindings.Count)</h3>
+            @if (VisibleFindings.Count == 0)
             {
                 <p class="muted small">Nenhuma ocorrência documental registrada para este requisito.</p>
             }
             else
             {
                 <ul class="item-list">
-                    @foreach (var finding in Sheet.Findings)
+                    @foreach (var finding in VisibleFindings)
                     {
                         <li class="list-row">
                             <div class="row-head">
@@ -229,6 +229,9 @@
     private enum SheetTab { Summary, Links, Verifications, Suggestions }
 
     [Parameter, EditorRequired] public RequirementSheetProjection Sheet { get; set; } = null!;
+
+    private IReadOnlyList<Finding> VisibleFindings =>
+        Sheet.Findings.Where(f => !string.Equals(f.Category, "UnverifiedCodeReference", StringComparison.OrdinalIgnoreCase)).ToArray();
 
     private SheetTab tab = SheetTab.Summary;
     private RequirementKey? lastKey;
