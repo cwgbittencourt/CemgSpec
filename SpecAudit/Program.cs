@@ -101,4 +101,21 @@ app.UseStatusCodePagesWithReExecute("/not-found",createScopeForStatusCodePages:t
 app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+if (args.Contains("--open-browser", StringComparer.OrdinalIgnoreCase) ||
+    string.Equals(Environment.GetEnvironmentVariable("SPECAUDIT_OPEN_BROWSER"), "1", StringComparison.Ordinal))
+{
+    var targetUrl = configuredUrls[0];
+    app.Lifetime.ApplicationStarted.Register(() =>
+    {
+        try
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = targetUrl,
+                UseShellExecute = true
+            });
+        }
+        catch { }
+    });
+}
 app.Run();
