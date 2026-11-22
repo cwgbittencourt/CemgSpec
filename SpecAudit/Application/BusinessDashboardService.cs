@@ -51,11 +51,7 @@ public sealed partial class BusinessDashboardService(
                      e.RelativePath.Contains("/validation/", StringComparison.OrdinalIgnoreCase)) &&
                     e.RelativePath.EndsWith(".md", StringComparison.OrdinalIgnoreCase) &&
                     !e.RelativePath.EndsWith("-dev.md", StringComparison.OrdinalIgnoreCase) &&
-                    (e.RelativePath.Contains(storyId, StringComparison.OrdinalIgnoreCase) ||
-                     e.RelativePath.Contains("user", StringComparison.OrdinalIgnoreCase) ||
-                     e.RelativePath.Contains("usuario", StringComparison.OrdinalIgnoreCase) ||
-                     e.RelativePath.Contains("uat", StringComparison.OrdinalIgnoreCase) ||
-                     e.RelativePath.Contains("homolog", StringComparison.OrdinalIgnoreCase)));
+                    Path.GetFileName(e.RelativePath).Contains(storyId, StringComparison.OrdinalIgnoreCase));
                 var poDoc = entries.FirstOrDefault(e =>
                     e.RelativePath.EndsWith($"{Path.DirectorySeparatorChar}acceptance{Path.DirectorySeparatorChar}{storyId}.md", StringComparison.OrdinalIgnoreCase) ||
                     e.RelativePath.EndsWith($"/acceptance/{storyId}.md", StringComparison.OrdinalIgnoreCase));
