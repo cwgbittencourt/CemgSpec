@@ -44,7 +44,8 @@ public sealed class GatePackage
     public bool TryRegisterVerifiedSeal(SpecAudit.Application.CapabilityRegistry registry)
     {
         ArgumentNullException.ThrowIfNull(registry);
-        if (!OperatingSystem.IsWindows() || System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture != System.Runtime.InteropServices.Architecture.X64)
+        if ((!OperatingSystem.IsWindows() && !OperatingSystem.IsLinux()) ||
+            System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture != System.Runtime.InteropServices.Architecture.X64)
             return false;
 
         var pkg = VerifyPackage();
@@ -204,6 +205,15 @@ public sealed class GatePackage
         var envOverride = Environment.GetEnvironmentVariable("SPECAUDIT_PYTHON_EXE");
         if (!string.IsNullOrWhiteSpace(envOverride))
             results.Add(envOverride.Trim());
+
+        if (!OperatingSystem.IsWindows())
+        {
+            foreach (var unixCandidate in new[] { "/usr/bin/python3", "/usr/local/bin/python3" })
+            {
+                if (File.Exists(unixCandidate)) results.Add(unixCandidate);
+            }
+            return results;
+        }
 
         var searchRoots = new[]
         {

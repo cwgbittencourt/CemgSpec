@@ -20,6 +20,15 @@
                     <p class="path-value" data-testid="selected-origin">@(pendingOrigin ?? "Nenhuma pasta selecionada")</p>
                     @if (IsContainerMode)
                     {
+                        @if (containerProjects.Count > 0)
+                        {
+                            <select aria-label="Projetos disponíveis em /projetos" value="@pendingOrigin" @onchange="OnContainerProjectSelected" style="margin-bottom:8px;margin-left:0;width:100%">
+                                @foreach (var folder in containerProjects)
+                                {
+                                    <option value="@folder">@folder</option>
+                                }
+                            </select>
+                        }
                         <input type="text" class="docs-search" placeholder="/projetos/meu-projeto" @bind="pendingOrigin" @bind:event="oninput" style="margin-bottom:8px;width:100%" />
                     }
                     else
@@ -139,10 +148,65 @@
     private string? pendingOrigin;
     private string? pendingOutput;
     private string? error;
+    private List<string> containerProjects = [];
     private static bool IsContainerMode => !OperatingSystem.IsWindows() || string.Equals(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), "true", StringComparison.OrdinalIgnoreCase);
     protected override void OnInitialized()=>ProjectStore.Changed+=OnProjectsChanged;
     private void OnProjectsChanged()=>_ = InvokeAsync(StateHasChanged);
-    private Task Open(){if(!busy){opening=true;pendingOrigin=IsContainerMode?"/projetos":null;pendingOutput=IsContainerMode?"/relatorios":null;error=null;}return Task.CompletedTask;}
+    private Task Open()
+    {
+        if(!busy)
+        {
+            opening=true;
+            error=null;
+            if (IsContainerMode)
+            {
+                containerProjects = DiscoverContainerProjects();
+                pendingOrigin = containerProjects.FirstOrDefault() ?? "/projetos";
+                pendingOutput = SuggestContainerOutput(pendingOrigin);
+            }
+            else
+            {
+                pendingOrigin = null;
+                pendingOutput = null;
+            }
+        }
+        return Task.CompletedTask;
+    }
+    private void OnContainerProjectSelected(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString();
+        if (!string.IsNullOrWhiteSpace(val))
+        {
+            pendingOrigin = val;
+            pendingOutput = SuggestContainerOutput(val);
+        }
+    }
+    private static List<string> DiscoverContainerProjects()
+    {
+        var list = new List<string>();
+        try
+        {
+            if (Directory.Exists("/projetos"))
+            {
+                foreach (var dir in Directory.GetDirectories("/projetos").OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
+                {
+                    var name = Path.GetFileName(dir);
+                    if (!string.IsNullOrWhiteSpace(name) && !name.StartsWith('.'))
+                        list.Add(dir.Replace('\\', '/'));
+                }
+                list.Add("/projetos");
+            }
+        }
+        catch { }
+        return list;
+    }
+    private static string SuggestContainerOutput(string originPath)
+    {
+        var leaf = Path.GetFileName(originPath.TrimEnd('/', '\\'));
+        return string.IsNullOrWhiteSpace(leaf) || string.Equals(leaf, "projetos", StringComparison.OrdinalIgnoreCase)
+            ? "/relatorios"
+            : $"/relatorios/{leaf}";
+    }
     private async Task ChooseOrigin()
     {
         if(busy)return;busy=true;error=null;
@@ -159,7 +223,14 @@
     {
         if(busy || pendingOrigin is null || pendingOutput is null)return Task.CompletedTask;
         busy=true;error=null;
-        try{ProjectStore.OpenSelected(pendingOrigin,pendingOutput);opening=false;pendingOrigin=null;pendingOutput=null;}
+        try
+        {
+            if (IsContainerMode && pendingOutput.StartsWith("/relatorios", StringComparison.Ordinal) && !Directory.Exists(pendingOutput))
+            {
+                Directory.CreateDirectory(pendingOutput);
+            }
+            ProjectStore.OpenSelected(pendingOrigin,pendingOutput);opening=false;pendingOrigin=null;pendingOutput=null;
+        }
         catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
         return Task.CompletedTask;
     }

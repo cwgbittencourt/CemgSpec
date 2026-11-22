@@ -1113,8 +1113,18 @@ namespace SpecAuditDockerSetup
                     File.WriteAllText(Path.Combine(workDir, "docker-compose.yml"), composeYaml, new UTF8Encoding(false));
                 });
 
-                lblStatus.Text = "Construindo imagem e iniciando container SpecAudit no Docker...";
+                lblStatus.Text = "Liberando porta 5187 e construindo container SpecAudit no Docker...";
                 progress.Value = 70;
+                await Task.Run(() =>
+                {
+                    foreach (var procName in new[] { "SpecAudit-Launcher", "SpecAudit" })
+                    {
+                        foreach (var p in Process.GetProcessesByName(procName))
+                        {
+                            try { p.Kill(); p.WaitForExit(2000); } catch { }
+                        }
+                    }
+                });
                 int upCode = await Task.Run(() => RunHiddenProcess("docker", "compose up -d --build", workDir));
                 if (upCode != 0)
                 {
@@ -1267,8 +1277,24 @@ if ((Test-Path $installedDir) -or $InstallLocally) {
         $sc3.Save()
     }
 
-    Start-Process -FilePath $instLauncher -ArgumentList "--no-browser" -WorkingDirectory $installedDir
-    Write-Host "Instalacao local em $installedDir atualizada com o novo icone interno SA e reiniciada em segundo plano!" -ForegroundColor Green
+    $dockerInstalledDir = Join-Path $env:LOCALAPPDATA "Programs\SpecAudit-Docker"
+    if (Test-Path (Join-Path $dockerInstalledDir "docker-compose.yml")) {
+        Write-Host "Atualizando container Docker local existente em $dockerInstalledDir..." -ForegroundColor Cyan
+        $dockerInstalledApp = Join-Path $dockerInstalledDir "app"
+        if (Test-Path $dockerInstalledApp) { Remove-Item $dockerInstalledApp -Recurse -Force }
+        dotnet publish (Join-Path $repoRoot "SpecAudit\SpecAudit.csproj") -c Release --self-contained false -o $dockerInstalledApp --nologo
+        [System.IO.File]::WriteAllText((Join-Path $dockerInstalledDir "Dockerfile"), $runtimeDockerfile, (New-Object System.Text.UTF8Encoding($false)))
+        Push-Location $dockerInstalledDir
+        try {
+            docker compose up -d --build
+        } finally {
+            Pop-Location
+        }
+        Write-Host "Container specaudit atualizado e em execucao no Docker!" -ForegroundColor Green
+    } else {
+        Start-Process -FilePath $instLauncher -ArgumentList "--no-browser" -WorkingDirectory $installedDir
+        Write-Host "Instalacao local em $installedDir atualizada com o novo icone interno SA e reiniciada em segundo plano!" -ForegroundColor Green
+    }
 }
 
 Get-Item $setupExe, $dockerSetupExe | Select-Object Name, Length, FullName
