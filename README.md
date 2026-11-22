@@ -25,7 +25,7 @@ O sistema opera sob uma arquitetura **estritamente somente leitura (*Read-Only O
 
 O SpecAudit possui um instalador gráfico independente de arquivo único (**não exige privilégios de Administrador** e **não requer .NET pré-instalado** na máquina de destino):
 
-1. Execute o arquivo **`SpecAudit-Setup.exe`**.
+1. Baixe ou execute diretamente o instalador publicado no repositório em **[`installer/SpecAudit-Setup.exe`](installer/SpecAudit-Setup.exe)** (também disponível na seção **Releases (`v1.0.0`)** do GitHub).
 2. Na janela do instalador, confirme as opções:
    - *Criar atalho com ícone SA na Área de Trabalho e no Menu Iniciar*
    - *Iniciar o SpecAudit em segundo plano (ícone SA perto do relógio) e abrir navegador*

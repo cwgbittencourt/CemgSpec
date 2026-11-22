@@ -750,7 +750,7 @@ if ((Test-Path $installedDir) -or $InstallLocally) {
     $instLauncher = Join-Path $installedDir "SpecAudit-Launcher.exe"
     $instUninstall = Join-Path $installedDir "SpecAudit-Uninstall.exe"
     $instIco = Join-Path $installedDir "specaudit.ico"
-    Set-ItemProperty -Path $regPath -Name "DisplayName" -Value "SpecAudit — Auditoria Documental SpecKit"
+    Set-ItemProperty -Path $regPath -Name "DisplayName" -Value "SpecAudit - Auditoria Documental SpecKit"
     Set-ItemProperty -Path $regPath -Name "DisplayVersion" -Value "1.0.0"
     Set-ItemProperty -Path $regPath -Name "Publisher" -Value "Carlos Wagner G. Bittencourt"
     Set-ItemProperty -Path $regPath -Name "InstallLocation" -Value $installedDir
