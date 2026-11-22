@@ -18,35 +18,12 @@
                 <section class="path-card">
                     <h3>1. Pasta do projeto</h3>
                     <p class="path-value" data-testid="selected-origin">@(pendingOrigin ?? "Nenhuma pasta selecionada")</p>
-                    @if (IsContainerMode)
-                    {
-                        @if (containerProjects.Count > 0)
-                        {
-                            <select aria-label="Projetos disponíveis" value="@pendingOrigin" @onchange="OnContainerProjectSelected" style="margin-bottom:8px;margin-left:0;width:100%">
-                                @foreach (var folder in containerProjects)
-                                {
-                                    <option value="@folder">@FormatContainerDisplayPath(folder)</option>
-                                }
-                            </select>
-                        }
-                        <input type="text" class="docs-search" placeholder="Ex.: C:\Users\...\MeuProjeto ou /projetos/MeuProjeto" value="@pendingOrigin" @oninput="OnContainerOriginTyped" style="margin-bottom:8px;width:100%" />
-                    }
-                    else
-                    {
-                        <button class="secondary" @onclick="ChooseOrigin" disabled="@busy">Escolher projeto</button>
-                    }
+                    <button class="secondary" @onclick="ChooseOrigin" disabled="@busy">Escolher projeto</button>
                 </section>
                 <section class="path-card">
                     <h3>2. Pasta dos relatórios</h3>
                     <p class="path-value" data-testid="selected-output">@(pendingOutput ?? "Nenhuma pasta selecionada")</p>
-                    @if (IsContainerMode)
-                    {
-                        <input type="text" class="docs-search" placeholder="/relatorios/meu-projeto" @bind="pendingOutput" @bind:event="oninput" style="margin-bottom:8px;width:100%" />
-                    }
-                    else
-                    {
-                        <button class="secondary" @onclick="ChooseOutput" disabled="@(busy || pendingOrigin is null)">Escolher destino</button>
-                    }
+                    <button class="secondary" @onclick="ChooseOutput" disabled="@(busy || pendingOrigin is null)">Escolher destino</button>
                 </section>
             </div>
             <p class="muted">O destino deve ficar fora da pasta do projeto. As seleções acima são os caminhos retornados pelo seletor, resolvidos pelo aplicativo.</p>
@@ -148,112 +125,9 @@
     private string? pendingOrigin;
     private string? pendingOutput;
     private string? error;
-    private List<string> containerProjects = [];
-    private static bool IsContainerMode => !OperatingSystem.IsWindows() || string.Equals(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), "true", StringComparison.OrdinalIgnoreCase);
     protected override void OnInitialized()=>ProjectStore.Changed+=OnProjectsChanged;
     private void OnProjectsChanged()=>_ = InvokeAsync(StateHasChanged);
-    private Task Open()
-    {
-        if(!busy)
-        {
-            opening=true;
-            error=null;
-            if (IsContainerMode)
-            {
-                containerProjects = DiscoverContainerProjects();
-                pendingOrigin = containerProjects.FirstOrDefault() ?? "/projetos";
-                pendingOutput = SuggestContainerOutput(pendingOrigin);
-            }
-            else
-            {
-                pendingOrigin = null;
-                pendingOutput = null;
-            }
-        }
-        return Task.CompletedTask;
-    }
-    private void OnContainerProjectSelected(ChangeEventArgs e)
-    {
-        var val = e.Value?.ToString();
-        if (!string.IsNullOrWhiteSpace(val))
-        {
-            pendingOrigin = val;
-            pendingOutput = SuggestContainerOutput(val);
-        }
-    }
-    private void OnContainerOriginTyped(ChangeEventArgs e)
-    {
-        pendingOrigin = e.Value?.ToString();
-        if (!string.IsNullOrWhiteSpace(pendingOrigin))
-        {
-            pendingOutput = SuggestContainerOutput(pendingOrigin);
-        }
-    }
-    private static string FormatContainerDisplayPath(string containerPath)
-    {
-        if (containerPath.StartsWith("/host/", StringComparison.OrdinalIgnoreCase) && containerPath.Length >= 7)
-        {
-            var drive = char.ToUpperInvariant(containerPath[6]);
-            var rest = containerPath.Length > 7 ? containerPath[8..].Replace('/', '\\') : "";
-            return $"{drive}:\\{rest} ({containerPath})";
-        }
-        return containerPath;
-    }
-    private static List<string> DiscoverContainerProjects()
-    {
-        var list = new List<string>();
-        try
-        {
-            if (Directory.Exists("/projetos"))
-            {
-                foreach (var dir in Directory.GetDirectories("/projetos").OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
-                {
-                    var name = Path.GetFileName(dir);
-                    if (!string.IsNullOrWhiteSpace(name) && !name.StartsWith('.'))
-                        list.Add(dir.Replace('\\', '/'));
-                }
-            }
-            if (Directory.Exists("/host"))
-            {
-                foreach (var driveDir in Directory.GetDirectories("/host").OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
-                {
-                    var usersDir = Path.Combine(driveDir, "Users");
-                    if (Directory.Exists(usersDir))
-                    {
-                        foreach (var userDir in Directory.GetDirectories(usersDir))
-                        {
-                            var reposDir = Path.Combine(userDir, "source", "repos");
-                            if (Directory.Exists(reposDir))
-                            {
-                                foreach (var repo in Directory.GetDirectories(reposDir).OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
-                                {
-                                    list.Add(repo.Replace('\\', '/'));
-                                }
-                            }
-                        }
-                    }
-                    var codexDir = Path.Combine(driveDir, "Codex_Workspace", "Projetos");
-                    if (Directory.Exists(codexDir))
-                    {
-                        foreach (var repo in Directory.GetDirectories(codexDir).OrderBy(d => d, StringComparer.OrdinalIgnoreCase))
-                        {
-                            list.Add(repo.Replace('\\', '/'));
-                        }
-                    }
-                }
-            }
-            if (Directory.Exists("/projetos")) list.Add("/projetos");
-        }
-        catch { }
-        return list.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
-    }
-    private static string SuggestContainerOutput(string originPath)
-    {
-        var leaf = Path.GetFileName(originPath.TrimEnd('/', '\\'));
-        return string.IsNullOrWhiteSpace(leaf) || string.Equals(leaf, "projetos", StringComparison.OrdinalIgnoreCase)
-            ? "/relatorios"
-            : $"/relatorios/{leaf}";
-    }
+    private Task Open(){if(!busy){opening=true;pendingOrigin=null;pendingOutput=null;error=null;}return Task.CompletedTask;}
     private async Task ChooseOrigin()
     {
         if(busy)return;busy=true;error=null;
@@ -270,19 +144,7 @@
     {
         if(busy || pendingOrigin is null || pendingOutput is null)return Task.CompletedTask;
         busy=true;error=null;
-        try
-        {
-            if (IsContainerMode)
-            {
-                var resolvedOutput = SpecAudit.Infrastructure.Documents.WindowsReadHandle.TranslateContainerPath(pendingOutput);
-                if (resolvedOutput.StartsWith("/relatorios", StringComparison.Ordinal) && !Directory.Exists(resolvedOutput))
-                {
-                    Directory.CreateDirectory(resolvedOutput);
-                }
-                pendingOutput = resolvedOutput;
-            }
-            ProjectStore.OpenSelected(pendingOrigin,pendingOutput);opening=false;pendingOrigin=null;pendingOutput=null;
-        }
+        try{ProjectStore.OpenSelected(pendingOrigin,pendingOutput);opening=false;pendingOrigin=null;pendingOutput=null;}
         catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
         return Task.CompletedTask;
     }

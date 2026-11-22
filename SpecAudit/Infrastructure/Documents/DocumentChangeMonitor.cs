@@ -12,18 +12,11 @@ public sealed class DocumentChangeMonitor : IDisposable
         if(File.GetAttributes(this.origin).HasFlag(FileAttributes.ReparsePoint))throw new DocumentAccessException("OutOfScope");
         // Observe names/metadata only. Content is read exclusively by the broker.
         // Watching the root also detects documentary directories created after opening.
-        watcher=new FileSystemWatcher(this.origin){IncludeSubdirectories=OperatingSystem.IsWindows(),NotifyFilter=NotifyFilters.FileName|NotifyFilters.DirectoryName|NotifyFilters.LastWrite|NotifyFilters.Size};
+        watcher=new FileSystemWatcher(this.origin){IncludeSubdirectories=true,NotifyFilter=NotifyFilters.FileName|NotifyFilters.DirectoryName|NotifyFilters.LastWrite|NotifyFilters.Size};
         watcher.Changed+=Notify;watcher.Created+=Notify;watcher.Deleted+=Notify;
         watcher.Renamed+=(_,args)=>{if(Relevant(args.OldFullPath)||Relevant(args.FullPath))Signal();};
-        if (OperatingSystem.IsWindows())
-        {
-            watcher.Error+=(_,_)=>Signal();
-            watcher.EnableRaisingEvents=true;
-        }
-        else
-        {
-            try { watcher.EnableRaisingEvents=true; } catch { }
-        }
+        watcher.Error+=(_,_)=>Signal();
+        watcher.EnableRaisingEvents=true;
     }
     private bool Relevant(string path)
     {

@@ -1,12 +1,21 @@
 # IDE and local build output
 .vs/
+.vscode/
+.idea/
 **/bin/
 **/obj/
+**/out/
+**/publish/
+**/TestResults/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+
 # Local caches
 **/__pycache__/
 *.pyc
+
 # Credentials and private local configuration
 .env
 .env.*
@@ -16,7 +25,17 @@
 *.key
 *.pem
 **/secrets.json
-/tmp/docs-executivo
 
+# Temporary, scratch, and local build artifacts
+tmp/
+/tmp/
+output/
 installer/dist/
 docs/prints/
+.specify/feature.json
+.specify/presets/cemg-speckit/cemg-speckit-*/
+
+# Unneeded container files
+Dockerfile
+docker-compose*.yml
+.dockerignore

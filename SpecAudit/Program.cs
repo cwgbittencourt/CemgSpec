@@ -5,11 +5,8 @@ using SpecAudit.Application;
 using SpecAudit.Components;
 
 var builder = WebApplication.CreateBuilder(args);
-var isContainer = string.Equals(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), "true", StringComparison.OrdinalIgnoreCase);
-var configuredUrls = isContainer
-    ? ["http://127.0.0.1:5187", "http://localhost:5187"]
-    : (builder.Configuration["urls"] ?? "http://127.0.0.1:5187")
-        .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+var configuredUrls=(builder.Configuration["urls"] ?? "http://127.0.0.1:5187")
+    .Split(';',StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 if(configuredUrls.Length==0)throw new InvalidOperationException("A loopback URL is required.");
 var origins = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 foreach(var value in configuredUrls)
@@ -20,7 +17,7 @@ foreach(var value in configuredUrls)
         throw new InvalidOperationException("SpecAudit only supports explicit local loopback listeners.");
     origins.Add(uri.GetLeftPart(UriPartial.Authority));
 }
-builder.WebHost.UseUrls(isContainer ? ["http://0.0.0.0:5187"] : configuredUrls);
+builder.WebHost.UseUrls(configuredUrls);
 // Do not allow secondary Kestrel configuration to expose the host on the LAN.
 if(builder.Configuration.GetSection("Kestrel:Endpoints").GetChildren().Any())
     throw new InvalidOperationException("Configure only explicit loopback URLs; Kestrel endpoint overrides are unsupported.");
@@ -68,7 +65,7 @@ var app=builder.Build();
 app.Use(async(context,next)=>
 {
     var authority=$"{context.Request.Scheme}://{context.Request.Host}";
-    if(context.Connection.RemoteIpAddress is not { } remote || (!IPAddress.IsLoopback(remote) && !isContainer) || !origins.Contains(authority))
+    if(context.Connection.RemoteIpAddress is not { } remote || !IPAddress.IsLoopback(remote) || !origins.Contains(authority))
     {context.Response.StatusCode=StatusCodes.Status421MisdirectedRequest;return;}
     var origin=context.Request.Headers.Origin;
     var safe=HttpMethods.IsGet(context.Request.Method) || HttpMethods.IsHead(context.Request.Method) || HttpMethods.IsOptions(context.Request.Method);
