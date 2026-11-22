@@ -163,6 +163,12 @@ public sealed partial class BusinessDashboardService(
         if (doc is null) return "Pendente";
         var text = TryRead(catalog, broker, doc);
         if (string.IsNullOrWhiteSpace(text)) return "Pendente";
+
+        // Check explicit human decision lines first so prose mentioning "pendente" elsewhere does not override a recorded decision.
+        if (ExplicitAcceptedRegex().IsMatch(text))
+            return "Aceito";
+        if (ExplicitRejectedRegex().IsMatch(text))
+            return "Rejeitado";
         if (text.Contains("PENDENTE", StringComparison.OrdinalIgnoreCase) ||
             text.Contains("_Pendente_", StringComparison.OrdinalIgnoreCase))
             return "Pendente";
@@ -230,4 +236,10 @@ public sealed partial class BusinessDashboardService(
 
     [GeneratedRegex(@"^\s*-\s*\[([ xX])\]\s*T\d{3,}\b(.*)$")]
     private static partial Regex TaskLineRegex();
+
+    [GeneratedRegex(@"(?:Decis[ãa]o|Resultado)\s*(?::|\|)\s*\*{0,2}\s*(?:ACEIT[OA]|APROVAD[OA]|VALIDAD[OA]|CONCLU[ÍI]D[OA]|PASS|OK)\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ExplicitAcceptedRegex();
+
+    [GeneratedRegex(@"(?:Decis[ãa]o|Resultado)\s*(?::|\|)\s*\*{0,2}\s*(?:REJEITAD[OA]|REPROVAD[OA]|BLOQUEAD[OA]|FAIL)\b", RegexOptions.IgnoreCase)]
+    private static partial Regex ExplicitRejectedRegex();
 }
