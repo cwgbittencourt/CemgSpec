@@ -1,9 +1,0 @@
-  Determinando os projetos a serem restaurados...
-  Todos os projetos estão atualizados para restauração.
-
-As fontes a seguir foram usadas:
-   https://api.nuget.org/v3/index.json
-   __USER_HOME__\source\repos\Tryvia.GeoAdapter\artifacts\packages
-   C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
-
-O projeto fornecido `NetworkMediator` não tem nenhum pacote vulnerável, considerando as fontes atuais.

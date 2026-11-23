@@ -42,8 +42,17 @@ specs/*/evidence/isolation-v2/
 specs/*/evidence/T*-before/
 specs/*/evidence/T*-code/
 specs/*/evidence/T*-probes/
+specs/*/evidence/T01*-*.json
+specs/*/evidence/T020-*.json
+specs/*/evidence/maintenance-*
+specs/*/evidence/manual-*
+specs/*/evidence/selection-flow-*
 specs/*/verification/archive/
 specs/*/verification/probes/
+specs/*/verification/*probe*
+specs/*/verification/mediator-*
+specs/*/verification/worker-*
+specs/*/verification/research-subagent-snapshot.jsonl
 specs/*/prototype/
 
 # Unneeded container files
