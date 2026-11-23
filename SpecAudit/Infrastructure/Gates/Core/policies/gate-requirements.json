@@ -41,5 +41,13 @@
     "human_acceptance_explicit",
     "ai_product_execution_observed",
     "dev_product_execution_observed"
+  ],
+  "production": [
+    "dev_acceptance_approved",
+    "uat_plan_available",
+    "end_user_executed",
+    "end_user_product_execution_observed",
+    "human_production_approved",
+    "po_signoff_approved"
   ]
 }

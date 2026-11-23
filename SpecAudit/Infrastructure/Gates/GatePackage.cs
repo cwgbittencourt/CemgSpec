@@ -32,12 +32,12 @@ public sealed record GatePackageStatus(
 
 public sealed class GatePackage
 {
-    public const string CoreVersion = "3.0.0";
+    public const string CoreVersion = "1.0.0";
     public const string PlatformFingerprint = "win-x64";
     public const string PolicyVersion = "v4";
-    public const string ToolDisplayName = "check_gate CEMG 3.0.0 / adaptador de leitura SpecAudit";
-    public const string ExpectedCoreSha256 = "7daf04483abbd52fa720e6afa0fbcde435120c96121b40008bff642ff93a42e0";
-    public const string ExpectedPolicySha256 = "93eae48e3424949a889562eca47e8a1b93e398e5978374fbb75c8aa5f525c5a9";
+    public const string ToolDisplayName = "check_gate cemg-speckit-preset 1.0.0 / adaptador de leitura SpecAudit";
+    public const string ExpectedCoreSha256 = "96ba5e3f2436c97d4df527f4e0b1e616ae8977b44942d75e26d71fb286dfa909";
+    public const string ExpectedPolicySha256 = "6e3df7b8136ea8444d3fbf38690412bacfce079a3095a8ed4e08aab92c02e4f0";
     public const string ExpectedRunnerSha256 = "c529d4e5d0c651520f40f1fd33fd6580e658c111818996c03328e94aee5c19d1";
     public const string ExpectedCatalogPathSha256 = "e51d61f586fe2cb92021870946880437a3283ec5cc55b860167418c34bc0361a";
 

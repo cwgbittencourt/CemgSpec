@@ -60,7 +60,7 @@ public sealed class VerificationStateMachineTests
             [],
             ctx.Catalog.Generation);
 
-        var pending = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "3.0.0", "win-x64", "v4");
+        var pending = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "1.0.0", "win-x64", "v4");
         Assert.Equal(CapabilityAvailability.PendingValidation, pending.Availability);
 
         var denied = service.PrepareGateRun(ctx.Session.ProjectId, candidate, pending);
@@ -69,7 +69,7 @@ public sealed class VerificationStateMachineTests
         Assert.Equal(CapabilityAvailability.PendingValidation, denied.Availability);
         Assert.Empty(service.GetRuns(ctx.Session.ProjectId));
 
-        var noRuntime = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "3.0.0", "win-x64", "v4", runtimeAvailable: false, runtimeUnavailableReason: "Python ausente");
+        var noRuntime = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "1.0.0", "win-x64", "v4", runtimeAvailable: false, runtimeUnavailableReason: "Python ausente");
         Assert.Equal(CapabilityAvailability.Unavailable, noRuntime.Availability);
         var deniedRuntime = service.PrepareGateRun(ctx.Session.ProjectId, candidate, noRuntime);
         Assert.False(deniedRuntime.Created);
@@ -83,12 +83,12 @@ public sealed class VerificationStateMachineTests
         using var fixture = new MiniFixture();
         using var projects = CreateProjectService();
         var ctx = projects.OpenSelected(fixture.Origin, fixture.Output);
-        var registry = CreatePassedGateRegistry("3.0.0", "win-x64", "v4");
+        var registry = CreatePassedGateRegistry("1.0.0", "win-x64", "v4");
         var service = new VerificationService(projects, registry);
 
         var feature = ctx.Session.Features.First(f => f.SpecKitRelativeDirectory.Contains("001-demo"));
         var record = ctx.Catalog.Entries.First(e => e.RelativePath.EndsWith("ready.json", StringComparison.OrdinalIgnoreCase));
-        var availability = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "3.0.0", "win-x64", "v4");
+        var availability = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "1.0.0", "win-x64", "v4");
         Assert.Equal(CapabilityAvailability.Available, availability.Availability);
 
         var expiredCandidate = new GateCandidate(
@@ -120,7 +120,7 @@ public sealed class VerificationStateMachineTests
         var prepared = service.PrepareGateRun(ctx.Session.ProjectId, validCandidate, availability, focus);
         Assert.Equal(RunState.Preparing, prepared.Run!.State);
         Assert.Equal(focus, prepared.Run.FocusRequirementKey);
-        prepared.Run.BeginRunning("check_gate CEMG 3.0.0 / adaptador SpecAudit");
+        prepared.Run.BeginRunning("check_gate cemg-speckit-preset 1.0.0 / adaptador SpecAudit");
         Assert.Equal(RunState.Running, prepared.Run.State);
         service.RequestCancel(ctx.Session.ProjectId, prepared.Run.RunId);
         Assert.True(prepared.Run.CancelRequested);
@@ -132,7 +132,7 @@ public sealed class VerificationStateMachineTests
         Assert.False(service.IsAdapterLocked(VerificationType.CheckGate));
 
         var second = service.PrepareGateRun(ctx.Session.ProjectId, validCandidate, availability);
-        second.Run!.BeginRunning("check_gate CEMG 3.0.0 / adaptador SpecAudit");
+        second.Run!.BeginRunning("check_gate cemg-speckit-preset 1.0.0 / adaptador SpecAudit");
         service.RequestCancel(ctx.Session.ProjectId, second.Run.RunId);
         service.CompleteCancel(ctx.Session.ProjectId, second.Run.RunId, terminationConfirmed: false, "Timeout ao encerrar");
         Assert.Equal(RunState.Failed, second.Run.State);
@@ -140,7 +140,7 @@ public sealed class VerificationStateMachineTests
         Assert.Null(second.Run.SemanticResult);
         Assert.True(service.IsAdapterLocked(VerificationType.CheckGate));
 
-        var lockedAvailability = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "3.0.0", "win-x64", "v4");
+        var lockedAvailability = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "1.0.0", "win-x64", "v4");
         Assert.Equal(CapabilityAvailability.Unavailable, lockedAvailability.Availability);
     }
 
@@ -150,13 +150,13 @@ public sealed class VerificationStateMachineTests
         using var fixture = new MiniFixture();
         using var projects = CreateProjectService();
         var ctx = projects.OpenSelected(fixture.Origin, fixture.Output);
-        var registry = CreatePassedGateRegistry("3.0.0", "win-x64", "v4");
+        var registry = CreatePassedGateRegistry("1.0.0", "win-x64", "v4");
         var service = new VerificationService(projects, registry);
 
         var demo = ctx.Session.Features.First(f => f.SpecKitRelativeDirectory.Contains("001-demo"));
         var other = ctx.Session.Features.First(f => f.SpecKitRelativeDirectory.Contains("002-other"));
         var demoRecord = ctx.Catalog.Entries.First(e => e.RelativePath.EndsWith("ready.json", StringComparison.OrdinalIgnoreCase));
-        var availability = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "3.0.0", "win-x64", "v4");
+        var availability = service.EvaluateAvailability(VerificationType.CheckGate, ProtectedCapability.GateAdapter, "1.0.0", "win-x64", "v4");
 
         var wrongFeatureCandidate = new GateCandidate(
             ctx.Session.ProjectId,
@@ -182,7 +182,7 @@ public sealed class VerificationStateMachineTests
         Assert.Throws<InvalidOperationException>(() => service.PrepareGateRun(ctx.Session.ProjectId, validCandidate, availability, wrongFocus));
 
         var prepared = service.PrepareGateRun(ctx.Session.ProjectId, validCandidate, availability);
-        prepared.Run!.BeginRunning("check_gate CEMG 3.0.0 / adaptador SpecAudit");
+        prepared.Run!.BeginRunning("check_gate cemg-speckit-preset 1.0.0 / adaptador SpecAudit");
         prepared.Run.MarkFailed("Erro de schema na saída do runner", exitCode: 2);
         Assert.Equal(RunState.Failed, prepared.Run.State);
         Assert.Null(prepared.Run.SemanticResult);

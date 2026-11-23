@@ -64,7 +64,7 @@ Leitor seguro e somente leitura de todos os artefatos autorizados do catálogo.
 
 ## 5. Verificações (`/verificacoes`)
 
-Executa a verificação determinística e offline **`check_gate`** (CEMG / SpecKit 3.0.0) sem usar IA e sem alterar a origem.
+Executa a verificação determinística e offline **`check_gate`** (`cemg-speckit-preset 1.0.0`) sem usar IA e sem alterar a origem.
 
 - **Como usar**:
   1. Escolha a **Funcionalidade** e a **Etapa do gate** (`spec`, `plan`, `tasks`, `pr`, `acceptance`, `dev-impossibility`).

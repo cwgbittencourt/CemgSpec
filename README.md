@@ -6,7 +6,7 @@
 
 [![Plataforma](https://img.shields.io/badge/Plataforma-Windows%2010%2F11%20(x64)-0078D4?style=for-the-badge&logo=windows&logoColor=white)](installer/SpecAudit-Setup.exe)
 [![.NET](https://img.shields.io/badge/.NET-10.0%20Self--Contained-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](SpecAudit/SpecAudit.csproj)
-[![SpecKit](https://img.shields.io/badge/SpecKit-Preset%20CEMG%203.0.0-7C3AED?style=for-the-badge)](#visão-geral)
+[![SpecKit](https://img.shields.io/badge/Preset-cemg--speckit--preset%201.0.0-7C3AED?style=for-the-badge)](#visão-geral)
 [![Segurança](https://img.shields.io/badge/Origem-100%25%20Somente%20Leitura-10B981?style=for-the-badge)](#arquitetura-e-fronteira-de-segurança)
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT%20(As--Is)-F59E0B?style=for-the-badge)](LICENSE)
 
@@ -25,7 +25,7 @@
 
 ## Visão Geral
 
-O **SpecAudit** é uma plataforma desktop para **Windows x64** projetada para auditar a conformidade documental, a rastreabilidade ponta a ponta de requisitos (`FR` / `NFR` / `RF` / `RNF`) e a prontidão executiva de projetos conduzidos com **SpecKit (preset CEMG 3.0.0)**.
+O **SpecAudit** é uma plataforma desktop para **Windows x64** projetada para auditar a conformidade documental, a rastreabilidade ponta a ponta de requisitos (`FR` / `NFR` / `RF` / `RNF`) e a prontidão executiva de projetos conduzidos com **SpecKit (`cemg-speckit-preset 1.0.0`)**.
 
 Diferente de ferramentas que alteram o repositório analisado, o SpecAudit opera sob uma fronteira física **100% Somente Leitura (*Read-Only Origin*)**: nenhuma linha de código ou documento do projeto auditado é jamais modificada.
 
@@ -87,7 +87,7 @@ flowchart LR
     subgraph Core["🛡️ SpecAudit Core (Windows x64 · Loopback 127.0.0.1)"]
         direction TB
         H["WindowsReadHandle + Guardião SHA-256 (Anti-TOCTOU)"]
-        T["Motor Técnico (Rastreabilidade & Gates CEMG 3.0.0)"]
+        T["Motor Técnico (Rastreabilidade & Gates cemg-speckit-preset 1.0.0)"]
         B["Motor Executivo (Visão de Negócio BA / PO & Evolução)"]
         H --> T
         H --> B
@@ -174,7 +174,7 @@ SpecAudit/
 │   ├── Application/            # Serviços de domínio, rastreabilidade e dashboards (Técnico e BA)
 │   ├── Components/             # Componentes Razor (Telas, Leitor Markdown, Glossário, Modais)
 │   ├── Domain/                 # Modelos imutáveis e projeções executivas
-│   ├── Infrastructure/         # WindowsReadHandle (Win32), GatePackage (CEMG 3.0.0) e Relatórios
+│   ├── Infrastructure/         # WindowsReadHandle (Win32), GatePackage (cemg-speckit-preset 1.0.0) e Relatórios
 │   └── wwwroot/                # Estilos (Dark/Light theme) e ícone oficial multi-resolução (specaudit.ico)
 ├── installer/                  # Gerador do instalador e pacote único publicado
 │   ├── Build-Installer.ps1     # Script que compila o SpecAudit-Setup.exe, Launcher e Uninstaller

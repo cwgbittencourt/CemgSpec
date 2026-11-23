@@ -3,7 +3,7 @@
 **Data**: 2026-11-20 (America/Sao_Paulo) | **Executor**: IA | **Ambiente**: Windows x64, .NET `10.0.15`.  
 **Agente avaliado**: Antigravity CLI `agy.exe` `1.5.13` (`%USERPROFILE%\.gemini\bin\agy.exe`).  
 **SHA-256 do executável `agy.exe`**: `91bd7720100dec46acd5a852e8291e5704eb753f5801c625950a15dc414fdf0a`.  
-**Política**: Constituição `4.0.0` / `4.1.0` (`v4`), `cemg-speckit 3.0.0`.
+**Política**: Constituição `4.0.0` / `4.1.0` (`v4`), `cemg-speckit-preset 1.0.0`.
 
 > Apenas fixtures documentais sintéticas temporárias foram utilizadas; nenhuma solução real foi analisada, nenhuma permissão foi ampliada e nenhuma escrita ocorreu na origem ou no destino externo.
 

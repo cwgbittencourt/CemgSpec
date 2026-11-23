@@ -21,8 +21,8 @@ public sealed class GatePackageTests
 
         // Verify byte-for-byte identity against the installed repository preset (without altering it).
         var repoRoot = FindRepoRoot();
-        var presetCore = Path.Combine(repoRoot, ".specify", "presets", "cemg-speckit", "tools", "check_gate.py");
-        var presetPolicy = Path.Combine(repoRoot, ".specify", "presets", "cemg-speckit", "policies", "gate-requirements.json");
+        var presetCore = Path.Combine(repoRoot, ".specify", "presets", "cemg-speckit-preset", "tools", "check_gate.py");
+        var presetPolicy = Path.Combine(repoRoot, ".specify", "presets", "cemg-speckit-preset", "policies", "gate-requirements.json");
         Assert.Equal(File.ReadAllBytes(presetCore), File.ReadAllBytes(status.CorePath!));
         Assert.Equal(File.ReadAllBytes(presetPolicy), File.ReadAllBytes(status.PolicyPath!));
 

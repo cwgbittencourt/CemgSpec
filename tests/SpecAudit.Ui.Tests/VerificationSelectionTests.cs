@@ -66,7 +66,7 @@ public sealed class VerificationSelectionTests(LocalHostFixture host) : IClassFi
         await executeButton.ClickAsync();
         var resultRegion = page.GetByRole(AriaRole.Region, new() { Name = "Resultado da verificação" });
         await Expect(resultRegion).ToContainTextAsync("READY");
-        await Expect(resultRegion).ToContainTextAsync("check_gate CEMG 3.0.0");
+        await Expect(resultRegion).ToContainTextAsync("check_gate cemg-speckit-preset 1.0.0");
         await Expect(resultRegion).ToContainTextAsync("não autentica decisão humana");
         await CaptureIfRequestedAsync(page, "verifications-ready-dark.png");
     });

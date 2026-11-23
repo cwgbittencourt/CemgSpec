@@ -53,7 +53,7 @@ def validate(feature, record, stage, revision):
                 observed = json.loads(content)
                 if observed.get('revision') != revision or observed.get('state') != 'OBSERVED':
                     raise ValueError('Product execution is missing or belongs to another revision')
-                if observed.get('executor') not in ('AI', 'DEV') or observed.get('medium') not in ('UI', 'API', 'INTEGRATION', 'MESSAGE', 'JOB', 'CLI', 'LIBRARY'):
+                if observed.get('executor') not in ('AI', 'DEV', 'END_USER') or observed.get('medium') not in ('UI', 'API', 'INTEGRATION', 'MESSAGE', 'JOB', 'CLI', 'LIBRARY'):
                     raise ValueError('Invalid executor or product execution medium')
                 if not all(observed.get(k) for k in ('startup', 'input', 'expected', 'observed', 'effects_checked', 'scenarios', 'artifacts')):
                     raise ValueError('Product execution lacks reproducible input/output evidence')
@@ -64,21 +64,22 @@ def validate(feature, record, stage, revision):
             indexed[item['path']] = item
         except (ValueError, OSError, KeyError, TypeError) as exc:
             errors.append('Invalid evidence: ' + str(exc))
-    if stage in ('pr', 'acceptance'):
+    if stage in ('pr', 'acceptance', 'production'):
         executors = {e.get('executor') for e in indexed.values() if e.get('kind') == 'product-execution'}
-        needed = {'AI'} if stage == 'pr' else {'AI', 'DEV'}
+        needed = {'AI'} if stage == 'pr' else ({'AI', 'DEV'} if stage == 'acceptance' else {'END_USER'})
         if not needed.issubset(executors):
             errors.append('Missing observed product execution for: ' + ', '.join(sorted(needed - executors)))
-        if not any(e.get('kind') == 'test-run' for e in indexed.values()):
+        if stage in ('pr', 'acceptance') and not any(e.get('kind') == 'test-run' for e in indexed.values()):
             errors.append('Candidate requires a recorded passing test execution')
-        required_kind = 'pr-approval' if stage == 'pr' else 'story-acceptance'
+        required_kinds = {'pr': ['pr-approval'], 'acceptance': ['story-acceptance'], 'production': ['production-approval', 'po-signoff']}[stage]
         decisions = data.get('human_decisions', [])
-        valid = [d for d in decisions if d.get('kind') == required_kind
-                 and d.get('decision') == 'APPROVED' and d.get('revision') == revision
-                 and all(d.get(k) for k in ('actor', 'timestamp', 'source'))
-                 and d.get('source') in indexed]
-        if not valid:
-            errors.append('Missing attributed human decision with hashed source evidence')
+        for required_kind in required_kinds:
+            valid = [d for d in decisions if d.get('kind') == required_kind
+                     and d.get('decision') == 'APPROVED' and d.get('revision') == revision
+                     and all(d.get(k) for k in ('actor', 'timestamp', 'source'))
+                     and d.get('source') in indexed]
+            if not valid:
+                errors.append(f'Missing attributed human decision ({required_kind}) with hashed source evidence')
     return errors
 
 
@@ -109,7 +110,18 @@ def validate_impossibility(feature, record, revision):
     return errors
 
 
+def _preset_identity():
+    manifest = (Path(__file__).resolve().parents[1] / 'preset.yml').read_text(encoding='utf-8')
+    id_match = re.search(r'(?m)^\s+id:\s*[\'"]?([^\s\'"]+)[\'"]?\s*$', manifest)
+    ver_match = re.search(r'(?m)^\s+version:\s*[\'"]?([^\s\'"]+)[\'"]?\s*$', manifest)
+    if not id_match or not ver_match:
+        raise ValueError('Cannot determine preset id/version from preset.yml')
+    return id_match.group(1), ver_match.group(1)
+
+
 def active(project):
+    preset_id, preset_version = _preset_identity()
+    expected_marker = f'toplayerfrom:{preset_id}v{preset_version}'
     names = ['spec-template', 'plan-template', 'tasks-template', 'speckit.specify',
              'speckit.plan', 'speckit.tasks', 'speckit.analyze', 'speckit.implement']
     errors = []
@@ -117,7 +129,7 @@ def active(project):
         result = subprocess.run(['specify', 'preset', 'resolve', name], cwd=project,
                                 capture_output=True, text=True, encoding='utf-8', errors='replace')
         normalized = re.sub(r'\s+', '', result.stdout)
-        if result.returncode or 'toplayerfrom:cemg-speckitv3.0.0' not in normalized:
+        if result.returncode or expected_marker not in normalized:
             errors.append('Unexpected active source: ' + name)
     return errors
 
@@ -126,7 +138,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--feature', required=True, type=Path)
     parser.add_argument('--record', required=True, help='Path relative to feature directory')
-    parser.add_argument('--stage', required=True, choices=['spec', 'plan', 'tasks', 'pr', 'acceptance', 'dev-impossibility'])
+    parser.add_argument('--stage', required=True, choices=['spec', 'plan', 'tasks', 'pr', 'acceptance', 'production', 'dev-impossibility'])
     parser.add_argument('--revision', required=True, help='Actual candidate identifier supplied by trusted caller')
     parser.add_argument('--project', type=Path, help='Also check effective template/command resolution')
     args = parser.parse_args()

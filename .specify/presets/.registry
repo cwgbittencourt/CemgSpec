@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
   "presets": {
-    "cemg-speckit": {
-      "version": "3.0.0",
+    "cemg-speckit-preset": {
+      "version": "1.0.0",
       "source": "local",
-      "manifest_hash": "sha256:8027d0adc14e5134e672fb8ecf5c2da5596ae93e32bd2403ca2b85df919ef356",
+      "manifest_hash": "sha256:0bf3c5d4e2b604c875eaec21fbf90425b9ef03619eb039eddd8276132a4e0ea9",
       "enabled": true,
       "priority": 10,
       "registered_commands": {
@@ -35,7 +35,7 @@
           "speckit-taskstoissues"
         ]
       },
-      "installed_at": "2026-11-16T00:36:36.583600+00:00"
+      "installed_at": "2026-11-23T23:25:00.000000+00:00"
     }
   }
 }

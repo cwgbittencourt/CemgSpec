@@ -1,7 +1,7 @@
 # T057 — Prova de Proteção `GateAdapter`: PASSED
 
 **Data**: 2026-11-20 (America/Sao_Paulo) | **Executor**: IA | **Ambiente**: Windows x64, .NET `10.0.15`, Python `3.12.7` (`%LOCALAPPDATA%\Programs\Python\Python312\python.exe`).  
-**Commit base**: `3a4b976` (`main`) | **Política**: Constituição `4.0.0` / `4.1.0` (`v4`), `cemg-speckit 3.0.0`.
+**Commit base**: `3a4b976` (`main`) | **Política**: Constituição `4.0.0` / `4.1.0` (`v4`), `cemg-speckit-preset 1.0.0`.
 
 > Apenas fixtures sintéticas temporárias foram utilizadas; nenhuma solução real, instalação automática, elevação ou alteração de ACL foi executada.
 
@@ -9,8 +9,8 @@
 
 | Componente | Caminho no repositório | SHA-256 |
 |---|---|---|
-| Core CEMG `3.0.0` | [check_gate.py](../../../SpecAudit/Infrastructure/Gates/Core/check_gate.py) | `7daf04483abbd52fa720e6afa0fbcde435120c96121b40008bff642ff93a42e0` |
-| Política CEMG `3.0.0` | [gate-requirements.json](../../../SpecAudit/Infrastructure/Gates/Core/policies/gate-requirements.json) | `93eae48e3424949a889562eca47e8a1b93e398e5978374fbb75c8aa5f525c5a9` |
+| Core `cemg-speckit-preset 1.0.0` | [check_gate.py](../../../SpecAudit/Infrastructure/Gates/Core/check_gate.py) | `96ba5e3f2436c97d4df527f4e0b1e616ae8977b44942d75e26d71fb286dfa909` |
+| Política `cemg-speckit-preset 1.0.0` | [gate-requirements.json](../../../SpecAudit/Infrastructure/Gates/Core/policies/gate-requirements.json) | `6e3df7b8136ea8444d3fbf38690412bacfce079a3095a8ed4e08aab92c02e4f0` |
 | Runner confiável | [runner.py](../../../SpecAudit/Infrastructure/Gates/runner.py) | `c529d4e5d0c651520f40f1fd33fd6580e658c111818996c03328e94aee5c19d1` |
 | `Path` de capacidade | [catalog_path.py](../../../SpecAudit/Infrastructure/Gates/catalog_path.py) | `e51d61f586fe2cb92021870946880437a3283ec5cc55b860167418c34bc0361a` |
 

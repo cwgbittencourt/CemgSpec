@@ -205,7 +205,7 @@ public sealed class GateAdapterTests
                 ("verification/impossibility-ready.json", GateStage.DevImpossibility, GateSemanticResult.DevImpossibilityRecorded, 0)
             };
 
-            var officialCore = Path.Combine(FindRepoRoot(), ".specify", "presets", "cemg-speckit", "tools", "check_gate.py");
+            var officialCore = Path.Combine(FindRepoRoot(), ".specify", "presets", "cemg-speckit-preset", "tools", "check_gate.py");
 
             foreach (var c in cases)
             {
@@ -233,9 +233,9 @@ public sealed class GateAdapterTests
                 Assert.Equal(c.ExpectedSemantic, run.SemanticResult!.GateResult);
                 Assert.Equal(c.ExpectedExit, run.ExitCode);
                 Assert.True(meta!.BrokerReadCount >= 1);
-                Assert.Contains("check_gate CEMG 3.0.0", run.ToolIdentifier);
+                Assert.Contains("check_gate cemg-speckit-preset 1.0.0", run.ToolIdentifier);
 
-                // Compare against official CEMG 3.0.0 CLI on the exact same synthetic fixture (offline, no --project).
+                // Compare against official cemg-speckit-preset 1.0.0 CLI on the exact same synthetic fixture (offline, no --project).
                 var official = RunOfficialCli(runtime.ExecutablePath!, officialCore, fixture.Feature, c.RecordRel, c.Stage.ToCliName(), revision);
                 Assert.Equal(official.ExitCode, run.ExitCode);
                 Assert.Equal(official.Result, JsonDocument.Parse(run.Output).RootElement.GetProperty("result").GetString());
