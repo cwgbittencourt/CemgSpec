@@ -1,1 +1,0 @@
-{"result": "BLOCKED", "errors": ["Record is not READY or has missing/open blockers", "Required check is not true: dependencies_satisfied", "Required check is not true: human_pr_approved", "Missing attributed human decision with hashed source evidence"]}

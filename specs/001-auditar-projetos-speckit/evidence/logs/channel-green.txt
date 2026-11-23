@@ -1,9 +1,0 @@
-__REPO_ROOT__\SpecAudit\Infrastructure\Execution\RestrictedNative.cs(11,24): warning CS0649: Campo "RestrictedNative.BeforeContainerLaunch" nunca é atribuído e sempre terá seu valor padrão null [__REPO_ROOT__\SpecAudit\SpecAudit.csproj]
-__REPO_ROOT__\SpecAudit\Infrastructure\Execution\RestrictedNative.cs(11,61): warning CS0649: Campo "RestrictedNative.BeforeResume" nunca é atribuído e sempre terá seu valor padrão null [__REPO_ROOT__\SpecAudit\SpecAudit.csproj]
-  SpecAudit -> __REPO_ROOT__\SpecAudit\bin\Debug\net10.0\SpecAudit.dll
-  SpecAudit.Windows.Tests -> __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll
-Execução de teste para __REPO_ROOT__\tests\SpecAudit.Windows.Tests\bin\Debug\net10.0\SpecAudit.Windows.Tests.dll (.NETCoreApp,Version=v10.0)
-1 arquivos de teste no total corresponderam ao padrão especificado.
-Arquivo de resultados: __REPO_ROOT__\specs\001-auditar-projetos-speckit\evidence\logs\channel-green\runner_2026-11-16_20_03_36_net10.0.trx
-
-Aprovado!  – Com falha:     0, Aprovado:     1, Ignorado:     0, Total:     1, Duração: 40 ms - SpecAudit.Windows.Tests.dll (net10.0)

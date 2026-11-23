@@ -1,5 +1,0 @@
-  Determinando os projetos a serem restaurados...
-  __REPO_ROOT__\tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj restaurado (em 196 ms).
-  __REPO_ROOT__\tests\SpecAudit.Tests\SpecAudit.Tests.csproj restaurado (em 196 ms).
-  __REPO_ROOT__\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj restaurado (em 196 ms).
-  1 de 4 projetos estão atualizados para restauração.

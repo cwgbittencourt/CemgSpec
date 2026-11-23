@@ -35,6 +35,17 @@ docs/prints/
 .specify/feature.json
 .specify/presets/cemg-speckit/cemg-speckit-*/
 
+# Intermediate test logs, historical archives, and experimental probes
+specs/*/evidence/logs/
+specs/*/evidence/captures/
+specs/*/evidence/isolation-v2/
+specs/*/evidence/T*-before/
+specs/*/evidence/T*-code/
+specs/*/evidence/T*-probes/
+specs/*/verification/archive/
+specs/*/verification/probes/
+specs/*/prototype/
+
 # Unneeded container files
 Dockerfile
 docker-compose*.yml

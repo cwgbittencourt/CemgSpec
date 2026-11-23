@@ -1,1 +1,0 @@
-{"result": "BLOCKED", "errors": ["[Errno 2] No such file or directory: '__REPO_ROOT__\\\\specs\\\\001-auditar-projetos-speckit\\\\specs\\\\001-auditar-projetos-speckit\\\\verification\\\\implementation-stage.json'"]}

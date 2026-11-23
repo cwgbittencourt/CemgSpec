@@ -1,3 +1,0 @@
-  Determinando os projetos a serem restaurados...
-  __REPO_ROOT__\tests\SpecAudit.CommandFixture\SpecAudit.CommandFixture.csproj restaurado (em 59 ms).
-  4 de 5 projetos estão atualizados para restauração.

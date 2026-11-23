@@ -1,7 +1,0 @@
-v24.19.0
-Two builds produced identical SHA-256 hashes.
-203d6969bddb76c7321cd812ef9e9e0300932ca9c615a619314e6880353a3b69  highlight.js
-fe833ac82fd07e2acee804b1f22a5ce3394f7e11c91f83743c9f43ff82dcc39f  manifest.json
-f6c6d7e3e05181cd28d40fe1a1b0f0ef432aab8de276f82a2927c1cc706f0379  mermaid.js
-969e43dcd84111a4a240919f7f9bc5a2ec90e7ce43a7ae4bebd05f5703fce579  THIRD-PARTY-NOTICES.txt
-7a02af830956c1a1326c1d7b64f7ef6332150a88851e93c291b3872f96f94950  package-lock.json

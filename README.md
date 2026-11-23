@@ -1,21 +1,112 @@
-# SpecAudit — Auditoria Documental e Governança SpecKit
+<div align="center">
 
-**Autor:** Carlos Wagner G. Bittencourt  
-**Plataforma:** Windows 10 / 11 (x64) · .NET 10 (Self-Contained)  
-**Licença:** [MIT License](LICENSE) — `Copyright (c) 2026 Carlos Wagner G. Bittencourt` (Repositório Privado)
+<img src="docs/assets/specaudit-hero.svg" alt="SpecAudit — Auditoria Documental e Governança SpecKit" width="100%" />
+
+<br />
+
+[![Plataforma](https://img.shields.io/badge/Plataforma-Windows%2010%2F11%20(x64)-0078D4?style=for-the-badge&logo=windows&logoColor=white)](installer/SpecAudit-Setup.exe)
+[![.NET](https://img.shields.io/badge/.NET-10.0%20Self--Contained-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](SpecAudit/SpecAudit.csproj)
+[![SpecKit](https://img.shields.io/badge/SpecKit-Preset%20CEMG%203.0.0-7C3AED?style=for-the-badge)](#visão-geral)
+[![Segurança](https://img.shields.io/badge/Origem-100%25%20Somente%20Leitura-10B981?style=for-the-badge)](#arquitetura-e-fronteira-de-segurança)
+[![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT%20(As--Is)-F59E0B?style=for-the-badge)](LICENSE)
+
+<p align="center">
+  <a href="#como-instalar-e-executar-no-windows"><strong>⬇ Baixar Instalador Windows</strong></a> ·
+  <a href="#vitrine-visual-da-aplicação"><strong>🖥 Vitrine Visual das Telas</strong></a> ·
+  <a href="#arquitetura-e-fronteira-de-segurança"><strong>🛡 Arquitetura &amp; Segurança</strong></a> ·
+  <a href="#como-utilizar-o-programa-passo-a-passo"><strong>📖 Guia Passo a Passo</strong></a> ·
+  <a href="docs/apresentacao-specaudit.pdf"><strong>📊 Apresentação Executiva (PDF)</strong></a> ·
+  <a href="#licença-direitos-autorais-e-isenção-de-responsabilidade-mit-license"><strong>⚖ Licença &amp; Termos</strong></a>
+</p>
+
+</div>
 
 ---
 
 ## Visão Geral
 
-O **SpecAudit** é uma aplicação desktop/local para **Windows x64** voltada à auditoria documental, rastreabilidade de requisitos (`FR` / `NFR` / `RF` / `RNF`) e acompanhamento executivo de projetos estruturados com **SpecKit (preset CEMG 3.0.0)**.
+O **SpecAudit** é uma plataforma desktop para **Windows x64** projetada para auditar a conformidade documental, a rastreabilidade ponta a ponta de requisitos (`FR` / `NFR` / `RF` / `RNF`) e a prontidão executiva de projetos conduzidos com **SpecKit (preset CEMG 3.0.0)**.
 
-O sistema opera sob uma arquitetura **estritamente somente leitura (*Read-Only Origin*)**:
-- **Zero escrita no projeto auditado:** Todos os arquivos da solução analisada (`.specify/` e `specs/`) são abertos exclusivamente com permissão de leitura e validação criptográfica `SHA-256` contra alterações concorrentes (*TOCTOU*).
-- **Gravação isolada em pasta externa:** Relatórios técnicos, pareceres humanos e resumos executivos só são gravados em um diretório externo explicitamente escolhido pelo usuário, fora da árvore do projeto auditado.
-- **Dupla perspectiva de governança:**
-  - **Visão Técnica:** Conformidade de artefatos (`constitution.md`, `spec.md`, `plan.md`, `tasks.md`), gates formais (`READY` / `BLOCKED`), matriz de cobertura e ocorrências com navegação direta para a linha exata do documento.
-  - **Visão de Negócio (BA / PO / Diretoria):** Indicadores executivos (KPIs), entregas por História de Usuário (`US1..USn`), homologações humanas (**Validação DEV**, **Validação Usuário / UAT** e **Aceite PO**), comparativo de evolução (*Antes × Agora*) e exportação de Resumo Executivo.
+Diferente de ferramentas que alteram o repositório analisado, o SpecAudit opera sob uma fronteira física **100% Somente Leitura (*Read-Only Origin*)**: nenhuma linha de código ou documento do projeto auditado é jamais modificada.
+
+### Dupla Perspectiva de Governança
+
+| Dimensão | Visão Técnica *(Engenharia / QA / Arquitetura)* | Visão de Negócio *(BA / PO / Diretoria)* |
+| :--- | :--- | :--- |
+| **Foco Principal** | Integridade estrutural dos artefatos SpecKit e cobertura de código/testes | Prontidão de entrega por História de Usuário (`US1..USn`) e homologações humanas |
+| **Indicadores (KPIs)** | Requisitos cobertos, Tarefas concluídas, Documentos esperados e Ocorrências abertas | Prontidão da Funcionalidade (%), Prontas para Aceite, Aguardando Usuário e Pendências Críticas |
+| **Validações Auditadas** | `constitution.md`, `spec.md`, `plan.md`, `tasks.md` e `verification/*-stage.json` | **Validação DEV** (`USx-dev.md`), **Validação Usuário** (`USx-user.md` / `USx-uat.md`) e **Aceite PO** (`acceptance/USx.md`) |
+| **Saída Auditável** | Pacote técnico (`report.md`, `report.json`, `findings.csv`, `indicators.csv`, `manifest.json`) | **Resumo Executivo em Markdown** com delta de evolução (*Antes × Agora*) |
+
+---
+
+## Vitrine Visual da Aplicação
+
+### 1. Dashboard — Visão de Negócio (Analista de Negócio / PO / Diretoria)
+Painel executivo com os 4 cartões de prontidão, matriz de entregas por História de Usuário (`US1..USn`), status de homologação (**Validação DEV**, **Validação Usuário** e **Aceite PO**), tooltips com o caminho exato do arquivo esperado e exportação de Resumo Executivo.
+
+<p align="center">
+  <img src="docs/assets/screen-dashboard-ba.png" alt="Dashboard — Visão de Negócio (BA)" width="96%" />
+</p>
+
+### 2. Dashboard — Visão Técnica e Ocorrências Documentais
+Métricas de conformidade documental, estado formal dos gates (`READY` / `BLOCKED`), filtros em cascata (**Fase $\rightarrow$ História**, **Gravidade** e **Situação**) e deep-link direto para a linha exata do arquivo onde a ocorrência foi detectada.
+
+<p align="center">
+  <img src="docs/assets/screen-dashboard-tecnico.png" alt="Dashboard — Visão Técnica" width="96%" />
+</p>
+
+### 3. Gestão de Projetos e Grade de Projetos Recentes
+Seleção explícita em duas etapas (**Origem Somente Leitura** e **Destino Externo de Relatórios**), com histórico persistente dos últimos projetos auditados para reabertura em 1 clique.
+
+<p align="center">
+  <img src="docs/assets/screen-projetos.png" alt="Tela de Projetos e Funcionalidades" width="96%" />
+</p>
+
+### 4. Matriz de Rastreabilidade de Requisitos e Leitor Seguro de Documentos
+Inspeção detalhada de cada requisito (`FR`/`RF` e `NFR`/`RNF`) com seus vínculos na especificação, plano, tarefas e evidências, integrada ao leitor seguro com modos **Visualização**, **Código-fonte** (numerado linha a linha) e **Dividido**.
+
+<p align="center">
+  <img src="docs/assets/screen-requisitos.png" alt="Matriz de Rastreabilidade de Requisitos" width="48%" />
+  <img src="docs/assets/screen-documentos.png" alt="Leitor Seguro de Documentos" width="48%" />
+</p>
+
+---
+
+## Arquitetura e Fronteira de Segurança
+
+```mermaid
+flowchart LR
+    subgraph Origem["📁 Projeto Auditado (Somente Leitura)"]
+        direction TB
+        C[".specify/memory/constitution.md"]
+        S["specs/NNN-feature/spec.md · plan.md · tasks.md"]
+        V["validation/ · acceptance/ · verification/"]
+    end
+
+    subgraph Core["🛡️ SpecAudit Core (Windows x64 · Loopback 127.0.0.1)"]
+        direction TB
+        H["WindowsReadHandle + Guardião SHA-256 (Anti-TOCTOU)"]
+        T["Motor Técnico (Rastreabilidade & Gates CEMG 3.0.0)"]
+        B["Motor Executivo (Visão de Negócio BA / PO & Evolução)"]
+        H --> T
+        H --> B
+    end
+
+    subgraph Destino["📤 Pasta Externa de Relatórios (Isolada)"]
+        direction TB
+        R["Pacote Auditável (MD / JSON / CSV + manifest.json)"]
+        E["Resumo Executivo para Diretoria / PO (.md)"]
+    end
+
+    Origem -- "Leitura Estrita (Zero Escrita)" --> H
+    T -- "Gravação Explícita Fora da Origem" --> R
+    B -- "Exportação Executiva" --> E
+```
+
+- **Proteção Nativa Win32 (`WindowsReadHandle`):** Todos os arquivos da origem são abertos exclusivamente com descritores de leitura (`GENERIC_READ`), bloqueando junções/reparse points maliciosos e validando a identidade do volume/índice e o hash `SHA-256` antes e depois de cada leitura.
+- **Isolamento de Rede (`Loopback-Only`):** O servidor local responde exclusivamente em `127.0.0.1:5187` com sessão criptográfica `HttpOnly` / `SameSite=Strict`, recusando qualquer conexão externa da rede local.
+- **Impossibilidade de Contaminação da Origem:** O `ExternalReportWriter` verifica por identidade de handle do Windows que a pasta de relatórios nunca coincide nem está contida dentro da pasta do projeto auditado.
 
 ---
 
@@ -23,101 +114,93 @@ O sistema opera sob uma arquitetura **estritamente somente leitura (*Read-Only O
 
 ### Opção 1 — Instalador Gráfico Único (`SpecAudit-Setup.exe`) *(Recomendado)*
 
-O SpecAudit possui um instalador gráfico independente de arquivo único (**não exige privilégios de Administrador** e **não requer .NET pré-instalado** na máquina de destino):
+O SpecAudit conta com um instalador gráfico de arquivo único que **não requer privilégios de Administrador** e **não exige instalação prévia do .NET**:
 
-1. Baixe ou execute diretamente o instalador publicado no repositório em **[`installer/SpecAudit-Setup.exe`](installer/SpecAudit-Setup.exe)** (também disponível na seção **Releases (`v1.0.0`)** do GitHub).
-2. Na janela do instalador, confirme as opções:
-   - *Criar atalho com ícone SA na Área de Trabalho e no Menu Iniciar*
-   - *Iniciar o SpecAudit em segundo plano (ícone SA perto do relógio) e abrir navegador*
+1. Baixe ou execute o instalador publicado em **[`installer/SpecAudit-Setup.exe`](installer/SpecAudit-Setup.exe)** *(também disponível na seção [**Releases `v1.0.0`**](../../releases/tag/v1.0.0) do GitHub)*.
+2. Na tela do instalador, mantenha marcadas as opções desejadas:
+   - ☑ *Criar atalho com ícone SA na Área de Trabalho e no Menu Iniciar*
+   - ☑ *Iniciar o SpecAudit em segundo plano (ícone SA perto do relógio) e abrir navegador*
 3. Clique em **Instalar agora**.
-4. O programa será instalado em `%LOCALAPPDATA%\Programs\SpecAudit` e abrirá automaticamente no navegador padrão no endereço local `http://127.0.0.1:5187`.
+4. O aplicativo será instalado em `%LOCALAPPDATA%\Programs\SpecAudit` e abrirá automaticamente no navegador em `http://127.0.0.1:5187`.
 
-#### Execução Silenciosa em Segundo Plano (Sem Janela de Prompt)
-- Ao abrir o SpecAudit pelo atalho da Área de Trabalho ou do Menu Iniciar, **nenhuma janela preta de prompt de comando permanece aberta**.
-- O servidor local roda de forma invisível em segundo plano e exibe o ícone **`SA ✓` na bandeja do sistema (perto do relógio do Windows)**.
-- Clique com o **botão direito** no ícone **`SA ✓`** perto do relógio para:
-  - **Abrir SpecAudit no navegador (`127.0.0.1:5187`)** *(ou dê duplo-clique no ícone)*
-  - **Encerrar SpecAudit**
+> [!TIP]
+> **Execução Invisível em Segundo Plano (Sem Janela Preta de Prompt):**  
+> Ao iniciar o SpecAudit pelo atalho da Área de Trabalho ou Menu Iniciar, o programa roda silenciosamente em segundo plano e posiciona o ícone **`SA ✓` na bandeja do sistema (perto do relógio do Windows)**.  
+> Clique com o **botão direito** no ícone **`SA ✓`** perto do relógio para **Abrir o SpecAudit no navegador** ou **Encerrar o SpecAudit**.
 
 #### Como Desinstalar no Windows
-Você pode remover o SpecAudit a qualquer momento por qualquer um dos 3 caminhos abaixo (seus projetos e relatórios salvos não são afetados):
-1. **Configurações do Windows:** Abra *Configurações → Aplicativos → Aplicativos instalados*, localize **SpecAudit**, clique em `...` e selecione **Desinstalar**.
-2. **Menu Iniciar:** Abra *Menu Iniciar → Todos os aplicativos → SpecAudit → Desinstalar SpecAudit*.
-3. **Pelo próprio Instalador (`SpecAudit-Setup.exe`):** Abra o `SpecAudit-Setup.exe` e clique no botão vermelho **Desinstalar versão atual**.
+Você pode desinstalar o SpecAudit a qualquer momento por qualquer um dos 3 caminhos abaixo (seus projetos e relatórios salvos permanecem intactos):
+1. **Configurações do Windows:** *Configurações → Aplicativos → Aplicativos instalados → SpecAudit → Desinstalar*.
+2. **Menu Iniciar:** *Menu Iniciar → Todos os aplicativos → SpecAudit → Desinstalar SpecAudit*.
+3. **Pelo próprio `SpecAudit-Setup.exe`:** Abra o instalador e clique no botão vermelho **Desinstalar versão atual**.
 
 ---
 
-### Opção 2 — Gerar o Instalador ou Executar a partir do Código-Fonte
+### Opção 2 — Compilar o Instalador ou Executar via Código-Fonte (.NET 10 SDK)
 
-Caso esteja com o repositório clonado em uma máquina de desenvolvimento com o **.NET 10 SDK** no Windows x64:
+Em uma estação de desenvolvimento Windows x64 com o **.NET 10 SDK**:
 
-- **Para compilar e gerar o instalador único (`installer/dist/SpecAudit-Setup.exe`):**
-  ```powershell
-  powershell -ExecutionPolicy Bypass -File .\installer\Build-Installer.ps1
-  ```
-  *(Adicione o parâmetro `-InstallLocally` caso deseje atualizar imediatamente a instalação local da máquina).*
+```powershell
+# Executar diretamente em modo desenvolvimento (abrindo o navegador):
+dotnet run --project .\SpecAudit\SpecAudit.csproj -- --open-browser
 
-- **Para executar diretamente via CLI do .NET:**
-  ```powershell
-  dotnet run --project .\SpecAudit\SpecAudit.csproj -- --open-browser
-  ```
+# Ou regerar o instalador único (installer/dist/SpecAudit-Setup.exe):
+powershell -ExecutionPolicy Bypass -File .\installer\Build-Installer.ps1
+```
 
 ---
 
-## Como Utilizar o Programa (Fluxo Passo a Passo)
+## Como Utilizar o Programa (Passo a Passo)
 
-### 1. Carregar um Projeto (`Projetos`)
-1. Na tela inicial **Projetos**, clique no botão **Carregar projeto**.
-2. **1. Pasta do projeto:** Clique em **Escolher projeto** e selecione a pasta-raiz da solução SpecKit que deseja auditar (pasta que contém `.specify` e `specs`).
-3. **2. Pasta dos relatórios:** Clique em **Escolher destino** e selecione uma pasta **externa** ao projeto (onde relatórios e pareceres poderão ser salvos).
-4. Clique em **Confirmar carregamento**.
-   - *Dica:* Os últimos projetos abertos ficam registrados na grade **Projetos recentes**, permitindo reabri-los com apenas 1 clique no botão **Abrir**.
-
-### 2. Auditar Indicadores e Entregas (`Dashboard`)
-Acesse **Dashboard** no menu lateral e alterne entre as duas visões no topo da tela:
-
-- **Visão Técnica:**
-  - Exibe os cartões de progresso documental (**Requisitos cobertos**, **Tarefas concluídas**, **Documentos esperados** e **Ocorrências abertas**).
-  - Clique em qualquer cartão de resumo para filtrar imediatamente a lista de ocorrências documentais.
-  - Filtre por **Fase $\rightarrow$ História** (em cascata), **Gravidade** e **Situação**, ou clique no caminho do arquivo (ex.: `spec.md · linha 42`) para abrir o documento diretamente na linha destacada.
-
-- **Visão de Negócio (BA):**
-  - Exibe os 4 cartões executivos: **Prontidão da Funcionalidade**, **Histórias Prontas para Aceite**, **Aguardando validação Usuário** e **Pendências Críticas**.
-  - Na tabela **Entregas por História de Usuário**, acompanhe para cada história (`US1`, `US2`, ...):
-    - **Progresso Técnico** e **Testes/Evidências**
-    - **Validação DEV** (`validation/USx-dev.md`)
-    - **Validação Usuário** (`validation/USx-user.md` ou `validation/USx-uat.md`)
-    - **Aceite PO** (`acceptance/USx.md`)
-    - **Status Geral** (*Concluída*, *Em Homologação*, *Em Construção*, *Impedida*)
-  - Passe o mouse sobre qualquer selo de validação para ver o caminho exato do arquivo esperado, ou clique sobre o selo para abrir o documento correspondente (com botão **`← Voltar para Visão de Negócio (BA)`** no leitor).
-  - Clique em **`? Glossário`** para consultar as regras e palavras-chave que aprovam cada etapa (`Decisão: ACEITO`, `Resultado: APROVADO`, etc.).
-  - Clique em **`Exportar Resumo Executivo`** para gravar o relatório executivo em Markdown na pasta externa de relatórios.
-
-### 3. Inspecionar Rastreabilidade (`Requisitos`)
-1. Em **Requisitos**, selecione um requisito funcional ou não funcional na coluna esquerda (`FR-001`, `RF-001`, `NFR-001`, `RNF-001`).
-2. Na aba **Resumo**, confira a cobertura documental e as ocorrências daquele requisito.
-3. Na aba **Vínculos**, navegue pelos trechos vinculados na especificação, no plano técnico, na lista de tarefas e nas evidências.
-
-### 4. Ler Artefatos com Segurança (`Documentos`)
-1. Em **Documentos**, navegue pela árvore de arquivos do projeto (`.specify/memory/constitution.md` e `specs/<funcionalidade>/...`).
-2. Alterne entre os modos **Visualização** (Markdown renderizado com tabelas e blocos de código), **Código-fonte** (texto numerado linha a linha) ou **Dividido** (lado a lado).
-
-### 5. Registrar Pareceres e Exportar Relatórios (`Sugestões`)
-1. Em **Sugestões**, registre decisões humanas sobre cada ocorrência (*Aceita*, *Rejeitada*, *Adiada* ou *Resolvida*) com justificativa.
-2. Clique em **Salvar relatório externo...** para exportar o pacote auditável (`report.md`, `report.json`, `findings.csv`, `indicators.csv` e `manifest.json` com hashes `SHA-256`) na pasta externa de relatórios.
+1. **Carregar um Projeto (`Projetos`):**
+   - Clique em **Carregar projeto** $\rightarrow$ **1. Escolher projeto** (selecione a pasta-raiz da solução que contém `.specify` e `specs`) $\rightarrow$ **2. Escolher destino** (selecione uma pasta **fora** do projeto para salvar relatórios) $\rightarrow$ **Confirmar carregamento**.
+2. **Acompanhar Indicadores Executivos e Técnicos (`Dashboard`):**
+   - Alterne no topo entre **Visão Técnica** e **Visão de Negócio (BA)**.
+   - Na **Visão de Negócio (BA)**, passe o mouse sobre os selos de **Validação DEV**, **Validação Usuário** e **Aceite PO** para ver o caminho exato do arquivo esperado, clique em **`? Glossário`** para consultar as palavras-chave de aprovação (`Decisão: ACEITO`, `Resultado: APROVADO`) ou clique em **`Exportar Resumo Executivo`**.
+3. **Auditar Requisitos (`Requisitos`):**
+   - Selecione qualquer requisito (`FR-001`, `RF-001`, `NFR-001`, `RNF-001`) para inspecionar sua cobertura documental na aba **Resumo** e navegar pelos arquivos citados na aba **Vínculos**.
+4. **Inspecionar Artefatos (`Documentos`):**
+   - Navegue pela árvore documental do projeto com visualização Markdown rica, código-fonte numerado linha a linha ou modo dividido lado a lado.
+5. **Registrar Pareceres e Salvar Relatório (`Sugestões`):**
+   - Registre decisões humanas (*Aceita*, *Rejeitada*, *Adiada*, *Resolvida*) com justificativa e exporte o pacote completo com manifesto criptográfico `SHA-256`.
 
 ---
 
-## Documentação Complementar no Repositório
+## Estrutura do Repositório
 
-- [Guia Completo de Uso das Telas (Markdown)](docs/GUIA_DE_USO_TELAS.md)
-- [Apresentação Executiva Visual (HTML Interativo Retina 2x)](docs/apresentacao-specaudit.html)
-- [Apresentação Executiva para Diretoria / Board (PDF Paisagem A4)](docs/apresentacao-specaudit.pdf)
+```text
+SpecAudit/
+├── SpecAudit/                  # Aplicação principal (.NET 10 / Blazor Interactive Server)
+│   ├── Application/            # Serviços de domínio, rastreabilidade e dashboards (Técnico e BA)
+│   ├── Components/             # Componentes Razor (Telas, Leitor Markdown, Glossário, Modais)
+│   ├── Domain/                 # Modelos imutáveis e projeções executivas
+│   ├── Infrastructure/         # WindowsReadHandle (Win32), GatePackage (CEMG 3.0.0) e Relatórios
+│   └── wwwroot/                # Estilos (Dark/Light theme) e ícone oficial multi-resolução (specaudit.ico)
+├── installer/                  # Gerador do instalador e pacote único publicado
+│   ├── Build-Installer.ps1     # Script que compila o SpecAudit-Setup.exe, Launcher e Uninstaller
+│   └── SpecAudit-Setup.exe     # Instalador gráfico único para Windows x64
+├── docs/                       # Documentação executiva e ativos visuais
+│   ├── assets/                 # Banner vetorial e capturas de tela Retina 2x
+│   ├── GUIA_DE_USO_TELAS.md    # Manual detalhado de todas as telas e fluxos
+│   ├── apresentacao-specaudit.html # Apresentação executiva interativa (HTML)
+│   └── apresentacao-specaudit.pdf  # Deck executivo para Diretoria / Board (PDF A4 Paisagem)
+├── specs/                      # Especificações SpecKit do próprio SpecAudit (Features 001 e 002)
+└── tests/                      # Suítes automatizadas (Unitários, Contratos Windows e UI Playwright)
+```
+
+---
+
+## Documentação e Apresentação Executiva
+
+- 📘 **[Guia Completo de Uso das Telas (Markdown)](docs/GUIA_DE_USO_TELAS.md)**
+- 📊 **[Apresentação Executiva para Diretoria / Board (PDF Paisagem A4)](docs/apresentacao-specaudit.pdf)**
+- 🌐 **[Apresentação Executiva Interativa (HTML Retina 2x)](docs/apresentacao-specaudit.html)**
 
 ---
 
 ## Licença, Direitos Autorais e Isenção de Responsabilidade ([MIT License](LICENSE))
 
+> [!IMPORTANT]
 > **Licença MIT — Copyright (c) 2026 Carlos Wagner G. Bittencourt**
 >
 > 1. **Preservação Obrigatória dos Direitos Autorais:** Todos os direitos autorais e de autoria original deste software pertencem a **Carlos Wagner G. Bittencourt**. Sob os termos da [Licença MIT](LICENSE), é **condição obrigatória** que o aviso de direitos autorais (`Copyright (c) 2026 Carlos Wagner G. Bittencourt`) e o aviso de permissão sejam mantidos em todas as cópias ou partes substanciais do software.

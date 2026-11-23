@@ -1,6 +1,6 @@
 # T057 — Prova de Proteção `GateAdapter`: PASSED
 
-**Data**: 2026-11-20 (America/Sao_Paulo) | **Executor**: IA | **Ambiente**: Windows x64, .NET `10.0.15`, Python `3.12.7` (`C:\Users\cwagn\AppData\Local\Programs\Python\Python312\python.exe`).  
+**Data**: 2026-11-20 (America/Sao_Paulo) | **Executor**: IA | **Ambiente**: Windows x64, .NET `10.0.15`, Python `3.12.7` (`%LOCALAPPDATA%\Programs\Python\Python312\python.exe`).  
 **Commit base**: `3a4b976` (`main`) | **Política**: Constituição `4.0.0` / `4.1.0` (`v4`), `cemg-speckit 3.0.0`.
 
 > Apenas fixtures sintéticas temporárias foram utilizadas; nenhuma solução real, instalação automática, elevação ou alteração de ACL foi executada.

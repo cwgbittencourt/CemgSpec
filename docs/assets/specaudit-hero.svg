@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b101b"/>
+      <stop offset="50%" stop-color="#131c31"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="saGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="55%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#1e40af" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="1200" height="320" rx="18" fill="url(#bgGrad)" stroke="#30394b" stroke-width="2"/>
+  <rect x="0" y="314" width="1200" height="6" rx="3" fill="url(#accentLine)"/>
+
+  <!-- Decorative Grid Accent -->
+  <g stroke="#ffffff" stroke-opacity="0.03" stroke-width="1">
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="160" x2="1200" y2="160"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="300" y1="0" x2="300" y2="320"/>
+    <line x1="600" y1="0" x2="600" y2="320"/>
+    <line x1="900" y1="0" x2="900" y2="320"/>
+  </g>
+
+  <!-- Official SA Shield Logo -->
+  <g transform="translate(64, 78)" filter="url(#glow)">
+    <circle cx="80" cy="80" r="74" fill="url(#saGrad)" stroke="#93c5fd" stroke-width="3.5"/>
+    <circle cx="80" cy="80" r="64" fill="none" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.5"/>
+    <text x="80" y="99" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="60" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-2">SA</text>
+    <!-- Green Audit Checkmark Badge -->
+    <circle cx="132" cy="132" r="26" fill="#10b981" stroke="#0f172a" stroke-width="5"/>
+    <path d="M121 132 L129 140 L144 123" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Typography & Value Proposition -->
+  <g transform="translate(260, 74)">
+    <text x="0" y="0" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#60a5fa" letter-spacing="2.5">GOVERNANÇA DOCUMENTAL · RASTREABILIDADE · AUDITORIA SPECKIT</text>
+    <text x="0" y="54" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="52" font-weight="800" fill="#ffffff">SpecAudit</text>
+    <text x="262" y="54" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#94a3b8">v1.0 · Windows x64</text>
+    <text x="0" y="96" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#cbd5e1">Auditoria técnica e visão executiva de negócios (BA / PO / Diretoria) com garantia 100% Somente Leitura.</text>
+
+    <!-- Feature Pills -->
+    <g transform="translate(0, 128)">
+      <rect x="0" y="0" width="210" height="36" rx="18" fill="#172554" stroke="#3b82f6" stroke-width="1.2"/>
+      <text x="105" y="23" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#93c5fd" text-anchor="middle">◇ Origem Somente Leitura</text>
+
+      <rect x="224" y="0" width="225" height="36" rx="18" fill="#064e3b" stroke="#10b981" stroke-width="1.2"/>
+      <text x="336" y="23" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#6ee7b7" text-anchor="middle">✓ Visão Técnica &amp; Negócio (BA)</text>
+
+      <rect x="463" y="0" width="195" height="36" rx="18" fill="#2e1065" stroke="#8b5cf6" stroke-width="1.2"/>
+      <text x="560" y="23" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#c4b5fd" text-anchor="middle">◈ Preset CEMG 3.0.0</text>
+
+      <rect x="672" y="0" width="210" height="36" rx="18" fill="#1e293b" stroke="#64748b" stroke-width="1.2"/>
+      <text x="777" y="23" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#e2e8f0" text-anchor="middle">⚙ Instalador Único (.EXE)</text>
+    </g>
+
+    <!-- Author Credit -->
+    <text x="0" y="198" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13.5" font-weight="500" fill="#94a3b8">Autor: <tspan fill="#f8fafc" font-weight="700">Carlos Wagner G. Bittencourt</tspan> · Licença MIT</text>
+  </g>
+</svg>

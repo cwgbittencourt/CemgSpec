@@ -1,9 +1,0 @@
-{
-  "dimension": "evidence-graph",
-  "exception": "LimitExceededException",
-  "message": "LimitExceeded: evidence-graph",
-  "displayedError": null,
-  "projects": 0,
-  "originContentUnchanged": true,
-  "reports": 0
-}

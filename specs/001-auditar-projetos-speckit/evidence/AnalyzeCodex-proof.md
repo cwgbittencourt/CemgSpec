@@ -1,8 +1,8 @@
 # T066 — Prova Real Individual `AnalyzeCodex`: PASSED
 
 **Data**: 2026-11-20 (America/Sao_Paulo) | **Executor**: IA | **Ambiente**: Windows x64, .NET `10.0.15`.  
-**Agente avaliado**: OpenAI Codex CLI `0.147.0` (`C:\Users\cwagn\AppData\Roaming\npm\node_modules\@openai\codex\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\bin\codex.exe`).  
-**SHA-256 do executável `codex.exe`**: `935a1911ed2556e4ffcec995f4886ac2ac425863ba26fed264df62e30272ad9d` ([codex-hash.txt](logs/T066/codex-hash.txt)).  
+**Agente avaliado**: OpenAI Codex CLI `0.147.0` (`%APPDATA%\npm\node_modules\@openai\codex\...\codex.exe`).  
+**SHA-256 do executável `codex.exe`**: `935a1911ed2556e4ffcec995f4886ac2ac425863ba26fed264df62e30272ad9d`.  
 **Política**: Constituição `4.0.0` / `4.1.0` (`v4`), `cemg-speckit 3.0.0`.
 
 > Apenas fixtures documentais sintéticas temporárias foram utilizadas; nenhuma solução real foi analisada, nenhuma permissão foi ampliada e nenhuma escrita ocorreu na origem ou no destino externo.

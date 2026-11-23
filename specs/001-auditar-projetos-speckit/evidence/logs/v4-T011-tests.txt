@@ -1,1 +1,0 @@
-__REPO_ROOT__\SpecAudit\Components\Pages\Projects.razor(4,46): error CS0542: "Projects": nomes de membro não podem ser os mesmos do seu tipo delimitador [__REPO_ROOT__\SpecAudit\SpecAudit.csproj]
