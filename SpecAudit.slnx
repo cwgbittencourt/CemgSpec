@@ -1,8 +1,0 @@
-<Solution>
-  <Project Path="SpecAudit/SpecAudit.csproj" />
-  <Folder Name="/tests/">
-    <Project Path="tests/SpecAudit.Tests/SpecAudit.Tests.csproj" />
-    <Project Path="tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj" />
-    <Project Path="tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj" />
-  </Folder>
-</Solution>

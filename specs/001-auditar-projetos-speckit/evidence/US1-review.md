@@ -31,7 +31,7 @@ Checklist requirements.md: 19/19, zero pendentes; nenhuma alteração nos marcad
 
 ### REV-US1-01 — P2 — Metadados da pasta invalidam documentos intactos
 
-Local principal: `SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs:30`; entrada de eventos em linha 16, efeito em `SpecAudit/Application/ProjectService.cs:24`.
+Local principal: `CemgSpec/Infrastructure/Documents/DocumentChangeMonitor.cs:30`; entrada de eventos em linha 16, efeito em `CemgSpec/Application/ProjectService.cs:24`.
 
 `Relevant` aceita qualquer evento relativo à pasta `specs/NNN-feature` porque `parts.Length==2` retorna true, sem distinguir alteração de estrutura documental e LastWrite de diretório. O probe alterou somente o timestamp da pasta de fixture: conjunto de caminhos e hashes de todos os arquivos ficaram iguais, mas HasPendingChanges tornou-se true e a versão capturada recebeu cancelamento. O observador independente registrou `specs/001-demo`; nenhum relatório foi criado. Resultado esperado das asserções: documentos intactos continuam atuais; observado: assert False falhou.
 
@@ -44,7 +44,7 @@ Situação: ABERTO. Correção/revalidação: NÃO EXECUTADAS nesta task de revi
 
 ### REV-US1-02 — P2 — Limites escapam do tratamento de erros da tela
 
-Local principal: `SpecAudit/Components/Pages/Projects.razor:48`; mesmo filtro incompleto em `Refresh`, linha 52. Tipo de exceção: `SpecAudit/Infrastructure/Execution/ExecutionLimits.cs:2`.
+Local principal: `CemgSpec/Components/Pages/Projects.razor:48`; mesmo filtro incompleto em `Refresh`, linha 52. Tipo de exceção: `CemgSpec/Infrastructure/Execution/ExecutionLimits.cs:2`.
 
 `Open` trata DocumentAccessException/IO/InvalidOperation/Unauthorized/Win32, mas LimitExceededException deriva diretamente de Exception e não entra no filtro. Foram executados dois casos: spec sintético com 4 MiB + 1 byte e catálogo com 257 evidências adicionais. O handler real compilado de Projects foi invocado pelo harness: ambos propagaram LimitExceededException, deixaram `error` null e não abriram projeto. Nenhum arquivo da origem ou relatório foi modificado pelo produto. O método deveria retornar erro/limitação visível sem propagar uma exceção operacional esperada.
 
@@ -67,9 +67,9 @@ Diretório: `__REPO_ROOT__`. Ambiente da baseline: Windows/.NET 10/Edge já inst
 
 | Rodada | Comando/procedimento | Esperado | Observado | Resultado |
 |---|---|---|---|---|
-| Baseline | `dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T014-baseline' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T014-review/baseline-results` | Suíte existente sem regressões | 45/45, zero falhos/ignorados; host/Edge e picker nativo reais | PASSOU |
+| Baseline | `dotnet test CemgSpec.slnx --no-restore --logger 'trx;LogFilePrefix=T014-baseline' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T014-review/baseline-results` | Suíte existente sem regressões | 45/45, zero falhos/ignorados; host/Edge e picker nativo reais | PASSOU |
 | Probes | Comando abaixo, com fonte temporariamente adicionada ao projeto de testes | Documentos intactos atuais e limites tratados | Três falhas: metadados, limite de bytes e limite de grafo; exit 1 | FALHOU |
-| Pacotes | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta disponível | Exit 0, nenhum pacote vulnerável listado | PASSOU no alcance da consulta |
+| Pacotes | `dotnet list CemgSpec.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta disponível | Exit 0, nenhum pacote vulnerável listado | PASSOU no alcance da consulta |
 
 Logs/saídas em `logs/T014-review/`; consulta NuGet não cobre toda a segurança do SDK, Windows ou Edge. As novas falhas não invalidam a ocorrência histórica dos 45 testes aprovados; demonstram lacunas de cobertura que impedem aprovar a revisão corrente. Não repetir apenas a baseline para esconder as falhas dos probes.
 
@@ -77,17 +77,17 @@ Fonte exata preservada em `T014-probes/T014ReviewProbe.cs`, SHA256 em `T014-revi
 
 ```powershell
 Set-Location (git rev-parse --show-toplevel)
-$probeTarget = Join-Path (Get-Location) 'tests/SpecAudit.Ui.Tests/T014ReviewProbe.cs'
+$probeTarget = Join-Path (Get-Location) 'tests/CemgSpec.Ui.Tests/T014ReviewProbe.cs'
 if (Test-Path -LiteralPath $probeTarget) { throw 'Destino já existe; não sobrescrever.' }
 Copy-Item -LiteralPath 'specs/001-auditar-projetos-speckit/evidence/T014-probes/T014ReviewProbe.cs' -Destination $probeTarget
 try {
-    dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~T014ReviewProbe --logger 'trx;LogFilePrefix=T014-probes' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T014-review/probe-results
+    dotnet test tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~T014ReviewProbe --logger 'trx;LogFilePrefix=T014-probes' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T014-review/probe-results
 } finally {
     Remove-Item -LiteralPath $probeTarget
 }
 ```
 
-O caminho temporário fixo é arquivo criado por esta receita dentro do checkout; remoção não é recursiva e não toca a origem sintética. Preservar as fixtures externas para inspeção. Para a versão revisada, esperado da reprodução é exit 1/três falhas; o comportamento correto continua sendo o das asserções e deve passar após T015. No término da execução da IA, a fonte temporária foi movida para a evidência, sem alteração permanente em `SpecAudit/` ou `tests/`.
+O caminho temporário fixo é arquivo criado por esta receita dentro do checkout; remoção não é recursiva e não toca a origem sintética. Preservar as fixtures externas para inspeção. Para a versão revisada, esperado da reprodução é exit 1/três falhas; o comportamento correto continua sendo o das asserções e deve passar após T015. No término da execução da IA, a fonte temporária foi movida para a evidência, sem alteração permanente em `CemgSpec/` ou `tests/`.
 
 ## Conclusão e passagem
 

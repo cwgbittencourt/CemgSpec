@@ -21,7 +21,7 @@
 - [x] analyze adaptado, pré-requisitos e proteção de agentes explicitados; sem código/scripts/hooks.
 - [x] Origem somente leitura, destino externo, estado interno externo e Salvar manual preservados.
 - [x] Preview VS Code/Mermaid, temas, histórico e decisões humanas preservados.
-- [x] Auditoria de segurança do próprio SpecAudit preservada; consulta da solução adiada.
+- [x] Auditoria de segurança do próprio CemgSpec preservada; consulta da solução adiada.
 - [x] Casos ausentes/inválidos, mudança concorrente, cancelamento e indisponibilidade contemplados.
 
 ## Feature Readiness

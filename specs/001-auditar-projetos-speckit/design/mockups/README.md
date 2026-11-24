@@ -1,4 +1,4 @@
-# Referência visual aprovada — SpecAudit V1
+# Referência visual aprovada — CemgSpec V1
 
 **Registrada**: 2026-11-16 | **Preset**: cemg-speckit 3.0.0 | **Constituição**: 3.0.0.
 Os três mockups originais aprovados na conversa foram copiados sem edição. São agora referência versionável para implementar a aparência, e não novas funcionalidades. A especificação/contratos vigentes prevalecem sobre qualquer texto, número, comando ou comportamento histórico desenhado nas imagens. Não reproduzir os comportamentos descartados abaixo. Nenhuma implementação foi realizada para registrar estas referências.
@@ -26,7 +26,7 @@ Originais gerados em 15/11/2026, às 22:13, 22:17 e 22:21 (America/Sao_Paulo), n
 
 | Conteúdo histórico nas imagens | Implementar na V1 |
 |---|---|
-| Implementação evidenciada, evidências em src/search.ts e data final não aplicada no código | Progresso declarado, cobertura e inconsistências documentais. Não abrir/analisar código, avaliar implementação ou indicar teste executado pelo SpecAudit |
+| Implementação evidenciada, evidências em src/search.ts e data final não aplicada no código | Progresso declarado, cobertura e inconsistências documentais. Não abrir/analisar código, avaliar implementação ou indicar teste executado pelo CemgSpec |
 | Validação aprovada/Passou/Falhou sugerindo teste funcional | Estados/declarações registrados com fonte e limites, separados do resultado atual do gate e dos erros de execução; sem aceite humano autenticado por IA/hash |
 | npm test, comando livre ou cópia isolada | Remover. Nenhum build/teste/restore da solução ou cópia isolada; origem somente leitura durante todo o fluxo |
 | Combo analyze/checklist/converge ou três opções | Exatamente speckit-analyze — Consistência documental e check_gate — Validar gates; sem texto livre/encadeamento; mesma seleção por projeto em Verificações/ficha |

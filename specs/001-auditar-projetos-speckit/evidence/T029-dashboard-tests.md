@@ -8,15 +8,15 @@ Comandos a partir da raiz do repositório (com `$env:TEMP = "$env:LOCALAPPDATA\T
 
 ```powershell
 $red = 'FullyQualifiedName~DocumentaryProgressTests|FullyQualifiedName~DashboardTests'
-dotnet test SpecAudit.slnx --no-restore --filter $red --logger 'console;verbosity=normal'
+dotnet test CemgSpec.slnx --no-restore --filter $red --logger 'console;verbosity=normal'
 
 $reg = 'FullyQualifiedName!~DocumentaryProgressTests&FullyQualifiedName!~DashboardTests&FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'
-dotnet test SpecAudit.slnx --no-build --no-restore --filter $reg --logger 'console;verbosity=minimal'
+dotnet test CemgSpec.slnx --no-build --no-restore --filter $reg --logger 'console;verbosity=minimal'
 ```
 
 | Cenário | Contrato preparado | Resultado nesta revisão |
 |---|---|---|
-| Invariante V1 | Proibição das entidades `SourceCodeAnalysis`, `Compilation`, `ImplementationScore` e `DependencyInventory` no assembly `SpecAudit` | PASSOU (1/1) |
+| Invariante V1 | Proibição das entidades `SourceCodeAnalysis`, `Compilation`, `ImplementationScore` e `DependencyInventory` no assembly `CemgSpec` | PASSOU (1/1) |
 | US3-S01 / AC01 | 30/40 tarefas = `75%` declarado, 12/20 requisitos = `60%` de cobertura documental, denominador mantendo inconclusivos, escopo vazio `003-empty` exibindo `Sem itens` sem percentual e ausência de rótulos históricos (`Implementação evidenciada`, `Validação aprovada`) | Duas falhas esperadas (red): domínio ausente (`DocumentaryDashboardService`/`DashboardProjection`/`TaskDeclaration`) e HTTP 404 em `/dashboard` |
 | US3-S02 / AC02 | Estados documentais e gates registrados (`ready.json`, `blocked.json` etc.) com procedência e aviso explícito de que `READY` não comprova implementação, teste funcional ou aceite humano | Duas falhas esperadas (red): projeção ausente e HTTP 404 em `/dashboard` |
 | US3-S03 / AC03 | Ocorrências documentais (impedimentos registrados, requisitos sem tarefa `FR-013`, tarefas sem requisito `T013`, duplicidades e referência a código `DoNotRead.cs` marcada como `não verificada nesta versão` sem leitura do destino) | Duas falhas esperadas (red): serviço ausente e HTTP 404 em `/dashboard` |

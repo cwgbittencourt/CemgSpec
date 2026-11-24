@@ -1,0 +1,180 @@
+@page "/"
+@page "/projetos"
+@implements IDisposable
+@inject CemgSpec.Application.ProjectService ProjectStore
+
+<PageTitle>Projetos — CEMG Spec</PageTitle>
+<section class="project-page">
+    <header class="project-heading">
+        <div><p class="eyebrow">CEMG SPEC · AUDITORIA DOCUMENTAL</p><h1>Projetos</h1><p class="muted">Consulte seus documentos SpecKit. A solução permanece somente leitura.</p></div>
+        <button class="primary" @onclick="Open" disabled="@busy">@(busy ? "Selecionando pastas…" : "Carregar projeto")</button>
+    </header>
+    <p class="muted">Para alternar projetos já abertos, use a lista Projeto ou o grid de Projetos recentes abaixo. Um novo carregamento só acontece após conferir e confirmar as duas pastas.</p>
+    @if(opening)
+    {
+        <section class="selection-panel" aria-label="Novo projeto">
+            <h2>Conferir pastas do projeto</h2>
+            <div class="path-grid">
+                <section class="path-card">
+                    <h3>1. Pasta do projeto</h3>
+                    <p class="path-value" data-testid="selected-origin">@(pendingOrigin ?? "Nenhuma pasta selecionada")</p>
+                    <button class="secondary" @onclick="ChooseOrigin" disabled="@busy">Escolher projeto</button>
+                </section>
+                <section class="path-card">
+                    <h3>2. Pasta dos relatórios</h3>
+                    <p class="path-value" data-testid="selected-output">@(pendingOutput ?? "Nenhuma pasta selecionada")</p>
+                    <button class="secondary" @onclick="ChooseOutput" disabled="@(busy || pendingOrigin is null)">Escolher destino</button>
+                </section>
+            </div>
+            <p class="muted">O destino deve ficar fora da pasta do projeto. As seleções acima são os caminhos retornados pelo seletor, resolvidos pelo aplicativo.</p>
+            <button class="primary" @onclick="ConfirmOpen" disabled="@(busy || pendingOrigin is null || pendingOutput is null)">Confirmar carregamento</button>
+            <button class="secondary" @onclick="CancelOpen" disabled="@busy">Cancelar carregamento</button>
+        </section>
+    }
+    @if(error is not null){<div role="alert" class="notice error-notice">@error</div>}
+
+    @if(ProjectStore.RecentProjects.Count > 0)
+    {
+        <section class="feature-section recent-projects-section" aria-label="Projetos recentes">
+            <div class="section-heading">
+                <h2>Projetos recentes</h2>
+                <span class="muted">@ProjectStore.RecentProjects.Count salvo(s)</span>
+            </div>
+            <div class="topic-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Projeto</th>
+                            <th>Origem (somente leitura)</th>
+                            <th>Destino externo</th>
+                            <th>Último acesso</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ProjectStore.RecentProjects)
+                        {
+                            var isActive = ProjectStore.Active is { } curr &&
+                                string.Equals(curr.Catalog.FinalOriginPath.TrimEnd(Path.DirectorySeparatorChar), item.OriginPath, StringComparison.OrdinalIgnoreCase);
+                            <tr class="@(isActive ? "recent-active-row" : "")">
+                                <td><strong>@item.DisplayName</strong>@(isActive ? " (ativo)" : "")</td>
+                                <td class="path-value">@item.OriginPath</td>
+                                <td class="path-value">@item.OutputPath</td>
+                                <td class="muted">@item.LastOpenedUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="recent-actions">
+                                    <button type="button" class="secondary" disabled="@busy" @onclick="() => ReopenRecent(item.Id)">Abrir</button>
+                                    <button type="button" class="secondary" disabled="@busy" @onclick="() => RemoveRecent(item.Id)">Remover</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    }
+
+    @if(ProjectStore.Active is not { } active)
+    {
+        <section class="project-empty"><div class="folder-mark" aria-hidden="true">▱</div><h2>Escolha um projeto para começar</h2><p>Selecione a pasta da solução e uma pasta externa para os relatórios.</p><p class="muted">Carregar e consultar documentos não salva relatórios nem altera a origem.</p></section>
+    }
+    else
+    {
+        <div class="project-toolbar"><label>Projeto <select aria-label="Projeto" value="@active.Session.ProjectId" @onchange="SelectProject">@foreach(var project in ProjectStore.Projects){<option value="@project.Session.ProjectId">@project.Session.DisplayName</option>}</select></label><span class="readonly-badge">◇ Somente leitura</span></div>
+        <div class="path-grid">
+            <section class="path-card"><p class="eyebrow">ORIGEM</p><h2>@active.Session.DisplayName</h2><p class="path-value">@active.Session.OriginDisplayPath</p><p class="muted">Documentos autorizados, sem alterações na solução.</p></section>
+            <section class="path-card"><p class="eyebrow">DESTINO EXTERNO</p><h2>Relatórios</h2><p class="path-value">@active.OutputDisplayPath</p><button class="secondary" @onclick="ChangeOutput" disabled="@busy">Alterar destino</button><p class="muted">A troca não move ou exclui relatórios anteriores.</p></section>
+        </div>
+        @if(active.Catalog.HasPendingChanges){<div role="status" class="notice">Os documentos foram alterados externamente. Atualize a leitura antes de continuar. <button class="secondary" @onclick="Refresh">Atualizar documentos</button></div>}
+        @if(active.Catalog.IsTruncated)
+        {
+            <div role="status" class="notice">
+                <strong>Limite de @active.Catalog.Limits.MaxGraphNodes documentos atingido:</strong> os @active.Catalog.Entries.Count artefatos mais essenciais foram carregados e <strong>@active.Catalog.OmittedDocuments.Count</strong> arquivo(s) foram deixados de fora.
+                <details style="margin-top:8px">
+                    <summary>Ver arquivos deixados de fora (@active.Catalog.OmittedDocuments.Count)</summary>
+                    <ul class="topic-scroll" style="margin:8px 0 0;padding-left:18px">
+                        @foreach (var omitted in active.Catalog.OmittedDocuments)
+                        {
+                            <li class="path-value">@omitted</li>
+                        }
+                    </ul>
+                </details>
+            </div>
+        }
+        <section class="feature-section"><div class="section-heading"><h2>Funcionalidades</h2><span class="muted">@active.Session.Features.Count encontradas</span></div>
+        @if(active.Session.Features.Count==0){<p>Nenhuma funcionalidade SpecKit reconhecida na origem.</p>}
+        else
+        {
+            <label class="feature-selector">Funcionalidade <select aria-label="Funcionalidade" value="@active.Session.ActiveFeatureId" @onchange="SelectFeature">@foreach(var feature in active.Session.Features){<option value="@feature.FeatureId">@feature.Title</option>}</select></label>
+            <div class="topic-scroll">
+                <table><thead><tr><th>Artefato</th><th>Estado documental</th></tr></thead><tbody>
+                @foreach(var name in new[]{"spec.md","plan.md","tasks.md"})
+                {
+                    var exists=active.Catalog.Entries.Any(e=>e.FeatureId==active.Session.ActiveFeatureId && string.Equals(e.RelativePath,System.IO.Path.Combine(active.Session.RequireFeature(active.Session.ActiveFeatureId!.Value).SpecKitRelativeDirectory,name),StringComparison.OrdinalIgnoreCase));
+                    <tr><td>@name</td><td><span class="@(exists ? "present-state" : "missing-state")">@(exists ? "Presente" : "Ausente")</span></td></tr>
+                }
+                </tbody></table>
+            </div>
+        }
+        </section>
+    }
+</section>
+
+@code {
+    private bool busy;
+    private bool opening;
+    private string? pendingOrigin;
+    private string? pendingOutput;
+    private string? error;
+    protected override void OnInitialized()=>ProjectStore.Changed+=OnProjectsChanged;
+    private void OnProjectsChanged()=>_ = InvokeAsync(StateHasChanged);
+    private Task Open(){if(!busy){opening=true;pendingOrigin=null;pendingOutput=null;error=null;}return Task.CompletedTask;}
+    private async Task ChooseOrigin()
+    {
+        if(busy)return;busy=true;error=null;
+        try{var selected=await ProjectStore.PickProjectOriginAsync();if(selected is not null){pendingOrigin=selected;pendingOutput=null;}}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+    }
+    private async Task ChooseOutput()
+    {
+        if(busy || pendingOrigin is null)return;busy=true;error=null;
+        try{var selected=await ProjectStore.PickReportDestinationAsync();if(selected is not null)pendingOutput=selected;}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+    }
+    private Task ConfirmOpen()
+    {
+        if(busy || pendingOrigin is null || pendingOutput is null)return Task.CompletedTask;
+        busy=true;error=null;
+        try{ProjectStore.OpenSelected(pendingOrigin,pendingOutput);opening=false;pendingOrigin=null;pendingOutput=null;}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+        return Task.CompletedTask;
+    }
+    private void CancelOpen(){if(busy)return;opening=false;pendingOrigin=null;pendingOutput=null;error=null;}
+    private void ReopenRecent(Guid recentId)
+    {
+        if(busy)return;busy=true;error=null;
+        try{ProjectStore.ReopenRecent(recentId);opening=false;}
+        catch(Exception failure) when(IsSelectionError(failure)){error=Message(failure);}finally{busy=false;}
+    }
+    private void RemoveRecent(Guid recentId)
+    {
+        if(busy)return;error=null;
+        ProjectStore.RemoveRecent(recentId);
+    }
+    private static bool IsSelectionError(Exception failure)=>failure is CemgSpec.Infrastructure.Documents.DocumentAccessException or CemgSpec.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException or System.ComponentModel.Win32Exception;
+    private async Task ChangeOutput(){if(busy)return;if(ProjectStore.Active is not {} active)return;busy=true;error=null;try{await ProjectStore.ChangeOutputDirectoryAsync(active.Session.ProjectId);}catch(Exception failure) when(failure is CemgSpec.Infrastructure.Documents.DocumentAccessException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}finally{busy=false;}}
+    private void SelectProject(ChangeEventArgs args){if(Guid.TryParse(args.Value?.ToString(),out var id)){try{ProjectStore.SelectProject(id);error=null;}catch(KeyNotFoundException){error="Projeto indisponível nesta sessão.";}}}
+    private void SelectFeature(ChangeEventArgs args){if(ProjectStore.Active is {} active && Guid.TryParse(args.Value?.ToString(),out var id)){try{active.Session.SelectFeature(id);error=null;}catch(KeyNotFoundException){error="Funcionalidade indisponível neste projeto.";}}}
+    private void Refresh(){if(ProjectStore.Active is not {} active)return;try{ProjectStore.Refresh(active.Session.ProjectId);error=null;}catch(Exception failure) when(failure is CemgSpec.Infrastructure.Documents.DocumentAccessException or CemgSpec.Infrastructure.Execution.LimitExceededException or IOException or InvalidOperationException or UnauthorizedAccessException){error=Message(failure);}}
+    private static string Message(Exception failure)
+    {
+        if(failure is CemgSpec.Infrastructure.Execution.LimitExceededException limit)
+            return limit.Dimension switch
+            {
+                "document-bytes"=>"Não foi possível concluir a leitura: um documento excede o limite de tamanho permitido. Os relatórios não foram salvos.",
+                "evidence-graph"=>"Não foi possível concluir a leitura: o catálogo excede o limite de quantidade ou profundidade de documentos. Os relatórios não foram salvos.",
+                _=>"Não foi possível concluir a leitura: o projeto excede um limite operacional. Os relatórios não foram salvos."
+            };
+        return failure.Message switch{"FolderSelectionInProgress"=>"Conclua ou cancele a seleção de pasta que já está aberta.","DestinationInsideOrigin"=>"Escolha um destino externo. A origem e suas subpastas não podem receber relatórios.","Changed"=>"A pasta ou os documentos mudaram. Selecione ou atualize o projeto novamente.","Unreadable"=>"Não foi possível ler a pasta selecionada. Confira a existência e as permissões.",_=>"Não foi possível concluir a seleção. Os relatórios não foram salvos; confira as pastas e tente novamente."};
+    }
+    public void Dispose()=>ProjectStore.Changed-=OnProjectsChanged;
+}

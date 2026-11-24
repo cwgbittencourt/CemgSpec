@@ -1,0 +1,107 @@
+@using CemgSpec.Domain
+
+@if (IsOpen)
+{
+    <div class="save-dialog-backdrop" role="presentation">
+        <section class="save-dialog" role="dialog" aria-modal="true" aria-label="Confirmar salvamento externo">
+            <header class="save-dialog-header">
+                <div>
+                    <p class="eyebrow">EXPORTAÇÃO EXTERNA CONTROLADA</p>
+                    <h2>Confirmar salvamento externo</h2>
+                </div>
+                <button type="button" class="secondary" @onclick="Cancel">Fechar</button>
+            </header>
+
+            <div class="save-dialog-body">
+                <div class="save-meta-grid">
+                    <div>
+                        <span class="meta-label">Projeto auditado</span>
+                        <strong>@ProjectDisplayName</strong>
+                    </div>
+                    <div>
+                        <span class="meta-label">Atualidade da leitura</span>
+                        <span class="status-pill @(IsStale ? "warn" : "ok")">
+                            @(IsStale ? "DESATUALIZADO (Stale)" : "Atual")
+                        </span>
+                    </div>
+                </div>
+
+                <div class="save-dest-box">
+                    <span class="meta-label">Destino externo (fora da origem)</span>
+                    <code>@DestinationPath</code>
+                    <p class="muted small">Será criada uma nova pasta <code>CemgSpec-&lt;utc&gt;-&lt;uuid&gt;</code> com <code>manifest.json</code> gravado por último. A origem permanece somente leitura.</p>
+                </div>
+
+                <fieldset class="format-fieldset">
+                    <legend>Formatos a exportar</legend>
+                    <label class="format-option">
+                        <input type="checkbox" @bind="includeMarkdown" />
+                        <span>Markdown (<code>report.md</code>)</span>
+                    </label>
+                    <label class="format-option">
+                        <input type="checkbox" @bind="includeJson" />
+                        <span>JSON estruturado (<code>report.json</code>)</span>
+                    </label>
+                    <label class="format-option">
+                        <input type="checkbox" @bind="includeCsv" />
+                        <span>CSV seguro (<code>findings.csv</code> e <code>indicators.csv</code>)</span>
+                    </label>
+                </fieldset>
+
+                <p class="muted small">Conteúdo incluído: <strong>@FindingsCount</strong> ocorrência(s) documental(is) e <strong>@DecisionsCount</strong> decisão(ões) humana(s) em memória.</p>
+
+                @if (!string.IsNullOrWhiteSpace(validationError))
+                {
+                    <div class="alert-box" role="alert">@validationError</div>
+                }
+            </div>
+
+            <footer class="save-dialog-footer">
+                <button type="button" class="secondary" @onclick="Cancel" disabled="@IsSaving">Cancelar</button>
+                <button type="button" class="primary" @onclick="ConfirmAsync" disabled="@IsSaving">
+                    @(IsSaving ? "Salvando..." : "Confirmar e salvar")
+                </button>
+            </footer>
+        </section>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public bool IsSaving { get; set; }
+    [Parameter] public string ProjectDisplayName { get; set; } = string.Empty;
+    [Parameter] public string DestinationPath { get; set; } = string.Empty;
+    [Parameter] public bool IsStale { get; set; }
+    [Parameter] public int FindingsCount { get; set; }
+    [Parameter] public int DecisionsCount { get; set; }
+    [Parameter] public EventCallback<ExportFormat> OnConfirm { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private bool includeMarkdown = true;
+    private bool includeJson = true;
+    private bool includeCsv = true;
+    private string? validationError;
+
+    private async Task ConfirmAsync()
+    {
+        var formats = ExportFormat.None;
+        if (includeMarkdown) formats |= ExportFormat.Markdown;
+        if (includeJson) formats |= ExportFormat.Json;
+        if (includeCsv) formats |= ExportFormat.Csv;
+
+        if (formats == ExportFormat.None)
+        {
+            validationError = "Selecione ao menos um formato de exportação antes de confirmar.";
+            return;
+        }
+
+        validationError = null;
+        await OnConfirm.InvokeAsync(formats);
+    }
+
+    private Task Cancel()
+    {
+        validationError = null;
+        return OnCancel.InvokeAsync();
+    }
+}

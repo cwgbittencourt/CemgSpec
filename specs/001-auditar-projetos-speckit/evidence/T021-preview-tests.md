@@ -8,10 +8,10 @@ Comandos a partir da raiz do repositório:
 
 ```powershell
 $red = 'FullyQualifiedName~DocumentNavigationTests|FullyQualifiedName~S01SearchTree|FullyQualifiedName~S02PreviewSource|FullyQualifiedName~S03MermaidRenders|FullyQualifiedName~S04ActiveContent'
-dotnet test SpecAudit.slnx --no-restore --filter $red --logger 'console;verbosity=normal'
+dotnet test CemgSpec.slnx --no-restore --filter $red --logger 'console;verbosity=normal'
 
 $regressao = 'FullyQualifiedName!~DocumentNavigationTests&FullyQualifiedName!~S01SearchTree&FullyQualifiedName!~S02PreviewSource&FullyQualifiedName!~S03MermaidRenders&FullyQualifiedName!~S04ActiveContent&FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'
-dotnet test SpecAudit.slnx --no-build --no-restore --filter $regressao --logger 'console;verbosity=minimal'
+dotnet test CemgSpec.slnx --no-build --no-restore --filter $regressao --logger 'console;verbosity=minimal'
 ```
 
 | Cenário | Contrato preparado | Resultado nesta revisão |
@@ -48,11 +48,11 @@ Escopo examinado: assertivas por critério, isolamento e limpeza do corpus, orig
 ### SHA-256 dos arquivos de teste executados
 
 
-- `tests/SpecAudit.Tests/DocumentNavigationTests.cs` — `6c096f9a2cb735e1045b852c8ab392ce7f73b331e8219500e1145dd1e84479b1`
-- `tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs` — `4be4372b139eea9461c57e7432edd8b8460d8e237df54e2f08ed547b09a83cc0`
-- `tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs` — `9b04b247336ac7c2e4143c7f56df67c7cc19235eba39908a107f2b1d176ca555`
-- `tests/SpecAudit.Ui.Tests/ProjectPageBrowserTests.cs` — `da1994405870c6a54efa031ea3d023f71242dc4176e7a1fd7b5d880ed7b9578e`
-- `tests/SpecAudit.Ui.Tests/US1IntegratedHarnessTests.cs` — `9316f0b059bcc66939eaa026cacb10702077971f413254eedfdd0fdaf8f1434a`
+- `tests/CemgSpec.Tests/DocumentNavigationTests.cs` — `6c096f9a2cb735e1045b852c8ab392ce7f73b331e8219500e1145dd1e84479b1`
+- `tests/CemgSpec.Ui.Tests/MarkdownPreviewTests.cs` — `4be4372b139eea9461c57e7432edd8b8460d8e237df54e2f08ed547b09a83cc0`
+- `tests/CemgSpec.Ui.Tests/Fixtures/LocalHostFixture.cs` — `9b04b247336ac7c2e4143c7f56df67c7cc19235eba39908a107f2b1d176ca555`
+- `tests/CemgSpec.Ui.Tests/ProjectPageBrowserTests.cs` — `da1994405870c6a54efa031ea3d023f71242dc4176e7a1fd7b5d880ed7b9578e`
+- `tests/CemgSpec.Ui.Tests/US1IntegratedHarnessTests.cs` — `9316f0b059bcc66939eaa026cacb10702077971f413254eedfdd0fdaf8f1434a`
 
 ### Gate do PR-A
 

@@ -7,10 +7,10 @@ Escopo: INCREMENTO de US1-AC04; não substitui o roteiro integrado US1-dev.md ne
 ## Reprodução conferida pela IA
 
 1. Abrir PowerShell na raiz __REPO_ROOT__. Conferir a versão/manifesto e `dotnet --version`.
-2. Executar `dotnet restore SpecAudit.slnx --locked-mode` se as dependências locais ainda não estiverem restauradas. A execução da IA reutilizou o restore existente.
-3. Executar `dotnet test tests/SpecAudit.Ui.Tests --no-restore --filter FullyQualifiedName~ProjectSelectionTests --logger "console;verbosity=normal"`. Validar aprovação dos cenários abaixo. Cada teste cria sua própria origem sintética TEMP/SpecAudit-V1-GUID e destino externo; o picker humano é substituído somente pela entrada controlada de pastas.
-4. Executar `dotnet test tests/SpecAudit.Windows.Tests --no-restore --filter FullyQualifiedName~ExternalEditDuringRead --logger "console;verbosity=normal"`. Validar Changed, edição externa preservada e snapshot anterior imutável.
-5. Executar `dotnet test SpecAudit.slnx --no-restore`. Checkpoint da IA: 41 aprovados, zero falhos/ignorados. Host local e Edge headless são iniciados e encerrados pelo teste de navegador.
+2. Executar `dotnet restore CemgSpec.slnx --locked-mode` se as dependências locais ainda não estiverem restauradas. A execução da IA reutilizou o restore existente.
+3. Executar `dotnet test tests/CemgSpec.Ui.Tests --no-restore --filter FullyQualifiedName~ProjectSelectionTests --logger "console;verbosity=normal"`. Validar aprovação dos cenários abaixo. Cada teste cria sua própria origem sintética TEMP/CemgSpec-V1-GUID e destino externo; o picker humano é substituído somente pela entrada controlada de pastas.
+4. Executar `dotnet test tests/CemgSpec.Windows.Tests --no-restore --filter FullyQualifiedName~ExternalEditDuringRead --logger "console;verbosity=normal"`. Validar Changed, edição externa preservada e snapshot anterior imutável.
+5. Executar `dotnet test CemgSpec.slnx --no-restore`. Checkpoint da IA: 41 aprovados, zero falhos/ignorados. Host local e Edge headless são iniciados e encerrados pelo teste de navegador.
 
 | Cenário | Ação realizada pelo harness / observação no debugger opcional | O que validar |
 |---|---|---|
@@ -26,7 +26,7 @@ Escopo: INCREMENTO de US1-AC04; não substitui o roteiro integrado US1-dev.md ne
 ## Conferência manual na interface — pendente de execução humana
 
 1. Criar em uma pasta TEMP própria `origem/specs/001-demo/spec.md`, `plan.md`, `tasks.md` com texto sintético e uma pasta irmã `reports` vazia. Registrar os conteúdos/hashes antes. Não usar projeto real.
-2. Iniciar `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --urls http://127.0.0.1:5187`. Abrir http://127.0.0.1:5187 localmente, com o mesmo usuário; sem credenciais de agente.
+2. Iniciar `dotnet run --project CemgSpec/CemgSpec.csproj --no-launch-profile -- --urls http://127.0.0.1:5187`. Abrir http://127.0.0.1:5187 localmente, com o mesmo usuário; sem credenciais de agente.
 3. Clicar **Carregar projeto**, selecionar origem e depois reports. Validar os três artefatos como Presente.
 4. Em editor externo, acrescentar uma linha em spec.md e salvar. Validar aviso de alteração externa e botão **Atualizar documentos**; a linha deve permanecer no arquivo.
 5. Clicar **Atualizar documentos**. Validar remoção do aviso após leitura estável. Se o lote ainda estiver em andamento, aguardar e repetir; nenhum relatório deve ser salvo.

@@ -1,6 +1,6 @@
 # Validação Integrada da Feature — 001-auditar-projetos-speckit (T089)
 
-- **Feature**: `001-auditar-projetos-speckit` (SpecAudit V1 — Auditoria Documental SpecKit)
+- **Feature**: `001-auditar-projetos-speckit` (CemgSpec V1 — Auditoria Documental SpecKit)
 - **Commit base avaliado**: `0caff61` (`main`)
 - **Data (UTC)**: `2026-11-20T18:38:34Z`
 - **Escopo V1**: `US1`, `US2`, `US3`, `US4`, `US5`, `US6`, `US8` (`US7` / `FR-017` explicitamente adiado fora da V1)
@@ -20,9 +20,9 @@
 
 | Suíte | Aprovados | Falhas | Observações |
 | --- | ---: | ---: | --- |
-| `SpecAudit.Tests` | 25 | 0 | Contratos de sessão, máquina de estados de verificação, decisões humanas |
-| `SpecAudit.Windows.Tests` (local) | 39 | 0 | `ReaderBoundary`, `GateAdapter`, `AgentDiscovery`, `AntigravityContract`, `ExternalWriter`, `SavedHistory` |
-| `SpecAudit.Ui.Tests` (Playwright/Edge) | 64 | 0 | Seleção explícita, Dashboard, Requisitos/Rastreabilidade, Documentos, Verificações, Agentes, Sugestões/Save/Histórico, Temas Escuro/Claro |
+| `CemgSpec.Tests` | 25 | 0 | Contratos de sessão, máquina de estados de verificação, decisões humanas |
+| `CemgSpec.Windows.Tests` (local) | 39 | 0 | `ReaderBoundary`, `GateAdapter`, `AgentDiscovery`, `AntigravityContract`, `ExternalWriter`, `SavedHistory` |
+| `CemgSpec.Ui.Tests` (Playwright/Edge) | 64 | 0 | Seleção explícita, Dashboard, Requisitos/Rastreabilidade, Documentos, Verificações, Agentes, Sugestões/Save/Histórico, Temas Escuro/Claro |
 | **Total** | **128** | **0** | **0 falhas, 0 regressões** |
 
 ## Auditoria visual (temas Escuro e Claro)

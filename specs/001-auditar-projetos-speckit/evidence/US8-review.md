@@ -13,7 +13,7 @@
 
 | Achado | Local e descrição | Prioridade | Resolução e revalidação (T047) | Estado |
 |---|---|---|---|---|
-| `REV-US8-01` | `SpecAudit/wwwroot/app.css:40`: especificidade dos seletores scoped `.req-output-meta code`, `.dash-output-meta code` e `.docs-output-meta code` (`#d8deeb`) sobrepunha `.app-shell[data-theme="light"] code`, reduzindo contraste do caminho do destino externo no tema claro. | P3 (não impeditivo) | Adicionados os seletores específicos sob `.app-shell[data-theme="light"]` em `app.css:40` com cor `#263248`; revalidado com `NavigationThemeTests` **2/2** ([us8-revalidation.txt](logs/T047/us8-revalidation.txt)). | RESOLVIDO |
+| `REV-US8-01` | `CemgSpec/wwwroot/app.css:40`: especificidade dos seletores scoped `.req-output-meta code`, `.dash-output-meta code` e `.docs-output-meta code` (`#d8deeb`) sobrepunha `.app-shell[data-theme="light"] code`, reduzindo contraste do caminho do destino externo no tema claro. | P3 (não impeditivo) | Adicionados os seletores específicos sob `.app-shell[data-theme="light"]` em `app.css:40` com cor `#263248`; revalidado com `NavigationThemeTests` **2/2** ([us8-revalidation.txt](logs/T047/us8-revalidation.txt)). | RESOLVIDO |
 
 ## Segurança e passagem
 

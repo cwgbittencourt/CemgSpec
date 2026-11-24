@@ -20,13 +20,13 @@
 
 - Decisão humana: pedido explícito do usuário limita a V1 a speckit-analyze e check_gate, ambos na combo, com origem somente leitura e análise de código futura.
 - Motivo: acompanhar progresso/consistência documental e estados/hashes sem comparação de implementação ou comandos amplos. Suporte documental independe da linguagem; desenvolvimento permanece Blazor/C#.
-- Ferramentas: analyze adaptado e identificado, apenas documentos; gate determinístico empacotado/conferido pelo SpecAudit, sem executar script/hook da origem. Combo em Verificações/ficha; só duas opções e clique Executar.
+- Ferramentas: analyze adaptado e identificado, apenas documentos; gate determinístico empacotado/conferido pelo CemgSpec, sem executar script/hook da origem. Combo em Verificações/ficha; só duas opções e clique Executar.
 - Descoberta preservada: Codex/Antigravity obrigatórios para analyze na entrega completa, ambos bloqueados individualmente se proteção não comprovada. Gate/leitor não exigem IA ou rede. Estado interno do agente externo permitido; relatório oficial somente por Salvar externo.
 - Evidência de inspeção: check_gate.py local CEMG importa subprocess e sua opção --project executa specify preset resolve; NÃO usar essa opção no produto V1. O restante pode ler evidências aninhadas: preflight/catálogo deve limitar TODOS os caminhos, inclusive logs/artifacts. Não executar scripts do projeto nem inferir revisão confiável apenas do registro.
 - V1-A pendente: provar catálogo/broker e integração documental real, sem leitura de código, escrita ou ferramentas arbitrárias, com cancelamento/descendentes/estado externo e rede delimitados. Prompt sozinho não comprova isolamento.
 - V1-B pendente: empacotamento confiável de script/política/runtime gate, execução offline isolada e preflight documental completo, incluindo rejeição de referências a código/configuração/fora do catálogo e mudança concorrente.
 - Alternativas rejeitadas para V1: liberar shell/hooks ou todos os comandos, ler código para obter cobertura, substituir prova por allowlist nominal, executar check_gate.py da solução ou declarar WFP aprovado. Recursos futuros exigem nova revisão.
-- Consulta de vulnerabilidades da solução (US7/FR-017) adiada; manutenção segura do próprio SpecAudit permanece obrigatória. Nenhum pacote adicionado por esta alteração documental.
+- Consulta de vulnerabilidades da solução (US7/FR-017) adiada; manutenção segura do próprio CemgSpec permanece obrigatória. Nenhum pacote adicionado por esta alteração documental.
 - Efeito histórico: R1–R16 e provas antigas abaixo preservam decisões/versões da época. B1 foi resolvido pela emenda 2.0.0; B2-WFP continua falho no escopo antigo, mas não é dependência obrigatória do escopo V1 reduzido. Dois fracassos 0xC0000142 não viram sucesso; autorizações elevadas consumidas não são reutilizáveis. Nenhuma nova prova executada.
 - Próximo passo técnico: resolver V1-A/B antes de design final (data-model/contracts/quickstart) e gate de tasks. A alteração documental não libera implementação/aceite automaticamente.
 
@@ -39,7 +39,7 @@ Os parágrafos seguintes são registros cronológicos com versões e conclusões
 - Decisão: preservar Blazor Interactive Server existente, net10.0, C# 14 estável, Windows x64. SDK encontrado 10.0.404; runtime ASP.NET Core 10.0.15. Não selecionar SDK preview instalado.
 - Motivo: solução já usa AddInteractiveServerComponents; corresponde à constituição 1.0.1.
 - Alternativas: WebAssembly não fornece acesso local seguro às pastas; serviço remoto está fora do escopo.
-- Evidência: SpecAudit.csproj, Program.cs, dotnet --info. Nenhum código alterado ou produto executado.
+- Evidência: CemgSpec.csproj, Program.cs, dotnet --info. Nenhum código alterado ou produto executado.
 - Preset: registro enabled=true, versão 3.0.0 e hash de manifesto correspondente. setup-plan.ps1 resolveu plan-template do preset com replace.
 - Observação: setup retornou BRANCH=001-auditar-projetos-speckit como contexto lógico da feature; git branch --show-current confirmou main. Não foi criada branch nova.
 
@@ -104,7 +104,7 @@ Os parágrafos seguintes são registros cronológicos com versões e conclusões
 ## R7 — Inventário e vulnerabilidades
 
 - Decisão: ler declarações/locks e grafos já existentes; nunca restore/build do projeto analisado. Dependências condicionais/não resolvidas indicam cobertura incompleta.
-- Consulta de vulnerabilidades do próprio SpecAudit executada com dotnet package list --project SpecAudit/SpecAudit.csproj --vulnerable --include-transitive --no-restore --format json.
+- Consulta de vulnerabilidades do próprio CemgSpec executada com dotnet package list --project CemgSpec/CemgSpec.csproj --vulnerable --include-transitive --no-restore --format json.
 - Resultado: comando retornou sem avisos de pacotes; csproj não possui PackageReference. Isso NÃO comprova ausência de vulnerabilidades do runtime, SDK ou futuras bibliotecas.
 - Runtime/SDK e componentes candidatos ainda exigem conferência de advisories na implementação/entrega. Sem declaração de ambiente integralmente seguro.
 - Fonte: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-package-list.
@@ -134,7 +134,7 @@ Documentação e execução confirmaram subagente research via invoke_subagent, 
 
 ## R10 — Reavaliação após emenda autorizada
 
-Decisão do usuário: permitir conversas/caches dos agentes fora da solução e gravar relatórios SpecAudit somente ao clicar Salvar. B1 encerrado; registros da prova permanecem factuais e não são apagados. Redesenhar compatibilidade para validar locais reais externos em vez de exigir efemeridade absoluta. Nenhuma permissão de escrita na origem, execução de solução ou acesso adicional a serviços foi concedida. Não importar sessões como relatórios salvos. B2 mantém plan BLOCKED.
+Decisão do usuário: permitir conversas/caches dos agentes fora da solução e gravar relatórios CemgSpec somente ao clicar Salvar. B1 encerrado; registros da prova permanecem factuais e não são apagados. Redesenhar compatibilidade para validar locais reais externos em vez de exigir efemeridade absoluta. Nenhuma permissão de escrita na origem, execução de solução ou acesso adicional a serviços foi concedida. Não importar sessões como relatórios salvos. B2 mantém plan BLOCKED.
 
 ## R11 — Provas adicionais e acesso WFP (2026-11-16)
 

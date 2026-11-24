@@ -31,7 +31,7 @@ PR previsto: PR-B (base do incremento US3 em `d2a34bc`; sem PR aberto ou integra
 
 ### REV-US3-03 — P2 — Alteração externa zera a projeção exibida para `Sem itens` em vez de manter os indicadores anteriores marcados como `Desatualizado`
 
-- **Local**: `SpecAudit/Components/Pages/Dashboard.razor:298-317` e `SpecAudit/Application/DocumentaryDashboardService.cs:192-210`.
+- **Local**: `CemgSpec/Components/Pages/Dashboard.razor:298-317` e `CemgSpec/Application/DocumentaryDashboardService.cs:192-210`.
 - **Descrição**: Quando ocorre alteração externa em um documento monitorado (`active.Catalog.HasPendingChanges == true`), `OnProjectsChanged` chama `SyncAndRebuild()` → `DashboardService.Build(...)`. Como o `DocumentBroker` recusa leituras com `DocumentAccessException("Changed")` enquanto há mudanças pendentes, `TryReadUtf8` retorna `null` para todos os arquivos, reconstruindo uma `DashboardProjection` com `0 / 0` (`Sem itens`) em vez de preservar a última projeção válida marcada com `Freshness.Stale` (`Desatualizado`) até o usuário clicar em `Atualizar documentos`.
 - **Prioridade e impacto**: **P2 (impeditivo para fechamento normal)**. Distorce os indicadores visíveis durante o estado `Stale` (`US3-AC04` / `data-model.md`).
 - **Correção proposta para T034**: Em `Dashboard.razor`, quando `active.Catalog.HasPendingChanges` for verdadeiro e já existir uma `projection` da mesma sessão/projeto, preservar `projection` marcando `Freshness = Freshness.Stale` (e `RecordedGateStates` com `Freshness = Freshness.Stale`) em vez de substituí-la por uma projeção vazia; após `Refresh()`, recalcular normalmente com `Freshness.Current`. Cobrir com asserção em `DashboardTests.S04` verificando que `30 / 40` e `Desatualizado` continuam visíveis antes do clique em `Atualizar documentos`.
@@ -39,7 +39,7 @@ PR previsto: PR-B (base do incremento US3 em `d2a34bc`; sem PR aberto ou integra
 
 ### REV-US3-02 — P2 — Trocar `Funcionalidade` mantém `Fase` e `História` da funcionalidade anterior como filtros invisíveis
 
-- **Local**: `SpecAudit/Components/Pages/Dashboard.razor:320-324`.
+- **Local**: `CemgSpec/Components/Pages/Dashboard.razor:320-324`.
 - **Descrição**: `OnFeatureChanged` atualiza apenas `selectedFeatureId` sem limpar `selectedPhase` e `selectedStory`. Se o usuário filtrar por uma fase/história de `001-demo` e trocar para outra funcionalidade sem aquela fase/história, o filtro continua ativo em memória apesar de não constar mais nas opções do `<select>`, podendo zerar indevidamente os indicadores da nova funcionalidade.
 - **Prioridade e impacto**: **P2 (impeditivo para fechamento normal)**. Viola previsibilidade e integridade dos filtros de `US3-AC04`.
 - **Correção proposta para T034**: Limpar `selectedPhase` e `selectedStory` em `OnFeatureChanged` (ou validar que ainda pertencem às listas disponíveis) e adicionar asserção de regressão em `DashboardTests.S04` filtrando por `Gravidade`/`Fase` e alternando de funcionalidade.
@@ -47,7 +47,7 @@ PR previsto: PR-B (base do incremento US3 em `d2a34bc`; sem PR aberto ou integra
 
 ### REV-US3-01 — P3 — Tabela `Requisitos no escopo` trunca silenciosamente em 25 linhas
 
-- **Local**: `SpecAudit/Components/Pages/Dashboard.razor:191`.
+- **Local**: `CemgSpec/Components/Pages/Dashboard.razor:191`.
 - **Descrição**: `@foreach (var req in projection.Requirements.Take(25))` oculta silenciosamente requisitos além do 25º sem aviso ao usuário.
 - **Prioridade e impacto**: **P3 (não impeditivo)**. Pode ocultar requisitos em escopos maiores (ex.: `Todas as funcionalidades`).
 - **Correção proposta para T034**: Remover o `.Take(25)` para exibir todos os requisitos do escopo selecionado (ou oferecer paginação/expansão explícita).

@@ -10,7 +10,7 @@
 
 ## Objetivo e Escopo
 
-Oferecer ao **Analista de Negócio (BA)** uma visão gerencial clara no **Dashboard** do SpecAudit, complementar à **Visão Técnica**, permitindo acompanhar entregas por **História de Usuário (`USx`)**, **pendências humanas (Validação DEV e Aceite PO)**, **evolução entre auditorias salvas (Antes × Agora)**, **glossário contextual (`?`)** e **exportação de Resumo Executivo de 1 página** para stakeholders.
+Oferecer ao **Analista de Negócio (BA)** uma visão gerencial clara no **Dashboard** do CemgSpec, complementar à **Visão Técnica**, permitindo acompanhar entregas por **História de Usuário (`USx`)**, **pendências humanas (Validação DEV e Aceite PO)**, **evolução entre auditorias salvas (Antes × Agora)**, **glossário contextual (`?`)** e **exportação de Resumo Executivo de 1 página** para stakeholders.
 
 ---
 

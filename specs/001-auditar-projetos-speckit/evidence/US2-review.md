@@ -31,7 +31,7 @@ PR previsto: PR-B (base do incremento US2 em `ddf8f31` / `73e06b9`; sem PR abert
 
 ### REV-US2-01 — P2 — Remontagem de `MarkdownPreview` ao sair do modo `Fonte` acumula listeners e descarta imagens remotas já autorizadas
 
-- **Local**: `SpecAudit/Components/Documents/MarkdownPreview.razor:30-35` e `SpecAudit/Components/Documents/MarkdownPreview.razor.js:38-39`.
+- **Local**: `CemgSpec/Components/Documents/MarkdownPreview.razor:30-35` e `CemgSpec/Components/Documents/MarkdownPreview.razor.js:38-39`.
 - **Descrição**: Quando o usuário alterna `Preview` → `Fonte` → `Lado a lado` (ou `Preview`) no mesmo documento, `wasHidden && !Hidden` força nova chamada a `mount(container, ...)` sobre o mesmo elemento `container` (`@key="Session"`). Isso produz dois efeitos concretos:
   1. `container.addEventListener("click", activate)` e `container.addEventListener("keydown", activate)` são registrados novamente sem remover os listeners anteriores. A cada ciclo `Fonte` → `Preview`/`Lado a lado`, cliques em links disparam múltiplas chamadas SignalR `ActivateReference` (as antigas são ignoradas pelo `mountId != mount`, mas acumulam tráfego e closures no DOM).
   2. `container.innerHTML = html` sobrescreve o DOM do preview e substitui qualquer imagem remota já autorizada nessa visualização pelo placeholder `Carregar nesta sessão`, violando a preservação de conteúdo na troca de modo (`US2-AC02`).
@@ -44,7 +44,7 @@ PR previsto: PR-B (base do incremento US2 em `ddf8f31` / `73e06b9`; sem PR abert
 
 ### REV-US2-02 — P3 — Link `Projetos` na sidebar não fica ativo na rota raiz `/`
 
-- **Local**: `SpecAudit/Components/Layout/MainLayout.razor:6`.
+- **Local**: `CemgSpec/Components/Layout/MainLayout.razor:6`.
 - **Descrição**: `Projects.razor` responde tanto a `/` quanto a `/projetos`, mas o `NavLink` na sidebar usa `href="/projetos" Match="NavLinkMatch.All"`. Ao abrir a raiz `/`, nenhum item da sidebar recebe a classe `.active`.
 - **Prioridade e impacto**: **P3 (não impeditivo)**. Apenas detalhe visual no acesso inicial pela raiz `/`; navegabilidade e acessibilidade funcionam normalmente.
 - **Correção proposta para T027**: Marcar o item `Projetos` como ativo quando a rota atual for `/` ou `/projetos` (ou ajustar `NavigationManager` / `MainLayout.razor`).

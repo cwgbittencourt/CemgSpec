@@ -1,4 +1,4 @@
-<!-- Override local SpecAudit: cemg-speckit 3.0.0 + constituição 4.1.0. -->
+<!-- Override local CemgSpec: cemg-speckit 3.0.0 + constituição 4.1.0. -->
 # Estado e aceite — [US1]
 
 Versão candidata: [commit + identificação do artefato/diff]

@@ -6,7 +6,7 @@
 
 ```powershell
 $env:TEMP = "$env:LOCALAPPDATA\Temp"; $env:TMP = $env:TEMP
-dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter 'FullyQualifiedName~NavigationThemeTests' --logger 'console;verbosity=normal'
+dotnet test tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj --no-restore --filter 'FullyQualifiedName~NavigationThemeTests' --logger 'console;verbosity=normal'
 ```
 
 Esperado: **2/2 aprovados** (`S01` cinco áreas + placeholders indisponíveis; `S02` tema escuro inicial, claro opcional `rgb(247, 248, 250)` preservando `FR-013` e `Evidência documental insuficiente`).

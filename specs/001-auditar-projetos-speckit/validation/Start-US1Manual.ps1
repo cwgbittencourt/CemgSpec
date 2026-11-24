@@ -1,7 +1,7 @@
 ﻿param([switch]$PrepareOnly, [ValidateRange(1024,65535)][int]$Port = 5187)
 $ErrorActionPreference = 'Stop'
 $manualUrl = "http://127.0.0.1:$Port"
-$manualRoot = Join-Path ([IO.Path]::GetTempPath()) ('SpecAudit-Manual-' + [guid]::NewGuid().ToString('N'))
+$manualRoot = Join-Path ([IO.Path]::GetTempPath()) ('CemgSpec-Manual-' + [guid]::NewGuid().ToString('N'))
 foreach ($projectName in @('Projeto-A','Projeto-B')) {
     $originPath = Join-Path $manualRoot $projectName
     New-Item -ItemType Directory -Force (Join-Path $originPath '.specify/memory') | Out-Null
@@ -35,8 +35,8 @@ if ($PrepareOnly) { return }
 $repoPath = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 Push-Location $repoPath
 try {
-    dotnet restore SpecAudit.slnx --locked-mode
+    dotnet restore CemgSpec.slnx --locked-mode
     if ($LASTEXITCODE -ne 0) { throw 'Restore falhou. Preserve a mensagem e informe o problema.' }
-    dotnet run --project SpecAudit/SpecAudit.csproj --no-restore --no-launch-profile -- --environment Development --urls $manualUrl
+    dotnet run --project CemgSpec/CemgSpec.csproj --no-restore --no-launch-profile -- --environment Development --urls $manualUrl
     if ($LASTEXITCODE -ne 0) { throw 'Aplicacao encerrou com erro. Preserve a mensagem; nao encerre processos de terceiros.' }
 } finally { Pop-Location }

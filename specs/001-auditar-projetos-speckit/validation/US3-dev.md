@@ -6,43 +6,43 @@
 
 - Windows x64 com desktop, PowerShell 7 (`pwsh`), SDK .NET 10 compatível com `global.json` (validado em `10.0.404` / runtime `10.0.15`) e Microsoft Edge.
 - Nenhum agente de IA, credencial, acesso à internet ou projeto real é necessário. Todos os dados são sintéticos e temporários.
-- Não executar scripts, builds ou testes dentro de uma solução auditada; os comandos abaixo são exclusivamente do desenvolvimento do próprio `SpecAudit`.
+- Não executar scripts, builds ou testes dentro de uma solução auditada; os comandos abaixo são exclusivamente do desenvolvimento do próprio `CemgSpec`.
 
 ## 2. Repetir a validação automatizada (caminho principal conferido pela IA)
 
-Abra o PowerShell na raiz do repositório `SpecAudit` e execute o bloco abaixo:
+Abra o PowerShell na raiz do repositório `CemgSpec` e execute o bloco abaixo:
 
 ```powershell
-$devRun = Join-Path "$env:LOCALAPPDATA\Temp" ('SpecAudit-US3-DEV-' + [guid]::NewGuid().ToString('N'))
+$devRun = Join-Path "$env:LOCALAPPDATA\Temp" ('CemgSpec-US3-DEV-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $devRun -Force | Out-Null
 $env:TEMP = "$env:LOCALAPPDATA\Temp"
 $env:TMP = $env:TEMP
 git rev-parse HEAD
-dotnet restore SpecAudit.slnx --locked-mode
+dotnet restore CemgSpec.slnx --locked-mode
 if ($LASTEXITCODE -ne 0) { throw 'Restore falhou; preserve a mensagem.' }
 
 # RUN-01: domínio, fórmulas, duplicidades e observador do broker (esperado: 5/5)
-dotnet test tests/SpecAudit.Tests/SpecAudit.Tests.csproj --no-restore `
+dotnet test tests/CemgSpec.Tests/CemgSpec.Tests.csproj --no-restore `
     --filter 'FullyQualifiedName~DocumentaryProgressTests' `
     --logger 'trx;LogFilePrefix=US3-domain' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run01.txt')
 if ($LASTEXITCODE -ne 0) { throw 'RUN-01 falhou.' }
 
 # RUN-02: US3-S01..S04 no host loopback + Edge real (esperado: 4/4)
-dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore `
+dotnet test tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj --no-restore `
     --filter 'FullyQualifiedName~DashboardTests' `
     --logger 'trx;LogFilePrefix=US3-e2e' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run02.txt')
 if ($LASTEXITCODE -ne 0) { throw 'RUN-02 falhou.' }
 
 # RUN-03: regressão selecionada (esperado: 84/84 — 16 domínio, 16 Windows, 52 UI)
 $filtro = 'FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'
-dotnet test SpecAudit.slnx --no-build --no-restore --filter $filtro `
+dotnet test CemgSpec.slnx --no-build --no-restore --filter $filtro `
     --logger 'trx;LogFilePrefix=US3-regression' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run03.txt')
 if ($LASTEXITCODE -ne 0) { throw 'RUN-03 falhou.' }
 
 Write-Output "Resultados preservados em: $devRun"
 ```
 
-Para gerar também as capturas (`dashboard-demo.png` e `dashboard-empty.png`), defina `$env:SPECAUDIT_CAPTURE_DIR = Join-Path $devRun 'captures'` antes do `RUN-02`.
+Para gerar também as capturas (`dashboard-demo.png` e `dashboard-empty.png`), defina `$env:CEMGSPEC_CAPTURE_DIR = Join-Path $devRun 'captures'` antes do `RUN-02`.
 
 | Cenário automatizado | Entrada / ação | Resultado esperado |
 |---|---|---|
@@ -53,7 +53,7 @@ Para gerar também as capturas (`dashboard-demo.png` e `dashboard-empty.png`), d
 
 ## 3. Conferência manual opcional no navegador
 
-1. Inicie a aplicação com `& .\specs\001-auditar-projetos-speckit\validation\Start-US1Manual.ps1` (ou `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`).
+1. Inicie a aplicação com `& .\specs\001-auditar-projetos-speckit\validation\Start-US1Manual.ps1` (ou `dotnet run --project CemgSpec/CemgSpec.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`).
 2. Abra `http://127.0.0.1:5187`, carregue **Projeto-A** e **Relatorios-A** e clique em **Dashboard** na sidebar.
 3. Confira os cards de indicadores, filtros, tabela de requisitos, ocorrências documentais, estados de gate registrados e limites da V1 contra [dashboard-requisito.png](../design/mockups/dashboard-requisito.png) e [README dos mockups](../design/mockups/README.md) no tema escuro (tema claro será entregue na US8/T044).
 4. Encerre o host com `Ctrl+C`. Para limpeza opcional, remova apenas a pasta `$devRun`.

@@ -1,4 +1,4 @@
-# Roteiro reproduzível de validação — SpecAudit V1
+# Roteiro reproduzível de validação — CemgSpec V1
 
 **Revisão**: 2026-11-16 | cemg-speckit 3.0.0 | constituição 3.0.0.
 **Estado**: ESCRITO e conferido documentalmente; fluxos de produto/proteção NÃO EXECUTADOS nesta etapa. Aplicação ainda é scaffold. Comandos de testes abaixo descrevem projetos/casos a entregar nas tasks, não testes já existentes.
@@ -9,26 +9,26 @@ Somente documentos SpecKit, analyze/check_gate na combo, origem sem alterações
 
 Requisitos de desenvolvimento: Windows x64; .NET 10 SDK estável suportado; PowerShell 7 para receita abaixo; navegador local; Python 3 confiável compatível com o core CEMG (inspecionar versão/runtime na implementação); Codex e Antigravity instalados/autenticados apenas para demonstração analyze. Conferir versões e vulnerabilidades antes de fixar novas dependências; nenhum pacote novo nesta revisão. Bibliotecas Markdown/Mermaid/sanitizador empacotadas localmente, sem CDN; suas versões/hashes e auditoria acompanham PR de implementação.
 
-## Inicialização do próprio SpecAudit
+## Inicialização do próprio CemgSpec
 
 No PowerShell, raiz de desenvolvimento:
 
 ```powershell
 Set-Location '__REPO_ROOT__'
 dotnet --info
-dotnet restore .\SpecAudit\SpecAudit.csproj
-dotnet list .\SpecAudit\SpecAudit.csproj package --vulnerable --include-transitive
-dotnet run --project .\SpecAudit\SpecAudit.csproj --no-launch-profile -- --urls http://127.0.0.1:5187
+dotnet restore .\CemgSpec\CemgSpec.csproj
+dotnet list .\CemgSpec\CemgSpec.csproj package --vulnerable --include-transitive
+dotnet run --project .\CemgSpec\CemgSpec.csproj --no-launch-profile -- --urls http://127.0.0.1:5187
 ```
 
-Esses comandos são do desenvolvimento do SpecAudit, não da solução carregada. Registrar ferramentas/versões, data e resultado da consulta; sem achados não prova segurança integral, falha de consulta não significa sem vulnerabilidades. Não executar agora como se telas planejadas existissem. Após implementação abrir `http://127.0.0.1:5187`; host/Origin/antiforgery e sessão local precisam passar antes de usar dados. Não expor LAN. Se porta ocupada, encerrar apenas sua instância ou registrar outra porta loopback em todas as evidências.
+Esses comandos são do desenvolvimento do CemgSpec, não da solução carregada. Registrar ferramentas/versões, data e resultado da consulta; sem achados não prova segurança integral, falha de consulta não significa sem vulnerabilidades. Não executar agora como se telas planejadas existissem. Após implementação abrir `http://127.0.0.1:5187`; host/Origin/antiforgery e sessão local precisam passar antes de usar dados. Não expor LAN. Se porta ocupada, encerrar apenas sua instância ou registrar outra porta loopback em todas as evidências.
 
 ## Preparar dados sintéticos — ação do DEV, fora da origem real
 
 Executar receita em PowerShell 7 apenas para criar fixtures descartáveis. Cada rodada cria raiz TEMP exclusiva. O produto nunca executa esta receita nem scripts da fixture. O setup escreve a fixture antes da análise; durante análise a origem deve permanecer intacta.
 
 ```powershell
-$testRoot = Join-Path ([IO.Path]::GetTempPath()) ('SpecAudit-V1-' + [guid]::NewGuid().ToString('N'))
+$testRoot = Join-Path ([IO.Path]::GetTempPath()) ('CemgSpec-V1-' + [guid]::NewGuid().ToString('N'))
 $origin = Join-Path $testRoot 'origin'
 $featureDir = Join-Path $origin 'specs/001-demo'
 $outputDir = Join-Path $testRoot 'reports'
@@ -96,7 +96,7 @@ Todos começam NÃO EXECUTADO até implementação. Cada linha abaixo exige font
 | US3-S04 / US3-AC04 | Resultado anterior e documento alterado; Atualizar documento e filtrar | Atualizar contagens e marcar verificação desatualizada, sem executar agente/gate |
 | US4-S01 / US4-AC01 | Requisito com vínculos explícitos/inferidos; Abrir ficha | Diferenciar fontes e mostrar registros/sugestões |
 | US4-S02 / US4-AC02 | Critério sem tarefa e outro ambíguo; Consultar critérios | Informar lacunas documentais sem classificar implementação |
-| US4-S03 / US4-AC03 | Documento declara validação sem prova acessível; Consolidar | Mostrar declaração e limite, sem aprovação pelo SpecAudit |
+| US4-S03 / US4-AC03 | Documento declara validação sem prova acessível; Consolidar | Mostrar declaração e limite, sem aprovação pelo CemgSpec |
 | US4-S04 / US4-AC04 | Documentos de projetos em linguagens diferentes e link .cs; Navegar | Mesma análise documental; link .cs não lido |
 | US5-S01 / US5-AC01 | Agente encontrado e outro ausente; Abrir seleção e escolher gate | Descoberta automática, fallback restrito; gate não pede agente |
 | US5-S02 / US5-AC02 | Dois agentes reais e integração incompatível; Executar analyze | Demonstrar contrato ou bloquear apenas o adaptador com motivo |
@@ -114,14 +114,14 @@ Todos começam NÃO EXECUTADO até implementação. Cada linha abaixo exige font
 
 ## Automação a entregar nas tasks
 
-Projetos de testes planejados: tests/SpecAudit.Tests (domínio/modelo/contagens), tests/SpecAudit.Windows.Tests (broker, gate runner, agentes/cancelamento/TOCTOU e writer) e tests/SpecAudit.Ui.Tests (host real e navegação de navegador). Reutilizar framework adequado existente se encontrado; neste scaffold não há suíte existente que comprove estes fluxos. A implementação seleciona versões estáveis auditadas e entrega testes/testdata junto do incremento. Scripts/testes são do desenvolvimento do SpecAudit e não são terceira opção na combo do produto.
+Projetos de testes planejados: tests/CemgSpec.Tests (domínio/modelo/contagens), tests/CemgSpec.Windows.Tests (broker, gate runner, agentes/cancelamento/TOCTOU e writer) e tests/CemgSpec.Ui.Tests (host real e navegação de navegador). Reutilizar framework adequado existente se encontrado; neste scaffold não há suíte existente que comprove estes fluxos. A implementação seleciona versões estáveis auditadas e entrega testes/testdata junto do incremento. Scripts/testes são do desenvolvimento do CemgSpec e não são terceira opção na combo do produto.
 
 Comandos, após os projetos existirem, a partir da raiz de desenvolvimento:
 
 ```powershell
-dotnet test .\tests\SpecAudit.Tests\SpecAudit.Tests.csproj
-dotnet test .\tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj
-dotnet test .\tests\SpecAudit.Ui.Tests\SpecAudit.Ui.Tests.csproj
+dotnet test .\tests\CemgSpec.Tests\CemgSpec.Tests.csproj
+dotnet test .\tests\CemgSpec.Windows.Tests\CemgSpec.Windows.Tests.csproj
+dotnet test .\tests\CemgSpec.Ui.Tests\CemgSpec.Ui.Tests.csproj
 ```
 
 Os testes de integração reais devem identificar previamente agentes/autenticação, fixtureRoot, diretório externo técnico, runtime/core conferidos e host loopback; dados ausentes geram NÃO EXECUTADO com motivo e bloqueiam habilitação correspondente. O runner UI deve iniciar/encerrar seu próprio host em loopback; não depender de instância arbitrária ou solução auditada. Contrato de seleção de dados: fixtureRoot externo criado pela receita; nunca caminho real de usuário como default. Registros identificam comando completo efetivo, cwd, entradas, versões, saída, resultado esperado/observado, efeitos e limites. Comandos sem variáveis finais/credenciais não são prova executada; nenhum segredo entra em log.
@@ -136,7 +136,7 @@ Entregar ao DEV mesma revisão, versões, receita/caminhos, comando de inicializ
 
 ## Registro de testes e decisão do DEV — emenda 4.1.0
 
-Esta regra rege o desenvolvimento do SpecAudit, sem ampliar as verificações do
+Esta regra rege o desenvolvimento do CemgSpec, sem ampliar as verificações do
 produto sobre a origem auditada. Todos os roteiros `validation/USn-dev.md` e de
 incrementos devem conter tabela por cenário/critério com resultado, observado ou
 motivo de não execução, evidências, commit/diff testado, responsável e data/fuso;

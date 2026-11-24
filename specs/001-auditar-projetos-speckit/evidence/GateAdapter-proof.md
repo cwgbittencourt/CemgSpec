@@ -9,17 +9,17 @@
 
 | Componente | Caminho no repositório | SHA-256 |
 |---|---|---|
-| Core `cemg-speckit-preset 1.0.0` | [check_gate.py](../../../SpecAudit/Infrastructure/Gates/Core/check_gate.py) | `96ba5e3f2436c97d4df527f4e0b1e616ae8977b44942d75e26d71fb286dfa909` |
-| Política `cemg-speckit-preset 1.0.0` | [gate-requirements.json](../../../SpecAudit/Infrastructure/Gates/Core/policies/gate-requirements.json) | `6e3df7b8136ea8444d3fbf38690412bacfce079a3095a8ed4e08aab92c02e4f0` |
-| Runner confiável | [runner.py](../../../SpecAudit/Infrastructure/Gates/runner.py) | `c529d4e5d0c651520f40f1fd33fd6580e658c111818996c03328e94aee5c19d1` |
-| `Path` de capacidade | [catalog_path.py](../../../SpecAudit/Infrastructure/Gates/catalog_path.py) | `e51d61f586fe2cb92021870946880437a3283ec5cc55b860167418c34bc0361a` |
+| Core `cemg-speckit-preset 1.0.0` | [check_gate.py](../../../CemgSpec/Infrastructure/Gates/Core/check_gate.py) | `96ba5e3f2436c97d4df527f4e0b1e616ae8977b44942d75e26d71fb286dfa909` |
+| Política `cemg-speckit-preset 1.0.0` | [gate-requirements.json](../../../CemgSpec/Infrastructure/Gates/Core/policies/gate-requirements.json) | `6e3df7b8136ea8444d3fbf38690412bacfce079a3095a8ed4e08aab92c02e4f0` |
+| Runner confiável | [runner.py](../../../CemgSpec/Infrastructure/Gates/runner.py) | `db58e90d5a5e00ee6813029a0231d47546bb9b9ab1928a95846b6ddbe4bea142` |
+| `Path` de capacidade | [catalog_path.py](../../../CemgSpec/Infrastructure/Gates/catalog_path.py) | `4b79ab67ffb5bdc622d39946306e72fd82a1b6f60d455b1b468aca83f0cf7b12` |
 
 Log completo de hashes: [hashes.txt](logs/T057/hashes.txt).
 
 ## Comando Executado
 
 ```powershell
-dotnet test tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj --filter "FullyQualifiedName~GateAdapterTests|FullyQualifiedName~GatePackageTests" --verbosity normal
+dotnet test tests\CemgSpec.Windows.Tests\CemgSpec.Windows.Tests.csproj --filter "FullyQualifiedName~GateAdapterTests|FullyQualifiedName~GatePackageTests" --verbosity normal
 ```
 
 - **Resultado**: **7/7 testes aprovados**, exit code `0` (`5,34 s`).
@@ -38,6 +38,6 @@ dotnet test tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj --filte
 
 ## Limites Explícitos
 
-- Este selo comprova apenas o adaptador offline `check_gate CEMG 3.0.0 / adaptador de leitura SpecAudit` para a versão/hashes/política `v4` acima. Qualquer alteração de core, política, runner ou runtime invalida o selo.
+- Este selo comprova apenas o adaptador offline `check_gate CEMG 3.0.0 / adaptador de leitura CemgSpec` para a versão/hashes/política `v4` acima. Qualquer alteração de core, política, runner ou runtime invalida o selo.
 - `check_gate` valida integridade e estado registrados nos documentos; não autentica identidade humana nem executa testes da solução auditada.
 - **Selo técnico `GateAdapter`: `Passed`** — libera o prosseguimento para **T058** (integração da combo fechada e habilitação condicional de `check_gate` na UI). `speckit-analyze` (`AnalyzeCodex`, `AnalyzeAntigravity`) e `Salvar` (`ExternalWriter`) permanecem desabilitados até suas provas próprias.

@@ -19,5 +19,5 @@ Revisão candidata: `e399c67` (`main`)
 
 ## Observação sobre cota externa na regressão completa (`task-1087`)
 
-- Na execução integrada `task-1087`, **121/121** testes locais, de contrato, de fronteira Windows e E2E Playwright foram aprovados (`23/23` `SpecAudit.Tests`, `36/36` locais em `SpecAudit.Windows.Tests`, `62/62` `SpecAudit.Ui.Tests`).
+- Na execução integrada `task-1087`, **121/121** testes locais, de contrato, de fronteira Windows e E2E Playwright foram aprovados (`23/23` `CemgSpec.Tests`, `36/36` locais em `CemgSpec.Windows.Tests`, `62/62` `CemgSpec.Ui.Tests`).
 - Os 2 testes de chamada em nuvem (`Provider=Codex` e `Provider=Antigravity`), que já haviam passado integralmente em `T066` (`AnalyzeCodex-proof.md`, `2/2`) e `T069` (`AnalyzeAntigravity-proof.md`, `9/9`), falharam na reexecução posterior por esgotamento externo de créditos da conta (`ERROR: Your workspace is out of credits`), confirmando adicionalmente que o adaptador trata erro externo de provedor como `RunState.Failed` sem fabricar diagnóstico nem afetar o leitor ou o `check_gate`.

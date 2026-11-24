@@ -10,7 +10,7 @@
 ## Comando Executado (filtro explícito `Provider=Codex|Provider=Contract`)
 
 ```powershell
-dotnet test tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj --filter "FullyQualifiedName~AnalyzeProtectionTests&(Provider=Codex|Provider=Contract)" --verbosity normal
+dotnet test tests\CemgSpec.Windows.Tests\CemgSpec.Windows.Tests.csproj --filter "FullyQualifiedName~AnalyzeProtectionTests&(Provider=Codex|Provider=Contract)" --verbosity normal
 ```
 
 - **Resultado**: **2/2 testes aprovados**, exit code `0` (`35,15 s`).

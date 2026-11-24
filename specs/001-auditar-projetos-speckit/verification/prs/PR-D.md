@@ -7,9 +7,9 @@
 
 ## Escopo final entregue
 
-1. **Descoberta e inventário de agentes (`T064`)**: [AgentInstallation.cs](../../../../SpecAudit/Domain/AgentInstallation.cs) e [AgentDiscovery.cs](../../../../SpecAudit/Infrastructure/Agents/AgentDiscovery.cs) para `Codex`, `Antigravity`, `Claude Code` e `Kiro`, com `Claude Code`/`Kiro` `Unsupported` na V1, locais externos de estado informados e fallback manual restrito a agente ausente fora da origem.
-2. **Adaptador documental `Codex` e prova real `AnalyzeCodex` (`T065–T067`)**: [CodexAnalyzeAdapter.cs](../../../../SpecAudit/Infrastructure/Agents/CodexAnalyzeAdapter.cs), [AnalyzeCodex-proof.md](../../evidence/AnalyzeCodex-proof.md) (`2/2` aprovados com `codex.exe` `0.147.0`), [AgentCompatibilityService.cs](../../../../SpecAudit/Application/AgentCompatibilityService.cs) e [AgentSelector.razor](../../../../SpecAudit/Components/Verifications/AgentSelector.razor).
-3. **Adaptador documental `Antigravity` e prova real `AnalyzeAntigravity` (`T068–T070`)**: [AntigravityAnalyzeAdapter.cs](../../../../SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs) e [AnalyzeAntigravity-proof.md](../../evidence/AnalyzeAntigravity-proof.md) (`9/9` aprovados com `agy.exe` `1.5.13`), habilitado com selo independente sem afetar `Codex` ou `check_gate`.
+1. **Descoberta e inventário de agentes (`T064`)**: [AgentInstallation.cs](../../../../CemgSpec/Domain/AgentInstallation.cs) e [AgentDiscovery.cs](../../../../CemgSpec/Infrastructure/Agents/AgentDiscovery.cs) para `Codex`, `Antigravity`, `Claude Code` e `Kiro`, com `Claude Code`/`Kiro` `Unsupported` na V1, locais externos de estado informados e fallback manual restrito a agente ausente fora da origem.
+2. **Adaptador documental `Codex` e prova real `AnalyzeCodex` (`T065–T067`)**: [CodexAnalyzeAdapter.cs](../../../../CemgSpec/Infrastructure/Agents/CodexAnalyzeAdapter.cs), [AnalyzeCodex-proof.md](../../evidence/AnalyzeCodex-proof.md) (`2/2` aprovados com `codex.exe` `0.147.0`), [AgentCompatibilityService.cs](../../../../CemgSpec/Application/AgentCompatibilityService.cs) e [AgentSelector.razor](../../../../CemgSpec/Components/Verifications/AgentSelector.razor).
+3. **Adaptador documental `Antigravity` e prova real `AnalyzeAntigravity` (`T068–T070`)**: [AntigravityAnalyzeAdapter.cs](../../../../CemgSpec/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs) e [AnalyzeAntigravity-proof.md](../../evidence/AnalyzeAntigravity-proof.md) (`9/9` aprovados com `agy.exe` `1.5.13`), habilitado com selo independente sem afetar `Codex` ou `check_gate`.
 
 ## Evidências e roteiro do DEV
 

@@ -8,7 +8,7 @@ Revisão candidata PR-B: `ac53fd27d52ddc0b9cd4ab4fbc7c2e02462eae53`
 
 | Execução | Escopo | Comando (raiz do repositório) | Resultado | Log |
 |---|---|---|---|---|
-| PRB-RUN-01 | Regressão completa PR-B (Fundação, US1, US2, US3, US4, US8 e fix de transporte SignalR) | `$env:TEMP="$env:LOCALAPPDATA\Temp"; $env:TMP=$env:TEMP; $filtro='FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'; dotnet test SpecAudit.slnx --no-restore --filter $filtro --logger 'console;verbosity=normal'` | **95/95 aprovados** (20 `SpecAudit.Tests`, 16 `SpecAudit.Windows.Tests`, 59 `SpecAudit.Ui.Tests`, exit code 0) | [logs/PR-B/regression.txt](logs/PR-B/regression.txt) |
+| PRB-RUN-01 | Regressão completa PR-B (Fundação, US1, US2, US3, US4, US8 e fix de transporte SignalR) | `$env:TEMP="$env:LOCALAPPDATA\Temp"; $env:TMP=$env:TEMP; $filtro='FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'; dotnet test CemgSpec.slnx --no-restore --filter $filtro --logger 'console;verbosity=normal'` | **95/95 aprovados** (20 `CemgSpec.Tests`, 16 `CemgSpec.Windows.Tests`, 59 `CemgSpec.Ui.Tests`, exit code 0) | [logs/PR-B/regression.txt](logs/PR-B/regression.txt) |
 
 ## Cobertura consolidada do incremento PR-B
 

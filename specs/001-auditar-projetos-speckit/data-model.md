@@ -1,4 +1,4 @@
-# Modelo de dados — SpecAudit V1 documental
+# Modelo de dados — CemgSpec V1 documental
 
 **Revisão**: 2026-11-16 | **Preset**: cemg-speckit 3.0.0 | **Constituição**: 3.0.0.
 Contrato de planejamento; não há banco, migration ou código gerado nesta fase.

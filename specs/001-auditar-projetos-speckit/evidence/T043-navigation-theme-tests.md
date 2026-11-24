@@ -5,7 +5,7 @@ T043 concluída no escopo de preparação dos testes da US8. Execução e autorr
 ## Execução
 
 ```powershell
-dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter 'FullyQualifiedName~NavigationThemeTests' --logger 'console;verbosity=normal'
+dotnet test tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj --no-restore --filter 'FullyQualifiedName~NavigationThemeTests' --logger 'console;verbosity=normal'
 ```
 
 | Cenário | Contrato preparado | Resultado nesta revisão |

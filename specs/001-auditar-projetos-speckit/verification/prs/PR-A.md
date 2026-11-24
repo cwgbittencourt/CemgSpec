@@ -29,17 +29,17 @@ As correções de review incluem tratar limites de Open/Refresh com recuperaçã
 
 ## Testes e evidências
 
-Resultados abaixo executados na T019, na mesma fonte do candidato; conferidos na T020, sem alegar nova execução da suíte. Diretório de execução: raiz do próprio SpecAudit; fixtures novas sintéticas em TEMP, nunca solução real auditada.
+Resultados abaixo executados na T019, na mesma fonte do candidato; conferidos na T020, sem alegar nova execução da suíte. Diretório de execução: raiz do próprio CemgSpec; fixtures novas sintéticas em TEMP, nunca solução real auditada.
 
 | Critério/cenário | Execução e versão | Resultado real | Evidência |
 |---|---|---|---|
-| US1-AC01–AC04, fronteira, sessão e regressões | `dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T019-full' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/full`; fonte acima | PASSOU, exit0;57/57, zero falhas/ignorados (7 domínio,16 Windows,34 UI) | [Execução](../../evidence/T019-test-run.json), [validação PR-A](../../evidence/PR-A-validation.md), [TRX/logs](../../evidence/logs/T019/full.txt) |
+| US1-AC01–AC04, fronteira, sessão e regressões | `dotnet test CemgSpec.slnx --no-restore --logger 'trx;LogFilePrefix=T019-full' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/full`; fonte acima | PASSOU, exit0;57/57, zero falhas/ignorados (7 domínio,16 Windows,34 UI) | [Execução](../../evidence/T019-test-run.json), [validação PR-A](../../evidence/PR-A-validation.md), [TRX/logs](../../evidence/logs/T019/full.txt) |
 | REV-PRA-01/02 | Cinco casos de regressão novos, antes/depois, incluídos na suíte57 | Red5 falharam antes; green5 passaram depois | [Achados/resolução](../../evidence/T019-findings.json), [red](../../evidence/logs/T019/red.txt), [green](../../evidence/logs/T019/green.txt) |
 | Replay dos cenários do review | `dotnet run --project specs/001-auditar-projetos-speckit/evidence/T019-probes/T019ReviewProbe.csproj` | PASSOU, exit0;2/2 checks | [Saída](../../evidence/logs/T019/probes.txt); T018 original preservada |
 | Manutenção de evidências | `python -m unittest discover -s tools -p test_maintain_evidence.py -v` | PASSOU, exit0;6/6 | [Log](../../evidence/logs/T019/maintenance-tests.txt) |
 | Dependências fixadas/auditoria | Restore locked e consulta NuGet transitiva, comandos na validação | Exit0; nenhum pacote vulnerável reportado na consulta T019 | [Rodada T019](../../evidence/PR-A-validation.md); aliases de logs idênticos no [manifesto de manutenção](../../evidence/maintenance-manifest.json) |
 
-As evidências técnicas versionadas pertencem ao desenvolvimento do SpecAudit; não são relatórios oficiais produzidos pelo produto. Caminhos pessoais foram sanitizados; falhas e rodadas preservadas; hashes atuais no inventário.
+As evidências técnicas versionadas pertencem ao desenvolvimento do CemgSpec; não são relatórios oficiais produzidos pelo produto. Caminhos pessoais foram sanitizados; falhas e rodadas preservadas; hashes atuais no inventário.
 
 ## Review da IA
 
@@ -74,7 +74,7 @@ Aplicadas as políticas CEMG instaladas e a constituição vigente4.1.0. [Estado
 
 ## Demonstração executável do incremento
 
-- Iniciar e acionar: seguir os comandos de [US1-dev.md](../../validation/US1-dev.md), da raiz de desenvolvimento do SpecAudit.
+- Iniciar e acionar: seguir os comandos de [US1-dev.md](../../validation/US1-dev.md), da raiz de desenvolvimento do CemgSpec.
 - Entrada/esperado/observado: fixtures sintéticas novas, APIs públicas, seletor/IO/monitor Windows reais; quatro cenários US1 e baselines preservados, conforme57 testes aprovados na fonte acima.
 - Evidência da execução pela IA: [produto T019](../../evidence/T019-product-execution.json) e [validação](../../evidence/PR-A-validation.md).
 - Reprodução/depuração do DEV: mesmo harness e pontos de observação descritos no roteiro; registrar resultados e decisão humana nas seções reservadas.

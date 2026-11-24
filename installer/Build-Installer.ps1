@@ -1,20 +1,20 @@
-param(
+﻿param(
     [switch]$InstallLocally
 )
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$publishDir = Join-Path $PSScriptRoot "dist\SpecAudit-win-x64"
+$publishDir = Join-Path $PSScriptRoot "dist\CemgSpec-win-x64"
 $payloadZip = Join-Path $PSScriptRoot "dist\payload.zip"
-$setupExe = Join-Path $PSScriptRoot "dist\SpecAudit-Setup.exe"
-$icoPath = Join-Path $repoRoot "SpecAudit\wwwroot\specaudit.ico"
+$setupExe = Join-Path $PSScriptRoot "dist\CemgSpec-Setup.exe"
+$icoPath = Join-Path $repoRoot "CemgSpec\wwwroot\cemgspec.ico"
 $csc = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 
 if (Test-Path $publishDir) { Remove-Item $publishDir -Recurse -Force }
 New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
 
-Write-Host "1/4 Publicando SpecAudit Windows (win-x64, Self-Contained, Release com icone oficial)..." -ForegroundColor Cyan
-dotnet publish (Join-Path $repoRoot "SpecAudit\SpecAudit.csproj") `
+Write-Host "1/4 Publicando CemgSpec Windows (win-x64, Self-Contained, Release com icone oficial)..." -ForegroundColor Cyan
+dotnet publish (Join-Path $repoRoot "CemgSpec\CemgSpec.csproj") `
     -c Release `
     -r win-x64 `
     --self-contained true `
@@ -22,18 +22,18 @@ dotnet publish (Join-Path $repoRoot "SpecAudit\SpecAudit.csproj") `
     -o $publishDir `
     --nologo
 
-Copy-Item $icoPath (Join-Path $publishDir "specaudit.ico") -Force
+Copy-Item $icoPath (Join-Path $publishDir "cemgspec.ico") -Force
 
 $docsOut = Join-Path $publishDir "docs"
 New-Item -ItemType Directory -Force -Path $docsOut | Out-Null
-foreach ($doc in @("GUIA_DE_USO_TELAS.md", "apresentacao-specaudit.html", "apresentacao-specaudit.pdf")) {
+foreach ($doc in @("GUIA_DE_USO_TELAS.md", "apresentacao-cemg-spec.html", "apresentacao-cemg-spec.pdf")) {
     $srcDoc = Join-Path $repoRoot "docs\$doc"
     if (Test-Path $srcDoc) { Copy-Item $srcDoc $docsOut -Force }
 }
 
-Write-Host "2/4 Compilando SpecAudit-Launcher.exe (sem janela de prompt) e SpecAudit-Uninstall.exe..." -ForegroundColor Cyan
+Write-Host "2/4 Compilando CemgSpec-Launcher.exe (sem janela de prompt) e CemgSpec-Uninstall.exe..." -ForegroundColor Cyan
 
-# --- SpecAudit-Launcher.exe ---
+# --- CemgSpec-Launcher.exe ---
 $launcherCs = Join-Path $PSScriptRoot "dist\LauncherProgram.cs"
 $launcherCode = @'
 using System;
@@ -52,7 +52,7 @@ using System.Windows.Forms;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-namespace SpecAuditLauncher
+namespace CemgSpecLauncher
 {
     public sealed class TrayContext : ApplicationContext
     {
@@ -63,8 +63,8 @@ namespace SpecAuditLauncher
         public TrayContext()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var exePath = Path.Combine(baseDir, "SpecAudit.exe");
-            var icoPath = Path.Combine(baseDir, "specaudit.ico");
+            var exePath = Path.Combine(baseDir, "CemgSpec.exe");
+            var icoPath = Path.Combine(baseDir, "cemgspec.ico");
 
             Icon appIcon = SystemIcons.Application;
             try
@@ -218,7 +218,7 @@ namespace SpecAuditLauncher
 }
 '@
 [System.IO.File]::WriteAllText($launcherCs, $launcherCode, (New-Object System.Text.UTF8Encoding($true)))
-$launcherExe = Join-Path $publishDir "SpecAudit-Launcher.exe"
+$launcherExe = Join-Path $publishDir "CemgSpec-Launcher.exe"
 & $csc /nologo /target:winexe /optimize+ `
     "/out:$launcherExe" `
     "/win32icon:$icoPath" `
@@ -226,7 +226,7 @@ $launcherExe = Join-Path $publishDir "SpecAudit-Launcher.exe"
     $launcherCs
 Remove-Item $launcherCs -Force -ErrorAction SilentlyContinue
 
-# --- SpecAudit-Uninstall.exe ---
+# --- CemgSpec-Uninstall.exe ---
 $uninstallCs = Join-Path $PSScriptRoot "dist\UninstallProgram.cs"
 $uninstallCode = @'
 using System;
@@ -236,14 +236,14 @@ using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-[assembly: AssemblyTitle("Desinstalador do SpecAudit")]
-[assembly: AssemblyDescription("Desinstalador oficial do SpecAudit")]
+[assembly: AssemblyTitle("Desinstalador do CemgSpec")]
+[assembly: AssemblyDescription("Desinstalador oficial do CemgSpec")]
 [assembly: AssemblyCompany("Carlos Wagner G. Bittencourt")]
-[assembly: AssemblyProduct("SpecAudit")]
+[assembly: AssemblyProduct("CemgSpec")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-namespace SpecAuditUninstall
+namespace CemgSpecUninstall
 {
     public static class Program
     {
@@ -258,16 +258,16 @@ namespace SpecAuditUninstall
             if (!quiet)
             {
                 var confirm = MessageBox.Show(
-                    "Deseja desinstalar o SpecAudit do seu computador?\n\n(Seus projetos auditados e relatórios salvos não serão afetados.)",
-                    "Desinstalar SpecAudit",
+                    "Deseja desinstalar o CemgSpec do seu computador?\n\n(Seus projetos auditados e relatórios salvos não serão afetados.)",
+                    "Desinstalar CemgSpec",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
                 if (confirm != DialogResult.Yes) return;
             }
 
-            string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "SpecAudit");
+            string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "CemgSpec");
 
-            foreach (var procName in new[] { "SpecAudit-Launcher", "SpecAudit" })
+            foreach (var procName in new[] { "CemgSpec-Launcher", "CemgSpec" })
             {
                 foreach (var p in Process.GetProcessesByName(procName))
                 {
@@ -277,29 +277,29 @@ namespace SpecAuditUninstall
 
             try
             {
-                var desktopLnk = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "SpecAudit.lnk");
+                var desktopLnk = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "CemgSpec.lnk");
                 if (File.Exists(desktopLnk)) File.Delete(desktopLnk);
             }
             catch { }
 
             try
             {
-                var startMenuDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "SpecAudit");
+                var startMenuDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "CemgSpec");
                 if (Directory.Exists(startMenuDir)) Directory.Delete(startMenuDir, true);
             }
             catch { }
 
             try
             {
-                Registry.CurrentUser.DeleteSubKeyTree(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\SpecAudit", false);
+                Registry.CurrentUser.DeleteSubKeyTree(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\CemgSpec", false);
             }
             catch { }
 
             if (!quiet)
             {
                 MessageBox.Show(
-                    "O SpecAudit foi desinstalado com sucesso.",
-                    "Desinstalar SpecAudit",
+                    "O CemgSpec foi desinstalado com sucesso.",
+                    "Desinstalar CemgSpec",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
@@ -325,7 +325,7 @@ namespace SpecAuditUninstall
 }
 '@
 [System.IO.File]::WriteAllText($uninstallCs, $uninstallCode, (New-Object System.Text.UTF8Encoding($true)))
-$uninstallExe = Join-Path $publishDir "SpecAudit-Uninstall.exe"
+$uninstallExe = Join-Path $publishDir "CemgSpec-Uninstall.exe"
 & $csc /nologo /target:winexe /optimize+ `
     "/out:$uninstallExe" `
     "/win32icon:$icoPath" `
@@ -333,7 +333,7 @@ $uninstallExe = Join-Path $publishDir "SpecAudit-Uninstall.exe"
     $uninstallCs
 Remove-Item $uninstallCs -Force -ErrorAction SilentlyContinue
 
-Write-Host "3/4 Empacotando payload Windows e compilando SpecAudit-Setup.exe..." -ForegroundColor Cyan
+Write-Host "3/4 Empacotando payload Windows e compilando CemgSpec-Setup.exe..." -ForegroundColor Cyan
 if (Test-Path $payloadZip) { Remove-Item $payloadZip -Force }
 Compress-Archive -Path (Join-Path $publishDir "*") -DestinationPath $payloadZip -CompressionLevel Optimal
 
@@ -358,7 +358,7 @@ using Microsoft.Win32;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-namespace SpecAuditSetup
+namespace CemgSpecSetup
 {
     public sealed class SetupForm : Form
     {
@@ -373,7 +373,7 @@ namespace SpecAuditSetup
 
         public SetupForm()
         {
-            targetDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "SpecAudit");
+            targetDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "CemgSpec");
             Text = "Instalador do CEMG Spec v1.0 (Windows Desktop)";
             Size = new Size(560, 390);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -528,20 +528,20 @@ namespace SpecAuditSetup
         private async Task RunUninstallAsync()
         {
             var confirm = MessageBox.Show(
-                "Deseja desinstalar o SpecAudit desta máquina?\n\n(Seus projetos auditados e relatórios salvos não serão afetados.)",
-                "Desinstalar SpecAudit",
+                "Deseja desinstalar o CemgSpec desta máquina?\n\n(Seus projetos auditados e relatórios salvos não serão afetados.)",
+                "Desinstalar CemgSpec",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 
             btnInstall.Enabled = false;
             btnUninstall.Enabled = false;
-            lblStatus.Text = "Removendo SpecAudit...";
+            lblStatus.Text = "Removendo CemgSpec...";
             progress.Value = 40;
 
             await Task.Run(() =>
             {
-                foreach (var procName in new[] { "SpecAudit-Launcher", "SpecAudit" })
+                foreach (var procName in new[] { "CemgSpec-Launcher", "CemgSpec" })
                 {
                     foreach (var p in Process.GetProcessesByName(procName))
                     {
@@ -550,19 +550,19 @@ namespace SpecAuditSetup
                 }
                 try
                 {
-                    var desktopLnk = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "SpecAudit.lnk");
+                    var desktopLnk = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "CemgSpec.lnk");
                     if (File.Exists(desktopLnk)) File.Delete(desktopLnk);
                 }
                 catch { }
                 try
                 {
-                    var startMenuDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "SpecAudit");
+                    var startMenuDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "CemgSpec");
                     if (Directory.Exists(startMenuDir)) Directory.Delete(startMenuDir, true);
                 }
                 catch { }
                 try
                 {
-                    Registry.CurrentUser.DeleteSubKeyTree(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\SpecAudit", false);
+                    Registry.CurrentUser.DeleteSubKeyTree(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\CemgSpec", false);
                 }
                 catch { }
                 try
@@ -574,7 +574,7 @@ namespace SpecAuditSetup
 
             progress.Value = 100;
             lblStatus.ForeColor = Color.FromArgb(74, 222, 128);
-            lblStatus.Text = "SpecAudit desinstalado com sucesso desta máquina!";
+            lblStatus.Text = "CemgSpec desinstalado com sucesso desta máquina!";
             btnClose.Text = "Fechar";
             btnInstall.Enabled = true;
         }
@@ -587,11 +587,11 @@ namespace SpecAuditSetup
             chkLaunch.Enabled = false;
             try
             {
-                lblStatus.Text = "Encerrando instâncias anteriores do SpecAudit...";
+                lblStatus.Text = "Encerrando instâncias anteriores do CemgSpec...";
                 progress.Value = 15;
                 await Task.Run(() =>
                 {
-                    foreach (var procName in new[] { "SpecAudit-Launcher", "SpecAudit" })
+                    foreach (var procName in new[] { "CemgSpec-Launcher", "CemgSpec" })
                     {
                         foreach (var p in Process.GetProcessesByName(procName))
                         {
@@ -600,7 +600,7 @@ namespace SpecAuditSetup
                     }
                 });
 
-                lblStatus.Text = "Extraindo arquivos do SpecAudit...";
+                lblStatus.Text = "Extraindo arquivos do CemgSpec...";
                 progress.Value = 40;
                 await Task.Run(() =>
                 {
@@ -615,7 +615,7 @@ namespace SpecAuditSetup
                     using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("payload.zip"))
                     {
                         if (stream == null) throw new InvalidOperationException("Pacote interno payload.zip não encontrado.");
-                        var tempZip = Path.Combine(Path.GetTempPath(), "specaudit-payload-" + Guid.NewGuid().ToString("N") + ".zip");
+                        var tempZip = Path.Combine(Path.GetTempPath(), "cemgspec-payload-" + Guid.NewGuid().ToString("N") + ".zip");
                         try
                         {
                             using (var fs = File.Create(tempZip)) stream.CopyTo(fs);
@@ -639,18 +639,18 @@ namespace SpecAuditSetup
                 });
 
                 progress.Value = 80;
-                var launcherPath = Path.Combine(targetDir, "SpecAudit-Launcher.exe");
-                var uninstallPath = Path.Combine(targetDir, "SpecAudit-Uninstall.exe");
-                var icoFile = Path.Combine(targetDir, "specaudit.ico");
+                var launcherPath = Path.Combine(targetDir, "CemgSpec-Launcher.exe");
+                var uninstallPath = Path.Combine(targetDir, "CemgSpec-Uninstall.exe");
+                var icoFile = Path.Combine(targetDir, "cemgspec.ico");
 
                 if (chkDesktop.Checked)
                 {
                     lblStatus.Text = "Criando atalhos com ícone oficial (sem janela de prompt)...";
-                    CreateShortcut(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "SpecAudit.lnk"), launcherPath, targetDir, icoFile, "SpecAudit - Auditoria Documental SpecKit");
-                    var startDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "SpecAudit");
+                    CreateShortcut(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "CemgSpec.lnk"), launcherPath, targetDir, icoFile, "CemgSpec - Auditoria Documental SpecKit");
+                    var startDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "CemgSpec");
                     Directory.CreateDirectory(startDir);
-                    CreateShortcut(Path.Combine(startDir, "SpecAudit.lnk"), launcherPath, targetDir, icoFile, "SpecAudit - Auditoria Documental SpecKit");
-                    CreateShortcut(Path.Combine(startDir, "Desinstalar SpecAudit.lnk"), uninstallPath, targetDir, icoFile, "Desinstalar o SpecAudit");
+                    CreateShortcut(Path.Combine(startDir, "CemgSpec.lnk"), launcherPath, targetDir, icoFile, "CemgSpec - Auditoria Documental SpecKit");
+                    CreateShortcut(Path.Combine(startDir, "Desinstalar CemgSpec.lnk"), uninstallPath, targetDir, icoFile, "Desinstalar o CemgSpec");
                 }
 
                 RegisterUninstaller(targetDir, launcherPath, uninstallPath);
@@ -697,7 +697,7 @@ namespace SpecAuditSetup
         {
             try
             {
-                using (var key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\SpecAudit"))
+                using (var key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\CemgSpec"))
                 {
                     if (key == null) return;
                     key.SetValue("DisplayName", "CEMG Spec — Auditoria técnica e visão executiva de negócios");
@@ -736,20 +736,20 @@ namespace SpecAuditSetup
 Remove-Item $setupCs, $payloadZip -Force -ErrorAction SilentlyContinue
 Unblock-File -Path $setupExe -ErrorAction SilentlyContinue
 
-Write-Host "4/4 Atualizando instalacao local existente em %LOCALAPPDATA%\Programs\SpecAudit..." -ForegroundColor Cyan
-$installedDir = Join-Path $env:LOCALAPPDATA "Programs\SpecAudit"
+Write-Host "4/4 Atualizando instalacao local existente em %LOCALAPPDATA%\Programs\CemgSpec..." -ForegroundColor Cyan
+$installedDir = Join-Path $env:LOCALAPPDATA "Programs\CemgSpec"
 if ((Test-Path $installedDir) -or $InstallLocally) {
-    Stop-Process -Name "SpecAudit-Launcher", "SpecAudit" -Force -ErrorAction SilentlyContinue
+    Stop-Process -Name "CemgSpec-Launcher", "CemgSpec" -Force -ErrorAction SilentlyContinue
     Start-Sleep -Milliseconds 600
 
     New-Item -ItemType Directory -Force -Path $installedDir | Out-Null
     Copy-Item (Join-Path $publishDir "*") $installedDir -Recurse -Force
 
-    $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SpecAudit"
+    $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\CemgSpec"
     if (-not (Test-Path $regPath)) { New-Item -Path $regPath -Force | Out-Null }
-    $instLauncher = Join-Path $installedDir "SpecAudit-Launcher.exe"
-    $instUninstall = Join-Path $installedDir "SpecAudit-Uninstall.exe"
-    $instIco = Join-Path $installedDir "specaudit.ico"
+    $instLauncher = Join-Path $installedDir "CemgSpec-Launcher.exe"
+    $instUninstall = Join-Path $installedDir "CemgSpec-Uninstall.exe"
+    $instIco = Join-Path $installedDir "cemgspec.ico"
     Set-ItemProperty -Path $regPath -Name "DisplayName" -Value "CEMG Spec - Auditoria tecnica e visao executiva de negocios"
     Set-ItemProperty -Path $regPath -Name "DisplayVersion" -Value "1.0.0"
     Set-ItemProperty -Path $regPath -Name "Publisher" -Value "Carlos Wagner G. Bittencourt"
@@ -761,31 +761,31 @@ if ((Test-Path $installedDir) -or $InstallLocally) {
     Set-ItemProperty -Path $regPath -Name "NoRepair" -Value 1 -Type DWord
 
     $wsh = New-Object -ComObject WScript.Shell
-    $desktopLnk = Join-Path ([Environment]::GetFolderPath("DesktopDirectory")) "SpecAudit.lnk"
+    $desktopLnk = Join-Path ([Environment]::GetFolderPath("DesktopDirectory")) "CemgSpec.lnk"
     if (Test-Path $desktopLnk) {
         $sc = $wsh.CreateShortcut($desktopLnk)
         $sc.TargetPath = $instLauncher
         $sc.Arguments = ""
         $sc.WorkingDirectory = $installedDir
-        $sc.Description = "SpecAudit - Auditoria Documental SpecKit"
+        $sc.Description = "CemgSpec - Auditoria Documental SpecKit"
         $sc.IconLocation = $instIco
         $sc.Save()
     }
-    $startDir = Join-Path ([Environment]::GetFolderPath("Programs")) "SpecAudit"
+    $startDir = Join-Path ([Environment]::GetFolderPath("Programs")) "CemgSpec"
     if (Test-Path $startDir) {
-        $sc2 = $wsh.CreateShortcut((Join-Path $startDir "SpecAudit.lnk"))
+        $sc2 = $wsh.CreateShortcut((Join-Path $startDir "CemgSpec.lnk"))
         $sc2.TargetPath = $instLauncher
         $sc2.Arguments = ""
         $sc2.WorkingDirectory = $installedDir
-        $sc2.Description = "SpecAudit - Auditoria Documental SpecKit"
+        $sc2.Description = "CemgSpec - Auditoria Documental SpecKit"
         $sc2.IconLocation = $instIco
         $sc2.Save()
 
-        $sc3 = $wsh.CreateShortcut((Join-Path $startDir "Desinstalar SpecAudit.lnk"))
+        $sc3 = $wsh.CreateShortcut((Join-Path $startDir "Desinstalar CemgSpec.lnk"))
         $sc3.TargetPath = $instUninstall
         $sc3.Arguments = ""
         $sc3.WorkingDirectory = $installedDir
-        $sc3.Description = "Desinstalar o SpecAudit"
+        $sc3.Description = "Desinstalar o CemgSpec"
         $sc3.IconLocation = $instIco
         $sc3.Save()
     }

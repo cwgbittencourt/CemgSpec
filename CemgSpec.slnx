@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="CemgSpec/CemgSpec.csproj" />
+  <Folder Name="/tests/">
+    <Project Path="tests/CemgSpec.Tests/CemgSpec.Tests.csproj" />
+    <Project Path="tests/CemgSpec.Windows.Tests/CemgSpec.Windows.Tests.csproj" />
+    <Project Path="tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -11,7 +11,7 @@
 
 Blazor local Windows com leitura exclusiva de documentos/registros gerados pelo SpecKit, dashboard de progresso declarado, ficha documental, preview Markdown e resultados em memória até Salvar externo. A combo fechada apresenta somente `speckit-analyze — Consistência documental` e `check_gate — Validar gates`, em Verificações e na ficha. Selecionar não executa; somente clicar Executar. Sem campo livre, shell, terceira opção, hooks da origem ou encadeamento de etapas.
 
-Análise de código, comparação requisito–implementação, Roslyn/Razor, converge/checklist/clarify e consulta de vulnerabilidades da solução são futuras. C# permanece a linguagem de implementação do SpecAudit. Monitoramento documental e gate independem de IA. Codex/Antigravity somente para analyze, habilitados individualmente após prova técnica.
+Análise de código, comparação requisito–implementação, Roslyn/Razor, converge/checklist/clarify e consulta de vulnerabilidades da solução são futuras. C# permanece a linguagem de implementação do CemgSpec. Monitoramento documental e gate independem de IA. Codex/Antigravity somente para analyze, habilitados individualmente após prova técnica.
 
 O antigo B2-WFP e suas duas provas falhas são históricos; a V1 NÃO depende de instalar/consertar o mediador privilegiado. A redução não aprova segurança automaticamente: a fronteira documental será implementada e demonstrada antes de habilitação. Essa prova é dependência das tarefas funcionais, não pré-condição para escrever tarefas. Sem nova elevação, instalação ou autorização inferida. Planejamento anterior completo: verification/archive/before-documentary-v1/plan.md; evidências históricas e manifestos permanecem imutáveis.
 
@@ -20,10 +20,10 @@ O antigo B2-WFP e suas duas provas falhas são históricos; a V1 NÃO depende de
 - Plataforma: Windows x64, execução local no navegador, Blazor Interactive Server existente, ASP.NET Core 10 e C# estável compatível; sem previews. Versões do inventário anterior são históricas, a conferir antes de implementação.
 - Dependências candidatas: parser Markdown, sanitizador e Mermaid locais. Fixar versões estáveis e consultar vulnerabilidades antes de adicioná-las. Nenhum pacote alterado nesta revisão. Não adicionar Roslyn, compilador Razor analítico, MSBuildWorkspace ou leitor de manifests do projeto auditado.
 - Armazenamento: estado e resultados oficiais em memória; gravação só por Salvar no destino externo escolhido ao carregar. Caches/conversas dos agentes permitidos apenas fora da origem, com locais informados. Sem autosave ou logs próprios com conteúdo.
-- Ferramenta gate: core check_gate.py/política CEMG 3.0.0 empacotados e pinados por hash, runtime Python confiável absoluto com -I -B; runner do SpecAudit invoca validate/validate_impossibility com Path de capacidade do catálogo. Nenhum caminho real da origem é entregue ao core/runner. A mesma semântica do core é verificada por equivalência em fixtures. Python ausente torna só o gate indisponível, sem instalação/fallback automático.
+- Ferramenta gate: core check_gate.py/política CEMG 3.0.0 empacotados e pinados por hash, runtime Python confiável absoluto com -I -B; runner do CemgSpec invoca validate/validate_impossibility com Path de capacidade do catálogo. Nenhum caminho real da origem é entregue ao core/runner. A mesma semântica do core é verificada por equivalência em fixtures. Python ausente torna só o gate indisponível, sem instalação/fallback automático.
 - Gate: subprocesso comum não elevado, runtime absoluto conferido com -I -B, cwd externo e runner/core/política confiáveis. Somente funções de validação, sem --project/main/hooks da origem. Catálogo virtual e broker continuam validando cada leitura; não há garantia de firewall/sandbox OS.
 - Ferramenta analyze: adaptação documental com snapshots selecionados, ferramentas/configuração restritas e cwd/estado externos. Executor gerenciado comum, sem shell de comandos livres, carregamento de configuração da origem ou argumentos vindos de documentos. Compatibilidade e limites comprovados por adaptador; ausência de contenção OS é informada antes de executar.
-- Rede: leitura/gate funcionam sem rede; analyze pode acessar o provedor selecionado após informação ao usuário. O SpecAudit não oferece ferramentas para bancos/APIs/serviços da solução. Controles são de aplicação/adaptador, sem promessa de bloqueio de rede pelo kernel.
+- Rede: leitura/gate funcionam sem rede; analyze pode acessar o provedor selecionado após informação ao usuário. O CemgSpec não oferece ferramentas para bancos/APIs/serviços da solução. Controles são de aplicação/adaptador, sem promessa de bloqueio de rede pelo kernel.
 - Limites técnicos: configuração interna versionada e aplicada por broker/runner a entrada, saída, grafo, duração e cancelamento. A tarefa de implementação calibra valores em fixture antes de habilitar; excesso gera LimitExceeded/Inconclusive explícito, nunca truncamento/READY parcial. Não são metas de desempenho de produto inventadas.
 
 ## Verificação da constituição
@@ -36,7 +36,7 @@ O antigo B2-WFP e suas duas provas falhas são históricos; a V1 NÃO depende de
 | IV | Progresso declarado/cobertura documental e gates; nenhuma implementação calculada | Critérios US3/US4 revisados |
 | V | Agente só para analyze; gate e leitor sem IA | Critérios de habilitação individuais definidos; provas na implementação |
 | VI | Sem scripts/hooks/configuração/segredos da origem; gate sem rede | Desenho V1-A/B validado documentalmente; execução futura condiciona habilitação |
-| VII | Auditar dependências do próprio SpecAudit; inventário da origem adiado | Nenhuma dependência nova nesta revisão |
+| VII | Auditar dependências do próprio CemgSpec; inventário da origem adiado | Nenhuma dependência nova nesta revisão |
 | VIII | Estado técnico não equivale a aceite humano autenticado | Preservado nos resultados/gates |
 | IX | IA exercita produto, DEV reproduz e aceita por versão | Planejado; nenhuma funcionalidade demonstrada aqui |
 
@@ -44,7 +44,7 @@ Sem exceção à somente leitura. Alterar o escopo não converte provas falhas e
 
 ## Estrutura e artefatos
 
-Host existente SpecAudit/ e SpecAudit.slnx preservados. Fronteiras definidas: UI Blazor, domínio documental, catálogo/broker de documentos autorizados, adaptadores analyze, executor determinístico gate e writer externo acionado por Salvar. IDs de projeto/funcionalidade/documento, sem endpoint de caminho arbitrário.
+Host existente CemgSpec/ e CemgSpec.slnx preservados. Fronteiras definidas: UI Blazor, domínio documental, catálogo/broker de documentos autorizados, adaptadores analyze, executor determinístico gate e writer externo acionado por Salvar. IDs de projeto/funcionalidade/documento, sem endpoint de caminho arbitrário.
 
 O catálogo aceita somente documentos/registros SpecKit identificados e recursos de apresentação vinculados autorizados. Extensão .md/.json sozinha não autoriza qualquer arquivo. Não varrer código/manifests/configuração/Git para inferir implementação. Recusar reparse points que escapem ao escopo; evitar troca de destino entre validação e abertura. Links de código mostram texto não verificado e não abrem o destino.
 
@@ -74,7 +74,7 @@ Todos os cenários abaixo são PROPOSTOS/NÃO EXECUTADOS no produto. Reutilizar 
 | US3 | US3-AC04 / US3-S04 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US3-S04 | Preparar Resultado anterior e documento alterado; Atualizar documento e filtrar; observar: Atualizar contagens e marcar verificação desatualizada, sem executar agente/gate. Ver quickstart.md. | evidence/US3-validation.md |
 | US4 | US4-AC01 / US4-S01 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US4-S01 | Preparar Requisito com vínculos explícitos/inferidos; Abrir ficha; observar: Diferenciar fontes e mostrar registros/sugestões. Ver quickstart.md. | evidence/US4-validation.md |
 | US4 | US4-AC02 / US4-S02 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US4-S02 | Preparar Critério sem tarefa e outro ambíguo; Consultar critérios; observar: Informar lacunas documentais sem classificar implementação. Ver quickstart.md. | evidence/US4-validation.md |
-| US4 | US4-AC03 / US4-S03 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US4-S03 | Preparar Documento declara validação sem prova acessível; Consolidar; observar: Mostrar declaração e limite, sem aprovação pelo SpecAudit. Ver quickstart.md. | evidence/US4-validation.md |
+| US4 | US4-AC03 / US4-S03 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US4-S03 | Preparar Documento declara validação sem prova acessível; Consolidar; observar: Mostrar declaração e limite, sem aprovação pelo CemgSpec. Ver quickstart.md. | evidence/US4-validation.md |
 | US4 | US4-AC04 / US4-S04 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US4-S04 | Preparar Documentos de projetos em linguagens diferentes e link .cs; Navegar; observar: Mesma análise documental; link .cs não lido. Ver quickstart.md. | evidence/US4-validation.md |
 | US5 | US5-AC01 / US5-S01 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US5-S01 | Preparar Agente encontrado e outro ausente; Abrir seleção e escolher gate; observar: Descoberta automática, fallback restrito; gate não pede agente. Ver quickstart.md. | evidence/US5-validation.md |
 | US5 | US5-AC02 / US5-S02 | Integração Windows/E2E quando há IO; domínio/UI nos demais; caso US5-S02 | Preparar Dois agentes reais e integração incompatível; Executar analyze; observar: Demonstrar contrato ou bloquear apenas o adaptador com motivo. Ver quickstart.md. | evidence/US5-validation.md |
@@ -99,8 +99,8 @@ Para US1-S02/US5-S02/S04, testar as APIs reais da aplicação, rejeição de des
 Preparação proposta: usuário normal Windows, navegador local, corpus sintético com duas funcionalidades, 40 tarefas (30 marcadas), 20 requisitos (12 vinculados), spec/plan/tasks, gates READY/BLOCKED, links válidos/quebrados e Markdown/Mermaid malicioso/ inválido. Incluir arquivo .cs canário que não deve ser lido; seu conteúdo não entra em corpus/análise. O teste de desenvolvimento pode instrumentar a fixture, o produto não a executa. Criar destino externo e link inválido para origem. Baseline e observação em diretório técnico externo, sem restaurar a origem para ocultar alterações.
 
 Inicialização futura do aplicativo a partir da raiz de desenvolvimento:
-`dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --urls http://127.0.0.1:5187`.
-Comando do próprio SpecAudit, não da solução auditada. Nenhuma demonstração funcional executada nesta revisão. Antes de disponibilizar, implementar e provar sessão local emitida pelo host, validação Host/Origin/antiforgery e picker nativo com IDs opacos, conforme contracts/application.md; loopback somente, sem exposição LAN.
+`dotnet run --project CemgSpec/CemgSpec.csproj --no-launch-profile -- --urls http://127.0.0.1:5187`.
+Comando do próprio CemgSpec, não da solução auditada. Nenhuma demonstração funcional executada nesta revisão. Antes de disponibilizar, implementar e provar sessão local emitida pelo host, validação Host/Origin/antiforgery e picker nativo com IDs opacos, conforme contracts/application.md; loopback somente, sem exposição LAN.
 
 Gate de desenvolvimento documental nesta feature usa Python existente `__USER_HOME__/anaconda3_11/python.exe` e `.specify/presets/cemg-speckit/tools/check_gate.py`, com --feature/--record/--stage/--revision, SEM --project. Isso valida os registros de planejamento deste repositório; não é prova do executor empacotado ou da UI futura.
 
@@ -163,15 +163,15 @@ Após implementação, IA inicia host loopback e carrega corpus/destino externo,
 
 ## Estrutura concreta prevista para tasks
 
-- SpecAudit/Domain/: modelo documental/indicadores/ocorrências e estados de execução, sem dependência de filesystem de origem.
-- SpecAudit/Application/: serviços tipados de sessão/catálogo/ficha/verificações/Save.
-- SpecAudit/Infrastructure/Documents/: broker por IDs/handles Windows, catálogo e invalidação.
-- SpecAudit/Infrastructure/Execution/: executor gerenciado fechado/cancelamento e capacidades por execução.
-- SpecAudit/Infrastructure/Agents/: descoberta e adaptadores independentes Codex/Antigravity.
-- SpecAudit/Infrastructure/Gates/: runner confiável, Path de capacidade e pacote do core/política CEMG.
-- SpecAudit/Infrastructure/Reports/: writer externo create-new e leitura/comparação de pacotes salvos.
-- SpecAudit/Components/: cinco áreas e componentes compartilhados, combo fechada e preview sanitizado.
-- tests/SpecAudit.Tests, tests/SpecAudit.Windows.Tests e tests/SpecAudit.Ui.Tests: domínio, fronteiras reais e host/navegador. Framework/versões estáveis devem ser fixados e auditados antes de introdução; não são dependências adicionadas nesta revisão.
+- CemgSpec/Domain/: modelo documental/indicadores/ocorrências e estados de execução, sem dependência de filesystem de origem.
+- CemgSpec/Application/: serviços tipados de sessão/catálogo/ficha/verificações/Save.
+- CemgSpec/Infrastructure/Documents/: broker por IDs/handles Windows, catálogo e invalidação.
+- CemgSpec/Infrastructure/Execution/: executor gerenciado fechado/cancelamento e capacidades por execução.
+- CemgSpec/Infrastructure/Agents/: descoberta e adaptadores independentes Codex/Antigravity.
+- CemgSpec/Infrastructure/Gates/: runner confiável, Path de capacidade e pacote do core/política CEMG.
+- CemgSpec/Infrastructure/Reports/: writer externo create-new e leitura/comparação de pacotes salvos.
+- CemgSpec/Components/: cinco áreas e componentes compartilhados, combo fechada e preview sanitizado.
+- tests/CemgSpec.Tests, tests/CemgSpec.Windows.Tests e tests/CemgSpec.Ui.Tests: domínio, fronteiras reais e host/navegador. Framework/versões estáveis devem ser fixados e auditados antes de introdução; não são dependências adicionadas nesta revisão.
 
 Detalhes de operações/erros em contracts/, propriedades e relações em data-model.md. Esta estrutura é plano, não código existente. APIs Blazor internas, sem REST público ou leitura por path arbitrário.
 
@@ -188,7 +188,7 @@ T095 sincroniza documentos; T096 substitui o candidato experimental por execuç�
 
 ## Registro de testes e decisão do DEV — emenda 4.1.0
 
-Esta regra rege o desenvolvimento do SpecAudit, sem ampliar as verificações do
+Esta regra rege o desenvolvimento do CemgSpec, sem ampliar as verificações do
 produto sobre a origem auditada. Todos os roteiros `validation/USn-dev.md` e de
 incrementos devem conter tabela por cenário/critério com resultado, observado ou
 motivo de não execução, evidências, commit/diff testado, responsável e data/fuso;

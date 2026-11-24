@@ -14,7 +14,7 @@ Preset cemg-speckit 3.0.0; tasks-template replace, fonte instalada resolvida por
 - Codex/Antigravity têm construção, prova e habilitação separados por versão/política; estado externo e rede/descendentes devem ser observados. Nenhuma prova antiga de 0xC0000142 é apresentada como sucesso ou autorização nova.
 - Constraints literais de 16 entidades e estados compartilhados mapeados às tarefas de implementação, sem novos enums/limites/retencões de produto inventados. Modelos permanecem documentais e em memória.
 - Todas as tarefas mapeadas a PR-A/B/C/D/E; cada PR tem execução real de testes, review, correção/revalidação e descrição pr-template. Aprovação de PR e aceite DEV continuam PENDENTES até fonte humana real; não há checkbox de aprovação humana.
-- Cada história inclui execução pelo meio real de uso, comparação de efeitos, review/correção, roteiro IA/DEV e estado técnico; último PR consolida cenário integrado e auditoria das dependências do próprio SpecAudit. Escrever teste/roteiro não é teste aprovado.
+- Cada história inclui execução pelo meio real de uso, comparação de efeitos, review/correção, roteiro IA/DEV e estado técnico; último PR consolida cenário integrado e auditoria das dependências do próprio CemgSpec. Escrever teste/roteiro não é teste aprovado.
 - Exemplos [P] limitados a testes em arquivos distintos e adaptadores desabilitados separados, com pré-requisitos explícitos. Não autorizam iniciar agentes nesta geração.
 
 ## Achados tratados durante geração

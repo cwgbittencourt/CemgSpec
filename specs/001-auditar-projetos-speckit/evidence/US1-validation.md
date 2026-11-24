@@ -28,12 +28,12 @@ Diretório de todos os comandos: `__REPO_ROOT__`.
 
 | Rodada | Comando/procedimento | Esperado | Observado | Resultado | Evidência |
 |---|---|---|---|---|---|
-| Inicial | `dotnet restore SpecAudit.slnx --locked-mode` | Restaurar respeitando locks | Exit 0 | PASSOU | logs/T013-20261117/restore.txt |
-| Regressão inicial | `dotnet test SpecAudit.slnx --no-restore` com logger TRX | Suíte existente sem regressões | 41 aprovados, zero falhos/ignorados | PASSOU | logs/T013-20261117/suite.txt; results/ |
+| Inicial | `dotnet restore CemgSpec.slnx --locked-mode` | Restaurar respeitando locks | Exit 0 | PASSOU | logs/T013-20261117/restore.txt |
+| Regressão inicial | `dotnet test CemgSpec.slnx --no-restore` com logger TRX | Suíte existente sem regressões | 41 aprovados, zero falhos/ignorados | PASSOU | logs/T013-20261117/suite.txt; results/ |
 | Harness rodada 1 | Filtro `FullyQualifiedName~US1IntegratedHarnessTests` | Selecionar pastas em diálogo nativo | 4 falhas: harness buscava título da janela, mas título fornecido fica em controle filho | FALHOU | logs/T013-20261117/harness.txt; harness-results/ |
 | Harness rodada 2 | Mesmo filtro, após corrigir descoberta de janela | Quatro cenários observados | 4 aprovados, zero falhos/ignorados | PASSOU | logs/T013-20261117/harness-r2.txt; harness-r2-results/ |
 | Regressão final | Comando completo abaixo | Suíte e quatro cenários aprovados | 45 aprovados (7 domínio + 14 Windows + 24 UI/harness), zero falhos/ignorados; exit 0 | PASSOU | logs/T013-20261117/final-suite.txt; final-results/ |
-| Dependências | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta NuGet aplicável | Exit 0, nenhum pacote vulnerável listado; nenhuma dependência adicionada | PASSOU | logs/T017/packages.json |
+| Dependências | `dotnet list CemgSpec.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta NuGet aplicável | Exit 0, nenhum pacote vulnerável listado; nenhuma dependência adicionada | PASSOU | logs/T017/packages.json |
 
 Consulta de pacotes não audita integralmente SDK, Windows ou navegador e não garante ausência de todas as vulnerabilidades.
 
@@ -60,9 +60,9 @@ Na revisão identificada, com Windows e Edge instalados:
 
 ```powershell
 Set-Location '__REPO_ROOT__'
-dotnet restore SpecAudit.slnx --locked-mode
-dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~US1IntegratedHarnessTests
-dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T013-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T013-20261117/final-results
+dotnet restore CemgSpec.slnx --locked-mode
+dotnet test tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~US1IntegratedHarnessTests
+dotnet test CemgSpec.slnx --no-restore --logger 'trx;LogFilePrefix=T013-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T013-20261117/final-results
 ```
 
 Esperado: quatro casos do harness aprovados e 45 na suíte total. Cada rodada cria fixtures/JSONs únicos; não reutiliza solução real. Para preservar a captura T011 em uma nova regressão, copiar a captura histórica antes do comando e guardar a nova imagem em outro nome, restaurando apenas o artefato histórico do checkout de desenvolvimento. Isso nunca restaura a origem auditada. Os testes iniciam e encerram seus próprios hosts/processos; não há exclusão automática das fixtures. Não instalar ferramentas faltantes silenciosamente. Roteiro do harness CONFERIDO_PELA_IA; execução do DEV pendente. Consolidação do roteiro de história é T016.
@@ -75,7 +75,7 @@ Modalidade AUTORREVISAO, Codex, base e candidato acima. Inspecionados o novo tes
 
 `check_gate.py --feature __REPO_ROOT__/specs/001-auditar-projetos-speckit --record verification/implementation-stage.json --stage pr --revision sha256:43352aaa8e3fd85b0de05446d353d21f9f8602801356487e1daa0a2104fb9d47` executado com `__USER_HOME__/anaconda3_11/python.exe`. Resultado esperado e observado BLOCKED/exit 1: revisão completa, fechamento/dependências de PR e decisão humana pendentes. Sem erros de hash/revisão ou evidência de execução. Saída em `logs/T013-20261117/gate.txt`. Este é gate do PR-A, não gate de passagem T013→T014; a próxima task de review pode iniciar.
 
-Finais de linha CRLF preservados conforme `.gitattributes` (`* -text`); `git -c core.whitespace=cr-at-eol diff --check` passou. Sem testhost ou host SpecAudit restantes após a suíte; os três processos dotnet remanescentes foram identificados como servidores MSBuild, não execuções da origem. Captura histórica T011 preservada byte a byte. Nenhum hook obrigatório configurado ou despachado, nenhuma instalação, commit, push ou publicação.
+Finais de linha CRLF preservados conforme `.gitattributes` (`* -text`); `git -c core.whitespace=cr-at-eol diff --check` passou. Sem testhost ou host CemgSpec restantes após a suíte; os três processos dotnet remanescentes foram identificados como servidores MSBuild, não execuções da origem. Captura histórica T011 preservada byte a byte. Nenhum hook obrigatório configurado ou despachado, nenhuma instalação, commit, push ou publicação.
 
 
 ## Rodada T015 — correção dos achados e regressão
@@ -90,17 +90,17 @@ REV-US1-01: `DocumentChangeMonitor.Notify` ignora somente Changed/LastWrite/Size
 | Red conferido | Mesmo filtro após normalizar o caminho do observador, ainda sem alterar produção | Sete asserções detectam os defeitos | 7 falhas de comportamento: três metadados, dois Open e dois Refresh | FALHOU | logs/T015/red-verified.txt; red-verified-results/ |
 | Green | Mesmo filtro após correção | Sete casos aprovados, recuperação segura | 7/7, zero falhos/ignorados | PASSOU | logs/T015/green.txt; green-results/ |
 | Replay T014 | Fonte exata preservada de T014ReviewProbe; filtro correspondente | Mesmos três casos agora aprovados | 3/3; JSONs mostram HasPendingChanges/cancelled false e erros tratados, origem intacta e zero relatórios | PASSOU | logs/T015/original-probes.txt; original-probe-results/; original-probe-observations/ |
-| Suíte final | `dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T015-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T015/final-results` | Regressão das fronteiras, estado, sessão, seleção, IO e UI | 52/52: 7 domínio + 14 Windows + 31 UI/harness, zero falhos/ignorados | PASSOU | logs/T015/final-suite.txt; final-results/ |
+| Suíte final | `dotnet test CemgSpec.slnx --no-restore --logger 'trx;LogFilePrefix=T015-final' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T015/final-results` | Regressão das fronteiras, estado, sessão, seleção, IO e UI | 52/52: 7 domínio + 14 Windows + 31 UI/harness, zero falhos/ignorados | PASSOU | logs/T015/final-suite.txt; final-results/ |
 | Repetição do teste antes intermitente | Cinco execuções de `UncataloguedMarkdownAndCodeDoNotInvalidateDocuments`, com --no-build --no-restore | Nenhuma invalidação por arquivo fora do catálogo | 5/5 | PASSOU | logs/T015/watcher-1.txt a watcher-5.txt; watcher-results/ |
-| Pacotes | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta aplicável disponível | Exit 0, nenhum pacote vulnerável listado; não cobre integralmente SDK/Windows/Edge | PASSOU no alcance da consulta | Artefato canônico listado no manifesto de manutenção |
+| Pacotes | `dotnet list CemgSpec.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta aplicável disponível | Exit 0, nenhum pacote vulnerável listado; não cobre integralmente SDK/Windows/Edge | PASSOU no alcance da consulta | Artefato canônico listado no manifesto de manutenção |
 
-Os sete testes permanentes estão em `tests/SpecAudit.Ui.Tests/ProjectCorrectionTests.cs`. O observador independente comprova evento real do Windows antes de testar ausência de invalidação. Open com tamanho/grafo excedido preserva projeto anterior e versão válida; nova seleção funciona. Refresh preserva catálogo anterior pendente, informa a dimensão e permite nova atualização após reparo externo intencional da fixture. O teste, na função de usuário, corrige/move dados sintéticos; o produto não restaura nem apaga conteúdo para esconder erro. Baselines e ausência de relatórios são conferidas antes e depois de cada ação.
+Os sete testes permanentes estão em `tests/CemgSpec.Ui.Tests/ProjectCorrectionTests.cs`. O observador independente comprova evento real do Windows antes de testar ausência de invalidação. Open com tamanho/grafo excedido preserva projeto anterior e versão válida; nova seleção funciona. Refresh preserva catálogo anterior pendente, informa a dimensão e permite nova atualização após reparo externo intencional da fixture. O teste, na função de usuário, corrige/move dados sintéticos; o produto não restaura nem apaga conteúdo para esconder erro. Baselines e ausência de relatórios são conferidas antes e depois de cada ação.
 
 A suíte reutiliza os testes de criação de funcionalidades, rename/remoção de diretório com ponto, edição durante leitura, snapshot imutável, refresh, cancelamento, junção e isolamento de contexto. Os quatro cenários US1 com picker nativo real e o host/Edge reais foram repetidos. Os testes de handlers de limite invocam o Razor compilado por reflexão com picker controlado; não se afirma clique humano ou cobertura visual de cada mensagem de erro.
 
 O replay do probe antigo grava três nomes fixos sob T014: suas novas observações foram separadas em T015 e os JSONs negativos originais restaurados do commit base byte a byte. Assim, rodadas negativas e positivas permanecem distintas. A fonte temporária saiu da suíte normal antes da execução final; os sete casos de regressão novos permanecem nela.
 
-Reprodução do incremento, conferida pela IA: na revisão do manifesto, executar `dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~ProjectCorrectionTests` (7/7) e a suíte final acima (52/52). Cada execução usa fixtures novas externas; preservar baseline/paths para inspeção, não excluir automaticamente. O roteiro completo da história e registro de execução humana serão consolidados na T016; não preencher aceite do DEV nesta task.
+Reprodução do incremento, conferida pela IA: na revisão do manifesto, executar `dotnet test tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj --no-restore --filter FullyQualifiedName~ProjectCorrectionTests` (7/7) e a suíte final acima (52/52). Cada execução usa fixtures novas externas; preservar baseline/paths para inspeção, não excluir automaticamente. O roteiro completo da história e registro de execução humana serão consolidados na T016; não preencher aceite do DEV nesta task.
 
 Hashes, formatos e busca de dados pessoais foram conferidos no fechamento T015 em `T015-verification.json`. A busca por padrões não garante ausência de todo segredo. O gate de PR-A foi executado e retornou BLOCKED/exit 1 somente por fechamento/dependências e aprovação humana pendentes, sem erro de evidência/hash/revisão ou impeditivo técnico destes dois achados; saída em `logs/T012-gate.txt` ou seu arquivo canônico indicado na manutenção. Isso não impede concluir T015 e iniciar T016. As falhas T014 e red T015 ficam preservadas; a validação positiva corresponde somente à fonte corrigida identificada no manifesto.
 

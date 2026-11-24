@@ -4,11 +4,11 @@ Estado: APROVADA (técnica)
 Executor/ferramenta: Antigravity (Gemini 4 Argon) · dotnet SDK 10.0.404 / runtime .NET 10.0.15 / Python 3.12.7 / Playwright 1.64.1 / Microsoft Edge headless
 Data/hora e fuso: 2026-11-20 10:15 America/Sao_Paulo
 Base declarada / predecessor: PR-A (`ddf8f31` / `73e06b9`) e PR-B (`524f2f7`, aprovação humana pendente)
-Revisão candidata PR-C: `a4c7199` + alinhamento de hash `CopyToOutputDirectory=Always` em `GatePackage.cs`/`SpecAudit.csproj`
+Revisão candidata PR-C: `a4c7199` + alinhamento de hash `CopyToOutputDirectory=Always` em `GatePackage.cs`/`CemgSpec.csproj`
 
 | Execução | Escopo | Comando (raiz do repositório) | Resultado | Log |
 |---|---|---|---|---|
-| PRC-RUN-01 | Regressão completa PR-C (Fundação, US1, US2, US3, US4, US8 + US5 parcial: combo fechada e `check_gate` offline) | `$env:TEMP="$env:LOCALAPPDATA\Temp"; $env:TMP=$env:TEMP; $filtro='FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'; dotnet test SpecAudit.slnx --no-build --filter $filtro --verbosity minimal -- xunit.parallelizeTestCollections=false` | **108/108 aprovados** (`23` `SpecAudit.Tests`, `23` `SpecAudit.Windows.Tests`, `62` `SpecAudit.Ui.Tests`, exit code `0`) | [logs/PR-C/regression.txt](logs/PR-C/regression.txt) |
+| PRC-RUN-01 | Regressão completa PR-C (Fundação, US1, US2, US3, US4, US8 + US5 parcial: combo fechada e `check_gate` offline) | `$env:TEMP="$env:LOCALAPPDATA\Temp"; $env:TMP=$env:TEMP; $filtro='FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'; dotnet test CemgSpec.slnx --no-build --filter $filtro --verbosity minimal -- xunit.parallelizeTestCollections=false` | **108/108 aprovados** (`23` `CemgSpec.Tests`, `23` `CemgSpec.Windows.Tests`, `62` `CemgSpec.Ui.Tests`, exit code `0`) | [logs/PR-C/regression.txt](logs/PR-C/regression.txt) |
 
 ## Cobertura consolidada do incremento PR-C (`T053–T058`)
 

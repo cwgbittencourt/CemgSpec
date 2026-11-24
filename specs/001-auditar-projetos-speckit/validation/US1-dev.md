@@ -12,23 +12,23 @@ Você pode testar a interface manualmente ou repetir os testes automatizados. S�
 
 Requisitos: Windows com desktop, PowerShell, SDK .NET10 compatível com global.json (ambiente validado:10.0.404) e navegador. Não precisa de agente, credencial ou projeto real.
 
-Abra o PowerShell na pasta do repositório SpecAudit. Cole **esta única linha** e pressione Enter:
+Abra o PowerShell na pasta do repositório CemgSpec. Cole **esta única linha** e pressione Enter:
 
 ```powershell
 & .\specs\001-auditar-projetos-speckit\validation\Start-US1Manual.ps1
 ```
 
-O script prepara dois projetos fictícios novos na pasta temporária do Windows, mostra os caminhos e inicia o SpecAudit. As pastas são criadas pelo preparador do teste, não pelo aplicativo auditando uma origem. A cada execução os dados ficam em uma pasta nova; não há exclusão ou restauração automática. O preparador inclui um arquivo de histórico fictício em Relatorios-A e uma baseline de hashes fora das origens.
+O script prepara dois projetos fictícios novos na pasta temporária do Windows, mostra os caminhos e inicia o CemgSpec. As pastas são criadas pelo preparador do teste, não pelo aplicativo auditando uma origem. A cada execução os dados ficam em uma pasta nova; não há exclusão ou restauração automática. O preparador inclui um arquivo de histórico fictício em Relatorios-A e uma baseline de hashes fora das origens.
 
 Aguarde a mensagem **Now listening on**, mantenha o terminal aberto e abra [a aplicação no navegador](http://127.0.0.1:5187). A tela deve mostrar **Projetos** e o botão **Carregar projeto**. Se aparecer erro de SDK, restore, política de execução ou porta ocupada, guarde a mensagem e informe o problema; não é necessário alterar políticas do computador ou encerrar outros processos.
 
-O script inicia explicitamente em Development para carregar CSS e JavaScript do checkout; omitir esse ambiente com --no-launch-profile causava página sem estilos e sem Blazor. O script não abre o navegador automaticamente. Se quiser apenas preparar dados sem iniciar a aplicação, use o mesmo comando com `-PrepareOnly`. Se5187 estiver ocupada, use `-Port 5188` e abra o endereço exibido. Para iniciar diretamente sem preparar dados fictícios: `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`.
+O script inicia explicitamente em Development para carregar CSS e JavaScript do checkout; omitir esse ambiente com --no-launch-profile causava página sem estilos e sem Blazor. O script não abre o navegador automaticamente. Se quiser apenas preparar dados sem iniciar a aplicação, use o mesmo comando com `-PrepareOnly`. Se5187 estiver ocupada, use `-Port 5188` e abra o endereço exibido. Para iniciar diretamente sem preparar dados fictícios: `dotnet run --project CemgSpec/CemgSpec.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`.
 
 Para alternar entre A e B já abertos, use a lista **Projeto**. **Carregar projeto** pede duas pastas em sequência: etapa1 origem, etapa2 relatórios. Reabrir a mesma origem reutiliza seu contexto, sem duplicá-la.
 
 ## 2. Testar a interface
 
-Use os caminhos mostrados no terminal. A expressão “pasta do teste” abaixo é o caminho que começa com SpecAudit-Manual-, dentro de TEMP; abra-o no Explorador de Arquivos para localizar as pastas.
+Use os caminhos mostrados no terminal. A expressão “pasta do teste” abaixo é o caminho que começa com CemgSpec-Manual-, dentro de TEMP; abra-o no Explorador de Arquivos para localizar as pastas.
 
 | Passo | O que fazer | O que deve acontecer |
 |---|---|---|
@@ -55,12 +55,12 @@ Execute Start-US1Manual.ps1, aguarde o host e abra o navegador. Preencha a ficha
 Esta opção não exige clicar na interface. No PowerShell aberto na raiz do repositório, você pode colar **todo o bloco abaixo de uma vez**. Ele executa em sequência e para se houver falha:
 
 ```powershell
-$devRun = Join-Path ([IO.Path]::GetTempPath()) ('SpecAudit-US1-DEV-' + [guid]::NewGuid().ToString('N'))
+$devRun = Join-Path ([IO.Path]::GetTempPath()) ('CemgSpec-US1-DEV-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $devRun -Force | Out-Null
 git rev-parse HEAD
-dotnet restore SpecAudit.slnx --locked-mode
+dotnet restore CemgSpec.slnx --locked-mode
 if ($LASTEXITCODE -ne 0) { throw 'Restore falhou; preserve a mensagem.' }
-dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=US1-full' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'full.txt')
+dotnet test CemgSpec.slnx --no-restore --logger 'trx;LogFilePrefix=US1-full' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'full.txt')
 if ($LASTEXITCODE -ne 0) { throw 'Teste falhou; preserve os resultados.' }
 Write-Output "Resultados: $devRun"
 ```
@@ -83,7 +83,7 @@ Rodada corrente de abertura: [59 testes aprovados](../evidence/manual-project-op
 
 Fonte validada: correção local de abertura sobre commit `0fa5428159cc57707617ed51b5b236ead0155e92`, manifesto de código `sha256:f6e296be248c77cb91dd07dbd4236c955755ff03ea63fd159278112bac008d58`. [Validação PR-A](../evidence/PR-A-validation.md), [review PR-A](../evidence/PR-A-review.md) e [execução T019](../evidence/T019-test-run.json):57/57 testes,6/6 manutenção e2/2 probes aprovados. O roteiro simplificado não altera produto/testes. Preparação de dados e sintaxe do script verificadas; os cliques manuais acima continuam com **CONFERENCIA_PARCIAL**, sem alegar que o DEV os executou.
 
-[Descrição PR-A](../verification/prs/PR-A.md) preparada na T020. Aprovação humana, integração, execução do DEV e aceite permanecem pendentes. [Estado técnico/aceite](../acceptance/US1.md). Nada neste roteiro exige executar scripts ou código da solução auditada: os comandos são ferramentas do desenvolvimento do próprio SpecAudit.
+[Descrição PR-A](../verification/prs/PR-A.md) preparada na T020. Aprovação humana, integração, execução do DEV e aceite permanecem pendentes. [Estado técnico/aceite](../acceptance/US1.md). Nada neste roteiro exige executar scripts ou código da solução auditada: os comandos são ferramentas do desenvolvimento do próprio CemgSpec.
 
 ## Como registrar sua conferência
 

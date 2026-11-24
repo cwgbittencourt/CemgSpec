@@ -7,17 +7,17 @@
 
 ## Arquivos revisados
 
-- `SpecAudit/Domain/HumanDecision.cs`
-- `SpecAudit/Domain/SavedRecord.cs`
-- `SpecAudit/Application/FindingDecisionService.cs`
-- `SpecAudit/Application/SavedHistoryService.cs`
-- `SpecAudit/Infrastructure/Reports/ReportSerializer.cs`
-- `SpecAudit/Infrastructure/Reports/ExternalReportWriter.cs`
-- `SpecAudit/Infrastructure/Reports/SavedHistoryReader.cs`
-- `SpecAudit/Components/Pages/Suggestions.razor` (+ `.css`)
-- `SpecAudit/Components/Reports/SaveDialog.razor` (+ `.css`)
-- `SpecAudit/Components/Layout/MainLayout.razor`
-- `SpecAudit/Program.cs`
+- `CemgSpec/Domain/HumanDecision.cs`
+- `CemgSpec/Domain/SavedRecord.cs`
+- `CemgSpec/Application/FindingDecisionService.cs`
+- `CemgSpec/Application/SavedHistoryService.cs`
+- `CemgSpec/Infrastructure/Reports/ReportSerializer.cs`
+- `CemgSpec/Infrastructure/Reports/ExternalReportWriter.cs`
+- `CemgSpec/Infrastructure/Reports/SavedHistoryReader.cs`
+- `CemgSpec/Components/Pages/Suggestions.razor` (+ `.css`)
+- `CemgSpec/Components/Reports/SaveDialog.razor` (+ `.css`)
+- `CemgSpec/Components/Layout/MainLayout.razor`
+- `CemgSpec/Program.cs`
 
 ## Checklist de contratos e segurança
 

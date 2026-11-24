@@ -20,7 +20,7 @@ Estado: documentação padronizada; execução humana e aceite das histórias co
 Version: 4.0.0 → 4.1.0 (MINOR: ampliação do princípio IX, registro DEV e transcrição).
 Autorização: pedido do usuário para padronizar todos os documentos de testes do DEV
 incluindo decisão explícita e avaliação da constituição, 2026-11-16.
-Modified: IX. Validação real do desenvolvimento do SpecAudit; nenhuma seção removida.
+Modified: IX. Validação real do desenvolvimento do CemgSpec; nenhuma seção removida.
 Sync: roteiros US1–US6/US8 e T012, README, spec/plan/tasks/quickstart,
 overrides locais dev-validation/acceptance/plan/tasks e registro documental.
 Preserved: garantias readonly, dois comandos e todas as decisões humanas pendentes.

@@ -14,7 +14,7 @@
 - [Validação PR-A / T017](PR-A-validation.md): regressão 52/52, manutenção 6/6 e estado intermediário seguro; próxima T018.
 
 
-Este diretório guarda comprovação técnica do desenvolvimento do SpecAudit, não relatórios oficiais produzidos sobre uma solução auditada. Relatórios do produto continuam sujeitos ao botão Salvar e ao destino externo.
+Este diretório guarda comprovação técnica do desenvolvimento do CemgSpec, não relatórios oficiais produzidos sobre uma solução auditada. Relatórios do produto continuam sujeitos ao botão Salvar e ao destino externo.
 
 ## Pontos de entrada
 

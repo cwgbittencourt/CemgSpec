@@ -6,7 +6,7 @@ Nenhuma solução real, instalação, elevação ou mudança de ACL de usuário.
 ## Procedimento executado
 
 Na raiz de desenvolvimento:
-`dotnet test SpecAudit.slnx --no-restore --logger trx --results-directory specs/001-auditar-projetos-speckit/evidence/logs/implementation-checkpoint`
+`dotnet test CemgSpec.slnx --no-restore --logger trx --results-directory specs/001-auditar-projetos-speckit/evidence/logs/implementation-checkpoint`
 
 Resultado real: exit 1, 27 testes totais, 26 aprovados e 1 falho. [Saída completa](logs/implementation-checkpoint.txt). Os TRX estão no diretório implementation-checkpoint.
 

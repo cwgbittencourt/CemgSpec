@@ -10,7 +10,7 @@ Revisão candidata PR-D: `e399c67` (`main`)
 |---|---|---|---|
 | PRD-PROOF-CODEX | Prova real individual `AnalyzeCodex` (`Provider=Codex\|Provider=Contract`) | **2/2 aprovados** (exit code `0`) | [AnalyzeCodex-proof.md](AnalyzeCodex-proof.md) |
 | PRD-PROOF-AGY | Prova real individual `AnalyzeAntigravity` (`Provider=Antigravity\|Provider=AntigravityContract`) | **9/9 aprovados** (exit code `0`) | [AnalyzeAntigravity-proof.md](AnalyzeAntigravity-proof.md) |
-| PRD-REG-01 | Regressão integrada da solução (`SpecAudit.Tests`, `SpecAudit.Windows.Tests`, `SpecAudit.Ui.Tests`) | **121/121** testes locais/contrato/UI aprovados (`23` `SpecAudit.Tests`, `36` locais `SpecAudit.Windows.Tests`, `62` `SpecAudit.Ui.Tests`); os 2 testes de chamada em nuvem já comprovados acima retornaram erro externo de cota (`out of credits`) na reexecução posterior. | [logs/PR-D/regression.txt](logs/PR-D/regression.txt) |
+| PRD-REG-01 | Regressão integrada da solução (`CemgSpec.Tests`, `CemgSpec.Windows.Tests`, `CemgSpec.Ui.Tests`) | **121/121** testes locais/contrato/UI aprovados (`23` `CemgSpec.Tests`, `36` locais `CemgSpec.Windows.Tests`, `62` `CemgSpec.Ui.Tests`); os 2 testes de chamada em nuvem já comprovados acima retornaram erro externo de cota (`out of credits`) na reexecução posterior. | [logs/PR-D/regression.txt](logs/PR-D/regression.txt) |
 
 ## Estado intermediário seguro preservado
 

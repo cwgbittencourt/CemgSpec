@@ -7,15 +7,15 @@
       "key": "env",
       "story": null,
       "pr": "PR-A",
-      "desc": "Conferir SDK .NET10/C# estáveis, Windows e ferramentas existentes; fixar framework estável de testes e auditar dependências diretas/transitivas antes de introduzi-las em tests/SpecAudit.Tests/SpecAudit.Tests.csproj, tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj e tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj; registrar evidence/setup-validation.md.",
+      "desc": "Conferir SDK .NET10/C# estáveis, Windows e ferramentas existentes; fixar framework estável de testes e auditar dependências diretas/transitivas antes de introduzi-las em tests/CemgSpec.Tests/CemgSpec.Tests.csproj, tests/CemgSpec.Windows.Tests/CemgSpec.Windows.Tests.csproj e tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj; registrar evidence/setup-validation.md.",
       "origin": "plan contexto; quickstart; constituição VII",
       "deps": [],
       "verify": "Reutilizar testes adequados se existirem; dotnet --info, dotnet restore/test dos projetos próprios e dotnet list package --vulnerable --include-transitive; registrar falha de consulta, versões e smoke.",
       "expected": "Projetos de teste próprios executáveis e dependências auditadas; nada instalado/elevado automaticamente ou executado na solução auditada.",
       "paths": [
-        "tests/SpecAudit.Tests/SpecAudit.Tests.csproj",
-        "tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj",
-        "tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj",
+        "tests/CemgSpec.Tests/CemgSpec.Tests.csproj",
+        "tests/CemgSpec.Windows.Tests/CemgSpec.Windows.Tests.csproj",
+        "tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj",
         "evidence/setup-validation.md"
       ],
       "parallel": false,
@@ -26,7 +26,7 @@
       "key": "fixture",
       "story": null,
       "pr": "PR-A",
-      "desc": "Preparar gerador e instrumentação de fixtures em tests/SpecAudit.Windows.Tests/Fixtures/DocumentaryFixture.cs e tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs a partir da receita de quickstart.md; sem inserir dados de usuário.",
+      "desc": "Preparar gerador e instrumentação de fixtures em tests/CemgSpec.Windows.Tests/Fixtures/DocumentaryFixture.cs e tests/CemgSpec.Ui.Tests/Fixtures/LocalHostFixture.cs a partir da receita de quickstart.md; sem inserir dados de usuário.",
       "origin": "quickstart receita e observação",
       "deps": [
         "env"
@@ -34,8 +34,8 @@
       "verify": "Gerar duas raízes TEMP exclusivas, 30/40 tarefas e 12/20 requisitos, gates positivos/negativos, .cs canário e reparse/TOCTOU com barreira de sincronização; instrumentar path/operação/resultado e validar conjunto/hashes.",
       "expected": "Fixture e logs técnicos externos reproduzíveis; leitura indevida detectável antes de conteúdo; limpeza só sob raiz sintética resolvida e autorizada.",
       "paths": [
-        "tests/SpecAudit.Windows.Tests/Fixtures/DocumentaryFixture.cs",
-        "tests/SpecAudit.Ui.Tests/Fixtures/LocalHostFixture.cs"
+        "tests/CemgSpec.Windows.Tests/Fixtures/DocumentaryFixture.cs",
+        "tests/CemgSpec.Ui.Tests/Fixtures/LocalHostFixture.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -47,7 +47,7 @@
       "key": "host",
       "story": null,
       "pr": "PR-A",
-      "desc": "Configurar sessão local, loopback, validação Host/Origin e antiforgery em SpecAudit/Program.cs e SpecAudit/Application/LocalSessionService.cs; controles de verificações/Save iniciam indisponíveis.",
+      "desc": "Configurar sessão local, loopback, validação Host/Origin e antiforgery em CemgSpec/Program.cs e CemgSpec/Application/LocalSessionService.cs; controles de verificações/Save iniciam indisponíveis.",
       "origin": "contracts/application.md sessão; constituição VI",
       "deps": [
         "env"
@@ -55,8 +55,8 @@
       "verify": "Iniciar host próprio http://127.0.0.1:5187; testar host/origin indevidos, IDs de outra sessão e ações mutantes sem validação; inspecionar logs sem conteúdo.",
       "expected": "Só sessão/loopback válidos; nenhuma execução ou persistência automática; estado inseguro não exposto.",
       "paths": [
-        "SpecAudit/Program.cs",
-        "SpecAudit/Application/LocalSessionService.cs"
+        "CemgSpec/Program.cs",
+        "CemgSpec/Application/LocalSessionService.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -68,7 +68,7 @@
       "key": "baseTests",
       "story": null,
       "pr": "PR-A",
-      "desc": "Escrever testes de identidade/estado/contratos em tests/SpecAudit.Tests/SessionContractTests.cs e tests/SpecAudit.Windows.Tests/ExecutionContractTests.cs antes dos modelos/launcher.",
+      "desc": "Escrever testes de identidade/estado/contratos em tests/CemgSpec.Tests/SessionContractTests.cs e tests/CemgSpec.Windows.Tests/ExecutionContractTests.cs antes dos modelos/launcher.",
       "origin": "data-model identidade/estados; contracts/verification.md",
       "deps": [
         "fixture",
@@ -77,8 +77,8 @@
       "verify": "Exercitar IDs cruzados, CapabilityAvailability separado de RunState, ausência de selo, canal de outro RunId, cancelamento e geração; observar falha por regra ausente, não ambiente quebrado.",
       "expected": "Testes detectam bypass de sessão/capacidade e transições inválidas; modelo ainda não implementado não é prova funcional.",
       "paths": [
-        "tests/SpecAudit.Tests/SessionContractTests.cs",
-        "tests/SpecAudit.Windows.Tests/ExecutionContractTests.cs"
+        "tests/CemgSpec.Tests/SessionContractTests.cs",
+        "tests/CemgSpec.Windows.Tests/ExecutionContractTests.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -91,7 +91,7 @@
       "key": "baseModel",
       "story": null,
       "pr": "PR-A",
-      "desc": "Definir ProjectSession/Feature, catálogo/snapshot, ProtectionAssessment e estados compartilhados em SpecAudit/Domain/ProjectSession.cs, SpecAudit/Domain/DocumentSnapshot.cs e SpecAudit/Domain/ProtectionAssessment.cs, observando as citações do modelo abaixo.",
+      "desc": "Definir ProjectSession/Feature, catálogo/snapshot, ProtectionAssessment e estados compartilhados em CemgSpec/Domain/ProjectSession.cs, CemgSpec/Domain/DocumentSnapshot.cs e CemgSpec/Domain/ProtectionAssessment.cs, observando as citações do modelo abaixo.",
       "origin": "data-model entidades e estados",
       "deps": [
         "baseTests"
@@ -99,9 +99,9 @@
       "verify": "Rodar SessionContractTests com chaves contextualizadas, hashes/geração e selos NotVerified/Passed/Failed/Stale da versão/política; assegurar ausência de caminho livre na API.",
       "expected": "Estado em memória; sem disponibilidade não se cria Run; selo de versão diferente não habilita.",
       "paths": [
-        "SpecAudit/Domain/ProjectSession.cs",
-        "SpecAudit/Domain/DocumentSnapshot.cs",
-        "SpecAudit/Domain/ProtectionAssessment.cs"
+        "CemgSpec/Domain/ProjectSession.cs",
+        "CemgSpec/Domain/DocumentSnapshot.cs",
+        "CemgSpec/Domain/ProtectionAssessment.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -113,7 +113,7 @@
       "key": "launcher",
       "story": null,
       "pr": "PR-A",
-      "desc": "Implementar launcher não elevado, Job Object e canal com handles explícitos em SpecAudit/Infrastructure/Execution/RestrictedLauncher.cs e SpecAudit/Infrastructure/Execution/ExecutionChannel.cs, sem conectar agentes ou origem ainda.",
+      "desc": "Implementar launcher não elevado, Job Object e canal com handles explícitos em CemgSpec/Infrastructure/Execution/RestrictedLauncher.cs e CemgSpec/Infrastructure/Execution/ExecutionChannel.cs, sem conectar agentes ou origem ainda.",
       "origin": "contracts/verification.md fronteiras 1–5",
       "deps": [
         "baseModel"
@@ -121,8 +121,8 @@
       "verify": "Usar harness benigno da fixture; conferir identidade restrita, recusa de RunId/token alheio, herança mínima, limite técnico versionado e término de todos os descendentes; registrar erros reais inclusive startup.",
       "expected": "Nenhum acesso direto à origem, shell livre, elevação, instalação ou ACL da solução; falha deixa disponibilidade pendente.",
       "paths": [
-        "SpecAudit/Infrastructure/Execution/RestrictedLauncher.cs",
-        "SpecAudit/Infrastructure/Execution/ExecutionChannel.cs"
+        "CemgSpec/Infrastructure/Execution/RestrictedLauncher.cs",
+        "CemgSpec/Infrastructure/Execution/ExecutionChannel.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -134,7 +134,7 @@
       "key": "limits",
       "story": null,
       "pr": "PR-A",
-      "desc": "Implementar registro de capacidade e limites internos em SpecAudit/Application/CapabilityRegistry.cs e SpecAudit/Infrastructure/Execution/ExecutionLimits.cs; calibrar em fixtures e documentar em evidence/capability-contract.md.",
+      "desc": "Implementar registro de capacidade e limites internos em CemgSpec/Application/CapabilityRegistry.cs e CemgSpec/Infrastructure/Execution/ExecutionLimits.cs; calibrar em fixtures e documentar em evidence/capability-contract.md.",
       "origin": "data-model limites; contracts/verification.md habilitação",
       "deps": [
         "launcher"
@@ -142,8 +142,8 @@
       "verify": "Validar ausência/expiração de selo, política/binário/ambiente alterados, limite de tamanho/profundidade/saída/duração e cancelamento inconclusivo.",
       "expected": "Excesso gera LimitExceeded/Inconclusive explícito, sem READY parcial; nenhuma prova marcada Passed por default.",
       "paths": [
-        "SpecAudit/Application/CapabilityRegistry.cs",
-        "SpecAudit/Infrastructure/Execution/ExecutionLimits.cs",
+        "CemgSpec/Application/CapabilityRegistry.cs",
+        "CemgSpec/Infrastructure/Execution/ExecutionLimits.cs",
         "evidence/capability-contract.md"
       ],
       "parallel": false,
@@ -156,7 +156,7 @@
       "key": "us1tests",
       "story": "US1",
       "pr": "PR-A",
-      "desc": "Escrever testes US1-S01–S04 em tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs e tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs antes da integração.",
+      "desc": "Escrever testes US1-S01–S04 em tests/CemgSpec.Windows.Tests/ReaderBoundaryTests.cs e tests/CemgSpec.Ui.Tests/ProjectSelectionTests.cs antes da integração.",
       "origin": "US1-AC01/02/03/04",
       "deps": [
         "limits"
@@ -164,8 +164,8 @@
       "verify": "Usar duas funcionalidades, destinos interno/externo, prefixos semelhantes, junções e mudança concorrente; observar acessos, criação/alteração/rename/delete por pai/filho.",
       "expected": "Falhas relevantes detectadas; testes não dependem de agente/gate/writer futuros.",
       "paths": [
-        "tests/SpecAudit.Windows.Tests/ReaderBoundaryTests.cs",
-        "tests/SpecAudit.Ui.Tests/ProjectSelectionTests.cs"
+        "tests/CemgSpec.Windows.Tests/ReaderBoundaryTests.cs",
+        "tests/CemgSpec.Ui.Tests/ProjectSelectionTests.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -177,7 +177,7 @@
       "key": "broker",
       "story": "US1",
       "pr": "PR-A",
-      "desc": "Implementar catálogo e broker por IDs/handles somente leitura em SpecAudit/Infrastructure/Documents/DocumentCatalog.cs e SpecAudit/Infrastructure/Documents/DocumentBroker.cs; revalidar contenção no ponto real de leitura.",
+      "desc": "Implementar catálogo e broker por IDs/handles somente leitura em CemgSpec/Infrastructure/Documents/DocumentCatalog.cs e CemgSpec/Infrastructure/Documents/DocumentBroker.cs; revalidar contenção no ponto real de leitura.",
       "origin": "US1-AC01/02; contracts/verification.md ReadDocumentCapability",
       "deps": [
         "us1tests"
@@ -185,8 +185,8 @@
       "verify": "Executar testes Windows de abertura permitida, .cs/.razor/config e arquivo fora do catálogo negados antes de ler; junction trocada e arquivo substituído geram OutOfScope/Changed.",
       "expected": "Somente docs/registros reconhecidos, não só extensão; sem cópia da solução, write/delete/ACL ou pré-checagem isolada vulnerável a TOCTOU.",
       "paths": [
-        "SpecAudit/Infrastructure/Documents/DocumentCatalog.cs",
-        "SpecAudit/Infrastructure/Documents/DocumentBroker.cs"
+        "CemgSpec/Infrastructure/Documents/DocumentCatalog.cs",
+        "CemgSpec/Infrastructure/Documents/DocumentBroker.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -218,7 +218,7 @@
       "key": "projectEnable",
       "story": "US1",
       "pr": "PR-A",
-      "desc": "Implementar picker nativo e habilitar OpenProject/ChangeOutputDirectory somente com ReaderBoundary Passed em SpecAudit/Application/ProjectService.cs e SpecAudit/Components/Pages/Projects.razor.",
+      "desc": "Implementar picker nativo e habilitar OpenProject/ChangeOutputDirectory somente com ReaderBoundary Passed em CemgSpec/Application/ProjectService.cs e CemgSpec/Components/Pages/Projects.razor.",
       "origin": "US1-AC01/02/03",
       "deps": [
         "readerProof"
@@ -226,8 +226,8 @@
       "verify": "Abrir fixture com origem/destino, recusar interno e junction, alternar projeto e mudar destino; repetir com selo ausente/adulterado.",
       "expected": "Sem selo válido a operação fica indisponível; origem/destino/contextos separados e nenhum registro criado.",
       "paths": [
-        "SpecAudit/Application/ProjectService.cs",
-        "SpecAudit/Components/Pages/Projects.razor"
+        "CemgSpec/Application/ProjectService.cs",
+        "CemgSpec/Components/Pages/Projects.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -239,7 +239,7 @@
       "key": "watch",
       "story": "US1",
       "pr": "PR-A",
-      "desc": "Implementar geração/invalidação documental em SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs e integração de ProjectService.cs, preservando edição externa.",
+      "desc": "Implementar geração/invalidação documental em CemgSpec/Infrastructure/Documents/DocumentChangeMonitor.cs e integração de ProjectService.cs, preservando edição externa.",
       "origin": "US1-AC04",
       "deps": [
         "projectEnable"
@@ -247,8 +247,8 @@
       "verify": "Editar documento durante leitura, entre Prepare/Execute e antes de Save; verificar Stale/Changed e falta de monitoramento de conteúdo de código.",
       "expected": "Não mistura snapshots, não restaura, não dispara agente/gate; troca de projeto cancela trabalho próprio sem salvar.",
       "paths": [
-        "SpecAudit/Infrastructure/Documents/DocumentChangeMonitor.cs",
-        "SpecAudit/Application/ProjectService.cs"
+        "CemgSpec/Infrastructure/Documents/DocumentChangeMonitor.cs",
+        "CemgSpec/Application/ProjectService.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -423,7 +423,7 @@
       "key": "us2tests",
       "story": "US2",
       "pr": "PR-B",
-      "desc": "Escrever testes de contrato/preview US2-S01–S04 em tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs e tests/SpecAudit.Tests/DocumentNavigationTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "desc": "Escrever testes de contrato/preview US2-S01–S04 em tests/CemgSpec.Ui.Tests/MarkdownPreviewTests.cs e tests/CemgSpec.Tests/DocumentNavigationTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
       "origin": "US2-AC01/02/03/04",
       "deps": [
         "pradesc"
@@ -431,8 +431,8 @@
       "verify": "Cobrir todos os recursos do corpus, links quebrados/fora do catálogo, modos e payloads ativos/remotos; observar falha esperada antes de implementar. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
       "expected": "Asserções detectam conteúdo omitido/ativo e navegação indevida; sem fonte/code scan.",
       "paths": [
-        "tests/SpecAudit.Ui.Tests/MarkdownPreviewTests.cs",
-        "tests/SpecAudit.Tests/DocumentNavigationTests.cs"
+        "tests/CemgSpec.Ui.Tests/MarkdownPreviewTests.cs",
+        "tests/CemgSpec.Tests/DocumentNavigationTests.cs"
       ],
       "parallel": true,
       "dependsOn": [
@@ -444,7 +444,7 @@
       "key": "preview",
       "story": "US2",
       "pr": "PR-B",
-      "desc": "Selecionar/fixar parser Markdown, sanitizador e Mermaid locais auditados e implementar renderização em SpecAudit/Infrastructure/Documents/MarkdownRenderer.cs e SpecAudit/wwwroot/lib/preview/; nenhum CDN.",
+      "desc": "Selecionar/fixar parser Markdown, sanitizador e Mermaid locais auditados e implementar renderização em CemgSpec/Infrastructure/Documents/MarkdownRenderer.cs e CemgSpec/wwwroot/lib/preview/; nenhum CDN.",
       "origin": "US2-AC02/03/04; constituição VII",
       "deps": [
         "us2tests"
@@ -452,8 +452,8 @@
       "verify": "Auditar componentes diretos/transitivos, licenças/versões e hashes antes de introduzir; rodar corpus offline, Mermaid inválido/PlantUML fonte e HTML ativo.",
       "expected": "Títulos/listas/tarefas não editáveis/tabelas/citações/imagens/código em documento corretos; só Mermaid renderizado; scripts bloqueados.",
       "paths": [
-        "SpecAudit/Infrastructure/Documents/MarkdownRenderer.cs",
-        "SpecAudit/wwwroot/lib/preview/"
+        "CemgSpec/Infrastructure/Documents/MarkdownRenderer.cs",
+        "CemgSpec/wwwroot/lib/preview/"
       ],
       "parallel": false,
       "dependsOn": [
@@ -485,7 +485,7 @@
       "key": "docsUI",
       "story": "US2",
       "pr": "PR-B",
-      "desc": "Integrar árvore/busca/âncoras e Preview/Fonte/Lado a lado em SpecAudit/Components/Pages/Documents.razor e SpecAudit/Components/Documents/MarkdownPreview.razor após validação de segurança. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Integrar árvore/busca/âncoras e Preview/Fonte/Lado a lado em CemgSpec/Components/Pages/Documents.razor e CemgSpec/Components/Documents/MarkdownPreview.razor após validação de segurança. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US2-AC01/02/03/04",
       "deps": [
         "previewSafe"
@@ -493,8 +493,8 @@
       "verify": "Rodar MarkdownPreviewTests no host e comparar corpus ao preview padrão VS Code sem extensões; autorizar imagem na sessão e navegar links externos por clique. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/documentos-sugestoes.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Sem edição, scripts ou rede silenciosa; equivalência de conteúdo e fontes/limitações visíveis.",
       "paths": [
-        "SpecAudit/Components/Pages/Documents.razor",
-        "SpecAudit/Components/Documents/MarkdownPreview.razor"
+        "CemgSpec/Components/Pages/Documents.razor",
+        "CemgSpec/Components/Documents/MarkdownPreview.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -589,7 +589,7 @@
       "key": "us3tests",
       "story": "US3",
       "pr": "PR-B",
-      "desc": "Escrever testes US3-S01–S04 em tests/SpecAudit.Tests/DocumentaryProgressTests.cs e tests/SpecAudit.Ui.Tests/DashboardTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "desc": "Escrever testes US3-S01–S04 em tests/CemgSpec.Tests/DocumentaryProgressTests.cs e tests/CemgSpec.Ui.Tests/DashboardTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
       "origin": "US3-AC01/02/03/04",
       "deps": [
         "pradesc"
@@ -597,8 +597,8 @@
       "verify": "Usar fixture 30/40 e 12/20, escopo vazio, links ambíguos, READY documental e documento alterado; testar fórmula/procedência sem código. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
       "expected": "Teste falha se checkbox/hash virar implementação, denominador omitir inconclusivos ou atualização executar agente.",
       "paths": [
-        "tests/SpecAudit.Tests/DocumentaryProgressTests.cs",
-        "tests/SpecAudit.Ui.Tests/DashboardTests.cs"
+        "tests/CemgSpec.Tests/DocumentaryProgressTests.cs",
+        "tests/CemgSpec.Ui.Tests/DashboardTests.cs"
       ],
       "parallel": true,
       "dependsOn": [
@@ -610,7 +610,7 @@
       "key": "progress",
       "story": "US3",
       "pr": "PR-B",
-      "desc": "Definir TaskDeclaration/DashboardProjection e projeções em SpecAudit/Domain/TaskDeclaration.cs, SpecAudit/Domain/DashboardProjection.cs e SpecAudit/Application/DocumentaryDashboardService.cs; observar constraints literais abaixo.",
+      "desc": "Definir TaskDeclaration/DashboardProjection e projeções em CemgSpec/Domain/TaskDeclaration.cs, CemgSpec/Domain/DashboardProjection.cs e CemgSpec/Application/DocumentaryDashboardService.cs; observar constraints literais abaixo.",
       "origin": "US3-AC01/02/03/04; data-model",
       "deps": [
         "us3tests"
@@ -618,9 +618,9 @@
       "verify": "Rodar DocumentaryProgressTests com contagens, duplicidades e vínculos explícitos versus inferidos; usar apenas snapshots do broker; marcar Stale por geração.",
       "expected": "75% declarado e 60% documental, vazio NoItems; nenhum score de implementação ou leitura de código; update sem agente/gate.",
       "paths": [
-        "SpecAudit/Domain/TaskDeclaration.cs",
-        "SpecAudit/Domain/DashboardProjection.cs",
-        "SpecAudit/Application/DocumentaryDashboardService.cs"
+        "CemgSpec/Domain/TaskDeclaration.cs",
+        "CemgSpec/Domain/DashboardProjection.cs",
+        "CemgSpec/Application/DocumentaryDashboardService.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -632,7 +632,7 @@
       "key": "dashboardUI",
       "story": "US3",
       "pr": "PR-B",
-      "desc": "Implementar indicadores/ocorrências/filtros e fonte/atualidade em SpecAudit/Components/Pages/Dashboard.razor, preservando procedência documental. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Implementar indicadores/ocorrências/filtros e fonte/atualidade em CemgSpec/Components/Pages/Dashboard.razor, preservando procedência documental. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US3-AC01/02/03/04",
       "deps": [
         "progress"
@@ -640,7 +640,7 @@
       "verify": "Rodar DashboardTests no host; seguir cada número/ocorrência até fonte autorizada, aplicar filtros e editar documento enquanto aberto. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/dashboard-requisito.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Contagens e regra explícitas; fonte e revisão visíveis; registro READY não é teste/aceite; alteração invalida sem execução automática.",
       "paths": [
-        "SpecAudit/Components/Pages/Dashboard.razor"
+        "CemgSpec/Components/Pages/Dashboard.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -735,7 +735,7 @@
       "key": "us4tests",
       "story": "US4",
       "pr": "PR-B",
-      "desc": "Escrever testes US4-S01–S04 em tests/SpecAudit.Tests/RequirementTraceTests.cs e tests/SpecAudit.Ui.Tests/RequirementSheetTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "desc": "Escrever testes US4-S01–S04 em tests/CemgSpec.Tests/RequirementTraceTests.cs e tests/CemgSpec.Ui.Tests/RequirementSheetTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
       "origin": "US4-AC01/02/03/04",
       "deps": [
         "dashboardUI",
@@ -744,8 +744,8 @@
       "verify": "Testar IDs iguais em funcionalidades diferentes, duplicados na mesma, vínculo inferido, ausência/ambiguidade e referências a código/configuração. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
       "expected": "Sem merge indevido de IDs, conclusão de implementação ou leitura de destino proibido.",
       "paths": [
-        "tests/SpecAudit.Tests/RequirementTraceTests.cs",
-        "tests/SpecAudit.Ui.Tests/RequirementSheetTests.cs"
+        "tests/CemgSpec.Tests/RequirementTraceTests.cs",
+        "tests/CemgSpec.Ui.Tests/RequirementSheetTests.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -758,7 +758,7 @@
       "key": "trace",
       "story": "US4",
       "pr": "PR-B",
-      "desc": "Definir Requirement/Criterion/EvidenceLink/Finding e serviço de rastreabilidade em SpecAudit/Domain/Requirement.cs, SpecAudit/Domain/EvidenceLink.cs, SpecAudit/Domain/Finding.cs e SpecAudit/Application/RequirementTraceService.cs com as constraints literais abaixo.",
+      "desc": "Definir Requirement/Criterion/EvidenceLink/Finding e serviço de rastreabilidade em CemgSpec/Domain/Requirement.cs, CemgSpec/Domain/EvidenceLink.cs, CemgSpec/Domain/Finding.cs e CemgSpec/Application/RequirementTraceService.cs com as constraints literais abaixo.",
       "origin": "US4-AC01/02/03/04; data-model",
       "deps": [
         "us4tests"
@@ -766,10 +766,10 @@
       "verify": "Rodar RequirementTraceTests em documentos de linguagens diferentes; navegar só DocumentIds autorizados; validar fontes/hash e evidência insuficiente.",
       "expected": "CoverageState documental e proveniência explícita/inferida; referências a fonte viram OutOfScope e não código aberto.",
       "paths": [
-        "SpecAudit/Domain/Requirement.cs",
-        "SpecAudit/Domain/EvidenceLink.cs",
-        "SpecAudit/Domain/Finding.cs",
-        "SpecAudit/Application/RequirementTraceService.cs"
+        "CemgSpec/Domain/Requirement.cs",
+        "CemgSpec/Domain/EvidenceLink.cs",
+        "CemgSpec/Domain/Finding.cs",
+        "CemgSpec/Application/RequirementTraceService.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -781,7 +781,7 @@
       "key": "sheet",
       "story": "US4",
       "pr": "PR-B",
-      "desc": "Implementar ficha em SpecAudit/Components/Pages/Requirements.razor e SpecAudit/Components/Requirements/RequirementSheet.razor com descrição/critério/plano/tarefas/verificações/sugestões documentais. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Implementar ficha em CemgSpec/Components/Pages/Requirements.razor e CemgSpec/Components/Requirements/RequirementSheet.razor com descrição/critério/plano/tarefas/verificações/sugestões documentais. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US4-AC01/02/03/04",
       "deps": [
         "trace"
@@ -789,8 +789,8 @@
       "verify": "Rodar RequirementSheetTests; abrir vínculos e declarações externas, focar requisito e conferir limite de implementação futura; sem criar arquivo de ficha. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/dashboard-requisito.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Mesma consulta documental independente de linguagem; sem Implemented/NotImplemented ou aceite pela IA; pontos para combo posterior sem executar nada.",
       "paths": [
-        "SpecAudit/Components/Pages/Requirements.razor",
-        "SpecAudit/Components/Requirements/RequirementSheet.razor"
+        "CemgSpec/Components/Pages/Requirements.razor",
+        "CemgSpec/Components/Requirements/RequirementSheet.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -885,7 +885,7 @@
       "key": "us8tests",
       "story": "US8",
       "pr": "PR-B",
-      "desc": "Escrever testes US8-S01/S02 em tests/SpecAudit.Ui.Tests/NavigationThemeTests.cs com estados indisponíveis de verificações e Salvar. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "desc": "Escrever testes US8-S01/S02 em tests/CemgSpec.Ui.Tests/NavigationThemeTests.cs com estados indisponíveis de verificações e Salvar. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
       "origin": "US8-AC01/02",
       "deps": [
         "sheet"
@@ -893,7 +893,7 @@
       "verify": "Percorrer cinco áreas em sessão; trocar tema com ocorrência selecionada; verificar projeto/origem/destino e texto/ícone independente de cor. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
       "expected": "Nada executa/grava ao navegar; seleção/conteúdo se mantém e incompleto não parece habilitado.",
       "paths": [
-        "tests/SpecAudit.Ui.Tests/NavigationThemeTests.cs"
+        "tests/CemgSpec.Ui.Tests/NavigationThemeTests.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -905,7 +905,7 @@
       "key": "shell",
       "story": "US8",
       "pr": "PR-B",
-      "desc": "Implementar navegação/tema em SpecAudit/Components/Layout/MainLayout.razor e SpecAudit/wwwroot/app.css; azul/lilás/branco/cinza, escuro inicial e claro opcional, preferência só na sessão. Criar apenas placeholders indisponíveis das áreas Verificações/Sugestões nesses arquivos para que a navegação não dependa de PR-C/E futuros. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Implementar navegação/tema em CemgSpec/Components/Layout/MainLayout.razor e CemgSpec/wwwroot/app.css; azul/lilás/branco/cinza, escuro inicial e claro opcional, preferência só na sessão. Criar apenas placeholders indisponíveis das áreas Verificações/Sugestões nesses arquivos para que a navegação não dependa de PR-C/E futuros. Preservar o visual de design/mockups/dashboard-requisito.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US8-AC01/02",
       "deps": [
         "us8tests"
@@ -913,10 +913,10 @@
       "verify": "Rodar NavigationThemeTests em host real; verificar foco/legibilidade/texto/ícone e contexto ao alternar modos/áreas. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/dashboard-requisito.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Cinco áreas presentes e sem perda de estado; sem autosave de conteúdo ou funcionalidade sem selo.",
       "paths": [
-        "SpecAudit/Components/Layout/MainLayout.razor",
-        "SpecAudit/wwwroot/app.css",
-        "SpecAudit/Components/Pages/Verifications.razor",
-        "SpecAudit/Components/Pages/Suggestions.razor"
+        "CemgSpec/Components/Layout/MainLayout.razor",
+        "CemgSpec/wwwroot/app.css",
+        "CemgSpec/Components/Pages/Verifications.razor",
+        "CemgSpec/Components/Pages/Suggestions.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1098,7 +1098,7 @@
       "key": "gateTests",
       "story": "US5",
       "pr": "PR-C",
-      "desc": "Escrever testes de contrato gate US5-S06/S07 e disponibilidade/seleção US5-S03/S05 em tests/SpecAudit.Windows.Tests/GateAdapterTests.cs e tests/SpecAudit.Ui.Tests/VerificationSelectionTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "desc": "Escrever testes de contrato gate US5-S06/S07 e disponibilidade/seleção US5-S03/S05 em tests/CemgSpec.Windows.Tests/GateAdapterTests.cs e tests/CemgSpec.Ui.Tests/VerificationSelectionTests.cs. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
       "origin": "US5-AC03/05/06/07",
       "deps": [
         "prbdesc"
@@ -1106,8 +1106,8 @@
       "verify": "Cobrir READY/BLOCKED/DEV_IMPOSSIBILITY_RECORDED, hash/revisão inválidos, logs/artifacts aninhados, .cs/junção/TOCTOU, ausência Python/selos e nenhum agente/rede. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
       "expected": "Teste distingue resultado core de erro/cancelamento; detecta leitura indevida e terceira opção/execução ao selecionar.",
       "paths": [
-        "tests/SpecAudit.Windows.Tests/GateAdapterTests.cs",
-        "tests/SpecAudit.Ui.Tests/VerificationSelectionTests.cs"
+        "tests/CemgSpec.Windows.Tests/GateAdapterTests.cs",
+        "tests/CemgSpec.Ui.Tests/VerificationSelectionTests.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1119,7 +1119,7 @@
       "key": "runModel",
       "story": "US5",
       "pr": "PR-C",
-      "desc": "Definir GateCandidate/VerificationRun e máquina de estados em SpecAudit/Domain/GateCandidate.cs, SpecAudit/Domain/VerificationRun.cs e SpecAudit/Application/VerificationService.cs; conservar enum de só duas opções.",
+      "desc": "Definir GateCandidate/VerificationRun e máquina de estados em CemgSpec/Domain/GateCandidate.cs, CemgSpec/Domain/VerificationRun.cs e CemgSpec/Application/VerificationService.cs; conservar enum de só duas opções.",
       "origin": "US5-AC03/05/06/07; data-model",
       "deps": [
         "gateTests"
@@ -1127,9 +1127,9 @@
       "verify": "Rodar testes de estados com Availability separado, preparação vencida, cancelamento sem término e gate de funcionalidade na ficha; validar ownership de IDs.",
       "expected": "Sem disponibilidade não cria Run; Preparing pode Blocked; falha não é requisito reprovado; sem approval de IA.",
       "paths": [
-        "SpecAudit/Domain/GateCandidate.cs",
-        "SpecAudit/Domain/VerificationRun.cs",
-        "SpecAudit/Application/VerificationService.cs"
+        "CemgSpec/Domain/GateCandidate.cs",
+        "CemgSpec/Domain/VerificationRun.cs",
+        "CemgSpec/Application/VerificationService.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1141,7 +1141,7 @@
       "key": "gateCore",
       "story": "US5",
       "pr": "PR-C",
-      "desc": "Empacotar core check_gate.py e gate-requirements.json CEMG 3.0.0 com hashes e runtime Python absoluto conferido em SpecAudit/Infrastructure/Gates/Core/ e SpecAudit/Infrastructure/Gates/GatePackage.cs; não importar script da origem.",
+      "desc": "Empacotar core check_gate.py e gate-requirements.json CEMG 3.0.0 com hashes e runtime Python absoluto conferido em CemgSpec/Infrastructure/Gates/Core/ e CemgSpec/Infrastructure/Gates/GatePackage.cs; não importar script da origem.",
       "origin": "US5-AC06/07; contracts/verification.md CheckGate",
       "deps": [
         "runModel"
@@ -1149,9 +1149,9 @@
       "verify": "Comparar bytes/hashes ao preset confiável instalado; rejeitar core/política/runtime alterados; auditar componentes; ausência de Python comunica indisponibilidade sem instalar.",
       "expected": "Pacote confiável versionado, adaptação identificada, sem --project/main/active e sem alteração do preset original.",
       "paths": [
-        "SpecAudit/Infrastructure/Gates/Core/check_gate.py",
-        "SpecAudit/Infrastructure/Gates/Core/policies/gate-requirements.json",
-        "SpecAudit/Infrastructure/Gates/GatePackage.cs"
+        "CemgSpec/Infrastructure/Gates/Core/check_gate.py",
+        "CemgSpec/Infrastructure/Gates/Core/policies/gate-requirements.json",
+        "CemgSpec/Infrastructure/Gates/GatePackage.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1163,7 +1163,7 @@
       "key": "gateRunner",
       "story": "US5",
       "pr": "PR-C",
-      "desc": "Implementar runner confiável Path de capacidade e cliente broker em SpecAudit/Infrastructure/Gates/runner.py, SpecAudit/Infrastructure/Gates/catalog_path.py e SpecAudit/Infrastructure/Gates/GateExecutor.cs, apenas validate/validate_impossibility.",
+      "desc": "Implementar runner confiável Path de capacidade e cliente broker em CemgSpec/Infrastructure/Gates/runner.py, CemgSpec/Infrastructure/Gates/catalog_path.py e CemgSpec/Infrastructure/Gates/GateExecutor.cs, apenas validate/validate_impossibility.",
       "origin": "US5-AC05/06/07; contrato CheckGate",
       "deps": [
         "gateCore"
@@ -1171,9 +1171,9 @@
       "verify": "Executar GateAdapterTests em fixture com -I -B/cwd externo, sem shell/rede; todas as operações resolve/join/read_bytes/read_text do core usam catálogo/broker, só política do pacote é exceção; testar grafo completo e TOCTOU no ponto da leitura.",
       "expected": "Não entrega path real da origem ao Python/core, não cria cópia da solução e não abre fonte/configuração; limite/preflight bloqueia sem READY parcial.",
       "paths": [
-        "SpecAudit/Infrastructure/Gates/runner.py",
-        "SpecAudit/Infrastructure/Gates/catalog_path.py",
-        "SpecAudit/Infrastructure/Gates/GateExecutor.cs"
+        "CemgSpec/Infrastructure/Gates/runner.py",
+        "CemgSpec/Infrastructure/Gates/catalog_path.py",
+        "CemgSpec/Infrastructure/Gates/GateExecutor.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1205,7 +1205,7 @@
       "key": "gateEnable",
       "story": "US5",
       "pr": "PR-C",
-      "desc": "Integrar combo compartilhada e habilitar check_gate somente com selo Passed em SpecAudit/Components/Verifications/VerificationSelector.razor e SpecAudit/Components/Pages/Verifications.razor, reutilizando-o na ficha. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Integrar combo compartilhada e habilitar check_gate somente com selo Passed em CemgSpec/Components/Verifications/VerificationSelector.razor e CemgSpec/Components/Pages/Verifications.razor, reutilizando-o na ficha. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US5-AC03/05/06/07",
       "deps": [
         "gateProof"
@@ -1213,9 +1213,9 @@
       "verify": "Rodar VerificationSelectionTests no host: exatamente analyze/check_gate, seleção por projeto sincronizada, sem executar ao selecionar; confirmar funcionalidade/etapa/registro/revisão esperada antes do clique Executar. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/verificacoes-pasta-externa.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Gate funciona sem agente/rede; analyze ainda indisponível; botão do gate bloqueado com selo ausente/versão alterada; alcance real visível na ficha.",
       "paths": [
-        "SpecAudit/Components/Verifications/VerificationSelector.razor",
-        "SpecAudit/Components/Pages/Verifications.razor",
-        "SpecAudit/Components/Requirements/RequirementSheet.razor"
+        "CemgSpec/Components/Verifications/VerificationSelector.razor",
+        "CemgSpec/Components/Pages/Verifications.razor",
+        "CemgSpec/Components/Requirements/RequirementSheet.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1309,7 +1309,7 @@
       "key": "agentTests",
       "story": "US5",
       "pr": "PR-D",
-      "desc": "Escrever contratos de descoberta/execução documental US5-S01/S02/S04/S05 em tests/SpecAudit.Windows.Tests/AgentDiscoveryTests.cs e tests/SpecAudit.Windows.Tests/AnalyzeProtectionTests.cs antes dos adaptadores.",
+      "desc": "Escrever contratos de descoberta/execução documental US5-S01/S02/S04/S05 em tests/CemgSpec.Windows.Tests/AgentDiscoveryTests.cs e tests/CemgSpec.Windows.Tests/AnalyzeProtectionTests.cs antes dos adaptadores.",
       "origin": "US5-AC01/02/04/05",
       "deps": [
         "prcdesc"
@@ -1317,8 +1317,8 @@
       "verify": "Cobrir encontrado/ausente/incompatível, scripts/config maliciosos, segredo sintético, código fora do catálogo, autenticação ausente, cache interno externo e cancelamento pai/filho; mocks só domínio, provas reais posteriores.",
       "expected": "Falhas do contrato são observáveis e bloqueiam somente adaptador pertinente; gate/leitor não dependem de autenticação.",
       "paths": [
-        "tests/SpecAudit.Windows.Tests/AgentDiscoveryTests.cs",
-        "tests/SpecAudit.Windows.Tests/AnalyzeProtectionTests.cs"
+        "tests/CemgSpec.Windows.Tests/AgentDiscoveryTests.cs",
+        "tests/CemgSpec.Windows.Tests/AnalyzeProtectionTests.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1330,7 +1330,7 @@
       "key": "discover",
       "story": "US5",
       "pr": "PR-D",
-      "desc": "Definir AgentInstallation e descoberta em SpecAudit/Domain/AgentInstallation.cs e SpecAudit/Infrastructure/Agents/AgentDiscovery.cs para Codex/Antigravity/Claude Code/Kiro; fallback manual só para desejado não encontrado.",
+      "desc": "Definir AgentInstallation e descoberta em CemgSpec/Domain/AgentInstallation.cs e CemgSpec/Infrastructure/Agents/AgentDiscovery.cs para Codex/Antigravity/Claude Code/Kiro; fallback manual só para desejado não encontrado.",
       "origin": "US5-AC01; data-model",
       "deps": [
         "agentTests"
@@ -1338,8 +1338,8 @@
       "verify": "Rodar AgentDiscoveryTests com instalações reais quando disponíveis e fixtures de ausência; conferir identidade/versão sem usar executável/configuração do projeto; Unsupported para demais integrações.",
       "expected": "Descoberta não é compatibilidade; seleção por projeto e locais externos informados, sem analisar nada na descoberta.",
       "paths": [
-        "SpecAudit/Domain/AgentInstallation.cs",
-        "SpecAudit/Infrastructure/Agents/AgentDiscovery.cs"
+        "CemgSpec/Domain/AgentInstallation.cs",
+        "CemgSpec/Infrastructure/Agents/AgentDiscovery.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1351,7 +1351,7 @@
       "key": "codex",
       "story": "US5",
       "pr": "PR-D",
-      "desc": "Implementar adaptador Codex documental em SpecAudit/Infrastructure/Agents/CodexAnalyzeAdapter.cs, ainda desabilitado, usando snapshots/canal restrito e estado externo conhecido.",
+      "desc": "Implementar adaptador Codex documental em CemgSpec/Infrastructure/Agents/CodexAnalyzeAdapter.cs, ainda desabilitado, usando snapshots/canal restrito e estado externo conhecido.",
       "origin": "US5-AC02/04/05; AnalyzeDocuments",
       "deps": [
         "discover"
@@ -1359,7 +1359,7 @@
       "verify": "Exercitar contrato com harness e erro de autenticação, schema inválido/invenção de DocumentId, ausência de spec/plan/tasks e cancelamento; nenhuma tool de shell/escrita/leitura arbitrária ou configuração da origem.",
       "expected": "Não lê código, não cria relatório oficial nem arquivo de pré-requisito; saída inválida é Inconclusive/Failed; só prompt não habilita.",
       "paths": [
-        "SpecAudit/Infrastructure/Agents/CodexAnalyzeAdapter.cs"
+        "CemgSpec/Infrastructure/Agents/CodexAnalyzeAdapter.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1391,7 +1391,7 @@
       "key": "codexEnable",
       "story": "US5",
       "pr": "PR-D",
-      "desc": "Habilitar seleção/Execução Codex somente com Assessment Passed em SpecAudit/Application/AgentCompatibilityService.cs e SpecAudit/Components/Verifications/AgentSelector.razor. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Habilitar seleção/Execução Codex somente com Assessment Passed em CemgSpec/Application/AgentCompatibilityService.cs e CemgSpec/Components/Verifications/AgentSelector.razor. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US5-AC01/02/03/04/05",
       "deps": [
         "codexProof"
@@ -1399,8 +1399,8 @@
       "verify": "No host repetir análise por clique, foco do requisito e cancelamento; adulterar/invalidar versão/política de selo e verificar indisponibilidade; mostrar envio externo e adaptação. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/verificacoes-pasta-externa.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Codex indisponível sem prova, nunca permissões ampliadas; gate e leitor continuam independentes.",
       "paths": [
-        "SpecAudit/Application/AgentCompatibilityService.cs",
-        "SpecAudit/Components/Verifications/AgentSelector.razor"
+        "CemgSpec/Application/AgentCompatibilityService.cs",
+        "CemgSpec/Components/Verifications/AgentSelector.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1413,7 +1413,7 @@
       "key": "agy",
       "story": "US5",
       "pr": "PR-D",
-      "desc": "Implementar adaptador Antigravity documental em SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs, ainda desabilitado, com conversa/cache apenas externos e sem importá-los como histórico oficial.",
+      "desc": "Implementar adaptador Antigravity documental em CemgSpec/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs, ainda desabilitado, com conversa/cache apenas externos e sem importá-los como histórico oficial.",
       "origin": "US5-AC02/04/05; AnalyzeDocuments",
       "deps": [
         "discover"
@@ -1421,7 +1421,7 @@
       "verify": "Exercitar contrato/harness, saídas e erro de autenticação; não carregar rules/plugins/config da origem; canal só documental e recursos fechados.",
       "expected": "Nenhuma escrita na origem ou relatório oficial antes de Salvar; existência de transcrição externa informada não é relatório salvo.",
       "paths": [
-        "SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs"
+        "CemgSpec/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs"
       ],
       "parallel": true,
       "dependsOn": [
@@ -1453,7 +1453,7 @@
       "key": "agyEnable",
       "story": "US5",
       "pr": "PR-D",
-      "desc": "Habilitar Antigravity só com Assessment Passed em SpecAudit/Application/AgentCompatibilityService.cs e SpecAudit/Components/Verifications/AgentSelector.razor, sem afetar Codex/gate. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Habilitar Antigravity só com Assessment Passed em CemgSpec/Application/AgentCompatibilityService.cs e CemgSpec/Components/Verifications/AgentSelector.razor, sem afetar Codex/gate. Preservar o visual de design/mockups/verificacoes-pasta-externa.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US5-AC01/02/03/04/05",
       "deps": [
         "agyProof",
@@ -1462,8 +1462,8 @@
       "verify": "No host executar/cancelar Antigravity, testar selo inválido e trocar agente/projeto; conferir estado interno informado e nenhuma persistência oficial. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/verificacoes-pasta-externa.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Cada agente possui selo/versão próprios; falha de um não habilita o outro nem bloqueia leitura/gate.",
       "paths": [
-        "SpecAudit/Application/AgentCompatibilityService.cs",
-        "SpecAudit/Components/Verifications/AgentSelector.razor"
+        "CemgSpec/Application/AgentCompatibilityService.cs",
+        "CemgSpec/Components/Verifications/AgentSelector.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1640,7 +1640,7 @@
       "key": "us6tests",
       "story": "US6",
       "pr": "PR-E",
-      "desc": "Escrever contratos US6-S01–S04 em tests/SpecAudit.Windows.Tests/ExternalWriterTests.cs, tests/SpecAudit.Tests/FindingDecisionTests.cs e tests/SpecAudit.Ui.Tests/SaveHistoryTests.cs antes de gravar relatórios. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
+      "desc": "Escrever contratos US6-S01–S04 em tests/CemgSpec.Windows.Tests/ExternalWriterTests.cs, tests/CemgSpec.Tests/FindingDecisionTests.cs e tests/CemgSpec.Ui.Tests/SaveHistoryTests.cs antes de gravar relatórios. Incluir comparação visual com design/mockups/README.md e os mockups da tela, exigindo as substituições de comportamento da V1.",
       "origin": "US6-AC01/02/03/04",
       "deps": [
         "prddesc"
@@ -1648,9 +1648,9 @@
       "verify": "Testar resultados em memória, falsa classificação sem motivo, fingerprint alterado, destino interno/reparse/TOCTOU, falha parcial, CSV fórmula e exclusão selecionada. Preparar comparação com design/mockups/README.md, sem validar comportamentos antigos presentes nos pixels.",
       "expected": "Detecta relatório oficial antes de Save, sobrescrita, perda de decisão e origem como fallback; não importa cache de agente.",
       "paths": [
-        "tests/SpecAudit.Windows.Tests/ExternalWriterTests.cs",
-        "tests/SpecAudit.Tests/FindingDecisionTests.cs",
-        "tests/SpecAudit.Ui.Tests/SaveHistoryTests.cs"
+        "tests/CemgSpec.Windows.Tests/ExternalWriterTests.cs",
+        "tests/CemgSpec.Tests/FindingDecisionTests.cs",
+        "tests/CemgSpec.Ui.Tests/SaveHistoryTests.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1662,7 +1662,7 @@
       "key": "saveModel",
       "story": "US6",
       "pr": "PR-E",
-      "desc": "Definir HumanDecision/SavedRecord e classificação em SpecAudit/Domain/HumanDecision.cs, SpecAudit/Domain/SavedRecord.cs e SpecAudit/Application/FindingDecisionService.cs com constraints literais abaixo.",
+      "desc": "Definir HumanDecision/SavedRecord e classificação em CemgSpec/Domain/HumanDecision.cs, CemgSpec/Domain/SavedRecord.cs e CemgSpec/Application/FindingDecisionService.cs com constraints literais abaixo.",
       "origin": "US6-AC01/03/04; data-model",
       "deps": [
         "us6tests"
@@ -1670,9 +1670,9 @@
       "verify": "Rodar FindingDecisionTests com Pending/Confirmed/FalsePositive/AcceptedRisk/Deferred, justificativa/data/ator, contexto alterado e risco sem alterar falha técnica.",
       "expected": "Estados em memória até Save, revisão de decisão afetada sem apagar original; nenhuma aprovação humana inventada.",
       "paths": [
-        "SpecAudit/Domain/HumanDecision.cs",
-        "SpecAudit/Domain/SavedRecord.cs",
-        "SpecAudit/Application/FindingDecisionService.cs"
+        "CemgSpec/Domain/HumanDecision.cs",
+        "CemgSpec/Domain/SavedRecord.cs",
+        "CemgSpec/Application/FindingDecisionService.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1684,7 +1684,7 @@
       "key": "writer",
       "story": "US6",
       "pr": "PR-E",
-      "desc": "Implementar writer e serialização em SpecAudit/Infrastructure/Reports/ExternalReportWriter.cs e SpecAudit/Infrastructure/Reports/ReportSerializer.cs, ainda sem botão Save habilitado.",
+      "desc": "Implementar writer e serialização em CemgSpec/Infrastructure/Reports/ExternalReportWriter.cs e CemgSpec/Infrastructure/Reports/ReportSerializer.cs, ainda sem botão Save habilitado.",
       "origin": "US6-AC01/02; contracts/persistence.md",
       "deps": [
         "saveModel"
@@ -1692,8 +1692,8 @@
       "verify": "Rodar ExternalWriterTests em fixture: manifesto SchemaVersion=1 por último, create-new, MD/JSON/CSV escolhidos, metadados completos, CSV seguro e erro parcial honesto; revalidar destino por handle no acesso.",
       "expected": "Somente destino externo autorizado; sem overwrite/restore/autosave; incomplete não vira Saved; não excluir resíduos automaticamente.",
       "paths": [
-        "SpecAudit/Infrastructure/Reports/ExternalReportWriter.cs",
-        "SpecAudit/Infrastructure/Reports/ReportSerializer.cs"
+        "CemgSpec/Infrastructure/Reports/ExternalReportWriter.cs",
+        "CemgSpec/Infrastructure/Reports/ReportSerializer.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1725,7 +1725,7 @@
       "key": "history",
       "story": "US6",
       "pr": "PR-E",
-      "desc": "Implementar listagem/validação/comparação e exclusão explícita de histórico em SpecAudit/Infrastructure/Reports/SavedHistoryReader.cs e SpecAudit/Application/SavedHistoryService.cs, usando IDs e destino externo resolvido.",
+      "desc": "Implementar listagem/validação/comparação e exclusão explícita de histórico em CemgSpec/Infrastructure/Reports/SavedHistoryReader.cs e CemgSpec/Application/SavedHistoryService.cs, usando IDs e destino externo resolvido.",
       "origin": "US6-AC04; contracts/persistence.md Histórico",
       "deps": [
         "writerProof"
@@ -1733,8 +1733,8 @@
       "verify": "Rodar testes com pacotes válidos/incompletos/adulterados, mesmas chaves em projetos diferentes, amostra incompleta, troca de destino e seleção de uma exclusão.",
       "expected": "Só histórico oficial salvo; não infere resolvido de ausência em amostra incompleta; sem retenção/exclusão automática ou acesso à origem.",
       "paths": [
-        "SpecAudit/Infrastructure/Reports/SavedHistoryReader.cs",
-        "SpecAudit/Application/SavedHistoryService.cs"
+        "CemgSpec/Infrastructure/Reports/SavedHistoryReader.cs",
+        "CemgSpec/Application/SavedHistoryService.cs"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1746,7 +1746,7 @@
       "key": "saveEnable",
       "story": "US6",
       "pr": "PR-E",
-      "desc": "Habilitar Save/formatos/histórico e decisões em SpecAudit/Components/Pages/Suggestions.razor e SpecAudit/Components/Reports/SaveDialog.razor somente com ExternalWriter Passed. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
+      "desc": "Habilitar Save/formatos/histórico e decisões em CemgSpec/Components/Pages/Suggestions.razor e CemgSpec/Components/Reports/SaveDialog.razor somente com ExternalWriter Passed. Preservar o visual de design/mockups/documentos-sugestoes.png e aplicar as adaptações obrigatórias de design/mockups/README.md; os comportamentos são exclusivamente os da V1 atual.",
       "origin": "US6-AC01/02/03/04",
       "deps": [
         "history"
@@ -1754,8 +1754,8 @@
       "verify": "Rodar SaveHistoryTests no host, mostrar conteúdo/destino e atualidade antes da confirmação; exportar formatos, comparar/excluir; teste com selo ausente/adulterado. Comparar a tela real nos temas aplicáveis ao mockup design/mockups/documentos-sugestoes.png e ao guia design/mockups/README.md, registrando diferenças intencionais e validando regras V1.",
       "expected": "Sem selo Save fica indisponível; não há salvamento por navegação/fechamento/erro; CSV e decisões rastreáveis, origem intacta.",
       "paths": [
-        "SpecAudit/Components/Pages/Suggestions.razor",
-        "SpecAudit/Components/Reports/SaveDialog.razor"
+        "CemgSpec/Components/Pages/Suggestions.razor",
+        "CemgSpec/Components/Reports/SaveDialog.razor"
       ],
       "parallel": false,
       "dependsOn": [
@@ -1850,7 +1850,7 @@
       "key": "integrated",
       "story": null,
       "pr": "PR-E",
-      "desc": "Executar regressão integrada dos 29 cenários e auditoria final das dependências do próprio SpecAudit em evidence/feature-validation.md e revisar quickstart.md para refletir caminho real entregue. Comparar todas as telas com design/mockups/README.md nos dois temas, preservando aparência e comprovando substituições de comportamento da V1.",
+      "desc": "Executar regressão integrada dos 29 cenários e auditoria final das dependências do próprio CemgSpec em evidence/feature-validation.md e revisar quickstart.md para refletir caminho real entregue. Comparar todas as telas com design/mockups/README.md nos dois temas, preservando aparência e comprovando substituições de comportamento da V1.",
       "origin": "SC-001–008; plan/quickstart; constituição VII/IX",
       "deps": [
         "US6dev",

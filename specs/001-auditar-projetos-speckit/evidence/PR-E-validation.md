@@ -8,9 +8,9 @@
 
 ## Resultados da regressão do incremento
 
-- `SpecAudit.Tests`: **25/25** aprovados (`FindingDecisionTests` incluído)
-- `SpecAudit.Windows.Tests` (local determinístico): **39/39** aprovados (`ExternalWriterTests` 3/3 incluído)
-- `SpecAudit.Ui.Tests` (Playwright/Edge real): **64/64** aprovados (`SaveHistoryTests` 2/2 + `NavigationThemeTests` 2/2 incluídos)
+- `CemgSpec.Tests`: **25/25** aprovados (`FindingDecisionTests` incluído)
+- `CemgSpec.Windows.Tests` (local determinístico): **39/39** aprovados (`ExternalWriterTests` 3/3 incluído)
+- `CemgSpec.Ui.Tests` (Playwright/Edge real): **64/64** aprovados (`SaveHistoryTests` 2/2 + `NavigationThemeTests` 2/2 incluídos)
 - **Total**: **128/128** aprovados, zero falhas.
 
 ## Achados pós-revisão (T092)

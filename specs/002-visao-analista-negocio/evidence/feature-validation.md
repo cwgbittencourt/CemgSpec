@@ -6,8 +6,8 @@
 
 ## Resultados dos testes
 
-- `SpecAudit.Tests` (`BusinessDashboardServiceTests` incluído): **28/28 aprovados** (`195 ms`).
-- `SpecAudit.Ui.Tests` (`BusinessDashboardTests` no Edge/Playwright real): **1/1 aprovado** (`4 s`).
+- `CemgSpec.Tests` (`BusinessDashboardServiceTests` incluído): **28/28 aprovados** (`195 ms`).
+- `CemgSpec.Ui.Tests` (`BusinessDashboardTests` no Edge/Playwright real): **1/1 aprovado** (`4 s`).
 
 ## Requisitos comprovados (`FR-001`–`FR-006`)
 
@@ -15,4 +15,4 @@
 - **FR-002 / FR-003**: 3 KPIs gerenciais (`Histórias prontas`, `Aguardando validação DEV`, `Aguardando aceite PO`) + tabela `Entregas por História de Usuário` com links diretos para `/documentos`.
 - **FR-004**: Card `Evolução (Antes × Agora)` integrado ao `SavedHistoryService`.
 - **FR-005**: Modal `? Glossário` (`GlossaryDialog.razor`) acessível no cabeçalho do Dashboard.
-- **FR-006**: Exportação explícita de `SpecAudit-Resumo-Executivo-*.html` exclusivamente no destino externo via `ExecutiveSummarySerializer`, mantendo a origem intacta (`fixture.IsUnchanged() == true`).
+- **FR-006**: Exportação explícita de `CemgSpec-Resumo-Executivo-*.html` exclusivamente no destino externo via `ExecutiveSummarySerializer`, mantendo a origem intacta (`fixture.IsUnchanged() == true`).

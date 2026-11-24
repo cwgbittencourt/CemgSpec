@@ -1,4 +1,4 @@
-# Roteiro de Validação DEV Integrado — SpecAudit V1 (T094)
+# Roteiro de Validação DEV Integrado — CemgSpec V1 (T094)
 
 - **Feature**: `001-auditar-projetos-speckit`
 - **Status da validação humana DEV**: `PENDENTE`

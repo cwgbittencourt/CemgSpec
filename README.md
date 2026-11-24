@@ -1,11 +1,11 @@
 <div align="center">
 
-<img src="docs/assets/specaudit-hero.svg" alt="CEMG Spec — Auditoria técnica e visão executiva de negócios com garantia 100% somente Leitura" width="100%" />
+<img src="docs/assets/cemgspec-hero.svg" alt="CEMG Spec — Auditoria técnica e visão executiva de negócios com garantia 100% somente Leitura" width="100%" />
 
 <br />
 
-[![Plataforma](https://img.shields.io/badge/Plataforma-Windows%2010%2F11%20(x64)-0078D4?style=for-the-badge&logo=windows&logoColor=white)](installer/SpecAudit-Setup.exe)
-[![.NET](https://img.shields.io/badge/.NET-10.0%20Self--Contained-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](SpecAudit/SpecAudit.csproj)
+[![Plataforma](https://img.shields.io/badge/Plataforma-Windows%2010%2F11%20(x64)-0078D4?style=for-the-badge&logo=windows&logoColor=white)](installer/CemgSpec-Setup.exe)
+[![.NET](https://img.shields.io/badge/.NET-10.0%20Self--Contained-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](CemgSpec/CemgSpec.csproj)
 [![SpecKit](https://img.shields.io/badge/Preset-cemg--speckit--preset%201.0.0-7C3AED?style=for-the-badge)](#visão-geral)
 [![Segurança](https://img.shields.io/badge/Origem-100%25%20Somente%20Leitura-10B981?style=for-the-badge)](#arquitetura-e-fronteira-de-segurança)
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT%20(As--Is)-F59E0B?style=for-the-badge)](LICENSE)
@@ -15,7 +15,7 @@
   <a href="#vitrine-visual-da-aplicação"><strong>🖥 Vitrine Visual das Telas</strong></a> ·
   <a href="#arquitetura-e-fronteira-de-segurança"><strong>🛡 Arquitetura &amp; Segurança</strong></a> ·
   <a href="#como-utilizar-o-programa-passo-a-passo"><strong>📖 Guia Passo a Passo</strong></a> ·
-  <a href="docs/apresentacao-specaudit.pdf"><strong>📊 Apresentação Executiva (PDF)</strong></a> ·
+  <a href="docs/apresentacao-cemg-spec.pdf"><strong>📊 Apresentação Executiva (PDF)</strong></a> ·
   <a href="#licença-direitos-autorais-e-isenção-de-responsabilidade-mit-license"><strong>⚖ Licença &amp; Termos</strong></a>
 </p>
 
@@ -112,16 +112,16 @@ flowchart LR
 
 ## Como Instalar e Executar no Windows
 
-### Opção 1 — Instalador Gráfico Único (`SpecAudit-Setup.exe`) *(Recomendado)*
+### Opção 1 — Instalador Gráfico Único (`CemgSpec-Setup.exe`) *(Recomendado)*
 
 O **CEMG Spec** conta com um instalador gráfico de arquivo único que **não requer privilégios de Administrador** e **não exige instalação prévia do .NET**:
 
-1. Baixe ou execute o instalador publicado em **[`installer/SpecAudit-Setup.exe`](installer/SpecAudit-Setup.exe)** *(também disponível na seção [**Releases `v1.0.0`**](../../releases/tag/v1.0.0) do GitHub)*.
+1. Baixe ou execute o instalador publicado em **[`installer/CemgSpec-Setup.exe`](installer/CemgSpec-Setup.exe)** *(também disponível na seção [**Releases `v1.0.0`**](../../releases/tag/v1.0.0) do GitHub)*.
 2. Na tela do instalador, mantenha marcadas as opções desejadas:
    - ☑ *Criar atalho com ícone CS na Área de Trabalho e no Menu Iniciar*
    - ☑ *Iniciar o CEMG Spec em segundo plano (ícone CS perto do relógio) e abrir navegador*
 3. Clique em **Instalar agora**.
-4. O aplicativo será instalado em `%LOCALAPPDATA%\Programs\SpecAudit` e abrirá automaticamente no navegador em `http://127.0.0.1:5187`.
+4. O aplicativo será instalado em `%LOCALAPPDATA%\Programs\CemgSpec` e abrirá automaticamente no navegador em `http://127.0.0.1:5187`.
 
 > [!TIP]
 > **Execução Invisível em Segundo Plano (Sem Janela Preta de Prompt):**  
@@ -132,7 +132,7 @@ O **CEMG Spec** conta com um instalador gráfico de arquivo único que **não re
 Você pode desinstalar o **CEMG Spec** a qualquer momento por qualquer um dos 3 caminhos abaixo (seus projetos e relatórios salvos permanecem intactos):
 1. **Configurações do Windows:** *Configurações → Aplicativos → Aplicativos instalados → CEMG Spec → Desinstalar*.
 2. **Menu Iniciar:** *Menu Iniciar → Todos os aplicativos → CEMG Spec → Desinstalar CEMG Spec*.
-3. **Pelo próprio `SpecAudit-Setup.exe`:** Abra o instalador e clique no botão vermelho **Desinstalar versão atual**.
+3. **Pelo próprio `CemgSpec-Setup.exe`:** Abra o instalador e clique no botão vermelho **Desinstalar versão atual**.
 
 ---
 
@@ -142,9 +142,9 @@ Em uma estação de desenvolvimento Windows x64 com o **.NET 10 SDK**:
 
 ```powershell
 # Executar diretamente em modo desenvolvimento (abrindo o navegador):
-dotnet run --project .\SpecAudit\SpecAudit.csproj -- --open-browser
+dotnet run --project .\CemgSpec\CemgSpec.csproj -- --open-browser
 
-# Ou regerar o instalador único (installer/dist/SpecAudit-Setup.exe):
+# Ou regerar o instalador único (installer/dist/CemgSpec-Setup.exe):
 powershell -ExecutionPolicy Bypass -File .\installer\Build-Installer.ps1
 ```
 
@@ -169,8 +169,8 @@ powershell -ExecutionPolicy Bypass -File .\installer\Build-Installer.ps1
 ## Documentação e Apresentação Executiva
 
 - 📘 **[Guia Completo de Uso das Telas (Markdown)](docs/GUIA_DE_USO_TELAS.md)**
-- 📊 **[Apresentação Executiva para Diretoria / Board (PDF Paisagem A4)](docs/apresentacao-specaudit.pdf)**
-- 🌐 **[Apresentação Executiva Interativa (HTML Retina 2x)](docs/apresentacao-specaudit.html)**
+- 📊 **[Apresentação Executiva para Diretoria / Board (PDF Paisagem A4)](docs/apresentacao-cemg-spec.pdf)**
+- 🌐 **[Apresentação Executiva Interativa (HTML Retina 2x)](docs/apresentacao-cemg-spec.html)**
 
 ---
 

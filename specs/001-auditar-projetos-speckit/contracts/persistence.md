@@ -4,7 +4,7 @@
 
 ## Autoridade de escrita
 
-Writer externo é o único componente do SpecAudit que aceita conteúdo oficial para disco; broker, UI, agentes e executor gate não têm operação de gravação na origem. A permissão normal do usuário na solução não é alterada. O writer não aceita path arbitrário do agente/UI: usa identidade do destino escolhido no picker e nome de registro gerado internamente.
+Writer externo é o único componente do CemgSpec que aceita conteúdo oficial para disco; broker, UI, agentes e executor gate não têm operação de gravação na origem. A permissão normal do usuário na solução não é alterada. O writer não aceita path arbitrário do agente/UI: usa identidade do destino escolhido no picker e nome de registro gerado internamente.
 
 Antes de Salvar: resultados, sugestões, decisões, índices e histórico novo em memória. Nenhum autosave, exportação provisória em disco, log de prompt/saída ou cache próprio com conteúdo. Conversas/caches de agente são exceção expressa exclusivamente externa, informados separadamente; não são report.json nem histórico oficial e nunca importados automaticamente.
 
@@ -12,7 +12,7 @@ Antes de Salvar: resultados, sugestões, decisões, índices e histórico novo e
 
 Entrada: ProjectId, RunIds/DecisionIds, formatos escolhidos (Markdown/JSON/CSV), geração, identificação de resultado Stale e confirmação explícita de conteúdo/destino. Revalidar destino por identidade resolvida, inclusive todos os ancestrais/reparse points; recusar origem/descendente da origem ou mudança de identidade. Nenhum fallback para pasta do projeto.
 
-Criar novo diretório com nome gerado `SpecAudit-<timestampUtc>-<uuid>` usando semântica create-new. Arquivos dentro dele: `manifest.json`, `report.md` quando selecionado, `report.json` quando selecionado e `findings.csv`/`indicators.csv` para listas solicitadas. Manifesto técnico acompanha qualquer formato salvo e pertence à mesma ação Salvar. Não incluir cópia integral da solução, credenciais, fontes não autorizadas ou conversas internas do agente.
+Criar novo diretório com nome gerado `CemgSpec-<timestampUtc>-<uuid>` usando semântica create-new. Arquivos dentro dele: `manifest.json`, `report.md` quando selecionado, `report.json` quando selecionado e `findings.csv`/`indicators.csv` para listas solicitadas. Manifesto técnico acompanha qualquer formato salvo e pertence à mesma ação Salvar. Não incluir cópia integral da solução, credenciais, fontes não autorizadas ou conversas internas do agente.
 
 Metadados comuns: SchemaVersion=1, SavedRecordId, projeto/funcionalidade, escopo, timestamps, hashes documentais, revisão esperada/registrada, agente/ferramenta/versão, limites, atualidade, fórmula dos indicadores, achados e decisões humanas atribuídas. Caminhos podem ser relativos à origem indicada; segredos e trechos desnecessários são excluídos. CSV deve tratar texto iniciado por fórmula como texto seguro, preservando valor lógico e explicando codificação no manifesto.
 

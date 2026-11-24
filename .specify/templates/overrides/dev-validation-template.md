@@ -1,4 +1,4 @@
-<!-- Override local SpecAudit: cemg-speckit 3.0.0 + constituição 4.1.0. -->
+<!-- Override local CemgSpec: cemg-speckit 3.0.0 + constituição 4.1.0. -->
 # Roteiro do DEV — [US1]
 
 Versão exata a validar: [commit + artefato/diff quando aplicável]

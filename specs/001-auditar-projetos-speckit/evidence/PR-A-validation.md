@@ -16,10 +16,10 @@ Diretório de todos os comandos: `__REPO_ROOT__`.
 
 | Execução | Critério/cenário | Comando ou procedimento | Esperado | Observado | Resultado | Artefato |
 |---|---|---|---|---|---|---|
-| RUN-01 | Dependências fixadas | `dotnet restore SpecAudit.slnx --locked-mode` | Restore sem mudar locks | Exit 0, locks intactos | PASSOU | logs/T016/restore.txt |
-| RUN-02 | Fundação, fronteiras, US1-AC01–AC04, regressão dos achados | `dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T017' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T017/results` | Todas as asserções passam | Exit 0; 7 domínio +14 Windows +31 UI =52; zero falhas/ignorados | PASSOU | logs/T017/full.txt; results/*.trx; harness/*.json |
+| RUN-01 | Dependências fixadas | `dotnet restore CemgSpec.slnx --locked-mode` | Restore sem mudar locks | Exit 0, locks intactos | PASSOU | logs/T016/restore.txt |
+| RUN-02 | Fundação, fronteiras, US1-AC01–AC04, regressão dos achados | `dotnet test CemgSpec.slnx --no-restore --logger 'trx;LogFilePrefix=T017' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T017/results` | Todas as asserções passam | Exit 0; 7 domínio +14 Windows +31 UI =52; zero falhas/ignorados | PASSOU | logs/T017/full.txt; results/*.trx; harness/*.json |
 | RUN-03 | Sanitização e rastreabilidade | `python -m unittest discover -s tools -p test_maintain_evidence.py -v` (Python local 3.11) | 6 testes passam | Exit 0, 6/6 | PASSOU | logs/T017/maintenance-tests.txt |
-| RUN-04 | Dependências transitivas | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta conclui e não reporta vulneráveis | Exit 0; nenhum pacote vulnerável reportado | PASSOU | logs/T017/packages.json ou alias no manifesto de manutenção |
+| RUN-04 | Dependências transitivas | `dotnet list CemgSpec.slnx package --vulnerable --include-transitive --no-restore --format json` | Consulta conclui e não reporta vulneráveis | Exit 0; nenhum pacote vulnerável reportado | PASSOU | logs/T017/packages.json ou alias no manifesto de manutenção |
 
 ## Execução real do produto e efeitos
 
@@ -46,13 +46,13 @@ Todos os comandos abaixo foram executados na raiz `__REPO_ROOT__`, Windows/SDK10
 
 | Execução | Comando | Esperado / observado | Resultado / evidência |
 |---|---|---|---|
-| Red dos achados | `dotnet test SpecAudit.slnx --no-restore --filter 'FullyQualifiedName~PrACorrectionTests\|FullyQualifiedName~PrAArtifactPresenceTests' --logger 'trx;LogFilePrefix=T019-red' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/red` | Cinco falhas comportamentais antes da correção; exit1 | FALHOU esperado; logs/T019/red.txt e red/*.trx |
+| Red dos achados | `dotnet test CemgSpec.slnx --no-restore --filter 'FullyQualifiedName~PrACorrectionTests\|FullyQualifiedName~PrAArtifactPresenceTests' --logger 'trx;LogFilePrefix=T019-red' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/red` | Cinco falhas comportamentais antes da correção; exit1 | FALHOU esperado; logs/T019/red.txt e red/*.trx |
 | Green | Mesmo filtro, prefixo T019-green e diretório logs/T019/green | Cinco casos passam após corrigir; exit0 | PASSOU; logs/T019/green.txt e green/*.trx |
-| Restore | `dotnet restore SpecAudit.slnx --locked-mode` | Exit0, locks intactos | PASSOU; logs/T019/restore.txt ou alias no manifesto |
-| Regressão | `dotnet test SpecAudit.slnx --no-restore --logger 'trx;LogFilePrefix=T019-full' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/full` | 57/57 (7 domínio,16 Windows,34 UI), zero falhas/ignorados; exit0 | PASSOU; logs/T019/full.txt e full/*.trx |
+| Restore | `dotnet restore CemgSpec.slnx --locked-mode` | Exit0, locks intactos | PASSOU; logs/T019/restore.txt ou alias no manifesto |
+| Regressão | `dotnet test CemgSpec.slnx --no-restore --logger 'trx;LogFilePrefix=T019-full' --results-directory specs/001-auditar-projetos-speckit/evidence/logs/T019/full` | 57/57 (7 domínio,16 Windows,34 UI), zero falhas/ignorados; exit0 | PASSOU; logs/T019/full.txt e full/*.trx |
 | Replay cenários | `dotnet run --project specs/001-auditar-projetos-speckit/evidence/T019-probes/T019ReviewProbe.csproj` | Constituição reconhecida e raiz ausente corretamente identificada; dois checks true; exit0 | PASSOU; logs/T019/probes.txt |
 | Manutenção | `python -m unittest discover -s tools -p test_maintain_evidence.py -v` | 6/6, exit0 | PASSOU; logs/T019/maintenance-tests.txt ou alias |
-| Dependências | `dotnet list SpecAudit.slnx package --vulnerable --include-transitive --no-restore --format json` | Exit0, nenhum pacote vulnerável reportado | PASSOU; logs/T017/packages.json ou alias; não audita SO/SDK/browser |
+| Dependências | `dotnet list CemgSpec.slnx package --vulnerable --include-transitive --no-restore --format json` | Exit0, nenhum pacote vulnerável reportado | PASSOU; logs/T017/packages.json ou alias; não audita SO/SDK/browser |
 
 A barra antes de `|` no filtro da tabela é escape Markdown; o filtro executado usa `|` literal. Green repete exatamente o filtro da rodada red. Comandos concretos preservados nos logs/TRX. Fonte e saída negativas T018 não foram sobrescritas. O replay T019 atualiza o predicado copiado para a consulta corrigida; os três testes permanentes renderizam Projects pelo HtmlRenderer real, com catálogo/serviço/filesystem reais e picker controlado, sem alegar navegador carregado.
 

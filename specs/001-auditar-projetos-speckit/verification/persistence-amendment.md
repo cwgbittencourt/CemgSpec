@@ -1,10 +1,10 @@
 # Emenda autorizada: estado dos agentes e relatórios oficiais
 
 Constituição: 1.0.1 -> 2.0.0. Preset: cemg-speckit 3.0.0.
-Fonte da decisão: mensagem explícita do usuário nesta conversa: “Sim, pode permitir conversas e caches dos agentes fora da solução verificada. Os relatórios do SpecAudit só devem ser gravados ao clicar em Salvar.”
+Fonte da decisão: mensagem explícita do usuário nesta conversa: “Sim, pode permitir conversas e caches dos agentes fora da solução verificada. Os relatórios do CemgSpec só devem ser gravados ao clicar em Salvar.”
 
 - Conversas, transcrições, caches e estado interno dos agentes podem persistir antes de Salvar, exclusivamente fora da solução verificada, com localização/comportamento informados.
-- Relatórios, sugestões, decisões, exportações e histórico oficial do SpecAudit só persistem por Salvar no destino externo selecionado; logs/caches próprios não podem contornar a regra.
+- Relatórios, sugestões, decisões, exportações e histórico oficial do CemgSpec só persistem por Salvar no destino externo selecionado; logs/caches próprios não podem contornar a regra.
 - Estado do agente não exige a mesma pasta dos relatórios e não é importado automaticamente como salvamento oficial.
 - Origem permanece somente leitura para aplicação, agente e subprocessos, incluindo metadados e gravações indiretas por links/junções.
 - Nenhuma execução de solução/testes/builds ou ampliação de rede foi autorizada.

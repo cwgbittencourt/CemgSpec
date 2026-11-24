@@ -1,0 +1,160 @@
+@implements IDisposable
+@using CemgSpec.Application
+@using CemgSpec.Domain
+@using CemgSpec.Infrastructure.Agents
+@inject ProjectService ProjectStore
+@inject AgentCompatibilityService AgentStore
+
+@if (ProjectStore.Active is { } active)
+{
+    var installations = AgentStore.GetInstallations(active.Session.ProjectId);
+    var selected = AgentStore.GetSelectedAgent(active.Session.ProjectId);
+
+    <div class="agent-selector">
+        <div class="v-field">
+            <label for="@selectId">Agente para speckit-analyze</label>
+            <select id="@selectId" aria-label="Agente para speckit-analyze"
+                    value="@(selected?.AgentId.ToString() ?? "")"
+                    @onchange="OnAgentChanged"
+                    disabled="@Disabled">
+                <option value="">Selecione um agente compatível...</option>
+                @foreach (var inst in installations)
+                {
+                    <option value="@inst.AgentId">@inst.DisplayName · @(inst.IsFound ? $"v{inst.Version}" : "Não encontrado") · @StateLabel(inst.CompatibilityState)</option>
+                }
+            </select>
+        </div>
+
+        @if (selected is null)
+        {
+            <div class="agent-card muted-agent" role="status">
+                <strong>Nenhum agente selecionado para este projeto</strong>
+                <p class="muted small">Selecione um agente com selo de proteção <code>Passed</code> para habilitar <code>speckit-analyze</code>. O leitor documental e o <code>check_gate</code> não exigem agente.</p>
+            </div>
+        }
+        else
+        {
+            <div class="agent-card" role="region" aria-label="Detalhes do agente selecionado">
+                <div class="agent-head">
+                    <strong>@selected.DisplayName @(selected.IsFound ? $"v{selected.Version}" : "(não encontrado)")</strong>
+                    <span class="@StateBadgeClass(selected.CompatibilityState)">@StateLabel(selected.CompatibilityState)</span>
+                </div>
+
+                <p class="small">@selected.StatusReason</p>
+
+                <div class="agent-meta mono small muted">
+                    <div>Descoberta: @(selected.DiscoveryMethod == AgentDiscoveryMethod.Automatic ? "Automática" : "Localização manual")</div>
+                    @if (!string.IsNullOrWhiteSpace(selected.ExecutablePath))
+                    {
+                        <div>Executável: @selected.ExecutablePath</div>
+                    }
+                    <div>Estado interno externo: @string.Join(", ", selected.ExternalStateLocations)</div>
+                </div>
+
+                @if (selected.Provider == AgentProvider.Codex)
+                {
+                    <div class="agent-disclosure small">
+                        @CodexAnalyzeAdapter.AdapterDisclosure
+                    </div>
+                }
+                else if (selected.Provider == AgentProvider.Antigravity)
+                {
+                    <div class="agent-disclosure small">
+                        @AntigravityAnalyzeAdapter.AdapterDisclosure
+                    </div>
+                }
+
+                @if (selected.CanManualLocate)
+                {
+                    <div class="manual-locate">
+                        <label for="@manualId" class="small">Localização manual (apenas fora da origem auditada)</label>
+                        <div class="manual-row">
+                            <input id="@manualId" type="text" aria-label="Caminho manual do executável"
+                                   value="@manualPath" @oninput="e => manualPath = e.Value?.ToString() ?? string.Empty"
+                                   placeholder="C:\caminho\externo\agente.exe" disabled="@Disabled" />
+                            <button type="button" class="v-btn-secondary" @onclick="() => ApplyManualLocation(selected.Provider)" disabled="@Disabled">
+                                Localizar manualmente
+                            </button>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(manualError))
+                        {
+                            <p class="manual-error small" role="alert">@manualError</p>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public EventCallback OnSelectionChanged { get; set; }
+
+    private readonly string selectId = "ag-sel-" + Guid.NewGuid().ToString("N")[..8];
+    private readonly string manualId = "ag-man-" + Guid.NewGuid().ToString("N")[..8];
+    private string manualPath = string.Empty;
+    private string? manualError;
+
+    protected override void OnInitialized()
+    {
+        ProjectStore.Changed += OnStoreChanged;
+    }
+
+    private void OnStoreChanged() => _ = InvokeAsync(StateHasChanged);
+
+    private async Task OnAgentChanged(ChangeEventArgs e)
+    {
+        if (ProjectStore.Active is not { } active) return;
+        manualError = null;
+        var raw = e.Value?.ToString();
+        if (Guid.TryParse(raw, out var id))
+            AgentStore.SelectAgent(active.Session.ProjectId, id);
+        else
+            AgentStore.SelectAgent(active.Session.ProjectId, null);
+
+        if (OnSelectionChanged.HasDelegate)
+            await OnSelectionChanged.InvokeAsync();
+    }
+
+    private async Task ApplyManualLocation(AgentProvider provider)
+    {
+        if (ProjectStore.Active is not { } active) return;
+        manualError = null;
+        try
+        {
+            AgentStore.LocateManually(active.Session.ProjectId, provider, manualPath);
+            manualPath = string.Empty;
+            if (OnSelectionChanged.HasDelegate)
+                await OnSelectionChanged.InvokeAsync();
+        }
+        catch (Exception ex)
+        {
+            manualError = ex.Message;
+        }
+    }
+
+    private static string StateLabel(AgentCompatibilityState state) => state switch
+    {
+        AgentCompatibilityState.Compatible => "Compatível",
+        AgentCompatibilityState.Discovered => "Descoberto (aguarda prova)",
+        AgentCompatibilityState.NotVerified => "Não verificado",
+        AgentCompatibilityState.Incompatible => "Incompatível",
+        AgentCompatibilityState.Unsupported => "Não suportado na V1",
+        AgentCompatibilityState.Stale => "Selo/binário desatualizado",
+        _ => state.ToString()
+    };
+
+    private static string StateBadgeClass(AgentCompatibilityState state) => state switch
+    {
+        AgentCompatibilityState.Compatible => "ag-pill ok",
+        AgentCompatibilityState.Unsupported => "ag-pill muted",
+        AgentCompatibilityState.Incompatible or AgentCompatibilityState.Stale => "ag-pill warn",
+        _ => "ag-pill pending"
+    };
+
+    public void Dispose()
+    {
+        ProjectStore.Changed -= OnStoreChanged;
+    }
+}

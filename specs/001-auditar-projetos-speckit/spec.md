@@ -19,7 +19,7 @@ A primeira versão lê exclusivamente documentos e registros gerados pelo SpecKi
 
 A combo de verificações contém exatamente duas opções: **speckit-analyze — Consistência documental** e **check_gate — Validar gates**. Não admite digitação de comandos ou outras opções. analyze usa agente compatível e é identificado como adaptação documental restrita, sem executar hooks/scripts da origem; check_gate é determinístico e funciona sem IA. Codex e Antigravity continuam como integrações previstas para analyze; descoberta não comprova compatibilidade. Claude Code e Kiro podem ser descobertos, mas execução não é requisito da V1.
 
-Fora da V1: leitura/análise de código-fonte, comparação requisito–implementação, parser C#/Razor, converge, checklist, clarify e demais comandos; inventário/consulta de vulnerabilidades da solução carregada; execução de solução, testes, builds, restore, serviços ou scripts/hooks da origem. Sem shell livre, comandos encadeados, cópia isolada da solução ou edição seguida de restauração. PDF, diagramas além de Mermaid e serviço com app fechado continuam excluídos. A auditoria de vulnerabilidades do próprio SpecAudit durante desenvolvimento/manutenção permanece obrigatória.
+Fora da V1: leitura/análise de código-fonte, comparação requisito–implementação, parser C#/Razor, converge, checklist, clarify e demais comandos; inventário/consulta de vulnerabilidades da solução carregada; execução de solução, testes, builds, restore, serviços ou scripts/hooks da origem. Sem shell livre, comandos encadeados, cópia isolada da solução ou edição seguida de restauração. PDF, diagramas além de Mermaid e serviço com app fechado continuam excluídos. A auditoria de vulnerabilidades do próprio CemgSpec durante desenvolvimento/manutenção permanece obrigatória.
 
 ## Referências visuais aprovadas
 
@@ -142,7 +142,7 @@ As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e
 |---|---|---|---|---|
 | US4-S01 | US4-AC01 | Requisito com vínculos explícitos/inferidos | Abrir ficha | Diferenciar fontes e mostrar registros/sugestões |
 | US4-S02 | US4-AC02 | Critério sem tarefa e outro ambíguo | Consultar critérios | Informar lacunas documentais sem classificar implementação |
-| US4-S03 | US4-AC03 | Documento declara validação sem prova acessível | Consolidar | Mostrar declaração e limite, sem aprovação pelo SpecAudit |
+| US4-S03 | US4-AC03 | Documento declara validação sem prova acessível | Consolidar | Mostrar declaração e limite, sem aprovação pelo CemgSpec |
 | US4-S04 | US4-AC04 | Documentos de projetos em linguagens diferentes e link .cs | Navegar | Mesma análise documental; link .cs não lido |
 
 #### Condições para reprodução pelo DEV
@@ -167,7 +167,7 @@ As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e
 - US5-AC03: Combo fechada com exatamente speckit-analyze — Consistência documental e check_gate — Validar gates, visível em Verificações e na ficha do requisito. Mesma seleção por projeto entre essas telas. Sem campo de comando, terceira opção, cadeia de comandos ou execução automática ao selecionar. Executar só ao clicar Executar; exibir progresso, duração, resumo, saída, estado e ferramenta/versão.
 - US5-AC04: analyze opera sobre documentos autorizados; não lê código nem executa scripts, hooks, plugins, instruções ou configurações da origem. Informar adaptação, escopo e possível envio ao serviço do agente. Conversas/caches internos só fora da origem; relatórios oficiais só por Salvar. Credenciais/serviços da solução não são utilizados. Pré-requisitos ausentes de spec/plan/tasks geram bloqueio, sem criar esses arquivos.
 - US5-AC05: Falha, cancelamento, autenticação ausente e incompatibilidade não viram aprovação/reprovação do requisito. Encerrar descendentes pertencentes à execução ao cancelar. Leitor e gate continuam utilizáveis sem IA.
-- US5-AC06: check_gate usa ferramenta CEMG fornecida/conferida pelo SpecAudit, sem executar o script do projeto. Selecionar funcionalidade, etapa, registro e revisão esperada; revisar a seleção antes de Executar. Validar estado/bloqueios/checks/hashes aplicáveis e apresentar resultado com limites: não autentica decisão humana nem testa implementação. A ficha mostra o alcance da funcionalidade/etapa, nunca finge gate individual do requisito. Sem registro ou revisão identificável, informar não verificável sem criá-los.
+- US5-AC06: check_gate usa ferramenta CEMG fornecida/conferida pelo CemgSpec, sem executar o script do projeto. Selecionar funcionalidade, etapa, registro e revisão esperada; revisar a seleção antes de Executar. Validar estado/bloqueios/checks/hashes aplicáveis e apresentar resultado com limites: não autentica decisão humana nem testa implementação. A ficha mostra o alcance da funcionalidade/etapa, nunca finge gate individual do requisito. Sem registro ou revisão identificável, informar não verificável sem criá-los.
 - US5-AC07: check_gate funciona localmente sem IA, rede ou hooks. Referência que exigiria leitura de código, configuração, arquivo fora da origem autorizada ou recurso externo bloqueia a verificação completa com motivo, sem leitura do destino e sem READY. Mudança dos documentos/registro/evidências pertinentes torna o resultado desatualizado. Escolher etapa não autoriza encadear comandos do fluxo SpecKit.
 
 #### Cenários de aceite
@@ -199,7 +199,7 @@ As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e
 
 #### Critérios de aceite
 
-- US6-AC01: Relatórios, sugestões, decisões e histórico oficial do SpecAudit ficam transitórios até Salvar; fechar sem salvar não cria registros oficiais nem conteúdo em logs/caches próprios do SpecAudit. Conversas, transcrições e caches internos dos agentes podem permanecer exclusivamente fora da origem, sem serem tratados como salvamento oficial ou importados automaticamente. Salvar mostra conteúdo/destino e cria novo registro externo sem sobrescrever anteriores.
+- US6-AC01: Relatórios, sugestões, decisões e histórico oficial do CemgSpec ficam transitórios até Salvar; fechar sem salvar não cria registros oficiais nem conteúdo em logs/caches próprios do CemgSpec. Conversas, transcrições e caches internos dos agentes podem permanecer exclusivamente fora da origem, sem serem tratados como salvamento oficial ou importados automaticamente. Salvar mostra conteúdo/destino e cria novo registro externo sem sobrescrever anteriores.
 - US6-AC02: Exportar Markdown para relatórios/sugestões, JSON estruturado e CSV de listas/indicadores por ação explícita; incluir projeto, escopo, data, versão, ferramenta/agente e limitações. Nunca aplicar correções na origem.
 - US6-AC03: Classificar pendente, confirmada, falso positivo, risco aceito ou adiada; exigir justificativa/data/responsável para falso positivo e risco aceito. Manter filtrável e solicitar revisão se contexto relevante mudar; risco aceito não aprova falha e falso positivo não comprova atendimento.
 - US6-AC04: Comparar histórico salvo em ocorrências novas, persistentes e resolvidas; preservar referências/trechos mínimos necessários, mostrar espaço e permitir exclusão selecionada por ação humana, sem exclusão automática, cópia integral da origem ou exposição de segredos.
@@ -223,7 +223,7 @@ As imagens são históricas e ilustrativas. Seus comandos, percentuais, textos e
 
 ### US7 — Consulta de vulnerabilidades da solução — ADIADA
 
-A história US7 e seus antigos critérios US7-AC01 a US7-AC03 ficam reservados para versão futura. Não integram aceite, contagens ou PRs ativos da V1. A análise de dependências da solução excede a decisão de consultar somente documentos SpecKit e executar apenas analyze/check_gate. A obrigação de verificar/avisar vulnerabilidades do desenvolvimento do SpecAudit permanece constitucional. A especificação anterior está preservada em verification/archive/before-documentary-v1/spec.md.
+A história US7 e seus antigos critérios US7-AC01 a US7-AC03 ficam reservados para versão futura. Não integram aceite, contagens ou PRs ativos da V1. A análise de dependências da solução excede a decisão de consultar somente documentos SpecKit e executar apenas analyze/check_gate. A obrigação de verificar/avisar vulnerabilidades do desenvolvimento do CemgSpec permanece constitucional. A especificação anterior está preservada em verification/archive/before-documentary-v1/spec.md.
 
 ### US8 — Navegar em temas escuro e claro — Prioridade P2
 
@@ -301,7 +301,7 @@ A história US7 e seus antigos critérios US7-AC01 a US7-AC03 ficam reservados p
 ## Critérios de sucesso mensuráveis
 
 - SC-001: Em todos os cenários de análise/cancelamento, zero arquivos da origem são criados, alterados, renomeados ou excluídos pelo aplicativo e seus descendentes.
-- SC-002: Em todos os cenários sem Salvar, zero relatórios/decisões/sugestões oficiais do SpecAudit são persistidos; após Salvar, 100% desses artefatos ficam no destino externo autorizado. Conversas/caches internos dos agentes podem existir antes da ação, com 100% de seus locais fora da origem.
+- SC-002: Em todos os cenários sem Salvar, zero relatórios/decisões/sugestões oficiais do CemgSpec são persistidos; após Salvar, 100% desses artefatos ficam no destino externo autorizado. Conversas/caches internos dos agentes podem existir antes da ação, com 100% de seus locais fora da origem.
 - SC-003: Nos conjuntos conhecidos, 100% dos indicadores correspondem às contagens esperadas, incluindo itens inconclusivos e escopos vazios.
 - SC-004: Todas as conclusões da amostra apontam evidência verificável ou declaram insuficiência; nenhuma aprovação deriva somente de nome, tarefa marcada ou opinião do agente.
 - SC-005: O usuário percorre as cinco áreas, consulta fontes e alterna modos/temas sem editar documentos ou perder seleção em todos os cenários previstos.
@@ -317,7 +317,7 @@ Usuário previsto: responsável local; DEV reproduz e aceita a entrega. Colabora
 
 Dependências de pesquisa no plan: proteção efetiva dos executores e compatibilidade real de Codex/Antigravity, incluindo estado interno exclusivamente externo e relatórios oficiais somente após Salvar; gate limitado a evidências documentais; invalidação por mudança, limites e cancelamento. Se uma dependência for inviável, apresentar bloqueio e obter decisão sem reduzir requisitos silenciosamente. Não há alegação de compatibilidade ou controle já implementado.
 
-Histórico oficial e reutilização de decisões/consultas do SpecAudit dependem de registros salvos. Conversas/caches internos dos agentes são permitidos fora da origem por decisão explícita do usuário e não substituem Salvar. Estado técnico externo sem conteúdo de análise deve ser delimitado no plan conforme constituição. Nomes/apresentação usam mockups como referência reversível, sem exigir reprodução de extensões ou precisão pixel a pixel.
+Histórico oficial e reutilização de decisões/consultas do CemgSpec dependem de registros salvos. Conversas/caches internos dos agentes são permitidos fora da origem por decisão explícita do usuário e não substituem Salvar. Estado técnico externo sem conteúdo de análise deve ser delimitado no plan conforme constituição. Nomes/apresentação usam mockups como referência reversível, sem exigir reprodução de extensões ou precisão pixel a pixel.
 
 Nenhuma decisão material de produto permanece identificada nesta revisão. Não foram inventadas metas de desempenho/volume ou retenção. Pesquisas técnicas podem revelar necessidade de decisão antes de implementação dependente.
 
@@ -325,7 +325,7 @@ Nenhuma decisão material de produto permanece identificada nesta revisão. Não
 
 Exigir validação inicial pela IA, revisão documentada e roteiro reproduzível pelo DEV para cada história e incremento aplicável. Autorrevisão é declarada. Aprovação de PR, integração, aceite da história e deploy são decisões distintas. História parcial não recebe aceite funcional.
 
-O desenvolvimento do SpecAudit deve executar seu próprio comportamento e fixtures seguras conforme políticas CEMG; isso não autoriza o produto a executar a solução carregada. Se impossível, manter comprovação pendente com causa/impacto/próximo passo; somente DEV confirma impossibilidade e decide AGUARDAR, REJEITAR ou ACEITAR_COM_RESSALVAS.
+O desenvolvimento do CemgSpec deve executar seu próprio comportamento e fixtures seguras conforme políticas CEMG; isso não autoriza o produto a executar a solução carregada. Se impossível, manter comprovação pendente com causa/impacto/próximo passo; somente DEV confirma impossibilidade e decide AGUARDAR, REJEITAR ou ACEITAR_COM_RESSALVAS.
 
 ## Entrega incremental da história
 
@@ -360,7 +360,7 @@ Autorização explícita do usuário em 2026-11-16: retirar a exigência de sand
 
 ## Registro de testes e decisão do DEV — emenda 4.1.0
 
-Esta regra rege o desenvolvimento do SpecAudit, sem ampliar as verificações do
+Esta regra rege o desenvolvimento do CemgSpec, sem ampliar as verificações do
 produto sobre a origem auditada. Todos os roteiros `validation/USn-dev.md` e de
 incrementos devem conter tabela por cenário/critério com resultado, observado ou
 motivo de não execução, evidências, commit/diff testado, responsável e data/fuso;

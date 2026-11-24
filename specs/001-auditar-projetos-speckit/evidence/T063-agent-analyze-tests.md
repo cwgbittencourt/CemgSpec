@@ -4,14 +4,14 @@
 
 ## Artefatos criados
 
-- [AgentDiscoveryTests.cs](../../../tests/SpecAudit.Windows.Tests/AgentDiscoveryTests.cs) (`2` cenários de contrato para `AgentProvider`, `AgentDiscoveryMethod`, `AgentCompatibilityState`, `AgentInstallation` e `AgentDiscovery`: separação entre descoberta e compatibilidade, `ClaudeCode`/`Kiro` como `Unsupported`, fallback manual restrito apenas a agente não encontrado fora da origem e independência de `check_gate`/leitor documental).
-- [AnalyzeProtectionTests.cs](../../../tests/SpecAudit.Windows.Tests/AnalyzeProtectionTests.cs) (`3` cenários filtráveis por `[Trait("Provider", "Contract" | "Codex" | "Antigravity")]` para pré-requisitos `spec/plan/tasks` ausentes sem criar arquivos, instruções maliciosas/segredos sintéticos/código-fonte negados, estado externo e cancelamento de descendentes).
+- [AgentDiscoveryTests.cs](../../../tests/CemgSpec.Windows.Tests/AgentDiscoveryTests.cs) (`2` cenários de contrato para `AgentProvider`, `AgentDiscoveryMethod`, `AgentCompatibilityState`, `AgentInstallation` e `AgentDiscovery`: separação entre descoberta e compatibilidade, `ClaudeCode`/`Kiro` como `Unsupported`, fallback manual restrito apenas a agente não encontrado fora da origem e independência de `check_gate`/leitor documental).
+- [AnalyzeProtectionTests.cs](../../../tests/CemgSpec.Windows.Tests/AnalyzeProtectionTests.cs) (`3` cenários filtráveis por `[Trait("Provider", "Contract" | "Codex" | "Antigravity")]` para pré-requisitos `spec/plan/tasks` ausentes sem criar arquivos, instruções maliciosas/segredos sintéticos/código-fonte negados, estado externo e cancelamento de descendentes).
 
 ## Execução observada (RED esperado + regressão verde)
 
 - **RED esperado (`T063`)**:
-  - Comando: `dotnet test tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj --filter "FullyQualifiedName~AgentDiscoveryTests|FullyQualifiedName~AnalyzeProtectionTests" --verbosity normal`
+  - Comando: `dotnet test tests\CemgSpec.Windows.Tests\CemgSpec.Windows.Tests.csproj --filter "FullyQualifiedName~AgentDiscoveryTests|FullyQualifiedName~AnalyzeProtectionTests" --verbosity normal`
   - Resultado: **5/5 falhas RED esperadas** (`2/2` em `AgentDiscoveryTests`, `3/3` em `AnalyzeProtectionTests`).
   - Log completo: [t063-red.txt](logs/T063/t063-red.txt).
-- **Regressão `SpecAudit.Windows.Tests`**:
+- **Regressão `CemgSpec.Windows.Tests`**:
   - Resultado: **23/23 aprovados**, exit code `0`.

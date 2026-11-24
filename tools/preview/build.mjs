@@ -5,7 +5,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(fileURLToPath(import.meta.url));
-const vendor = resolve(root, "../../SpecAudit/wwwroot/lib/preview/vendor");
+const vendor = resolve(root, "../../CemgSpec/wwwroot/lib/preview/vendor");
 const lockBytes = await readFile(join(root, "package-lock.json"));
 const lock = JSON.parse(lockBytes);
 const packagePaths = Object.keys(lock.packages).filter(Boolean).sort((a, b) => b.length - a.length);
@@ -25,7 +25,7 @@ const entries = [
         name: "mermaid.js",
         source: 'export { default } from "mermaid";',
         format: "iife",
-        globalName: "SpecAuditMermaid"
+        globalName: "CemgSpecMermaid"
     },
     {
         name: "highlight.js",
@@ -61,7 +61,7 @@ for (const { name, source, ...options } of entries) {
 }
 
 const licenses = [
-    "Third-party licenses for the SpecAudit preview bundles.",
+    "Third-party licenses for the CemgSpec preview bundles.",
     "DOMPurify is distributed under Apache-2.0.",
     "ELK is distributed under EPL-2.0. Corresponding source for elkjs 0.12.1:",
     "https://github.com/kieler/elkjs/tree/624ae90aa37110033a8af59c5ccbb292708b4317"

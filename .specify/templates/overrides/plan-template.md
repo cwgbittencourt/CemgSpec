@@ -1,4 +1,4 @@
-<!-- Override local SpecAudit: cemg-speckit 3.0.0 + constituição 4.1.0. -->
+<!-- Override local CemgSpec: cemg-speckit 3.0.0 + constituição 4.1.0. -->
 # Plano de implementação: [FUNCIONALIDADE]
 
 **Branch**: [branch] | **Data**: [data] | **Spec**: [caminho]

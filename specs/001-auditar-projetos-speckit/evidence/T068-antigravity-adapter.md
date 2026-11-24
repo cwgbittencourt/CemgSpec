@@ -23,7 +23,7 @@ O adaptador envia um turno por stdin e aceita o campo `structured_output` do res
 A partir da raiz do repositório, rode:
 
 ```powershell
-dotnet test tests/SpecAudit.Windows.Tests/SpecAudit.Windows.Tests.csproj --no-restore --filter 'Provider!=Codex' --logger 'console;verbosity=normal'
+dotnet test tests/CemgSpec.Windows.Tests/CemgSpec.Windows.Tests.csproj --no-restore --filter 'Provider!=Codex' --logger 'console;verbosity=normal'
 ```
 
 O filtro exclui o teste que exige um Codex autenticado. A rodada aprovou **36 testes**, incluindo oito cenários do harness Antigravity e a prova do ambiente do subprocesso. O aceite do DEV segue pendente. [Saída da rodada](logs/T068/windows-contract.txt).
@@ -31,10 +31,10 @@ O filtro exclui o teste que exige um Codex autenticado. A rodada aprovou **36 te
 ### SHA-256 dos arquivos de código e teste desta rodada
 
 
-- `SpecAudit/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs` — `17dcff8ac25a6aa9cd3dffb7da8e72d0a54fe6f67d0e69275dfe7c91f60d7305`
-- `SpecAudit/Infrastructure/Agents/AgentDiscovery.cs` — `3656083ba45ef09f75161840f1e20235ed192529936bc2b3c83b99add5bdaf06`
-- `SpecAudit/Infrastructure/Agents/CodexAnalyzeAdapter.cs` — `0b2721a0d1d67acc562bdc5bb9c9303a5aacb9fcfafc2eca2080761cbfd3bbad`
-- `SpecAudit/Infrastructure/Execution/TrustedCommandRunner.cs` — `003e06d63b8526d06fdf12b6b6f4be2e1579783384b274f579593c8738f60142`
-- `tests/SpecAudit.CommandFixture/Program.cs` — `7a25490c1af113947496f183bb6d9b8f2fa58c48e734e9394ae5a739f562699d`
-- `tests/SpecAudit.Windows.Tests/AnalyzeProtectionTests.cs` — `46fa44cf60ff3aeec293559855f494353fe1cdc57f8975db8250331a386d2f1c`
-- `tests/SpecAudit.Windows.Tests/TrustedCommandRunnerTests.cs` — `91332d43473f42197d92acbfd6d802dd20cd0723be0ee45838e8c13a759f967a`
+- `CemgSpec/Infrastructure/Agents/AntigravityAnalyzeAdapter.cs` — `17dcff8ac25a6aa9cd3dffb7da8e72d0a54fe6f67d0e69275dfe7c91f60d7305`
+- `CemgSpec/Infrastructure/Agents/AgentDiscovery.cs` — `3656083ba45ef09f75161840f1e20235ed192529936bc2b3c83b99add5bdaf06`
+- `CemgSpec/Infrastructure/Agents/CodexAnalyzeAdapter.cs` — `0b2721a0d1d67acc562bdc5bb9c9303a5aacb9fcfafc2eca2080761cbfd3bbad`
+- `CemgSpec/Infrastructure/Execution/TrustedCommandRunner.cs` — `003e06d63b8526d06fdf12b6b6f4be2e1579783384b274f579593c8738f60142`
+- `tests/CemgSpec.CommandFixture/Program.cs` — `7a25490c1af113947496f183bb6d9b8f2fa58c48e734e9394ae5a739f562699d`
+- `tests/CemgSpec.Windows.Tests/AnalyzeProtectionTests.cs` — `46fa44cf60ff3aeec293559855f494353fe1cdc57f8975db8250331a386d2f1c`
+- `tests/CemgSpec.Windows.Tests/TrustedCommandRunnerTests.cs` — `91332d43473f42197d92acbfd6d802dd20cd0723be0ee45838e8c13a759f967a`

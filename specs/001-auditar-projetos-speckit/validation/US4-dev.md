@@ -9,50 +9,50 @@
 
 ## 2. Repetir a validação automatizada (caminho principal conferido pela IA)
 
-Abra o PowerShell na raiz do repositório `SpecAudit` e execute o bloco abaixo:
+Abra o PowerShell na raiz do repositório `CemgSpec` e execute o bloco abaixo:
 
 ```powershell
-$devRun = Join-Path "$env:LOCALAPPDATA\Temp" ('SpecAudit-US4-DEV-' + [guid]::NewGuid().ToString('N'))
+$devRun = Join-Path "$env:LOCALAPPDATA\Temp" ('CemgSpec-US4-DEV-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $devRun -Force | Out-Null
 $env:TEMP = "$env:LOCALAPPDATA\Temp"
 $env:TMP = $env:TEMP
 git rev-parse HEAD
-dotnet restore SpecAudit.slnx --locked-mode
+dotnet restore CemgSpec.slnx --locked-mode
 if ($LASTEXITCODE -ne 0) { throw 'Restore falhou; preserve a mensagem.' }
 
 # RUN-01: domínio, chaves contextuais, duplicidades e observador do broker (esperado: 4/4)
-dotnet test tests/SpecAudit.Tests/SpecAudit.Tests.csproj --no-restore `
+dotnet test tests/CemgSpec.Tests/CemgSpec.Tests.csproj --no-restore `
     --filter 'FullyQualifiedName~RequirementTraceTests' `
     --logger 'trx;LogFilePrefix=US4-domain' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run01.txt')
 if ($LASTEXITCODE -ne 0) { throw 'RUN-01 falhou.' }
 
 # RUN-02: US4-S01..S04 no host loopback + Edge real (esperado: 4/4)
-dotnet test tests/SpecAudit.Ui.Tests/SpecAudit.Ui.Tests.csproj --no-restore `
+dotnet test tests/CemgSpec.Ui.Tests/CemgSpec.Ui.Tests.csproj --no-restore `
     --filter 'FullyQualifiedName~RequirementSheetTests' `
     --logger 'trx;LogFilePrefix=US4-e2e' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run02.txt')
 if ($LASTEXITCODE -ne 0) { throw 'RUN-02 falhou.' }
 
 # RUN-03: regressão selecionada (esperado: 93/93 — 20 domínio, 16 Windows, 57 UI)
 $filtro = 'FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'
-dotnet test SpecAudit.slnx --no-build --no-restore --filter $filtro `
+dotnet test CemgSpec.slnx --no-build --no-restore --filter $filtro `
     --logger 'trx;LogFilePrefix=US4-regression' --results-directory $devRun 2>&1 | Tee-Object (Join-Path $devRun 'run03.txt')
 if ($LASTEXITCODE -ne 0) { throw 'RUN-03 falhou.' }
 
 Write-Output "Resultados preservados em: $devRun"
 ```
 
-Para gerar também as capturas (`requirements-fr001.png` e `requirements-other-fr001.png`), defina `$env:SPECAUDIT_CAPTURE_DIR = Join-Path $devRun 'captures'` antes do `RUN-02`.
+Para gerar também as capturas (`requirements-fr001.png` e `requirements-other-fr001.png`), defina `$env:CEMGSPEC_CAPTURE_DIR = Join-Path $devRun 'captures'` antes do `RUN-02`.
 
 | Cenário automatizado | Entrada / ação | Resultado esperado |
 |---|---|---|
 | US4-S01 / AC01 | `FR-001` em `001-demo` e `002-other` com vínculos explícitos e inferidos | Chaves contextuais independentes sem mesclagem; badges `Explícito` vs `Inferido`; ausência de `Evidências da implementação`, `npm test` e `Cópia isolada`. |
 | US4-S02 / AC02 | Critério sem tarefa (`FR-013`) e duplicidade na mesma funcionalidade | `CoverageState` restrito a `Linked`/`MissingLink`/`Ambiguous`; `Evidência documental insuficiente` sem `Não implementado`; duplicidades preservadas como `Ambíguo`. |
-| US4-S03 / AC03 | Registros de gate/validação em `verification/*.json` | Exibidos como `registro de terceiros` com fonte, revisão e aviso de que o SpecAudit não aprova requisito, teste, PR ou história. |
+| US4-S03 / AC03 | Registros de gate/validação em `verification/*.json` | Exibidos como `registro de terceiros` com fonte, revisão e aviso de que o CemgSpec não aprova requisito, teste, PR ou história. |
 | US4-S04 / AC04 | Referência documental a `../../DoNotRead.cs` em `plan.md` | Exibida como `Não verificada (fora do catálogo)` com nota de `capacidade futura`; observador do broker comprova que `DoNotRead.cs` nunca é aberto. |
 
 ## 3. Conferência manual opcional no navegador
 
-1. Inicie a aplicação com `& .\specs\001-auditar-projetos-speckit\validation\Start-US1Manual.ps1` (ou `dotnet run --project SpecAudit/SpecAudit.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`).
+1. Inicie a aplicação com `& .\specs\001-auditar-projetos-speckit\validation\Start-US1Manual.ps1` (ou `dotnet run --project CemgSpec/CemgSpec.csproj --no-launch-profile -- --environment Development --urls http://127.0.0.1:5187`).
 2. Abra `http://127.0.0.1:5187`, carregue um projeto e clique em **Requisitos** na sidebar.
 3. Alterne funcionalidades e requisitos, navegue pelas abas (`Resumo`, `Vínculos`, `Verificações`, `Sugestões`) e compare com a metade inferior de [dashboard-requisito.png](../design/mockups/dashboard-requisito.png) e [README dos mockups](../design/mockups/README.md) no tema escuro.
 4. Encerre o host com `Ctrl+C`. Para limpeza opcional, remova apenas a pasta `$devRun`.

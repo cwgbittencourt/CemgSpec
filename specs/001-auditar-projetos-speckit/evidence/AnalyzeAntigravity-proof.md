@@ -10,7 +10,7 @@
 ## Comando Executado (filtro explícito `Provider=Antigravity|Provider=AntigravityContract`)
 
 ```powershell
-dotnet test tests\SpecAudit.Windows.Tests\SpecAudit.Windows.Tests.csproj --filter "FullyQualifiedName~AnalyzeProtectionTests&(Provider=Antigravity|Provider=AntigravityContract)" --verbosity normal
+dotnet test tests\CemgSpec.Windows.Tests\CemgSpec.Windows.Tests.csproj --filter "FullyQualifiedName~AnalyzeProtectionTests&(Provider=Antigravity|Provider=AntigravityContract)" --verbosity normal
 ```
 
 - **Resultado**: **9/9 testes aprovados** (`8/8` matriz de contrato `AntigravityContract` + `1/1` prova real `Provider=Antigravity`), exit code `0` (`43,49 s`).

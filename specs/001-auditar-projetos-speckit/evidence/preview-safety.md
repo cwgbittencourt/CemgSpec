@@ -19,7 +19,7 @@ Comando a partir da raiz:
 
 ```powershell
 $filtro = 'FullyQualifiedName!~S01SearchTree&FullyQualifiedName!~S02PreviewSource&FullyQualifiedName!~S03MermaidRenders&FullyQualifiedName!~S04ActiveContent&FullyQualifiedName!~RealBrowserRendersLocalProjectSelectionWithoutCircuitErrors&FullyQualifiedName!~US1IntegratedHarnessTests'
-dotnet test SpecAudit.slnx --no-restore --filter $filtro --logger 'console;verbosity=normal'
+dotnet test CemgSpec.slnx --no-restore --filter $filtro --logger 'console;verbosity=normal'
 ```
 
 O filtro exclui os quatro testes antecipados que dependem da tela de Documentos e cinco testes existentes que escrevem em caminhos históricos de evidência. A navegação na tela, a abertura de link externo em nova aba e a interface de autorização serão integradas na T024 e validadas na T025. O aceite da US1 permanece pendente de execução e decisão do DEV.
@@ -27,10 +27,10 @@ O filtro exclui os quatro testes antecipados que dependem da tela de Documentos 
 ### SHA-256 dos arquivos executados
 
 
-- `SpecAudit/Application/ProjectService.cs` — `9ea9221cdfccbcc839621f71c91a4f8358f6b46370e84653823a4b6cf7d57b51`
-- `SpecAudit/Infrastructure/Documents/DocumentBroker.cs` — `87ffca3563fac63c4c399e84882025f390c538789088fe73f19c40c72ef3d629`
-- `SpecAudit/Infrastructure/Documents/DocumentPreviewSession.cs` — `b911b2b83a715c6a099d29aaa4137aefc407ca03e998f3319bf42bbc397810a6`
-- `SpecAudit/Infrastructure/Documents/RemotePreviewImages.cs` — `ee3bc0606d555a96c62a1431be1b00dcd7d9242fed72fc95241dbfe260726074`
-- `SpecAudit/wwwroot/lib/preview/preview.js` — `ec49964dfc3b9438c5f00b6ae7f8b4b935ed1cab16489ebed304a86b37aeba00`
-- `tests/SpecAudit.Tests/DocumentNavigationTests.cs` — `548a29700d267b13c76c081becde7213893ad02720f3b4b137aa121e7da7a12c`
-- `tests/SpecAudit.Ui.Tests/PreviewAssetsTests.cs` — `3693dace43ad303a29b3c844b68c00a9ee54c0dc35274c69fdc11e25121cb1ed`
+- `CemgSpec/Application/ProjectService.cs` — `9ea9221cdfccbcc839621f71c91a4f8358f6b46370e84653823a4b6cf7d57b51`
+- `CemgSpec/Infrastructure/Documents/DocumentBroker.cs` — `87ffca3563fac63c4c399e84882025f390c538789088fe73f19c40c72ef3d629`
+- `CemgSpec/Infrastructure/Documents/DocumentPreviewSession.cs` — `b911b2b83a715c6a099d29aaa4137aefc407ca03e998f3319bf42bbc397810a6`
+- `CemgSpec/Infrastructure/Documents/RemotePreviewImages.cs` — `ee3bc0606d555a96c62a1431be1b00dcd7d9242fed72fc95241dbfe260726074`
+- `CemgSpec/wwwroot/lib/preview/preview.js` — `ec49964dfc3b9438c5f00b6ae7f8b4b935ed1cab16489ebed304a86b37aeba00`
+- `tests/CemgSpec.Tests/DocumentNavigationTests.cs` — `548a29700d267b13c76c081becde7213893ad02720f3b4b137aa121e7da7a12c`
+- `tests/CemgSpec.Ui.Tests/PreviewAssetsTests.cs` — `3693dace43ad303a29b3c844b68c00a9ee54c0dc35274c69fdc11e25121cb1ed`

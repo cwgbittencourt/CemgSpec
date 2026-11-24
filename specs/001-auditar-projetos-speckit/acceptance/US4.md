@@ -19,7 +19,7 @@ Consolidação T042, 2026-11-20 America/Sao_Paulo. Produto e testes no commit `6
 |---|---|---|
 | US4-AC01 | Ficha em memória com descrição, critérios, vínculos explícitos/inferidos, ocorrências, verificações e sugestões; separação de `FR-001` por funcionalidade | Comparação visual no tema claro pendente da US8 (T044) |
 | US4-AC02 | `CoverageState` restrito a `Linked`/`MissingLink`/`Ambiguous`; `Evidência documental insuficiente` sem `Não implementado`; duplicidades mantidas como `Ambíguo` | Exploração manual livre do DEV pendente |
-| US4-AC03 | Declarações registradas exibidas como `registro de terceiros` com fonte e revisão, separadas de verificações futuras; SpecAudit não aprova | Execução de `speckit-analyze` e `check_gate` pertence à US5 (PR-C/D) |
+| US4-AC03 | Declarações registradas exibidas como `registro de terceiros` com fonte e revisão, separadas de verificações futuras; CemgSpec não aprova | Execução de `speckit-analyze` e `check_gate` pertence à US5 (PR-C/D) |
 | US4-AC04 | Referências a `.cs`/`.razor`/config permanecem `OutOfScope` (`Não verificada`) sem abrir arquivo-fonte (comprovado pelo observador do broker); análise de código informada como `capacidade futura` | Análise de código está fora da V1 |
 
 ## PRs e aprovações vinculados

@@ -1,4 +1,4 @@
-# SpecAudit Constitution
+# CemgSpec Constitution
 
 **Preset**: `cemg-speckit` **3.0.0**.
 **Template**: `constitution-template`.
@@ -12,7 +12,7 @@ Estes metadados registram a procedência desta revisão; não comprovam controle
 
 ### I. Preservação integral da solução analisada
 
-O SpecAudit DEVE tratar a solução analisada como origem somente leitura. A aplicação,
+O CemgSpec DEVE tratar a solução analisada como origem somente leitura. A aplicação,
 os agentes e seus subprocessos NÃO DEVEM criar, modificar, renomear ou excluir qualquer
 arquivo nessa origem, incluindo documentos SpecKit, código, configurações, metadados Git,
 caches e temporários. Alterar e depois restaurar o original NÃO É um mecanismo permitido.
@@ -37,19 +37,19 @@ a aplicação NÃO DEVE sobrescrevê-las nem misturar versões silenciosamente.
 ### II. Resultados externos e persistência por decisão do usuário
 
 Ao carregar um projeto, o usuário DEVE escolher um diretório externo para os relatórios
-oficiais do SpecAudit. O destino efetivo DEVE ser validado, incluindo links e junções,
+oficiais do CemgSpec. O destino efetivo DEVE ser validado, incluindo links e junções,
 recusando qualquer gravação dentro da solução verificada. Esta restrição também vale
 para configurações, sessões, caches, logs, artefatos e temporários dos agentes.
 
-Relatórios, sugestões, exportações, decisões e histórico oficial produzidos pelo SpecAudit
-SOMENTE DEVEM ser persistidos mediante a ação explícita Salvar. Antes disso, o SpecAudit
+Relatórios, sugestões, exportações, decisões e histórico oficial produzidos pelo CemgSpec
+SOMENTE DEVEM ser persistidos mediante a ação explícita Salvar. Antes disso, o CemgSpec
 NÃO DEVE criar autosaves, logs de conteúdo ou caches próprios que contornem essa escolha.
 
 Conversas, transcrições, caches e estado interno dos agentes PODEM ser persistidos antes
 de Salvar, exclusivamente fora da solução verificada. Seus locais e comportamento DEVEM
 ser identificados pela integração e informados ao usuário, respeitando as regras de
 privacidade e acesso mínimo. Eles NÃO constituem relatórios ou histórico oficial salvo
-pelo SpecAudit e NÃO DEVEM ser importados automaticamente como se o usuário tivesse salvo.
+pelo CemgSpec e NÃO DEVEM ser importados automaticamente como se o usuário tivesse salvo.
 A permissão NÃO autoriza correções na origem, acesso indevido a segredos, execução da
 solução, transferência de dados não autorizada ou gravação indireta por links e junções.
 Não é exigido que o estado interno do agente use a mesma pasta dos relatórios; qualquer
@@ -88,7 +88,7 @@ itens inconclusivos NÃO DEVEM desaparecer para elevar percentuais. Denominador 
 DEVE ser apresentado como sem itens, sem percentual inventado.
 
 Estados de gates e validações registrados DEVEM identificar procedência e atualidade.
-O SpecAudit NÃO DEVE apresentar checkbox, gate READY, hash válido ou conclusão da IA
+O CemgSpec NÃO DEVE apresentar checkbox, gate READY, hash válido ou conclusão da IA
 como comprovação de código implementado, teste executado ou aceite humano autenticado.
 Bloqueio registrado, falha da ferramenta, evidência inválida, não verificado e não
 executado DEVEM permanecer distintos. A V1 NÃO avalia implementação.
@@ -97,7 +97,7 @@ O produto NÃO DEVE executar a solução analisada, testes, builds, restore, scr
 hooks ou outros comandos da origem. As únicas verificações da V1 DEVEM ser análise
 documental baseada em speckit-analyze e validação determinística check_gate do preset
 CEMG. O conjunto é fechado; não admite shell livre ou encadeamento de comandos.
-Ferramentas DEVEM ser fornecidas e conferidas pelo SpecAudit; código executável da
+Ferramentas DEVEM ser fornecidas e conferidas pelo CemgSpec; código executável da
 solução carregada NÃO DEVE ser utilizado. Adaptações DEVEM ser declaradas.
 
 ### V. Agentes substituíveis e compatibilidade comprovada
@@ -141,7 +141,7 @@ excepcional exige ação explícita, sem reutilizar credenciais do agente ou da 
 
 ### VII. Vulnerabilidades conhecidas e manutenção segura
 
-O desenvolvimento e a manutenção do SpecAudit DEVEM verificar vulnerabilidades conhecidas
+O desenvolvimento e a manutenção do CemgSpec DEVEM verificar vulnerabilidades conhecidas
 das dependências diretas e transitivas e dos componentes utilizados, nas verificações
 aplicáveis a mudanças e entregas. Achados DEVEM ser comunicados com origem, versão,
 gravidade, data e correção conhecida, quando disponíveis. Componentes estáveis e suportados
@@ -151,7 +151,7 @@ Falha de consulta DEVE ser informada como indisponibilidade, nunca como ausênci
 vulnerabilidades. Resultado sem achados NÃO comprova ausência de todas as vulnerabilidades.
 A consulta de dependências/vulnerabilidades da solução analisada fica fora da V1
 documental; esta exclusão NÃO dispensa verificar e comunicar vulnerabilidades no
-desenvolvimento e manutenção do próprio SpecAudit. Em versão futura, consultas
+desenvolvimento e manutenção do próprio CemgSpec. Em versão futura, consultas
 autorizadas do produto DEVEM identificar escopo, fonte e atualidade, sem instalar
 atualizações ou corrigir dependências automaticamente e sem executar a solução analisada.
 
@@ -166,9 +166,9 @@ A IA NÃO DEVE conceder aprovação de PR, aceite de história, confirmação de
 ou autorização de publicação em nome do responsável humano. Decisões humanas e resultados
 técnicos DEVEM permanecer separados e rastreáveis.
 
-### IX. Validação real do desenvolvimento do SpecAudit
+### IX. Validação real do desenvolvimento do CemgSpec
 
-Cada história de desenvolvimento do SpecAudit DEVE ter critérios observáveis, plano de
+Cada história de desenvolvimento do CemgSpec DEVE ter critérios observáveis, plano de
 validação da IA, revisão e roteiro reproduzível pelo DEV. A IA DEVE executar o comportamento
 entregue pelo meio real de uso e comparar resultados antes de declarar disponibilidade
 funcional. Compilação, testes apenas escritos, mocks ou breakpoint isolado NÃO substituem
@@ -197,7 +197,7 @@ seu sentido. Inconsistências ou informações essenciais ausentes DEVEM ser apo
 antes de declarar o aceite concluído. Isso NÃO autentica autoria nem instala
 monitoramento automático, aprovação de PR ou autorização de publicação.
 
-Este princípio rege o desenvolvimento do próprio SpecAudit. NÃO autoriza o produto a
+Este princípio rege o desenvolvimento do próprio CemgSpec. NÃO autoriza o produto a
 executar ou modificar soluções de terceiros carregadas para análise.
 
 ## Restrições de plataforma e segurança
@@ -243,7 +243,7 @@ Documentação pura exige verificações adequadas ao seu escopo, sem alegar pro
 
 ## Governance
 
-Esta constituição prevalece sobre decisões técnicas e artefatos derivados do SpecAudit.
+Esta constituição prevalece sobre decisões técnicas e artefatos derivados do CemgSpec.
 Conflitos DEVEM ser apresentados ao responsável humano antes de prosseguir com trabalho
 dependente; nenhuma ferramenta PODE reescrever silenciosamente princípios para declarar conformidade.
 
