@@ -10,6 +10,8 @@ Este guia explica de forma prática **o que cada tela do CEMG Spec mostra**, **c
 
 É o ponto de entrada para abrir e alternar projetos.
 
+**Configuração recomendada:** aplique o [CEMG Spec Kit Preset](https://github.com/cwgbittencourt/cemg-speckit-preset) ao projeto analisado para padronizar requisitos, critérios de aceite, tarefas e evidências de validação. A tela de Projetos apresenta essa recomendação com um link para as instruções de adoção. Instalar o preset não adapta automaticamente especificações antigas nem a constituição já preenchida; revise os documentos existentes conforme o guia do preset.
+
 - **Projetos recentes**: grid com os projetos já carregados anteriormente, mantendo **Origem** e **Destino externo** gravados. Clique em **Abrir** para voltar ao projeto com 1 clique ou **Remover** para tirar da lista.
 - **Carregar projeto**: abre o fluxo de seleção de duas pastas:
   1. **Pasta do projeto (Origem)**: pasta raiz da solução SpecKit (somente leitura).

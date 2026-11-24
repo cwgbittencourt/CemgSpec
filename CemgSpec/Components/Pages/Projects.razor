@@ -10,6 +10,12 @@
         <button class="primary" @onclick="Open" disabled="@busy">@(busy ? "Selecionando pastas…" : "Carregar projeto")</button>
     </header>
     <p class="muted">Para alternar projetos já abertos, use a lista Projeto ou o grid de Projetos recentes abaixo. Um novo carregamento só acontece após conferir e confirmar as duas pastas.</p>
+    <aside class="notice" aria-label="Configuração recomendada">
+        <strong>Configuração recomendada: CEMG Spec Kit Preset</strong>
+        <p>Para aproveitar a rastreabilidade documental do CEMG Spec, recomendamos aplicar o preset ao projeto analisado. Ele organiza requisitos, critérios de aceite, tarefas e evidências de validação.</p>
+        <p class="muted">A instalação não adapta automaticamente especificações antigas nem a constituição já preenchida. Revise os documentos existentes conforme o guia de adoção.</p>
+        <a href="https://github.com/cwgbittencourt/cemg-speckit-preset#instalacao" target="_blank" rel="noopener noreferrer">Consultar o preset e as instruções de adoção (abre em nova aba)</a>
+    </aside>
     @if(opening)
     {
         <section class="selection-panel" aria-label="Novo projeto">

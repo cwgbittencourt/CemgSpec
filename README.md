@@ -29,6 +29,14 @@ O **CEMG Spec** é uma plataforma desktop para **Windows x64** voltada à **audi
 
 Diferente de ferramentas que alteram o repositório analisado, o **CEMG Spec** opera sob uma fronteira física **100% Somente Leitura (*Read-Only Origin*)**: nenhuma linha de código ou documento do projeto auditado é jamais modificada.
 
+### Configuração recomendada: CEMG Spec Kit Preset
+
+Para aproveitar a rastreabilidade documental do **CEMG Spec**, recomendamos aplicar o [**CEMG Spec Kit Preset**](https://github.com/cwgbittencourt/cemg-speckit-preset) ao projeto analisado. Ele padroniza requisitos, critérios de aceite, tarefas e evidências de validação, facilitando a conexão entre o que foi pedido e o que foi construído.
+
+Consulte as [instruções de instalação e adoção do preset](https://github.com/cwgbittencourt/cemg-speckit-preset#instalacao). A instalação atualiza os templates e comandos para o trabalho futuro, mas **não adapta automaticamente especificações antigas nem a constituição já preenchida**. Em projetos existentes, revise esses documentos conforme o guia de adoção.
+
+O CEMG Spec consulta os registros disponíveis; aplicar o preset não comprova, por si só, que a implementação atende aos requisitos.
+
 ### Dupla Perspectiva de Governança
 
 | Dimensão | Visão Técnica *(Engenharia / QA / Arquitetura)* | Visão de Negócio *(BA / PO / Diretoria)* |
