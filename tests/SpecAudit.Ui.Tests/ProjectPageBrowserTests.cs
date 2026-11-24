@@ -15,7 +15,7 @@ public sealed class ProjectPageBrowserTests : IClassFixture<LocalHostFixture>
         await page.GotoAsync(host.Address.ToString());
         await page.GetByRole(AriaRole.Button,new(){Name="Carregar projeto",Exact=true}).WaitForAsync();
         await page.WaitForTimeoutAsync(1000);
-        Assert.Equal("Projetos — SpecAudit",await page.TitleAsync());
+        Assert.Equal("Projetos — CEMG Spec",await page.TitleAsync());
         Assert.True(await page.GetByRole(AriaRole.Heading,new(){Name="Escolha um projeto para começar"}).IsVisibleAsync());
         Assert.Empty(errors);
         Assert.NotEqual("block",await page.Locator("#blazor-error-ui").EvaluateAsync<string>("element => getComputedStyle(element).display"));

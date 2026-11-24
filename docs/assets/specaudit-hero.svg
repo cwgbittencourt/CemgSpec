@@ -5,7 +5,7 @@
       <stop offset="50%" stop-color="#131c31"/>
       <stop offset="100%" stop-color="#1e1b4b"/>
     </linearGradient>
-    <linearGradient id="saGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="csGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1e40af"/>
       <stop offset="55%" stop-color="#4f46e5"/>
       <stop offset="100%" stop-color="#7c3aed"/>
@@ -34,11 +34,11 @@
     <line x1="900" y1="0" x2="900" y2="320"/>
   </g>
 
-  <!-- Official SA Shield Logo -->
+  <!-- Official CS Shield Logo -->
   <g transform="translate(64, 78)" filter="url(#glow)">
-    <circle cx="80" cy="80" r="74" fill="url(#saGrad)" stroke="#93c5fd" stroke-width="3.5"/>
+    <circle cx="80" cy="80" r="74" fill="url(#csGrad)" stroke="#93c5fd" stroke-width="3.5"/>
     <circle cx="80" cy="80" r="64" fill="none" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.5"/>
-    <text x="80" y="99" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="60" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-2">SA</text>
+    <text x="80" y="99" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="60" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-2">CS</text>
     <!-- Green Audit Checkmark Badge -->
     <circle cx="132" cy="132" r="26" fill="#10b981" stroke="#0f172a" stroke-width="5"/>
     <path d="M121 132 L129 140 L144 123" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,9 +47,9 @@
   <!-- Typography & Value Proposition -->
   <g transform="translate(260, 74)">
     <text x="0" y="0" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#60a5fa" letter-spacing="2.5">GOVERNANÇA DOCUMENTAL · RASTREABILIDADE · AUDITORIA SPECKIT</text>
-    <text x="0" y="54" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="52" font-weight="800" fill="#ffffff">SpecAudit</text>
-    <text x="262" y="54" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#94a3b8">v1.0 · Windows x64</text>
-    <text x="0" y="96" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#cbd5e1">Auditoria técnica e visão executiva de negócios (BA / PO / Diretoria) com garantia 100% Somente Leitura.</text>
+    <text x="0" y="54" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="52" font-weight="800" fill="#ffffff">CEMG Spec</text>
+    <text x="292" y="54" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#94a3b8">v1.0 · Windows x64</text>
+    <text x="0" y="96" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#cbd5e1">Auditoria técnica e visão executiva de negócios com garantia 100% somente Leitura.</text>
 
     <!-- Feature Pills -->
     <g transform="translate(0, 128)">

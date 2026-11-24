@@ -3,10 +3,10 @@
 @implements IDisposable
 @inject SpecAudit.Application.ProjectService ProjectStore
 
-<PageTitle>Projetos — SpecAudit</PageTitle>
+<PageTitle>Projetos — CEMG Spec</PageTitle>
 <section class="project-page">
     <header class="project-heading">
-        <div><p class="eyebrow">SPECAUDIT · AUDITORIA DOCUMENTAL</p><h1>Projetos</h1><p class="muted">Consulte seus documentos SpecKit. A solução permanece somente leitura.</p></div>
+        <div><p class="eyebrow">CEMG SPEC · AUDITORIA DOCUMENTAL</p><h1>Projetos</h1><p class="muted">Consulte seus documentos SpecKit. A solução permanece somente leitura.</p></div>
         <button class="primary" @onclick="Open" disabled="@busy">@(busy ? "Selecionando pastas…" : "Carregar projeto")</button>
     </header>
     <p class="muted">Para alternar projetos já abertos, use a lista Projeto ou o grid de Projetos recentes abaixo. Um novo carregamento só acontece após conferir e confirmar as duas pastas.</p>

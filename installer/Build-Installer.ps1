@@ -1,4 +1,4 @@
-﻿param(
+param(
     [switch]$InstallLocally
 )
 
@@ -45,10 +45,10 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
-[assembly: AssemblyTitle("SpecAudit Launcher")]
-[assembly: AssemblyDescription("Inicializador em segundo plano do SpecAudit (sem janela de prompt)")]
+[assembly: AssemblyTitle("CEMG Spec Launcher")]
+[assembly: AssemblyDescription("Inicializador em segundo plano do CEMG Spec (sem janela de prompt)")]
 [assembly: AssemblyCompany("Carlos Wagner G. Bittencourt")]
-[assembly: AssemblyProduct("SpecAudit")]
+[assembly: AssemblyProduct("CEMG Spec")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
@@ -75,11 +75,11 @@ namespace SpecAuditLauncher
             catch { }
 
             var menu = new ContextMenuStrip();
-            var itemOpen = new ToolStripMenuItem("Abrir SpecAudit no navegador (127.0.0.1:5187)");
+            var itemOpen = new ToolStripMenuItem("Abrir CEMG Spec no navegador (127.0.0.1:5187)");
             itemOpen.Font = new Font(itemOpen.Font, FontStyle.Bold);
             itemOpen.Click += (s, e) => OpenBrowser();
 
-            var itemStop = new ToolStripMenuItem("Encerrar SpecAudit");
+            var itemStop = new ToolStripMenuItem("Encerrar CEMG Spec");
             itemStop.Click += (s, e) => ExitServer();
 
             menu.Items.Add(itemOpen);
@@ -89,7 +89,7 @@ namespace SpecAuditLauncher
             trayIcon = new NotifyIcon
             {
                 Icon = appIcon,
-                Text = "SpecAudit — Rodando em segundo plano (127.0.0.1:5187)",
+                Text = "CEMG Spec — Rodando em segundo plano (127.0.0.1:5187)",
                 ContextMenuStrip = menu,
                 Visible = true
             };
@@ -133,13 +133,13 @@ namespace SpecAuditLauncher
 
                 trayIcon.ShowBalloonTip(
                     3000,
-                    "SpecAudit ativo em segundo plano",
-                    "O SpecAudit foi aberto no navegador sem janela de prompt. Clique neste ícone perto do relógio para reabrir ou encerrar.",
+                    "CEMG Spec ativo em segundo plano",
+                    "O CEMG Spec foi aberto no navegador sem janela de prompt. Clique neste ícone CS perto do relógio para reabrir ou encerrar.",
                     ToolTipIcon.Info);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Não foi possível iniciar o SpecAudit: " + ex.Message, "SpecAudit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Não foi possível iniciar o CEMG Spec: " + ex.Message, "CEMG Spec", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 trayIcon.Visible = false;
                 Environment.Exit(1);
             }
@@ -350,10 +350,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-[assembly: AssemblyTitle("Instalador do SpecAudit")]
-[assembly: AssemblyDescription("Instalador oficial do SpecAudit - Auditoria Documental SpecKit")]
+[assembly: AssemblyTitle("Instalador do CEMG Spec")]
+[assembly: AssemblyDescription("Instalador oficial do CEMG Spec - Auditoria técnica e visão executiva de negócios com garantia 100% somente Leitura")]
 [assembly: AssemblyCompany("Carlos Wagner G. Bittencourt")]
-[assembly: AssemblyProduct("SpecAudit")]
+[assembly: AssemblyProduct("CEMG Spec")]
 [assembly: AssemblyCopyright("Copyright (c) 2026 Carlos Wagner G. Bittencourt")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
@@ -374,7 +374,7 @@ namespace SpecAuditSetup
         public SetupForm()
         {
             targetDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "SpecAudit");
-            Text = "Instalador do SpecAudit v1.0 (Windows Desktop)";
+            Text = "Instalador do CEMG Spec v1.0 (Windows Desktop)";
             Size = new Size(560, 390);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -398,7 +398,7 @@ namespace SpecAuditSetup
                 using (var f = new Font("Segoe UI", 19f, FontStyle.Bold))
                 {
                     var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-                    e.Graphics.DrawString("SA", f, Brushes.White, r, sf);
+                    e.Graphics.DrawString("CS", f, Brushes.White, r, sf);
                 }
                 var badge = new Rectangle(58, 54, 22, 22);
                 using (var bBr = new SolidBrush(Color.FromArgb(16, 185, 129)))
@@ -414,15 +414,15 @@ namespace SpecAuditSetup
 
             var lblTitle = new Label
             {
-                Text = "SpecAudit — Auditoria Documental SpecKit",
-                Font = new Font("Segoe UI", 14f, FontStyle.Bold),
+                Text = "CEMG Spec — Auditoria Técnica e Visão Executiva",
+                Font = new Font("Segoe UI", 13.5f, FontStyle.Bold),
                 ForeColor = Color.White,
                 Location = new Point(92, 20),
                 AutoSize = true
             };
             var lblSub = new Label
             {
-                Text = "Autor: Carlos Wagner G. Bittencourt · Versão 1.0 (Sem janela de prompt)",
+                Text = "Garantia 100% Somente Leitura · Autor: Carlos Wagner G. Bittencourt",
                 Font = new Font("Segoe UI", 9f, FontStyle.Regular),
                 ForeColor = Color.FromArgb(154, 167, 189),
                 Location = new Point(94, 49),
@@ -452,14 +452,14 @@ namespace SpecAuditSetup
 
             chkDesktop = new CheckBox
             {
-                Text = "Criar atalho com ícone SA na Área de Trabalho e no Menu Iniciar",
+                Text = "Criar atalho com ícone CS na Área de Trabalho e no Menu Iniciar",
                 Checked = true,
                 Location = new Point(24, 174),
                 AutoSize = true
             };
             chkLaunch = new CheckBox
             {
-                Text = "Iniciar o SpecAudit em segundo plano (ícone SA perto do relógio) e abrir navegador",
+                Text = "Iniciar o CEMG Spec em segundo plano (ícone CS perto do relógio) e abrir navegador",
                 Checked = true,
                 Location = new Point(24, 202),
                 AutoSize = true
@@ -700,7 +700,7 @@ namespace SpecAuditSetup
                 using (var key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\SpecAudit"))
                 {
                     if (key == null) return;
-                    key.SetValue("DisplayName", "SpecAudit — Auditoria Documental SpecKit");
+                    key.SetValue("DisplayName", "CEMG Spec — Auditoria técnica e visão executiva de negócios");
                     key.SetValue("DisplayVersion", "1.0.0");
                     key.SetValue("Publisher", "Carlos Wagner G. Bittencourt");
                     key.SetValue("InstallLocation", installDir);
@@ -750,7 +750,7 @@ if ((Test-Path $installedDir) -or $InstallLocally) {
     $instLauncher = Join-Path $installedDir "SpecAudit-Launcher.exe"
     $instUninstall = Join-Path $installedDir "SpecAudit-Uninstall.exe"
     $instIco = Join-Path $installedDir "specaudit.ico"
-    Set-ItemProperty -Path $regPath -Name "DisplayName" -Value "SpecAudit - Auditoria Documental SpecKit"
+    Set-ItemProperty -Path $regPath -Name "DisplayName" -Value "CEMG Spec - Auditoria tecnica e visao executiva de negocios"
     Set-ItemProperty -Path $regPath -Name "DisplayVersion" -Value "1.0.0"
     Set-ItemProperty -Path $regPath -Name "Publisher" -Value "Carlos Wagner G. Bittencourt"
     Set-ItemProperty -Path $regPath -Name "InstallLocation" -Value $installedDir
