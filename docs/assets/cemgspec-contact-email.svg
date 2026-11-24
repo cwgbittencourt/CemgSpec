@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="590" height="210" viewBox="0 0 590 210" role="img" aria-labelledby="title desc">
+<title id="title">E-mail — wagner@cemg-tecinfo.com</title>
+<desc id="desc">Contato para dúvidas sobre o CEMG Spec, sugestões e conversas profissionais. Clique para enviar um e-mail.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111d30"/><stop offset="1" stop-color="#172139"/></linearGradient></defs>
+<rect x="1" y="1" width="588" height="208" rx="20" fill="url(#bg)" stroke="#34415b" stroke-width="2"/>
+<rect x="26" y="28" width="48" height="48" rx="14" fill="#234175"/>
+<g fill="none" stroke="#91baff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="37" y="43" width="26" height="18" rx="3"/><path d="M38 44L50 53L62 44"/></g>
+<path d="M534 36H552V54M552 36L534 54" fill="none" stroke="#8ca9da" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<g font-family="Segoe UI,Arial,sans-serif">
+<text x="91" y="58" fill="#abc0e3" font-size="15" font-weight="700" letter-spacing="2.5">E-MAIL</text>
+<text x="26" y="118" fill="#f3f7ff" font-size="28" font-weight="600" letter-spacing="-.4">wagner@cemg-tecinfo.com</text>
+<text x="27" y="152" fill="#a4b4ce" font-size="17">Dúvidas, sugestões e contato profissional.</text>
+<text x="27" y="185" fill="#83b2ff" font-size="15" font-weight="600">Enviar uma mensagem →</text>
+</g>
+</svg>

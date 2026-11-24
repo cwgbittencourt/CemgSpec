@@ -184,16 +184,14 @@ powershell -ExecutionPolicy Bypass -File .\installer\Build-Installer.ps1
 
 ## Autor e Contato
 
-### Carlos Wagner G. Bittencourt
+<p align="center">
+  <img src="docs/assets/cemgspec-author.svg" alt="Carlos Wagner G. Bittencourt — Autoria e desenvolvimento do CEMG Spec" width="100%" />
+</p>
 
-**Autoria e desenvolvimento do CEMG Spec**
-
-Para dúvidas sobre o produto, sugestões ou contato profissional:
-
-| Canal | Contato |
-| :--- | :--- |
-| **E-mail** | [wagner@cemg-tecinfo.com](mailto:wagner@cemg-tecinfo.com) |
-| **LinkedIn** | [Carlos Wagner G. Bittencourt — perfil profissional](https://www.linkedin.com/in/carlos-wagner-g-bittencourt-847902114/) |
+<p align="center">
+  <a href="mailto:wagner@cemg-tecinfo.com"><img src="docs/assets/cemgspec-contact-email.svg" alt="Enviar e-mail para wagner@cemg-tecinfo.com" width="49%" /></a>
+  <a href="https://www.linkedin.com/in/carlos-wagner-g-bittencourt-847902114/"><img src="docs/assets/cemgspec-contact-linkedin.svg" alt="Acessar o perfil de Carlos Wagner G. Bittencourt no LinkedIn" width="49%" /></a>
+</p>
 
 No aplicativo, acesse **Sobre o CEMG Spec**, no rodapé do menu lateral, para consultar a versão, autoria, contatos e licença completa.
 

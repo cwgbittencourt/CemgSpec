@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240" role="img" aria-labelledby="title desc">
+<title id="title">Carlos Wagner G. Bittencourt — Autoria e desenvolvimento do CEMG Spec</title>
+<desc id="desc">Cartão de autoria com monograma CW e identidade visual azul e lilás do CEMG Spec.</desc>
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101a2c"/><stop offset="1" stop-color="#211b43"/></linearGradient>
+  <linearGradient id="accent"><stop stop-color="#4285ff"/><stop offset=".6" stop-color="#a78bfa"/><stop offset="1" stop-color="#20c997"/></linearGradient>
+  <linearGradient id="avatar" x2="1" y2="1"><stop stop-color="#2454c6"/><stop offset="1" stop-color="#7446dd"/></linearGradient>
+</defs>
+<rect x="1" y="1" width="1198" height="238" rx="22" fill="url(#bg)" stroke="#34415b" stroke-width="2"/>
+<path d="M900 1H1178Q1199 1 1199 22V238H1080Z" fill="#a78bfa" opacity=".035"/>
+<path d="M1020 1L1199 180M1110 1L1199 90" stroke="#a78bfa" stroke-opacity=".1"/>
+<circle cx="114" cy="112" r="71" fill="#4e70ff" opacity=".08"/>
+<circle cx="114" cy="112" r="58" fill="url(#avatar)" stroke="#a4b8ff" stroke-width="2"/>
+<circle cx="114" cy="112" r="49" fill="none" stroke="#fff" stroke-opacity=".15"/>
+<text x="114" y="126" text-anchor="middle" fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="39" font-weight="700" letter-spacing="-2">CW</text>
+<g font-family="Segoe UI,Arial,sans-serif">
+<text x="214" y="66" fill="#a7bcdf" font-size="15" font-weight="700" letter-spacing="3">AUTORIA E DESENVOLVIMENTO</text>
+<text x="212" y="114" fill="#f5f7ff" font-size="41" font-weight="700" letter-spacing="-.7">Carlos Wagner G. Bittencourt</text>
+<text x="214" y="150" fill="#c1cce0" font-size="21">CEMG Spec · Conexão entre requisitos, entregas e evidências.</text>
+<rect x="214" y="173" width="210" height="31" rx="15" fill="#1c3049" stroke="#3b5575"/>
+<circle cx="232" cy="189" r="4" fill="#34d399"/>
+<text x="246" y="194" fill="#c5dbf5" font-size="14" font-weight="600">CONTATO PROFISSIONAL</text>
+</g>
+<rect x="26" y="235" width="1148" height="4" rx="2" fill="url(#accent)"/>
+</svg>
