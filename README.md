@@ -16,7 +16,7 @@
   <a href="#arquitetura-e-fronteira-de-segurança"><strong>🛡 Arquitetura &amp; Segurança</strong></a> ·
   <a href="#como-utilizar-o-programa-passo-a-passo"><strong>📖 Guia Passo a Passo</strong></a> ·
   <a href="docs/apresentacao-cemg-spec.pdf"><strong>📊 Apresentação Executiva (PDF)</strong></a> ·
-  <a href="#licença-direitos-autorais-e-isenção-de-responsabilidade-mit-license"><strong>⚖ Licença &amp; Termos</strong></a>
+  <a href="#licença"><strong>⚖ Licença &amp; Termos</strong></a>
 </p>
 
 </div>
@@ -182,11 +182,25 @@ powershell -ExecutionPolicy Bypass -File .\installer\Build-Installer.ps1
 
 ---
 
-## Licença, Direitos Autorais e Isenção de Responsabilidade ([MIT License](LICENSE))
+## Autor e Contato
 
-> [!IMPORTANT]
-> **Licença MIT — Copyright (c) 2026 Carlos Wagner G. Bittencourt**
->
-> 1. **Preservação Obrigatória dos Direitos Autorais:** Todos os direitos autorais e de autoria original deste software (**CEMG Spec**) pertencem a **Carlos Wagner G. Bittencourt**. Sob os termos da [Licença MIT](LICENSE), é **condição obrigatória** que o aviso de direitos autorais (`Copyright (c) 2026 Carlos Wagner G. Bittencourt`) e o aviso de permissão sejam mantidos em todas as cópias ou partes substanciais do software.
-> 2. **Permissão de Uso ("Como Está" / *As Is*):** O software é fornecido **"COMO ESTÁ" (*"AS IS"*)**, sem garantia de qualquer tipo, expressa ou implícita, incluindo, mas não se limitando às garantias de comercialização, adequação a uma finalidade específica e não violação.
-> 3. **Isenção Total de Responsabilidade:** Em nenhuma hipótese o autor ou detentor dos direitos autorais será responsável por qualquer reivindicação, danos diretos, indiretos, incidentais ou qualquer outra responsabilidade (incluindo, sem limitação, danos ao computador, perda de dados, falhas de hardware/software ou interrupção operacional) decorrentes da instalação, uso ou incapacidade de uso deste programa. O risco integral quanto à utilização do software cabe exclusivamente ao usuário.
+### Carlos Wagner G. Bittencourt
+
+**Autoria e desenvolvimento do CEMG Spec**
+
+Para dúvidas sobre o produto, sugestões ou contato profissional:
+
+| Canal | Contato |
+| :--- | :--- |
+| **E-mail** | [wagner@cemg-tecinfo.com](mailto:wagner@cemg-tecinfo.com) |
+| **LinkedIn** | [Carlos Wagner G. Bittencourt — perfil profissional](https://www.linkedin.com/in/carlos-wagner-g-bittencourt-847902114/) |
+
+No aplicativo, acesse **Sobre o CEMG Spec**, no rodapé do menu lateral, para consultar a versão, autoria, contatos e licença completa.
+
+---
+
+## Licença
+
+**Licença MIT · Copyright (c) 2026 Carlos Wagner G. Bittencourt**
+
+Uso, modificação e distribuição permitidos conforme os termos da [licença MIT](LICENSE), com preservação dos avisos de direitos autorais e de permissão. O software é fornecido **“como está”, sem garantias**, conforme o texto integral da licença.

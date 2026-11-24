@@ -23,6 +23,7 @@
         </nav>
 
         <div class="sidebar-footer">
+            <NavLink href="/sobre" class="sidebar-link"><span aria-hidden="true">ⓘ</span> Sobre o CEMG Spec</NavLink>
             @if (ProjectStore.Active is { } activeProject)
             {
                 <div class="sidebar-project" title="@activeProject.Session.OriginDisplayPath">

@@ -1,0 +1,66 @@
+@page "/sobre"
+
+<PageTitle>Sobre — CEMG Spec</PageTitle>
+
+<div class="about-page">
+    <header class="about-hero">
+        <div class="about-identity">
+            <span class="brand-icon about-mark" aria-hidden="true"><span class="brand-monogram">CS</span><span class="brand-check">✓</span></span>
+            <div>
+                <p class="eyebrow">ESPECIFICAÇÕES · RASTREABILIDADE · EVIDÊNCIAS</p>
+                <h1>CEMG Spec</h1>
+                <span class="about-version">Versão @ProductVersion</span>
+            </div>
+        </div>
+        <p class="about-tagline">Conexão entre o que foi pedido<br class="about-line-break" /> e o que foi construído.</p>
+        <p class="about-description">Auditoria documental de projetos SpecKit para acompanhar requisitos, evidências de validação e prontidão de entrega, com perspectivas técnica e de negócio.</p>
+        <div class="about-principle"><span aria-hidden="true">◇</span> Consulta somente leitura do projeto analisado</div>
+    </header>
+
+    <div class="about-grid">
+        <section class="about-card" aria-labelledby="about-author">
+            <p class="eyebrow">AUTORIA E DESENVOLVIMENTO</p>
+            <h2 id="about-author">Carlos Wagner G. Bittencourt</h2>
+            <p class="about-copy">Para dúvidas sobre o CEMG Spec, sugestões ou contato profissional, utilize os canais abaixo.</p>
+            <div class="about-contacts">
+                <a class="about-contact" href="mailto:wagner@cemg-tecinfo.com">
+                    <span class="about-contact-icon" aria-hidden="true">@@</span>
+                    <span><span class="about-contact-label">E-mail de contato</span><span class="about-contact-value">wagner@cemg-tecinfo.com</span></span>
+                    <span aria-hidden="true">↗</span>
+                </a>
+                <a class="about-contact" href="https://www.linkedin.com/in/carlos-wagner-g-bittencourt-847902114/" target="_blank" rel="noopener noreferrer">
+                    <span class="about-contact-icon about-linkedin" aria-hidden="true">in</span>
+                    <span><span class="about-contact-label">Perfil profissional · LinkedIn</span><span class="about-contact-value">Carlos Wagner G. Bittencourt</span><span class="about-contact-caption">Abre em nova aba</span></span>
+                    <span aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="about-card" aria-labelledby="about-license">
+            <p class="eyebrow">LICENÇA E DIREITOS AUTORAIS</p>
+            <div class="about-license-heading"><h2 id="about-license">Licença MIT</h2><span class="about-license-badge">MIT</span></div>
+            <p class="about-copy">Uso, modificação e distribuição permitidos conforme os termos da licença, com preservação dos avisos de direitos autorais e de permissão.</p>
+            <p class="about-copy">Software fornecido “como está”, sem garantias, conforme o texto integral da licença.</p>
+            <a class="about-text-link" href="licenses/MIT.txt" target="_blank" rel="noopener noreferrer">Ler a licença completa <span aria-hidden="true">↗</span><span class="about-contact-caption">Abre em nova aba</span></a>
+            <p class="about-copyright">© 2026 Carlos Wagner G. Bittencourt</p>
+        </section>
+    </div>
+
+    <section class="about-preset" aria-labelledby="about-preset-title">
+        <div>
+            <p class="eyebrow">CONFIGURAÇÃO RECOMENDADA</p>
+            <h2 id="about-preset-title">CEMG Spec Kit Preset</h2>
+            <p>Padronize requisitos, critérios de aceite, tarefas e evidências de validação no projeto analisado. A adoção do preset não adapta automaticamente os documentos antigos.</p>
+        </div>
+        <a class="about-preset-link" href="https://github.com/cwgbittencourt/cemg-speckit-preset#instalacao" target="_blank" rel="noopener noreferrer">Conhecer o preset <span aria-hidden="true">↗</span><span class="about-contact-caption">Abre em nova aba</span></a>
+    </section>
+    <footer class="about-footer">CEMG Spec · Conexão com evidências.</footer>
+</div>
+
+@code {
+    private static readonly string ProductVersion =
+        typeof(CemgSpec.Components.App).Assembly
+            .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
+            .OfType<System.Reflection.AssemblyInformationalVersionAttribute>()
+            .FirstOrDefault()?.InformationalVersion.Split('+')[0] ?? "1.0.0";
+}

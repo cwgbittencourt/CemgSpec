@@ -94,3 +94,9 @@ Consolida as ocorrências documentais, permite registrar decisões humanas e exp
   - Lista apenas pacotes oficiais `CEMG Spec-*` do destino externo, verificando integridade SHA-256.
   - **Comparar com atual**: mostra achados `New` (novos), `Persistent` (persistentes) e `Resolved` (resolvidos).
   - **Excluir registro**: apaga somente a pasta do registro escolhido, sem tocar outros registros nem a origem.
+
+---
+
+## Sobre o CEMG Spec (`/sobre`)
+
+Acesse **Sobre o CEMG Spec** no rodapé do menu lateral. A página apresenta a proposta do produto, versão, autoria e desenvolvimento, e-mail de contato, perfil profissional no LinkedIn e acesso ao texto integral da licença MIT. Também disponibiliza o link do CEMG Spec Kit Preset recomendado para o projeto analisado. Os links externos e a licença abrem em nova aba; o e-mail abre seu aplicativo de correio.
